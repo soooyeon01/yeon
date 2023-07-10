@@ -1,4 +1,4 @@
-package com.java.servlet.util;
+package com.spring.util;
 
 
 

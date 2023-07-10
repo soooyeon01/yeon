@@ -1,6 +1,4 @@
-package com.java.servlet.util;
-
-import org.eclipse.jdt.internal.compiler.batch.Main;
+package com.spring.util;
 
 // 페이지 계산
 public class PageMaker {
