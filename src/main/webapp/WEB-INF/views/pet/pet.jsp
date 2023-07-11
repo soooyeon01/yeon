@@ -12,12 +12,12 @@
         <meta name="author" content="" />
         <title>유기동물 공고</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${ pageContext.servletContext.contextPath }/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/scripts.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/datatables-simple-demo.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 	
 		<style>
 		
@@ -137,40 +137,39 @@
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="Pet_noticeVO" items="${ requestScope.boardList }" varStatus="status">
+	                                    	<c:forEach var="P_DTO" items="${petList}">
 											
-											
+											<tr>
 												<td >
-												<a href ="${pageContext.servletContext.contextPath}/petnoticedetail?method=get&pet_notice_no=${Pet_noticeVO.pet_notice_no}" >
-												<img src="${Pet_noticeVO.popfile}" alt="펫이미지" style="height:100px"/>
+												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												<img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/petnoticedetail?method=get&pet_notice_no=${Pet_noticeVO.pet_notice_no}" >
-												${Pet_noticeVO.kindCd}
+												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												${P_DTO.kindCd}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/petnoticedetail?method=get&pet_notice_no=${Pet_noticeVO.pet_notice_no}" >
-												${Pet_noticeVO.age}
+												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												${P_DTO.age}
 												</a>
 												</td>								
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/petnoticedetail?method=get&pet_notice_no=${Pet_noticeVO.pet_notice_no}" >
-												${Pet_noticeVO.weight}
+												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												${P_DTO.weight}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/petnoticedetail?method=get&pet_notice_no=${Pet_noticeVO.pet_notice_no}" >
-												${Pet_noticeVO.sexCd}
+												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												${P_DTO.sexCd}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/petnoticedetail?method=get&pet_notice_no=${Pet_noticeVO.pet_notice_no}" >
-												${Pet_noticeVO.specialMark}
+												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												${P_DTO.specialMark}
 												</a>
 												</td>
-											
 											</tr>
 										
 											</c:forEach>
@@ -187,7 +186,7 @@
 
 		</footer>
 	</div>
-	</div>
+	
 
 </body>
 </html>
