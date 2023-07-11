@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.MypageMapper">
-  <select id="selectMypage" resultType="com.spring.MembersDTO">
+  <select id="selectMypage" resultType="com.spring.domain.MembersDTO">
   		SELECT email
   				, pwd
   				, phone

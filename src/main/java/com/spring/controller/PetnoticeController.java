@@ -21,9 +21,9 @@ public class PetnoticeController {
 	// localhost:8080/4jojo/pet/petdetail
 	
 	@GetMapping("/petall")
-	public String getPBoard(Criteria cri, Model model) {
+	public String getPBoard(Model model, Criteria cri) {
 		PageMaker pageMaker = new PageMaker(cri, 101); 
-		model.addAttribute("petList",service.getAllBoard());
+		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/pet/pet";
 	}

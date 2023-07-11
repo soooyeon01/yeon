@@ -194,7 +194,7 @@
                             </div>
                             <div class="rightbtn">
 
-                             	<a class="btn write" type="button" href="view/community-content.jsp">글쓰기</a>
+                             	<a class="btn write" type="button" href="${pageContext.servletContext.contextPath}/community/newcommu">글쓰기</a>
 
                              </div>
                             <%@ include file="../import/page-community.jsp" %>
