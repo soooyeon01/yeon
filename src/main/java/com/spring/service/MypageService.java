@@ -9,6 +9,6 @@ public interface MypageService {
 
 	MembersMapper getMypage(String email);
 
-
+//
 //
 }
