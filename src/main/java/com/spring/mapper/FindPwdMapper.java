@@ -5,7 +5,7 @@ import com.spring.domain.MembersDTO;
 public interface FindPwdMapper {
 
 
-	String selectFindPwd(MembersDTO dto);
+	String selectFindPwd(MembersDTO mdto);
 
 	
 }
