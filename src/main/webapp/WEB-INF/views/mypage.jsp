@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.java.servlet.vo.MembersVO"%>
+<%@ page import="com.spring.domain.MembersDTO" %>
 <c:set var="root" value="${pageContext.request.contextPath}" />
-<%@ page import="com.java.servlet.dao.MypageDAO" %> 
-<%@ page import="com.java.servlet.dao.impl.MypageDAOImpl" %> 
+<%@ page import="com.spring.mapper.MypageMapper" %> 
+<%-- <%@ page import="com.spring.servlet.dao.impl.MypageDAOImpl" %>  --%>
 
 
 <!DOCTYPE html>
@@ -149,14 +149,15 @@
                <div class="card-header">
                   <i class="fas fa-table me-1"></i> 개인정보조회
                </div>
-         
+        	 <%@ include file = "../import/page-nation.jsp" %>
               <%   
                  String id = (String)session.getAttribute("SESS_EMAIL"); 
               // 세션에 저장된 아이디를 가져와서
               // 그 아이디 해당하는 회원정보를 가져온다.
-              MypageDAO dao = MypageDAOImpl.getInstance();
+              MypageMapper mapper = MypageDAOImpl.getInstance();
               MembersVO vo = dao.selectMypage(id);
           %>
+          
                
                <div class="card-body">
             
