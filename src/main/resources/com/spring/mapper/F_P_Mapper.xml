@@ -3,6 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.F_P_Mapper">
+<<<<<<< HEAD
+  <select id=" resultType="com.spring.domain.F_P_DTO">
+  		SELECT * FROM favoritep
+  </select>
+=======
   <select id="selectPBoard" resultType="com.spring.domain.F_P_DTO">
   		<![CDATA[
   		SELECT f.favoritep_no
@@ -47,3 +52,4 @@
         		   ]]>
   		</select>
   		</mapper>
+>>>>>>> 7f9393ca0f173256d41a26547f69ab1573d1063a

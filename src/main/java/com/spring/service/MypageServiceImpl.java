@@ -1,36 +1,34 @@
-package com.java.servlet.service.impl;
+package com.spring.service;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Service;
 
-import com.java.servlet.dao.MypageDAO;
-import com.java.servlet.dao.impl.MypageDAOImpl;
-import com.java.servlet.service.MypageService;
-import com.java.servlet.util.PageMaker;
-import com.java.servlet.vo.CommunityVO;
-import com.java.servlet.vo.MembersVO;
+import com.spring.domain.MembersDTO;
+import com.spring.mapper.MypageMapper;
 
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
 public class MypageServiceImpl implements MypageService {
+	
+	private final MypageMapper mapper;
 
-	private static MypageService instance = new MypageServiceImpl();
-	private final MypageDAO dao = MypageDAOImpl.getInstance();
-	
-	private MypageServiceImpl() { }
-	
-	public static MypageService getInstance() {
-		
-		return instance;
-	}
 
 	@Override
-	public MembersVO getMypage(String email) {
-		return dao.selectMypage(email);
-
+	public List<MembersDTO> getMypage(String email) {
+		List<MembersDTO> result = mapper.selectMypage(email);
+		return result;
 	}
 	
+	//업데이트도 추가해야함
+	@Override
+	public int modifyMember(MembersDTO mdto) {
+		int result = mapper.UpdateMember(mdto);
+		return result;
 	}
+}
 //	@Override
 //	public int modifyPwd(MembersVO vo) {
 //		return dao.updatePwd(vo);
