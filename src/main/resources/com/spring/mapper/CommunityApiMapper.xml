@@ -4,7 +4,9 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.CommunityApiMapper">
   	<select id="selectCommunityList" resultType="com.spring.domain.CommunityDTO">
-	      SELECT * FROM community
+	    <![CDATA[
+		 select * from (select /*+INDEX(board index_board_bno_pk) */ ROWNUM as rn, b_no, title, content, reg_date, up_date, (select id from member where m_no=board.m_no) as id from board board where ROWNUM <=(#{cri.pageNum}*#{cri.amount})) where rn >((#{cri.pageNum}-1)*#{cri.amount})
+		]]>
 	  </select>
 	  
 	  <select id="communityCnt" resultType="int">
