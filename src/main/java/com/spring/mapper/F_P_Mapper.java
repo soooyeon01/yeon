@@ -1,5 +1,12 @@
 package com.spring.mapper;
 
-public interface F_P_Mapper {
+import java.util.List;
 
+import com.spring.domain.F_P_DTO;
+import com.spring.util.PageMaker;
+
+public interface F_P_Mapper {
+	List<F_P_DTO> selectPBoard();
+	int seletCountPBoard();
+	List<F_P_DTO> selectPBoardByPage(PageMaker pageMaker);
 }

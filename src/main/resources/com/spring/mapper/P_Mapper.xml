@@ -3,6 +3,64 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.P_Mapper">
-  <select id="" resultType="com.spring.domain.P_DTO">
-  		SELECT * FROM pet_notice
+  <select id="selectP" resultType="com.spring.domain.P_DTO">
+  		<![CDATA[
+  		SELECT pet_notice_no
+		 ,happenDt
+		,happenPlace
+		 ,kindCd
+		 ,colorCd
+		,age
+		,weight
+		,noticeNo 
+		,noticeSdt 
+		,noticeEdt  
+		,popfile  
+		,processState 
+		,sexCd
+		,neuterYn
+		,specialMark
+		,careNm
+		,careTel
+		,careAddr
+		FROM pet_notice WHERE pet_notice_no=#{pet_notice} 
+		]]>
   	</select>
+  	
+  	 <select id="selectAllBoard" resultType="com.spring.domain.P_DTO">
+  		SELECT * FROM pet_notice
+			
+  	</select>
+  			
+  
+  	
+  	 <select id="selectAllBoardByPage" resultType="com.spring.domain.P_DTO">
+  		<![CDATA[
+  		SELECT * FROM (
+				SELECT
+				ROWNUM as rn
+				,pet_notice_no
+				,happenDt
+				,happenPlace
+				,kindCd
+				,colorCd
+				,age
+				,weight
+				,noticeNo 
+				,noticeSdt 
+				,noticeEdt  
+				,popfile  
+				,processState  
+				,sexCd
+				,neuterYn
+				,specialMark
+				,careNm
+				,careTel
+				,careAddr
+				FROM  pet_notice 
+				 WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )  
+				  )
+				WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} ) 
+				]]>
+  	</select>
+  	</mapper>

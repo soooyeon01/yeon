@@ -3,6 +3,45 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.F_S_Mapper">
-  <select id="" resultType="com.spring.domain.F_S_DTO">
-  		SELECT * FROM favorites
+  <select id="selectSBoard" resultType="com.spring.domain.F_S_DTO">
+  		<![CDATA[
+  		SELECT f.favorites_no
+      		     , f.favorites_reg_date
+      		     , s.shelter_no
+      		     , s.careNm
+      		     , s.careAddr
+      		     , s.careTel
+      		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      		FROM favorites f
+      		JOIN shelter s ON f.shelter_no = s.shelter_no
+      		]]>
   	</select>
+  	
+  	 <select id="selectSBoardByPage" resultType="com.spring.domain.F_S_DTO">
+  		<![CDATA[
+  		SELECT 
+              favorites_no
+              ,favorites_reg_date
+             ,shelter_no
+             ,careNm
+              ,careAddr
+             ,careTel
+             ,(SELECT nickname FROM members WHERE nickname='aa') as nickname
+             FROM (
+              SELECT 
+              ROWNUM as rn
+              +",f.favorites_no
+        		, f.favorites_reg_date
+        		, s.shelter_no
+        		, s.careNm
+        		, s.careAddr
+        		, s.careTel
+        		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+        		FROM favorites f
+        		JOIN shelter s ON f.shelter_no = s.shelter_no
+        		WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )\r\n"
+        		            )
+        		   WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )
+            ]]>
+  	</select>
+  	</mapper>
