@@ -3,17 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.CommunityMapper">
-  	<select id="selectCommunity">
-  		select c_no, title, content, reg_date, nickname from community where c_no=#{c_no}
-  	</select>
+  	<select id="selectCommunityList" resultType="com.spring.domain.CommunityDTO">
+	    <![CDATA[
+		 select * from (select /*+INDEX(board index_board_bno_pk) */ ROWNUM as rn, b_no, title, content, reg_date, up_date, (select id from member where m_no=board.m_no) as id from board board where ROWNUM <=(1*10)) where rn >((1-1)*10)
+		]]>
+	  </select>
   	
-  	<select id="selectCountAllCommunity">
-  		select count(1) from community
-  	</select>
+  	
   	
   	<select id="selectAllCommunityByPage" resultType="com.spring.domain.CommunityDTO">
   		<![CDATA[
 		 select * from (select /*+INDEX(board index_board_bno_pk) */ ROWNUM as rn, b_no, title, content, reg_date, up_date, (select id from member where m_no=board.m_no) as id from board board where ROWNUM <=(#{cri.pageNum}*#{cri.amount})) where rn >((#{cri.pageNum}-1)*#{cri.amount})
 		]]>
   	</select>
+  	 <insert id="insertCommunity">
+	      INSERT INTO community(c_no, nickname, title, content, reg_date) VALUES(seq_c_no.nextval, #{nickname}, #{title}, #{content}, sysdate)
+	  </insert>
+	  
+	  <update id="updateCommunity">
+	      UPDATE community SET title=#{title}, content=#{content} WHERE c_no=#{c_no}
+	  </update>
+	  
+	  <delete id="deleteCommunity">
+	      DELETE FROM community WHERE c_no=#{c_no}
+	  </delete>
   </mapper>
