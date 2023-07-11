@@ -3,6 +3,44 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.F_W_Mapper">
-  <select id="" resultType="com.spring.domain.F_W_DTO">
-  		SELECT * FROM favoritew
+  <select id="selectWBoard" resultType="com.spring.domain.F_W_DTO">
+  		<![CDATA[
+  		SELECT f.favorites_no
+      		     , f.favoritew_reg_date
+      		     , w.with_pet_no
+      		     , w.building
+      		     , w.road
+      		     , w.tel
+      		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      		FROM favorites f
+      		]]>
   	</select>
+  	
+  	 <select id="selectWBoardByPage" resultType="com.spring.domain.F_W_DTO">
+  		<![CDATA[
+  		SELECT 
+              favoritew_no
+              ,favoritew_reg_date
+             ,with_pet_no
+             ,careNm
+              ,careAddr
+             ,careTel
+             ,(SELECT nickname FROM members WHERE nickname='aa') as nickname
+             FROM (
+              SELECT 
+              ROWNUM as rn
+              +",f.favoritew_no
+        		, f.favoritew_reg_date
+        		, s.with_pet_no
+        		, s.building
+        		, s.road
+        		, s.tel
+        		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+        		FROM favorites f
+        		JOIN with_pet w ON f.with_pet_no = w.with_pet_no
+        		WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )\r\n"
+        		            )
+        		   WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )
+        		   ]]>
+  	</select>
+  	</mapper>
