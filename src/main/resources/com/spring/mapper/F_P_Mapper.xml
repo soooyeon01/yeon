@@ -5,4 +5,4 @@
   <mapper namespace="com.spring.mapper.F_P_Mapper">
   <select id=" resultType="com.spring.domain.F_P_DTO">
   		SELECT * FROM favoritep
-  	</select>
+  </select>

@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="com.java.servlet.vo.CommunityVO"%>
+<%@ page import="com.spring.domain.CommunityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.java.servlet.dao.MypageDAO" %> 
-<%@ page import="com.java.servlet.dao.impl.MypageDAOImpl" %> 
-<%@ page import="com.java.servlet.vo.MembersVO"%>
+<%@ page import="com.spring.mapper.MypageDAO" %> 
+<%@ page import="com.spring.mapper.MypageMapper" %> 
+<%@ page import="com.spring.domain.MembersVO"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>

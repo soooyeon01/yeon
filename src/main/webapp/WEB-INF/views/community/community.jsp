@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="com.java.servlet.vo.CommunityVO"%>
+<%@ page import="com.spring.domain.CommunityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -179,12 +179,12 @@
                                     </thead>
                                    
                                     <tbody>
-                                    	<c:forEach var="communityVO" items="${requestScope.communityList}" varStatus="status">
+                                    	<c:forEach var="communityDTO" items="${requestScope.communityList}" varStatus="status">
                                         <tr>
-                                            <td>${communityVO.c_no}</td>
-                                            <td><a href="${pageContext.servletContext.contextPath}/communitycontent?method=get&c_no=${communityVO.c_no}">${communityVO.title}</a></td>
-                                            <td>${communityVO.reg_date}</td>
-                                            <td>${communityVO.nickname}</td>
+                                            <td>${communityDTO.c_no}</td>
+                                            <td><a href="${pageContext.servletContext.contextPath}/communitycontent?method=get&c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
+                                            <td>${communityDTO.reg_date}</td>
+                                            <td>${communityDTO.nickname}</td>
                                         </tr>
                                         </c:forEach>
                                         
@@ -197,7 +197,7 @@
                              	<a class="btn write" type="button" href="view/community-content.jsp">글쓰기</a>
 
                              </div>
-                            <%@ include file="/view/import/page-community.jsp" %>
+                            <%@ include file="../import/page-community.jsp" %>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
                         </div>
