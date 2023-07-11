@@ -149,45 +149,48 @@
                <div class="card-header">
                   <i class="fas fa-table me-1"></i> 개인정보조회
                </div>
-        	 <%@ include file = "../import/page-nation.jsp" %>
-              <%   
+   
+             <%--  <%   
                  String id = (String)session.getAttribute("SESS_EMAIL"); 
               // 세션에 저장된 아이디를 가져와서
               // 그 아이디 해당하는 회원정보를 가져온다.
               MypageMapper mapper = MypageDAOImpl.getInstance();
               MembersVO vo = dao.selectMypage(id);
-          %>
+          %> --%>
           
-               
+              
                <div class="card-body">
             
                   <table id="datatablesSimple" >
-             
+             		 <c:forEach items = " ${memberDTO}" var = "mdto">
+             		 <c:if test = "${membersDTO.email eq sessionScope.email}">
+             		 
                         <tr>
                            <td>닉네임</td>                        
-                            <td> <%=vo.getNickname() %> </td>      
+                            <td>${mdto.nickname}</td>      
                         </tr>                    
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td> <%=vo.getPwd() %> </td>
+                            <td>${mdto.pwd}</td>
                         </tr>                                         
                        
                         <tr>
                            <td>이메일</td>                 
-                         <td> <%=vo.getEmail() %> </td>
+                         <td>${mdto.email}</td>
                         </tr>
                        
                         <tr>
                            <td>이름</td>
-                           <td> <%=vo.getName() %> </td>       
+                           <td>${mdto.name}</td>       
                         </tr>                       
                        
                         <tr>
                            <td>전화번호</td>
-                           <td> <%=vo.getPhone() %> </td>    
+                           <td>${mdto.phone}</td>    
                         </tr>
-             
+                      </c:if>  
+             	</c:forEach>
                </table>
             
                 
