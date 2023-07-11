@@ -1,15 +1,11 @@
 package com.spring.util;
 
-<<<<<<< HEAD
-
+import org.eclipse.jdt.internal.compiler.batch.Main;
 
 
 
 // 페이지 계산
 
-=======
-// 페이지 계산
->>>>>>> e0f8d6968e21da5862da0f3ffcf7df8282660f63
 public class PageMaker {
    
    private double totalCount; // 전체 게시글

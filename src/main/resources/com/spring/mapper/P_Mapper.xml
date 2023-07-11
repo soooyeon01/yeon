@@ -28,7 +28,31 @@
   	</select>
   	
   	 <select id="selectAllBoard" resultType="com.spring.domain.P_DTO">
-  		SELECT * FROM pet_notice
+  		<![CDATA[
+  		SELECT*FROM(SELECT ROWNUM as rn,
+  		pet_notice_no
+		 ,happenDt
+		,happenPlace
+		 ,kindCd
+		 ,colorCd
+		,age
+		,weight
+		,noticeNo 
+		,noticeSdt 
+		,noticeEdt  
+		,popfile  
+		,processState 
+		,sexCd
+		,neuterYn
+		,specialMark
+		,careNm
+		,careTel
+		,careAddr
+		from pet_notice
+  		 WHERE ROWNUM <=(2*10)
+  		 )
+  		 WHERE rn>((2-1)*10)
+  		 ]]>
 			
   	</select>
   			

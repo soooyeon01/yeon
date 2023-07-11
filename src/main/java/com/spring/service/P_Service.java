@@ -6,7 +6,6 @@ import com.spring.domain.P_DTO;
 import com.spring.util.PageMaker;
 
 public interface P_Service {
-	List<P_DTO> getP(int pet_notice_no);
 	List<P_DTO> getAllBoard();
 	List<P_DTO> getAllBoardByPage(PageMaker pageMaker);
 }
