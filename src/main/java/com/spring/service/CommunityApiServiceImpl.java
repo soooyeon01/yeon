@@ -9,23 +9,23 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class CommunityApiServiceImpl implements CommunityApiService {
-	private final CommunityApiService mapper;
+	private final CommunityApiService service;
 	@Override
 	public int registerCommunity(CommunityDTO dto) {
 		
-		return mapper.registerCommunity(dto);
+		return service.registerCommunity(dto);
 	}
 
 	@Override
 	public int modifyCommunity(CommunityDTO dto) {
 	
-		return mapper.modifyCommunity(dto);
+		return service.modifyCommunity(dto);
 	}
 
 	@Override
 	public int removeCommunity(int parseInt) {
 
-		return mapper.removeCommunity(parseInt);
+		return service.removeCommunity(parseInt);
 	}
 
 }
