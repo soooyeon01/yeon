@@ -3,8 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.spring.mapper.MypageMapper" %> 
-<%@ page import="com.spring.mapper.MypageMapper" %> 
+<%@ page import="com.spring.mapper.MypageMapper" %>  
 <%@ page import="com.spring.domain.MembersDTO"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,38 +184,43 @@
     		location.href="${pageContext.servletContext.contextPath}/community/clist";
     		}
     	</script>  
+    	<style>
+    	#cont {
+    		width: 70rem;
+    		height: 20rem;
+    	}
+    	</style>
 </head>
 <body>
 <div class="container mt-3">
   <h2 style="text-align: center;">게시글</h2>  
 	<form action="${pageContext.servletContext.contextPath}/community/commuSel">
 	<div class="row">
-  		<%-- <c:forEach var="select" items="${select}"> --%>
         <div class="mt-3 col p-3">
             <label for="reg_date">작성일:</label>
-            <p class="form-control" value="${select.reg_date}"></p>
+            <p class="form-control">${selectone.reg_date}</p>
 		</div>
         <div class="mb-3 mt-3 col p-3">
           	<label for="title">글제목:</label>
-            <p class="form-control" value="${select.title}"></p>
+            <p class="form-control">${selectone.title}</p>
         </div>
         <div class="mb-3 mt-3 col p-3">
             <label for="nickname">작성자:</label>
-            <p class="form-control" value="${select.nickname}"></p>
+            <p class="form-control">${selectone.nickname}</p>
             <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
         </div> 
 		<div class="mb-3 mt-3">
         	<label for="content">글내용:</label>
-        	<p class="form-control" rows="5" value="${select.content}"></p>
+        	<p id="cont" class="form-control" >${selectone.content}</p>
      	</div>
-     <%-- </c:forEach> --%>
      </div>
 	</form>
     	<%-- <input type="hidden" name="method" value="${param.method }">
         <input type="hidden" name="c_no" value="${param.c_no }">
 		<input type="hidden" name="nickname" value="${communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname  }"> --%>
   	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
-
+	<div class="col p-3"></div>
+	<button type="button" class="register col p-3 btn btn-warning" onclick="location.href='commuUp'">수정</button>    	
 </div>
 </body>
 </html>

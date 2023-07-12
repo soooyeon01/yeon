@@ -48,14 +48,30 @@ public class CommunityController {
 		if(result>0) {
 			return "redirect:/community/clist";
 		}else {
-		return "redirect:/community/commuRegi";
+			return "redirect:/community/commuRegi";
 		}
 	}
 	
 	@GetMapping("/commuSel")
 	public String CommuSel(Model model,int c_no) {
-		model.addAttribute("select", service.getCommunity(c_no));
+		CommunityDTO selectone=service.getCommunity(c_no);
+		model.addAttribute("selectone", selectone);
 		return "community/commuSel";
+	}
+	
+	@GetMapping("/commUp")
+	public String moveUpdt() {
+		return "community/commuUp";
+	}
+	
+	@RequestMapping("/commuUp")
+	public String CommunityUdt(CommunityDTO commu) {
+		int result=service.modifyCommunity(commu);
+		if(result>0) {
+			return "community/commuSel";
+		}else {
+			return "community/commuUp";
+		}
 	}
 	
 }
