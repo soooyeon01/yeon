@@ -12,15 +12,10 @@ import lombok.RequiredArgsConstructor;
 public class LoginServiceImpl implements LoginService {
 	private final LoginMapper mapper;
 
-	@Override
-	public int getCountMember(MembersDTO mdto) {
-		int result = mapper.selectCountMember(mdto);
-		return result;
-	}
 
 	@Override
-	public void getMembersByIdAndPwd(MembersDTO mdto) {
-		mapper.selectMembersByIdAndPwd(mdto);
+	public void selectLogin(MembersDTO mdto) {
+		mapper.selectLogin(mdto);
 	}
 
 }
