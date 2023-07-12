@@ -46,9 +46,9 @@ public class CommunityController {
 		
 		int result=service.registerCommunity(commu);
 		if(result>0) {
-			return "redirect:community/clist";
+			return "redirect:/community/clist";
 		}else {
-		return "redirect:/commuRegi";
+		return "redirect:/community/commuRegi";
 		}
 	}
 	
