@@ -83,8 +83,8 @@
             </script>
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${pageContext.servletContext.contextPath}/main">
-         <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
+         <a class="mainlogo" href="${root}/main" >
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
@@ -150,8 +150,8 @@
 										<td><a
 											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
 												${F_P_DTO.pet_notice_no} </a></td>
-										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
+										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${F_P_DTO.pet_notice_no}" >
+												<img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
 												</a></td>
 										<td><a
 											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">

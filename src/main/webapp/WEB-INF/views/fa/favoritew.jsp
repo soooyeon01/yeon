@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -83,8 +83,8 @@
             </script>
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${pageContext.servletContext.contextPath}/main">
-         <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
+         <a class="mainlogo" href="${root}/main" >
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         

@@ -145,8 +145,8 @@
             </script>
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${pageContext.servletContext.contextPath}/main">
-         <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
+         <a class="mainlogo" href="${root}/main" >
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
@@ -174,6 +174,7 @@
                            		 <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
+	                                        	<th>check</th>
 	                                       		<th>Image </th>
 	                                            <th>접수일</th>
 	                                            <th>발견장소 </th>
@@ -197,7 +198,7 @@
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                           	
+	                                           	<th>check</th>
 	                                            <th>Image </th>
 	                                            <th>접수일</th>
 	                                            <th>발견장소 </th>

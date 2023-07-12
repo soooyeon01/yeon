@@ -43,8 +43,8 @@ public class MypageController {
    public String showMypage(HttpServletRequest request, Model model) {
        	
 	   	
-	   	  HttpSession session = request.getSession(false);
-	      boolean SESS_AUTH = false;
+	   	  HttpSession session = request.getSession(true);
+	      boolean SESS_AUTH = true;
 	      session.setAttribute("SESS_EMAIL", "ye@naver.com"); // Set the value of "SESS_EMAIL"
 	      
 	      try {
@@ -54,12 +54,13 @@ public class MypageController {
 	      if( SESS_AUTH ) {
 	    	 
 //	         request.setCharacterEncoding("utf-8");
-	         request.setAttribute("SESS_AUTH", false);  
+	         request.setAttribute("SESS_AUTH", true);  
 	   
 	   String id = (String) session.getAttribute("SESS_EMAIL");
        List<MembersDTO> mdto = mapper.selectMypage(id);
        model.addAttribute("membersDTO", mdto);
-       return "mypage/mypage";
+       return "/mypage/mypage";
+       
 	   }else {
 		   return "redirect:/main/main"; 
 			}

@@ -49,6 +49,7 @@ public class WithpetController {
 		model.addAttribute("withdetailList",service.getW(with_pet_no));
 		return "/with/withdetail";
 	}
+	
 	@RequestMapping("/registerwith")
 	@ResponseBody
 	protected void  insertF_W(HttpServletRequest request, HttpServletResponse response
@@ -83,7 +84,7 @@ public class WithpetController {
 		
 		
 		int result=service.registerWithpetData(dto2);
-		//{ result : 1}
+		//{ result : 11}
 		
 		
 

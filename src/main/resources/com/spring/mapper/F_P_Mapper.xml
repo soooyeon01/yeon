@@ -8,11 +8,12 @@
   		SELECT * FROM FAVORITEP
   </select>
 
-  <select id="selectPBoard" resultType="com.spring.domain.F_P_DTO">
+  <select id="selectPBoard"  resultType="com.spring.domain.F_P_DTO">
   		<![CDATA[
   		SELECT f.favoritep_no
       		     , f.favoritep_reg_date
       		     , p.pet_notice_no
+      		     , p.popfile
       		     , p.careNm
       		     , p.careAddr
       		     , p.careTel
@@ -29,6 +30,7 @@
               favoritep_no
               ,favoritep_reg_date
              ,pet_notice_no
+             ,popfile
              ,careNm
               ,careAddr
              ,careTel
@@ -39,6 +41,7 @@
               ,f.favoritep_no
         		, f.favoritep_reg_date
         		, p.pet_notice_no
+        		, p.popfile
         		, p.careNm
         		, p.careAddr
         		, p.careTel

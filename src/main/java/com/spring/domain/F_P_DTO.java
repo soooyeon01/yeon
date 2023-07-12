@@ -13,6 +13,7 @@ public class F_P_DTO {
     private String nickname;
     private Date favoritep_reg_date;
     private int pet_notice_no;
+    private String popfile;
     private String careNm; 
 	private String careAddr; 
 	private String careTel;
