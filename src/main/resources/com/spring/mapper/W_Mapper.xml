@@ -24,37 +24,104 @@
 				FROM with_pet WHERE with_pet_no=#{with_pet_no}
 				]]>
   	</select>
-  	
+  	 <select id="selectCountAllBoard" resultType="com.spring.domain.W_DTO">	
+  			SELECT COUNT(1)FROM with_pet
+  		</select>
   	<select id="selectAllBoard" resultType="com.spring.domain.W_DTO">
-  		SELECT * FROM with_pet
+  		<![CDATA[
+  		SELECT*FROM(SELECT ROWNUM as rn,
+  				with_pet_no
+				, building
+				, category3
+				, road
+				, tel
+				, homepage
+				, day_off
+				, hour
+				, parking
+				, with_pet_info
+				, only_pet_info
+				, pet_size
+				, pet_limit
+				, inside
+				, outside
+				, extra
+		from with_pet
+  		 WHERE ROWNUM <=(2*10)
+  		 )
+  		 WHERE rn>((2-1)*10)
+  		 ]]>
   	</select>
 
   	
   	<select id="selectAllBoardByPage" resultType="com.spring.domain.W_DTO">
   		<![CDATA[
   		SELECT * FROM (
-						SELECT
-						ROWNUM as rn
-						,with_pet_no
-						,building
-						,category3
-				        ,road
-						,tel
-						,homepage
-						,day_off
-						,hour 
-						,parking 
-						,with_pet_info 
-						,only_pet_info 
-						,pet_size
-						,pet_limit 
-						,inside
-						,outside
-						,extra
-						FROM with_pet 
-						WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )  
-						  )\r\n"
-						WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )
-						]]>
+				SELECT
+				ROWNUM as rn
+				,with_pet_no
+				, building
+				, category3
+				, road
+				, tel
+				, homepage
+				, day_off
+				, hour
+				, parking
+				, with_pet_info
+				, only_pet_info
+				, pet_size
+				, pet_limit
+				, inside
+				, outside
+				, extra
+				FROM  with_pet
+				 WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )  
+				  )
+				WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} ) 
+				]]>
   	</select>
+  	
+  	<insert id="insertWith_petData">
+  		INSERT INTO favoritew (
+				   favoritew_no,
+				    favoritew_reg_date,
+				   with_pet_no,
+				    building,
+				    category3,
+				    road,
+				    tel,
+				    homepage,
+				    day_off,
+				    hour,
+				    parking,
+				    with_pet_info,
+				    only_pet_info,
+				    pet_size,
+				    pet_limit,
+				    inside,
+				    outside,
+				    extra
+				)
+				VALUES (
+				    seq_favoritew_no.nextval,
+				    sysdate,
+				    (SELECT with_pet_no FROM with_pet WHERE with_pet_no = #{with_pet_no}),
+				    (SELECT building FROM with_pet WHERE building = #{building,jdbcType=VARCHAR}),
+				    (SELECT category3 FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR}),
+				    (SELECT road FROM with_pet WHERE road = #{road,jdbcType=VARCHAR}),
+				    (SELECT tel FROM with_pet WHERE tel = #{tel,jdbcType=VARCHAR}),
+				    (SELECT homepage FROM with_pet WHERE homepage = #{homepage,jdbcType=VARCHAR}),
+				    (SELECT day_off FROM with_pet WHERE day_off = #{day_off,jdbcType=VARCHAR}),
+				    (SELECT hour FROM with_pet WHERE hour = #{hour,jdbcType=VARCHAR}),
+				    (SELECT parking FROM with_pet WHERE parking = #{parking,jdbcType=VARCHAR}),
+				    (SELECT with_pet_info FROM with_pet WHERE with_pet_info = #{with_pet_info,jdbcType=VARCHAR}),
+				    (SELECT only_pet_info FROM with_pet WHERE only_pet_info = #{only_pet_info,jdbcType=VARCHAR}),
+				    (SELECT pet_size FROM with_pet WHERE pet_size = #{pet_size,jdbcType=VARCHAR}),
+				    (SELECT pet_limit FROM with_pet WHERE pet_limit = #{pet_limit,jdbcType=VARCHAR}),
+				    (SELECT inside FROM with_pet WHERE inside = #{inside,jdbcType=VARCHAR}),
+				    (SELECT outside FROM with_pet WHERE outside = #{outside,jdbcType=VARCHAR}),
+				    (SELECT extra FROM with_pet WHERE extra = #{extra,jdbcType=VARCHAR})
+				)
+  	</insert>
   	</mapper>

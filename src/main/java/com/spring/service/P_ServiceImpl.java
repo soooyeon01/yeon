@@ -13,7 +13,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class P_ServiceImpl implements P_Service {
 	private final P_Mapper mapper;
-
+	@Override
+	public List<P_DTO> getP(int pet_notice_no) {
+	
+		return mapper.selectP(pet_notice_no);
+	}
 
 	@Override
 	public List<P_DTO> getAllBoard() {
@@ -26,5 +30,14 @@ public class P_ServiceImpl implements P_Service {
 	public List<P_DTO> getAllBoardByPage(PageMaker pageMaker) {
 		return mapper.selectAllBoardByPage(pageMaker);
 	}
+
+	@Override
+	public int getCountAllBoard() {
+		int result = mapper.selectCountAllBoard();
+		return result;
+	}
+
+
+	
 
 }

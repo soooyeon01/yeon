@@ -27,4 +27,22 @@ public class W_ServiceImpl implements W_Service {
 	public List<W_DTO> getAllBoardByPage(PageMaker pageMaker) {
 		return mapper.selectAllBoardByPage(pageMaker);
 	}
+
+	@Override
+	public int getCountAllBoard() {
+		
+		return mapper.selectCountAllBoard();
+	}
+
+	@Override
+	public int registerWithpetData(W_DTO dto) {
+		
+		return mapper.insertWith_petData(dto);
+	}
+
+	@Override
+	public int removeWithpetData(int with_pet_no) {
+		
+		return mapper.deleteWith_petData(with_pet_no);
+	}
 }

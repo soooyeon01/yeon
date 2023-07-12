@@ -18,9 +18,7 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-		<script src="https://code.jquery.com/jquery-3.7.0.js" 
-    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" 
-    crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 		
 		
 		
@@ -28,12 +26,12 @@
  
 		function sendFavoritew() {
 			 var favoritew = [];
-			  $("input[name='favorite']:checked").each(function() {
+			  $('input[name="favorite"]:checked').each(function() {
 			    favoritew.push($(this).val());
 			  });
 			
 			  $.ajax({
-			    url: "/sendfavoritew",
+			    url: "/registerwith",
 			    type: "POST",
 			    data: {
 			      with_pet_no: favoritew.join(","),
@@ -64,11 +62,11 @@
 				  });
 			
 				  $.ajax({
-				    url: "/removefavoritew",
+				    url: "removewith",
 				    type: "POST",
 				    data: {
 				      with_pet_no: favoritew.join(","),
-				     
+				      
 				    },
 				    dataType: "json",
 				    success: function(data) {
@@ -244,12 +242,13 @@
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
+	                                
 	                              <button type="button" class="send-favoritew col p-3 btn btn-primary" 
 											onclick="sendFavoritew();">전송</button>
 	    						  <button type="button" class="remove-favoritew col p-3 btn btn-primary" 
 											onclick="removeFavoritew();">삭제</button>
 	                            </div>
-	                           <%@ include file="../import/page-with_petdetail.jsp" %>
+	                           
                         </div>
                     </div>
                 </main>

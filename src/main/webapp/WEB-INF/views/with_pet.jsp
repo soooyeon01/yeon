@@ -137,7 +137,7 @@
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="With_petVO" items="${ requestScope.boardList }" varStatus="status">
+	                                    	<c:forEach var="W_DTO" items="${ requestScope.boardList }" varStatus="status">
 											<tr>
 												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>
