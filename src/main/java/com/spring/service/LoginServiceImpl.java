@@ -17,5 +17,12 @@ public class LoginServiceImpl implements LoginService {
 	public void selectLogin(MembersDTO mdto) {
 		mapper.selectLogin(mdto);
 	}
+	
+	@Override
+	public int countLogin(MembersDTO mdto) {
+		return mapper.countLogin(mdto);
+		
+	}
+	
 
 }

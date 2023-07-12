@@ -5,5 +5,8 @@
   <mapper namespace="com.spring.mapper.LoginMapper">
   <select id="selectLogin" resultType="com.spring.domain.MembersDTO">
   		SELECT * FROM  members WHERE (email, pwd) IN ( (#{email,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}) )
-  	</select>
+  </select>
+  <select id="countLogin" resultType="int">
+  		SELECT COUNT(1) FROM  members WHERE (email, pwd) IN ( (#{email,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}) )
+  </select>
 </mapper>
