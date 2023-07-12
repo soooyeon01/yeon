@@ -3,6 +3,7 @@ package com.spring.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.domain.CommunityDTO;
@@ -21,20 +22,40 @@ public class CommunityController {
 
 	private final CommunityService service;
 	
-	@GetMapping("/clist")
-	public String CommunityList(Criteria cri, Model model) {
-		log.info(model);
-		PageMaker pageMaker = new PageMaker(cri, 100);
-		model.addAttribute("communityList",service.getAllCommunityByPage(pageMaker));
-		model.addAttribute("pageMaker",pageMaker);
+	/*
+	 * @RequestMapping("/clist") 
+	 * public String CommunityList(Model model,Criteria
+	 * cri) { log.info(model); PageMaker pageMaker = new PageMaker(cri, 100);
+	 * model.addAttribute("communityList",service.getAllCommunityByPage(pageMaker));
+	 * model.addAttribute("pageMaker",pageMaker); return "community/community"; }
+	 */
+	
+	@RequestMapping("/clist")
+	public String CommunityList(Model model) {
+		model.addAttribute("communityList",service.getAllCommunity());
 		return "community/community";
 	}
 	
 	@GetMapping("/newcommu")
-	public String CommunityRegi(CommunityDTO commu) {
-		service.registerCommunity(commu);
+	public String moveRegi() {
 		return "community/commuRegi";
 	}
 	
+	@RequestMapping("/newcommu")
+	public String CommunityRegi(CommunityDTO commu) {
+		
+		int result=service.registerCommunity(commu);
+		if(result>0) {
+			return "redirect:community/clist";
+		}else {
+		return "redirect:/commuRegi";
+		}
+	}
+	
+	@GetMapping("/commuSel")
+	public String CommuSel(Model model,int c_no) {
+		model.addAttribute("select", service.getCommunity(c_no));
+		return "community/commuSel";
+	}
 	
 }

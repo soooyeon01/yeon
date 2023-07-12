@@ -16,13 +16,13 @@
         <meta name="author" content="" />
         <title>커뮤니티 상세</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/styles.css" rel="stylesheet" />
+        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/page-nation.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="${pageContext.servletContext.contextPath}/bootstrap/js/scripts.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="${pageContext.servletContext.contextPath}/bootstrap/js/datatables-simple-demo.js"></script>
+        <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/datatables-simple-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script type="text/javascript">
 				// <![CDATA[
@@ -178,70 +178,45 @@
 						}
 					// ]]>
 		</script>
-     <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
-     <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
-     <script>  
-       	function addCommu() {
-			let c_no=document.getElementsByName("c_no").value;
-			let nickname=document.getElementsByName("nickname").value;
-			let title=document.getElementsByName("title").value;
-			let content=document.getElementsByName("content").value;
-			let reg_date=document.getElementsByName("reg_date").value;
-			return true;
-		}
+     	<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
+     	<style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
+     	<script>  
        	function toListPage() {
     		location.href="${pageContext.servletContext.contextPath}/community/clist";
-    	}
-    </script>  
+    		}
+    	</script>  
 </head>
 <body>
-<%-- <%	
-           		String nickname = (String)session.getAttribute("SESS_NICKNAME"); 
-		        // 세션에 저장된 아이디를 가져와서
-		        // 그 아이디 해당하는 회원정보를 가져온다.
-		        MypageMapper mapper;
-		        List<MembersDTO>members = mapper.selectMypage(nickname);
-		    %> --%>
 <div class="container mt-3">
-  <h2 style="text-align: center;">게시글 작성</h2>  
-  <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="post">
-  
-    <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
+  <h2 style="text-align: center;">게시글</h2>  
+	<form action="${pageContext.servletContext.contextPath}/community/commuSel">
+	<div class="row">
+  		<%-- <c:forEach var="select" items="${select}"> --%>
         <div class="mt-3 col p-3">
             <label for="reg_date">작성일:</label>
-            <p class="form-control" id="reg_date" name="reg_date">${ requestScope.communityDTO.reg_date }</p>
-        </div>
-        
-    </div>
-    
-    <div class="row">
+            <p class="form-control" value="${select.reg_date}"></p>
+		</div>
         <div class="mb-3 mt-3 col p-3">
-           <label for="title">글제목:</label>
-           <input type="text" class="form-control" id="title" placeholder="Enter Title" name="title" value="${ requestScope.communityDTO.title }">
+          	<label for="title">글제목:</label>
+            <p class="form-control" value="${select.title}"></p>
         </div>
         <div class="mb-3 mt-3 col p-3">
             <label for="nickname">작성자:</label>
-            <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div>
+            <p class="form-control" value="${select.nickname}"></p>
+            <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
         </div> 
-    </div>
-    <div class="mb-3 mt-3">
-        <label for="content">글내용:</label>
-        <textarea class="form-control" rows="5" id="content" name="content" >${ communityVO.content }</textarea>
+		<div class="mb-3 mt-3">
+        	<label for="content">글내용:</label>
+        	<p class="form-control" rows="5" value="${select.content}"></p>
      	</div>
-    	<div class="row">
-       	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
-       	<div class="col p-3"></div>
-       	<button type="submit" class="register col p-3 btn btn-warning" onclick="addCommu();">전송</button>
-         	<div class="col p-3"></div>	
-    </div>
+     <%-- </c:forEach> --%>
+     </div>
+	</form>
     	<%-- <input type="hidden" name="method" value="${param.method }">
         <input type="hidden" name="c_no" value="${param.c_no }">
 		<input type="hidden" name="nickname" value="${communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname  }"> --%>
-  </form>
-  	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">전송</button>
-</div>
+  	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
 
+</div>
 </body>
 </html>

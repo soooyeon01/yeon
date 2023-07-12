@@ -15,7 +15,7 @@
         <meta name="author" content="" />
         <title>커뮤니티 등록</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/styles.css" rel="stylesheet" />
+        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/page-nation.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -181,11 +181,10 @@
      <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
      <script>  
        	function addCommu() {
-			let c_no=document.getElementsByName("c_no").value;
 			let nickname=document.getElementsByName("nickname").value;
 			let title=document.getElementsByName("title").value;
 			let content=document.getElementsByName("content").value;
-			let reg_date=document.getElementsByName("reg_date").value;
+
 			return true;
 		}
        	function toListPage() {
@@ -196,7 +195,7 @@
 <body>
 <div class="container mt-3">
   <h2 style="text-align: center;">게시글 작성</h2>  
-  <form action="${pageContext.servletContext.contextPath}/community/clist" method="post">
+  <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="post">
   
     <div class="row">
         <div class="mb-3 mt-3 col p-3">
@@ -206,7 +205,7 @@
         닉네임 : <input class="form-control" type="text" name="nickname">
         </div> 
     	<div class="mb-3 mt-3 col p-3">
-        내용 : <input class="form-control" type="textarea" rows="5" name="content">
+        내용 : <textarea class="form-control" rows="5" name="content"></textarea>
      	</div>
     	<div class="row">
        	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
