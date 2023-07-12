@@ -5,12 +5,15 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.FindEmailService;
@@ -39,11 +42,27 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String loginpost(MembersDTO mdto) {
-		service.selectLogin(mdto);
-		return "user/login";
+	public String loginPost(@RequestParam("email") String email,
+	                        @RequestParam("pwd") String password,
+	                        HttpSession session,
+	                        Model model) {
+	    MembersDTO mdto = new MembersDTO();
+	    mdto.setEmail(email);
+	    mdto.setPwd(password);
+	    
+	    if(service.countLogin(mdto) == 1) {
+	    	service.selectLogin(mdto);
+	        session.setAttribute("SESS_AUTH", true);
+	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
+	        return "redirect:/main/main";
+	    } else {
+	        model.addAttribute("msg", "login failed, please try again!");
+	        return "/user/login";
+	    }
 	}
 	
+	
+		
 	@GetMapping("/join")
 	public String joinget(MembersDTO mdto) {
 		return "user/join";
