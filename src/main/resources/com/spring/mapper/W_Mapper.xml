@@ -83,6 +83,7 @@
   	</select>
   	
   	<insert id="insertWith_petData">
+  
   		INSERT INTO favoritew (
 				   favoritew_no,
 				    favoritew_reg_date,
@@ -123,5 +124,9 @@
 				    (SELECT outside FROM with_pet WHERE outside = #{outside,jdbcType=VARCHAR}),
 				    (SELECT extra FROM with_pet WHERE extra = #{extra,jdbcType=VARCHAR})
 				)
+				
   	</insert>
+  	<delete id="deleteWith_petData">
+  		DELETE FROM favoritew WHERE with_pet_no=#{with_pet_no}
+  	</delete>
   	</mapper>

@@ -98,4 +98,7 @@
 						,(SELECT careTel FROM shelter WHERE careTel = #{careTel,jdbcType=VARCHAR})
 						)
   	</insert>
+  	<delete id="deleteShelterData">
+  		DELETE FROM favorites WHERE shelter_no=#{shelter_no}
+  	</delete>
   	</mapper>

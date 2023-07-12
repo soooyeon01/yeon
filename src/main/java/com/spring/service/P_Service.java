@@ -12,5 +12,6 @@ public interface P_Service {
 	int getCountAllBoard();
 	List<P_DTO> getAllBoardByPage(PageMaker pageMaker);
 	
-	
+	int registerP(P_DTO dto);
+	int removeP(int pet_notice_no);
 }
