@@ -49,6 +49,7 @@ public class WithpetController {
 		model.addAttribute("withdetailList",service.getW(with_pet_no));
 		return "/with/withdetail";
 	}
+	
 	@RequestMapping("/registerwith")
 	@ResponseBody
 	protected void  insertF_W(HttpServletRequest request, HttpServletResponse response

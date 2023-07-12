@@ -174,6 +174,7 @@
                            		 <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
+	                                        	<th>check</th>
 	                                       		<th>Image </th>
 	                                            <th>접수일</th>
 	                                            <th>발견장소 </th>
@@ -197,7 +198,7 @@
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                           	
+	                                           	<th>check</th>
 	                                            <th>Image </th>
 	                                            <th>접수일</th>
 	                                            <th>발견장소 </th>

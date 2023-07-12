@@ -150,8 +150,8 @@
 										<td><a
 											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
 												${F_P_DTO.pet_notice_no} </a></td>
-										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
+										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${F_P_DTO.pet_notice_no}" >
+												<img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
 												</a></td>
 										<td><a
 											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">

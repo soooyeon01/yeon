@@ -24,7 +24,7 @@
 				FROM with_pet WHERE with_pet_no=#{with_pet_no}
 				]]>
   	</select>
-  	 <select id="selectCountAllBoard" resultType="com.spring.domain.W_DTO">	
+  	 <select id="selectCountAllBoard" parameterType="int" resultType="com.spring.domain.W_DTO">	
   			SELECT COUNT(1)FROM with_pet
   		</select>
   	<select id="selectAllBoard" resultType="com.spring.domain.W_DTO">

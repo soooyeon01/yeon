@@ -55,7 +55,7 @@
   		 ]]>
 			
   	</select>
-  		 <select id="selectCountAllBoard" resultType="com.spring.domain.P_DTO">	
+  		 <select id="selectCountAllBoard" parameterType="int" resultType="com.spring.domain.P_DTO">	
   		
   			SELECT COUNT(1)FROM pet_notice
   		
