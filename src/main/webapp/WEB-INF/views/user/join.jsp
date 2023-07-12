@@ -9,7 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>옥독캣 - 회원가입</title>
-        <link href="${pageContext.servletContext.contextPath}/bootstrap/css/styles.css" rel="stylesheet" />
+        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
           <script>
         function verifyField(){
@@ -110,7 +110,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">회원가입</h3></div>
                                     <div class="card-body">
-                                        <form action="${pageContext.servletContext.contextPath}/join" method="post">
+                                        <form action="${pageContext.servletContext.contextPath}/user/join" method="post">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="name" id="name" type="text" />
                                                 <label for="name">이름</label>
@@ -153,7 +153,7 @@
                                          </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="${pageContext.servletContext.contextPath}/login">로그인 하러 가기</a></div>
+                                        <div class="small"><a href="${pageContext.servletContext.contextPath}/user/login">로그인 하러 가기</a></div>
                                     </div>
                                    
                                 </div>

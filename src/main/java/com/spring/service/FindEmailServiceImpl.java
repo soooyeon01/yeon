@@ -15,8 +15,8 @@ public class FindEmailServiceImpl implements FindEmailService {
 	private final FindEmailMapper mapper;
 
 	@Override
-	public String getFindEmail(MembersDTO mdto) {
-		String result = mapper.selectFindEmail(mdto);
+	public String findEmail(MembersDTO mdto) {
+		String result = mapper.findEmail(mdto);
 		return result;
 	}
 

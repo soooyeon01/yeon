@@ -9,7 +9,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>비밀번호 찾기</title>
-        <link href="${pageContext.servletContext.contextPath}/bootstrap/css/styles.css" rel="stylesheet" />
+          <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
              <script>
          	var msg = '<%= request.getParameter("msg")%>';
@@ -89,7 +89,7 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">비밀번호 찾기</h3></div>
                                     <div class="card-body">
                                         <div class="small mb-3 text-muted">정보를 입력해 주세요</div>
-                                        <form action="${pageContext.servletContext.contextPath}/findPwd" method="post">
+                                        <form action="${pageContext.servletContext.contextPath}/user/findPwd" method="post">
                                         
                                         	<div class="form-floating mb-3">
                                                 <input class="form-control" id="name" name="name" type="text"  />
@@ -106,7 +106,7 @@
                                             </div>
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="${pageContext.servletContext.contextPath}/login">로그인 하러 가기</a>
+                                                <a class="small" href="${pageContext.servletContext.contextPath}/user/login">로그인 하러 가기</a>
                                                 <%-- <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/view/login.jsp">전송</a> --%>
                                                 <input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
                                                 </div>
@@ -114,7 +114,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="${pageContext.servletContext.contextPath}/join">회원가입</a></div>
+                                        <div class="small"><a href="${pageContext.servletContext.contextPath}/user/join">회원가입</a></div>
                                     </div>
                                 </div>
                             </div>

@@ -14,8 +14,8 @@ public class FindPwdServiceImpl implements FindPwdService {
 	private final FindPwdMapper mapper;
 
 	@Override
-	public String getFindPwd(MembersDTO mdto) {
-		String result = mapper.selectFindPwd(mdto);
+	public String findPwd(MembersDTO mdto) {
+		String result = mapper.findPwd(mdto);
 		return result;
 	}
 
