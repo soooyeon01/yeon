@@ -100,9 +100,9 @@
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(email);%>
-            <%  if( email != null) { %>
+                <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+              <%System.out.println(id);%>
+            <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -162,9 +162,9 @@
                <div class="card-body">
             
                   <table id="datatablesSimple" >
-             		 <c:forEach items = " ${memberDTO}" var = "mdto">
-             		 <c:if test = "${membersDTO.email eq sessionScope.email}">
-             		 
+                    <c:forEach items = " ${membersDTO}" var = "mdto">
+                    <c:if test = "${membersDTO.email eq sessionScope.id}">
+                    
                         <tr>
                            <td>닉네임</td>                        
                             <td>${mdto.nickname}</td>      
@@ -190,7 +190,7 @@
                            <td>${mdto.phone}</td>    
                         </tr>
                       </c:if>  
-             	</c:forEach>
+                </c:forEach>
                </table>
             
                 

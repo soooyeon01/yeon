@@ -1,6 +1,10 @@
- package com.spring.util;
+
+package com.spring.util;
+
+
 
 // 페이지 계산
+
 public class PageMaker {
 
    private double totalCount; // 전체 게시글

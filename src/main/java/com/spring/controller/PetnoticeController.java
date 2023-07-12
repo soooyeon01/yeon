@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.domain.P_DTO;
 import com.spring.service.P_Service;
+import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
@@ -15,21 +16,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/pet/*")
 public class PetnoticeController {
+	
 	private final P_Service service;
-	@GetMapping("/petdeatil")
-	public String getP(int pet_notice_no, Model model) {
-		service.getP(pet_notice_no);
-		return "/pet/petdetail";
-	}
+	// localhost:8080/4jojo/pet/petdetail
+	
 	@GetMapping("/petall")
-	public String getPBoard() {
-		service.getAllBoard();
-		return "/pet/petall";
-	}
-	@GetMapping("/petpage")
-	public String getPBoardByPage(PageMaker pageMaker, Model model) {
+	public String getPBoard(Model model, Criteria cri) {
+		PageMaker pageMaker = new PageMaker(cri, 101); 
 		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
-		return "/pet/petpage";
+		return "/pet/pet";
 	}
+	@GetMapping("/asd")
+	public String asd() {
+		return "/pet/asd";
+	}
+	
 }
