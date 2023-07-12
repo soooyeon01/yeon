@@ -14,8 +14,8 @@ public class JoinServiceImpl  implements JoinService{
 	private final JoinMapper mapper;
 
 	@Override
-	public void registerMembers(MembersDTO mdto) {
-		mapper.registerMembers(mdto);
+	public int registerMembers(MembersDTO mdto) {
+		return mapper.registerMembers(mdto);
 		
 	}
 

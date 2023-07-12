@@ -4,6 +4,6 @@ import com.spring.domain.MembersDTO;
 
 public interface JoinMapper {
 
-	String registerMembers(MembersDTO mdto);
+	int registerMembers(MembersDTO mdto);
 
 }
