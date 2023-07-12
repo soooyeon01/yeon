@@ -1,11 +1,6 @@
-
-<<<<<<< HEAD
-=======
 package com.spring.util;
 
 
-
->>>>>>> branch 'master' of https://github.com/kmj1000/4jojo.git
 // 페이지 계산
 
 
