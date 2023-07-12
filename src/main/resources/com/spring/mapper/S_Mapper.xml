@@ -28,7 +28,7 @@
   	<select id="selectAllBoard" resultType="com.spring.domain.S_DTO">
   		SELECT * FROM shelter
   	</select>
-  	 <select id="selectCountAllBoard" resultType="com.spring.domain.S_DTO">	
+  	 <select id="selectCountAllBoard" parameterType="int" resultType="com.spring.domain.S_DTO">	
   			SELECT COUNT(1)FROM shelter
   		</select>
   	

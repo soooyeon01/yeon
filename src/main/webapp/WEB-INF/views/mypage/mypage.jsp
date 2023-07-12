@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.spring.domain.MembersDTO" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+ <c:set var="root" value="${pageContext.servletContext.contextPath}" /> 
 <%@ page import="com.spring.mapper.MypageMapper" %> 
 <%-- <%@ page import="com.spring.servlet.dao.impl.MypageDAOImpl" %>  --%>
 
@@ -47,6 +47,13 @@
        }
      });
    }
+  
+  
+  function nextPage(){
+  	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+
+  }
+  
   </script>
 <style>
       .deleteMember{
@@ -102,7 +109,8 @@
               <%System.out.println(id);%>
             <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="nextPage();" style="font-size: 14px;">마이페이지</button>                  
+                   
             <%} else{%>
                 <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
              

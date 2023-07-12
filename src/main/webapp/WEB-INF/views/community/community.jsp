@@ -58,12 +58,8 @@
 				    .bgcolor{
 				   background-color: #f9f8f3;
 				    }
-			 	    
-
-			
 		</style>
 		<style>
-		
 		  a:hover{
 		                background-color: #feeaa5;
 		            }
@@ -113,7 +109,7 @@
 				 	--bs-btn-border-color: transparent;
 				    } 
 			
-				    }
+				}
 		</style>
 </head>
 <body class="sb-nav-fixed bgcolor"> 
