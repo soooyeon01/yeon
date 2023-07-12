@@ -187,7 +187,7 @@
 	                                </table>
 	                              
 	                            </div>
-	                           <%@ include file="../import/page-pet_noticedetail.jsp" %>
+	                           
 	                          
 	                          
                         </div>

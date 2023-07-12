@@ -55,9 +55,11 @@
   		 ]]>
 			
   	</select>
-  			
-  
-  	
+  		 <select id="selectCountAllBoard" resultType="com.spring.domain.P_DTO">	
+  		
+  			SELECT COUNT(1)FROM pet_notice
+  		
+  		</select>
   	 <select id="selectAllBoardByPage" resultType="com.spring.domain.P_DTO">
   		<![CDATA[
   		SELECT * FROM (

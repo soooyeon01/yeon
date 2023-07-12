@@ -12,12 +12,12 @@
         <meta name="author" content="" />
         <title>보호소 목록 상세</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${ pageContext.servletContext.contextPath }/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/scripts.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/datatables-simple-demo.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.0.js" 
     integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" 
     crossorigin="anonymous"></script>
@@ -72,11 +72,11 @@
 			  });
 
 			  $.ajax({
-			    url: "/favorites",
+			    url: "/registershel",
 			    type: "POST",
 			    data: {
 			      shelter_no: favorites.join(","),
-			      method: "register"
+			      
 			    },
 			    dataType: "json",
 			    success: function(data) {
@@ -101,11 +101,11 @@
 				  });
 
 				  $.ajax({
-				    url: "/4jo/api/favorites",
+				    url: "/removeshel",
 				    type: "POST",
 				    data: {
 				      shelter_no: favorites.join(","),
-				      method: "remove"
+				      
 				    },
 				    dataType: "json",
 				    success: function(data) {
@@ -263,7 +263,7 @@
 	                            </div>
 	                            
 	                            
-	                          <%@ include file="../import/page-shelterdetail.jsp" %>
+	                          
 	                          
                         </div>
                     </div>

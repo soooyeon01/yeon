@@ -249,7 +249,7 @@
 	    								<button type="button" class="remove-favoritew col p-3 btn btn-primary" 
 											onclick="removeFavoritew();">삭제</button>
 	                            </div>
-	                            <%@ include file="/view/import/page-with_petdetail.jsp" %>
+	                        
                         </div>
                     </div>
                 </main>

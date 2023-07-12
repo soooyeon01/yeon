@@ -22,14 +22,18 @@ public class PetnoticeController {
 	
 	@GetMapping("/petall")
 	public String getPBoard(Model model, Criteria cri) {
-		PageMaker pageMaker = new PageMaker(cri, 101); 
+		
+	    PageMaker pageMaker = new PageMaker(cri, 101);
 		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/pet/pet";
 	}
-	@GetMapping("/asd")
-	public String asd() {
-		return "/pet/asd";
+	@GetMapping("/petdetail")
+	public String getAllBoard(int pet_notice_no, Model model) {
+		
+		model.addAttribute("petdetailList",service.getP(pet_notice_no));
+		
+		return "/pet/petdetail";
 	}
 	
 }
