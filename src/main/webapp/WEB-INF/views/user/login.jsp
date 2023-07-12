@@ -9,11 +9,10 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>옥독캣 - 로그인</title>
-        <link href="${pageContext.servletContext.contextPath}/bootstrap/css/styles.css" rel="stylesheet" /> 
+      	<link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/styles.css" rel="stylesheet" /> 
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
          <script>
     	var msg = '<%= request.getParameter("msg")%>';
-    	console.log("Dsa");
     	window.onload = function(){
     		showMsg();
     	}
@@ -75,7 +74,7 @@
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                                             </div> -->
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="${pageContext.servletContext.contextPath}/join">회원가입</a> 
+                                                <a class="small" href="${pageContext.servletContext.contextPath}/user/join">회원가입</a> 
                                                 <%-- <a class="small" href="${pageContext.servletContext.contextPath}/view/findEmail.jsp">이메일 찾기</a> --%>
                                                 
                                                 <input class="btn btn-primary" type="submit" value="로그인" onclick="return verifyField();">
@@ -89,8 +88,8 @@
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small">
-                                        <a href="${pageContext.servletContext.contextPath}/findEmail">이메일 찾기</a>
-                                        <a href="${pageContext.servletContext.contextPath}/findPwd">비밀번호 찾기</a>
+                                        <a href="${pageContext.servletContext.contextPath}/user/findEmail">이메일 찾기</a>
+                                        <a href="${pageContext.servletContext.contextPath}/user/findPwd">비밀번호 찾기</a>
                                         </div>
                                         
                                         <%-- <div class="small"><a href="${pageContext.servletContext.contextPath}/view/join.jsp">회원가입 하러 가기</a></div> --%>

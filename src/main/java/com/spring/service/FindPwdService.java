@@ -4,6 +4,6 @@ import com.spring.domain.MembersDTO;
 
 public interface FindPwdService {
 
-	String getFindPwd(MembersDTO mdto);
+	String findPwd(MembersDTO mdto);
 	
 }
