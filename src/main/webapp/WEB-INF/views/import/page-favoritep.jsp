@@ -9,7 +9,7 @@
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a href="${pageContext.servletContext.contextPath}/fa/favorites?pageNum=${pageMaker.startPage -1}" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="${pageContext.servletContext.contextPath}/fa/favoritep?pageNum=${pageMaker.startPage -1}" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
@@ -23,7 +23,7 @@
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a 	href="${pageContext.servletContext.contextPath}/fa/favorites?pageNum=${status.index}" 
+						    			<a 	href="${pageContext.servletContext.contextPath}/fa/favoritep?pageNum=${status.index}" 
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,7 +31,7 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a href="${pageContext.servletContext.contextPath}/fa/favorites?pageNum=${pageMaker.endPage + 1}" class="datatable-pagination-list-item-link">›</a>
+						    			<a href="${pageContext.servletContext.contextPath}/fa/favoritep?pageNum=${pageMaker.endPage + 1}" class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>

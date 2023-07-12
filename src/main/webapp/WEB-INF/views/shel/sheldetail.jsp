@@ -72,7 +72,7 @@
 			  });
 
 			  $.ajax({
-			    url: "/registershel",
+			    url: "${pageContext.servletContext.contextPath}/shel/registershel",
 			    type: "POST",
 			    data: {
 			      shelter_no: favorites.join(","),
@@ -101,7 +101,7 @@
 				  });
 
 				  $.ajax({
-				    url: "/removeshel",
+				    url: "${pageContext.servletContext.contextPath}/shel/removeshel",
 				    type: "POST",
 				    data: {
 				      shelter_no: favorites.join(","),

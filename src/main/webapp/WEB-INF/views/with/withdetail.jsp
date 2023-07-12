@@ -18,24 +18,25 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		
-		
-		
+		<script src="https://code.jquery.com/jquery-3.7.0.js" 
+    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" 
+    crossorigin="anonymous"></script>
 		<script>   
  
 		function sendFavoritew() {
 			 var favoritew = [];
-			  $('input[name="favorite"]:checked').each(function() {
+			  $("input[name='favorite']:checked").each(function() {
 			    favoritew.push($(this).val());
 			  });
 			
 			  $.ajax({
-			    url: "/registerwith",
+			    url: "${pageContext.servletContext.contextPath}/with/registerwith",
 			    type: "POST",
 			    data: {
+		
 			      with_pet_no: favoritew.join(","),
-			      
+			  
+			    	 
 			    },
 			    dataType: "json",
 			    success: function(data) {
@@ -62,11 +63,11 @@
 				  });
 			
 				  $.ajax({
-				    url: "removewith",
+				    url: "${pageContext.servletContext.contextPath}/with/removewith",
 				    type: "POST",
 				    data: {
 				      with_pet_no: favoritew.join(","),
-				      
+				  
 				    },
 				    dataType: "json",
 				    success: function(data) {
@@ -149,9 +150,7 @@
             </script>
                  <!-- 로고 -->              
                <nav class="main bg-white" >
-                <a class="mainlogo" href="${pageContext.servletContext.contextPath}/main">
-                <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
-                </a>
+               
                </nav>
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/petnotice"><b>공고</b></a> 
@@ -242,11 +241,12 @@
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                                
+	                             <form action="${pageContext.servletContext.contextPath }/with/withdetail" method="post">
 	                              <button type="button" class="send-favoritew col p-3 btn btn-primary" 
 											onclick="sendFavoritew();">전송</button>
 	    						  <button type="button" class="remove-favoritew col p-3 btn btn-primary" 
 											onclick="removeFavoritew();">삭제</button>
+								</form>
 	                            </div>
 	                           
                         </div>

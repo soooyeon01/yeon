@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>유기동물 공고 상세</title>
+        <title>위드펫 즐겨찾기</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
         <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -18,69 +18,7 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-		<script>
-		function sendFavoritep() {
-			  var favoritep = [];
-			  $("input[name='favorite']:checked").each(function() {
-			    favoritep.push($(this).val());
-			  });
-
-			  $.ajax({
-			    url: "${pageContext.servletContext.contextPath}/pet/registerpet",
-			    type: "POST",
-			    data: {
-			      pet_notice_no: favoritep.join(","),
-			      
-			    },
-			    dataType: "json",
-			    success: function(data) {
-			      if (data.result === 1) {
-			        var msg = favoritep.length + "건 등록되었습니다.";
-			        alert(msg);
-			       
-			      } 
-			    },
-			    error: function(jqXHR, textStatus, errorThrown) {
-			      console.log(jqXHR);
-			      console.log(textStatus);
-			      console.log(errorThrown);
-			      alert("오류가 발생했습니다. 다시 시도해주세요.");
-			    }
-			  });
-			}
-			  function removeFavoritep() {
-				  var favoritep = [];
-				  $("input[name='favorite']:checked").each(function() {
-				    favoritep.push($(this).val());
-				  });
-
-				  $.ajax({
-				    url: "${pageContext.servletContext.contextPath}/pet/removepet",
-				    type: "POST",
-				    data: {
-				      pet_notice_no: favoritep.join(","),
-				      
-				    },
-				    dataType: "json",
-				    success: function(data) {
-				      if (data.result === 1) {
-				        var msg = favoritep.length + "건 삭제되었습니다.";
-				        alert(msg);
-				        
-				      } else {
-				        alert("처리에 실패했습니다. 다시 시도해주세요.");
-				      }
-				    },
-				    error: function(jqXHR, textStatus, errorThrown) {
-				      console.log(jqXHR);
-				      console.log(textStatus);
-				      console.log(errorThrown);
-				      alert("오류가 발생했습니다. 다시 시도해주세요.");
-				    }
-				  });
-				}
-			  </script>
+	
 		<style>
 		
 		  a:hover{
@@ -162,7 +100,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1">유기동물 공고 상세</h1>
+                        <h1 class="mt-1">위드펫 즐겨찾기</h1>
                       
                         <div class="card mb-4">
                             <div class="card-header">
@@ -174,96 +112,91 @@
                            		 <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
-	                                       		<th>Image </th>
-	                                            <th>접수일</th>
-	                                            <th>발견장소 </th>
-	                                            <th>품종</th>
-	                                            <th>색상 </th>
-	                                            <th>나이</th>
-	                                            <th>체중 </th>
-	                                            <th>공고번호 </th>
-	                                            <th>공고시작일 </th>
-	                                            <th>공고종료일 </th>
-	                                            <th>상태 </th>
-	                                            <th>성별 </th>
-	                                            <th>중성화여부 </th>
-	                                            <th>특징 </th>
-	                                            <th>보호소이름 </th>
-	                                            <th>보호소전화번호 </th>
-	                                            <th>보호장소 </th>
-	                                            
+	                                            <th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>문화시설 번호</th>
+	                                            <th>문화시설 이름</th>
+	                                            <th>문화시설 주소</th>
+	                                            <th>문화시설 전화번호</th>
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                           	
-	                                            <th>Image </th>
-	                                            <th>접수일</th>
-	                                            <th>발견장소 </th>
-	                                            <th>품종</th>
-	                                            <th>색상 </th>
-	                                            <th>나이</th>
-	                                            <th>체중 </th>
-	                                            <th>공고번호 </th>
-	                                            <th>공고시작일 </th>
-	                                            <th>공고종료일 </th>
-	                                            <th>상태 </th>
-	                                            <th>성별 </th>
-	                                            <th>중성화여부 </th>
-	                                            <th>특징 </th>
-	                                            <th>보호소이름 </th>
-	                                            <th>보호소전화번호 </th>
-	                                            <th>보호장소 </th>
-	                                            
+	                                           	<th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>문화시설 번호</th>
+	                                            <th>문화시설 이름</th>
+	                                            <th>문화시설 주소</th>
+	                                            <th>문화시설 전화번호</th>
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
+	                                    	<c:forEach var="F_W_DTO" items="${ favoritew }" >
 											<tr>
-												<!-- pageScope에 vo가 생성되었다.  -->
-												<td><input type="checkbox" name="favorite" style="transform:scale(1.5);" value="${P_DTO.pet_notice_no}" /></td>
-												<td><img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/></td>
-												<td>${P_DTO.happenDt}</td>
-												<td>${P_DTO.happenPlace}</td>
-												<td>${P_DTO.kindCd}</td>
-												<td>${P_DTO.colorCd}</td>
-												<td>${P_DTO.age}</td>										
-												<td>${P_DTO.weight}</td>
-												<td>${P_DTO.noticeNo}</td>
-												<td>${P_DTO.noticeSdt}</td>
-												<td>${P_DTO.noticeEdt}</td>
-												<td>${P_DTO.processState}</td>
-												<td>${P_DTO.sexCd}</td>
-												<td>${P_DTO.neuterYn}</td>
-												<td>${P_DTO.specialMark}</td>
-												<td>${P_DTO.careNm}</td>
-												<td>${P_DTO.careAddr}</td>
-												<td>${P_DTO.careTel}</td>
-												
-												
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.favoritew_no}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.nickname}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.with_pet_no}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.building}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.road}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.tel}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.favoritew_reg_date}
+												</a>
+												</td>
 											</tr>
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                              <button type="button" class="send-favoritep col p-3 btn btn-primary" 
-											onclick="sendFavoritep();">전송</button>
-	    								<button type="button" class="remove-favoritep col p-3 btn btn-primary" 
-											onclick="removeFavoritep();">삭제</button>
+	                              
 	                            </div>
-	                           
-	                          
+	                          <%@ include file="../import/page-favoritew.jsp" %>
 	                          
                         </div>
                     </div>
                 </main>
-              
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
-      
-        
-        
-        
+        </div>
         
     </body>
 </html>

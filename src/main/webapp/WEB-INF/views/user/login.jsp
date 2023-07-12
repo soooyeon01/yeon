@@ -60,7 +60,7 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">로그인</h3></div>
                                     <div class="card-body">
-                                        <form action="${ pageContext.servletContext.contextPath }/login" method="post">
+                                        <form action="${ pageContext.servletContext.contextPath }/user/login" method="post">
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" />
                                                 <label for="email">이메일</label>

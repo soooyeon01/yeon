@@ -37,6 +37,18 @@ public class P_ServiceImpl implements P_Service {
 		return result;
 	}
 
+	@Override
+	public int registerP(P_DTO dto) {
+		
+		return mapper.insertPetnoticeData(dto);
+	}
+
+	@Override
+	public int removeP(int pet_notice_no) {
+		
+		return mapper.deletePetnoticeData(pet_notice_no);
+	}
+
 
 	
 

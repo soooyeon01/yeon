@@ -38,10 +38,10 @@
               ROWNUM as RN
               ,f.favoritep_no
         		, f.favoritep_reg_date
-        		, s.pet_notice_no
-        		, s.careNm
-        		, s.careAddr
-        		, s.careTel
+        		, p.pet_notice_no
+        		, p.careNm
+        		, p.careAddr
+        		, p.careTel
         		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
         		FROM FAVORITEP f
         		JOIN pet_notice p ON f.pet_notice_no = p.pet_notice_no

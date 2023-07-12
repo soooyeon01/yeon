@@ -1,5 +1,11 @@
 package com.spring.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +34,12 @@ public class UserController {
 	private final FindPwdService servicep;
 	
 	@GetMapping("/login")
-	public String login(MembersDTO mdto) {
+	public String loginget(MembersDTO mdto) {
+		return "user/login";
+	}
+	
+	@PostMapping("/login")
+	public String loginpost(MembersDTO mdto) {
 		service.selectLogin(mdto);
 		return "user/login";
 	}
@@ -40,8 +51,15 @@ public class UserController {
 	
 	@PostMapping("/join")
 	public String joinpost(MembersDTO mdto) {
-		servicej.registerMembers(mdto);
-		return "user/join";
+		int isOk = 1;
+		String msg = null;
+		if( servicej.registerMembers(mdto) == isOk) {
+			msg = "success";
+		}else {
+			msg = "fail, try again";
+		}
+		
+		return "redirect:/user/login";
 	}
 
 	@GetMapping("/findEmail")

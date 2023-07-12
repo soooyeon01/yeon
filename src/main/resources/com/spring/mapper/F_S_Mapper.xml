@@ -30,7 +30,7 @@
              FROM (
               SELECT 
               ROWNUM as rn
-              +",f.favorites_no
+              ,f.favorites_no
         		, f.favorites_reg_date
         		, s.shelter_no
         		, s.careNm
@@ -39,9 +39,9 @@
         		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
         		FROM favorites f
         		JOIN shelter s ON f.shelter_no = s.shelter_no
-        		WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )\r\n"
+        		WHERE ROWNUM <= ( #{cri.pageNum,jdbcType=INTEGER} * #{cri.amount} )
         		            )
-        		   WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )
+        		   WHERE rn > ( ( #{cri.pageNum,jdbcType=INTEGER} - 1 ) * #{cri.amount} )
             ]]>
   	</select>
   	</mapper>

@@ -17,30 +17,30 @@
   	</select>
   	
   	 <select id="selectWBoardByPage" resultType="com.spring.domain.F_W_DTO">
-  		<![CDATA[
-  		SELECT 
-              favoritew_no
-              ,favoritew_reg_date
-             ,with_pet_no
-             ,careNm
-              ,careAddr
-             ,careTel
-             ,(SELECT nickname FROM members WHERE nickname='aa') as nickname
-             FROM (
-              SELECT 
-              ROWNUM as rn
-              +",f.favoritew_no
-        		, f.favoritew_reg_date
-        		, s.with_pet_no
-        		, s.building
-        		, s.road
-        		, s.tel
-        		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
-        		FROM favorites f
-        		JOIN with_pet w ON f.with_pet_no = w.with_pet_no
-        		WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )\r\n"
-        		            )
-        		   WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )
-        		   ]]>
-  	</select>
+  <![CDATA[
+  SELECT 
+    favoritew_no,
+    favoritew_reg_date,
+    with_pet_no,
+    building,
+    road,
+    tel,
+    (SELECT nickname FROM members WHERE nickname='aa') as nickname
+  FROM (
+    SELECT 
+      ROWNUM as rn,
+      f.favoritew_no,
+      f.favoritew_reg_date,
+      w.with_pet_no,
+      w.building,
+      w.road,
+      w.tel,
+      (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+    FROM favoritew f
+    JOIN with_pet w ON f.with_pet_no = w.with_pet_no
+    WHERE ROWNUM <= ( #{cri.pageNum,jdbcType=INTEGER} * #{cri.amount} )
+  )
+  WHERE rn > ( ( #{cri.pageNum,jdbcType=INTEGER} - 1 ) * #{cri.amount} )
+  ]]>
+</select>
   	</mapper>
