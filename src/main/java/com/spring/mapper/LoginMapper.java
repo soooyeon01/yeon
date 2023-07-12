@@ -4,6 +4,8 @@ import com.spring.domain.MembersDTO;
 
 public interface LoginMapper {
 
-	String selectLogin(MembersDTO mdto);
+	public void selectLogin(MembersDTO mdto);
+	
+	public int countLogin(MembersDTO mdto);
 	
 }

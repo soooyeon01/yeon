@@ -14,13 +14,13 @@
         <meta name="author" content="" />
         <title>커뮤니티</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${ pageContext.servletContext.contextPath }/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/scripts.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/datatables-simple-demo.js"></script>
-	
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
+		<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 		<style>
 		
 		  a:hover{
@@ -120,14 +120,14 @@
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+                <%-- <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(email);%>
-         <%  if( email != null) { %>
+         <%  if( email != null) { %> 
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
                 <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
+            <%}  %>--%>
                 </div>
             </form>      
             </nav>
@@ -182,7 +182,7 @@
                                     	<c:forEach var="communityDTO" items="${requestScope.communityList}" varStatus="status">
                                         <tr>
                                             <td>${communityDTO.c_no}</td>
-                                            <td><a href="${pageContext.servletContext.contextPath}/communitycontent?method=get&c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
+                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
                                             <td>${communityDTO.reg_date}</td>
                                             <td>${communityDTO.nickname}</td>
                                         </tr>
@@ -193,11 +193,12 @@
                                 
                             </div>
                             <div class="rightbtn">
-
-                             	<a class="btn write" type="button" href="view/community-content.jsp">글쓰기</a>
-
+                            	<input type="button" value="글쓰기" onclick="location.href='newcommu'">
+								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
+                             	<button class="btn write" type="submit">글쓰기
+								</form> --%>
                              </div>
-                            <%@ include file="../import/page-community.jsp" %>
+                            <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
                         </div>
