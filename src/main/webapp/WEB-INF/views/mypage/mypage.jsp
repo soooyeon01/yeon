@@ -161,7 +161,7 @@
             
                   <table id="datatablesSimple" >
                     <c:forEach items = "${membersDTO}" var = "mdto">
-                 <c:if test = "${membersDTO.email eq sessionScope.id}">
+                 <%-- <c:if test = "${membersDTO.email eq sessionScope.id}">  --%>
                     
                         <tr>
                            <td>닉네임</td>                        
@@ -187,7 +187,7 @@
                            <td>전화번호</td>
                            <td>${mdto.phone}</td>    
                         </tr>
-                  </c:if>   
+                <%--  </c:if>  --%>
                 </c:forEach>
                </table>
             

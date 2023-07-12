@@ -41,30 +41,32 @@ public class MypageController {
 
    @RequestMapping("/mypage")
    public String showMypage(HttpServletRequest request, Model model) {
-       
-	   	  HttpSession session = request.getSession(true);
-	      boolean SESS_AUTH = true;
+       	
+	   	
+	   	  HttpSession session = request.getSession(false);
+	      boolean SESS_AUTH = false;
+	      session.setAttribute("SESS_EMAIL", "ye@naver.com"); // Set the value of "SESS_EMAIL"
 	      
 	      try {
 	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
 	      }catch(Exception e) {}
 	      
 	      if( SESS_AUTH ) {
-	         
+	    	 
 //	         request.setCharacterEncoding("utf-8");
-	         request.setAttribute("SESS_AUTH", true);  
+	         request.setAttribute("SESS_AUTH", false);  
 	   
 	   String id = (String) session.getAttribute("SESS_EMAIL");
        List<MembersDTO> mdto = mapper.selectMypage(id);
        model.addAttribute("membersDTO", mdto);
        return "mypage/mypage";
-   }else {
-	   return "redirect:/main/main"; 
-		}
-	   
-   }
-		
-   }
+	   }else {
+		   return "redirect:/main/main"; 
+			}
+		   
+	   }
+			
+	}
 
    
 //   @RequestMapping(value = "/", method = RequestMethod.GET)
