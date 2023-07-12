@@ -11,13 +11,8 @@
 	<!-- hikariCP config -->
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
-<<<<<<< HEAD
-      <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
+      	<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
 
-
-=======
-      <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.69:1521:xe"></property>
->>>>>>> branch 'master' of https://github.com/kmj1000/4jojo.git
 		<property name="username" value ="c##abd"></property>
 
 		<property name="password" value ="abd"></property>
