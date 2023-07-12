@@ -10,14 +10,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>위드펫</title>
+        <title>위드펫 즐겨찾기</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${ pageContext.servletContext.contextPath }/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/scripts.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/datatables-simple-demo.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 	
 		<style>
 		
@@ -100,7 +100,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1">위드펫</h1>
+                        <h1 class="mt-1">위드펫 즐겨찾기</h1>
                       
                         <div class="card mb-4">
                             <div class="card-header">
@@ -112,87 +112,92 @@
                            		 <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
-	                                            
+	                                            <th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>문화시설 번호</th>
 	                                            <th>문화시설 이름</th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            
+	                                            <th>문화시설 주소</th>
+	                                            <th>문화시설 전화번호</th>
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                           	
+	                                           	<th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>문화시설 번호</th>
 	                                            <th>문화시설 이름</th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            
+	                                            <th>문화시설 주소</th>
+	                                            <th>문화시설 전화번호</th>
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="W_DTO" items="${ withList }" >
+	                                    	<c:forEach var="F_W_DTO" items="${ favoritew }" >
 											<tr>
-												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withdetail?method=get&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.building}
-												</a>
-												</td>
-												
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withdetail?method=get&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.road}
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.favoritew_no}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withdetail?method=get&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.tel}
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.nickname}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withdetail?method=get&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.hour}
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.with_pet_no}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withdetail?method=get&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.with_pet_info}
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.building}
 												</a>
 												</td>
 												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.only_pet_info}
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.road}
 												</a>
 												</td>
-												
-												
-											
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.tel}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
+												${F_W_DTO.favoritew_reg_date}
+												</a>
+												</td>
 											</tr>
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
 	                              
 	                            </div>
-						<%@ include file="../import/page-with_pet.jsp" %>
+	                          <%@ include file="../import/page-favoritew.jsp" %>
+	                          
                         </div>
                     </div>
                 </main>
-		
-
-
-					
-				</div>
-			
-		
-
-	
-
-</body>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+    </body>
 </html>
+

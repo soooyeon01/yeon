@@ -20,6 +20,15 @@
     </appender>
     
 	
+	<appender name="LOGFILE-DAILY" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="C:/sts-3-v4.21/logs/test-daily.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t] %-17c{2} (%13F:%L) %3x - %m%n"/>
+        </layout>
+    </appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.spring.controller">
 		<level value="info" />
@@ -88,6 +97,37 @@
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref = "LOGFILE-DAILY" />
 	</root>
+	
+	 <!-- 설정추가 -->
+   <logger name="jdbc.sqlonly" additivity="false"> 
+      <level value="info"/> 
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger>
+   <logger name="jdbc.sqltiming" additivity="false">
+      <level value="warn" />
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger>
+   <logger name="jdbc.audit" additivity="false"> 
+      <level value="warn"/>  
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger> 
+
+   <logger name="jdbc.resultset" additivity="false">
+      <level value="warn" />
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger>
+
+   <logger name="jdbc.resultsettable" additivity="false"> 
+      <level value="info"/>  
+      <appender-ref ref="console"/> 
+      <appender-ref ref = "LOGFILE-DAILY" />
+   </logger> 
+	
 	
 </log4j:configuration>

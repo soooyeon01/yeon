@@ -10,15 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>위드펫</title>
+        <title>보호소 즐겨찾기</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${ pageContext.servletContext.contextPath }/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/scripts.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/datatables-simple-demo.js"></script>
-	
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
+		
 		<style>
 		
 		  a:hover{
@@ -99,102 +99,93 @@
         
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1">위드펫</h1>
-                      
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-1">보호소 즐겨찾기</h1>
+                     
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                              
+                             
                             </div>
                             <div class="card-body">
                            		
-                           		 <table id="datatablesSimple">
+                           		
+	                                <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
-	                                            
-	                                            <th>문화시설 이름</th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            
+	                                            <th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>보호소 번호</th>
+	                                            <th>보호소 이름</th>
+	                                            <th>보호소 주소</th>
+	                                            <th>보호소 전화번호</th>
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                           	
-	                                            <th>문화시설 이름</th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            
+	                                           	<th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>보호소 번호</th>
+	                                            <th>보호소 이름</th>
+	                                            <th>보호소 주소</th>
+	                                            <th>보호소 전화번호</th>
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="W_DTO" items="${ requestScope.boardList }" varStatus="status">
-											<tr>
-												<!-- pageScope에 vo가 생성되었다.  -->
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${With_petVO.with_pet_no}" >
-												${With_petVO.building}
-												</a>
-												</td>
-												
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${With_petVO.with_pet_no}" >
-												${With_petVO.road}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${With_petVO.with_pet_no}" >
-												${With_petVO.tel}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${With_petVO.with_pet_no}" >
-												${With_petVO.hour}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${With_petVO.with_pet_no}" >
-												${With_petVO.with_pet_info}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/withpetdetail?method=get&with_pet_no=${With_petVO.with_pet_no}" >
-												${With_petVO.only_pet_info}
-												</a>
-												</td>
-												
-												
-											
-											</tr>
-											</c:forEach>
-	                                    </tbody>
+								<c:forEach var="F_S_DTO" items="${favorites}"
+									varStatus="status">
+									<tr>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.favorites_no} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.nickname} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.shelter_no} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.careNm} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.careAddr} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.careTel} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
+												${F_S_DTO.favorites_reg_date} </a></td>
+									</tr>
+								</c:forEach>
+							</tbody>
 	                                </table>
 	                              
 	                            </div>
-					<%-- <%@ include file="/view/import/page-community.jsp" %> --%>
-                           <%-- <jsp:include page="/view/import/page-nation.jsp"></jsp:include>  --%>
-                        	<c:import url="/view/import/page-with_pet.jsp"></c:import>
+	                            <%@ include file="../import/page-favorites.jsp" %>
+	                          
                         </div>
                     </div>
                 </main>
-		<footer class="py-4 bg-light mt-auto">
-
-
-					<div></div>
-				</div>
-			</div>
-		</footer>
-	</div>
-	</div>
-
-</body>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+    </body>
 </html>
+

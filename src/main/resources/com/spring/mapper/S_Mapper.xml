@@ -28,7 +28,9 @@
   	<select id="selectAllBoard" resultType="com.spring.domain.S_DTO">
   		SELECT * FROM shelter
   	</select>
-  	
+  	 <select id="selectCountAllBoard" resultType="com.spring.domain.S_DTO">	
+  			SELECT COUNT(1)FROM shelter
+  		</select>
   	
   	<select id="selectAllBoardByPage" resultType="com.spring.domain.S_DTO">
   		<![CDATA[
@@ -56,4 +58,47 @@
 				WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} ) 
 				]]>
   	</select>
+  	<insert id="insertShelterData">
+  		INSERT INTO favorites( 
+						favorites_no
+						,favorites_reg_date
+						,shelter_no  
+						,careNm  
+						,divisionNm 
+						,saveTrgtAnimal 
+						,careAddr 
+						,weekOprStime 
+						,weekOprEtime
+						,weekCellStime 
+						,weekCellEtime  
+						,weekendOprStime  
+						,weekendOprEtime  
+						,weekendCellStime 
+						,weekendCellEtime 
+						,closeDay 
+						,careTel
+						)
+						values(
+						seq_favorites_no.nextval
+						,sysdate
+						,(SELECT shelter_no from shelter where shelter_no=#{shelter_no})
+						,(SELECT careNm FROM shelter WHERE careNm = #{careNm,jdbcType=VARCHAR})
+						,(SELECT divisionNm FROM shelter WHERE divisionNm = #{divisionNm,jdbcType=VARCHAR})
+						,(SELECT saveTrgtAnimal FROM shelter WHERE saveTrgtAnimal = #{saveTrgtAnimal,jdbcType=VARCHAR})
+						,(SELECT careAddr FROM shelter WHERE careAddr = #{careAddr,jdbcType=VARCHAR})
+						,(SELECT weekOprStime FROM shelter WHERE weekOprStime = #{weekOprStime,jdbcType=VARCHAR})
+						,(SELECT weekOprEtime FROM shelter WHERE weekOprEtime = #{weekOprEtime,jdbcType=VARCHAR})
+						,(SELECT weekCellStime FROM shelter WHERE weekCellStime = #{weekCellStime,jdbcType=VARCHAR})
+						,(SELECT weekCellEtime FROM shelter WHERE weekCellEtime = #{weekCellEtime,jdbcType=VARCHAR})
+						,(SELECT weekendOprStime FROM shelter WHERE weekendOprStime = #{weekendOprStime,jdbcType=VARCHAR})
+						,(SELECT weekendOprEtime FROM shelter WHERE weekendOprEtime = #{weekendOprEtime,jdbcType=VARCHAR})
+						,(SELECT weekendCellStime FROM shelter WHERE weekendCellStime = #{weekendCellStime,jdbcType=VARCHAR})
+						,(SELECT weekendCellEtime FROM shelter WHERE weekendCellEtime = #{weekendCellEtime,jdbcType=VARCHAR})
+						,(SELECT closeDay FROM shelter WHERE closeDay = #{closeDay,jdbcType=VARCHAR})
+						,(SELECT careTel FROM shelter WHERE careTel = #{careTel,jdbcType=VARCHAR})
+						)
+  	</insert>
+  	<delete id="deleteShelterData">
+  		DELETE FROM favorites WHERE shelter_no=#{shelter_no}
+  	</delete>
   	</mapper>

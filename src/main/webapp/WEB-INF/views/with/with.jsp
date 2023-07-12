@@ -10,7 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>반려동물 동반가능 업체정보 목록 상세</title>
+        <title>위드펫</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
         <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -18,74 +18,7 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-		<script src="https://code.jquery.com/jquery-3.7.0.js" 
-    integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" 
-    crossorigin="anonymous"></script>
-		<script>   
- 
-		function sendFavoritew() {
-			 var favoritew = [];
-			  $("input[name='favorite']:checked").each(function() {
-			    favoritew.push($(this).val());
-			  });
-			
-			  $.ajax({
-			    url: "${pageContext.servletContext.contextPath}/with/registerwith",
-			    type: "POST",
-			    data: {
-		
-			      with_pet_no: favoritew.join(","),
-			  
-			    	 
-			    },
-			    dataType: "json",
-			    success: function(data) {
-			      if (data.result === 1) {
-			        var msg = favoritew.length + "건 등록되었습니다.";
-			        alert(msg);
-			       
-			      } else {
-			        alert("처리에 실패했습니다. 다시 시도해주세요.");
-			      }
-			    },
-			    error: function(jqXHR, textStatus, errorThrown) {
-			      console.log(jqXHR);
-			      console.log(textStatus);
-			      console.log(errorThrown);
-			      alert("오류가 발생했습니다. 다시 시도해주세요.");
-			    }
-			  });
-			}
-			  function removeFavoritew() {
-				  var favoritew = [];
-				  $("input[name='favorite']:checked").each(function() {
-				    favoritew.push($(this).val());
-				  });
-			
-				  $.ajax({
-				    url: "${pageContext.servletContext.contextPath}/with/removewith",
-				    type: "POST",
-				    data: {
-				      with_pet_no: favoritew.join(","),
-				  
-				    },
-				    dataType: "json",
-				    success: function(data) {
-				      if (data.result === 1) {
-				        var msg = favoritew.length + "건 삭제되었습니다.";
-				        alert(msg);
-				        
-				      } 
-				    },
-				    error: function(jqXHR, textStatus, errorThrown) {
-				      console.log(jqXHR);
-				      console.log(textStatus);
-				      console.log(errorThrown);
-				      alert("오류가 발생했습니다. 다시 시도해주세요.");
-				    }
-				  });
-				}
-  		</script>
+	
 		<style>
 		
 		  a:hover{
@@ -141,17 +74,20 @@
                 </div>
             </form>     
             </nav>
-        <script>
+            <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
              location.href = "${root}/logout";
                 }
          }
             </script>
-                 <!-- 로고 -->              
-               <nav class="main bg-white" >
-               
-               </nav>
+         <!-- 로고 -->              
+        <nav class="main bg-white" >
+         <a class="mainlogo" href="${pageContext.servletContext.contextPath}/main">
+         <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
+         </a>
+        </nav>
+        
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/petnotice"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shelter"><b>보호소</b></a>
@@ -160,11 +96,11 @@
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice"><b>공지사항</b></a>
    
             </nav>
-        <div>
+        
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1">위드펫 상세</h1>
+                        <h1 class="mt-1">위드펫</h1>
                       
                         <div class="card mb-4">
                             <div class="card-header">
@@ -176,88 +112,87 @@
                            		 <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
-	                                        	<th>check</th>
-	                                            <th>고유번호</th>
+	                                            
 	                                            <th>문화시설 이름</th>
-	                                            <th>문화시설 유형 </th>
 	                                            <th>도로명 주소</th>
 	                                            <th>전화번호 </th>
-	                                            <th>홈페이지</th>
-	                                            <th>휴무일 </th>
 	                                            <th>운영시간 </th>
-	                                            <th>주차가능여부 </th>
 	                                            <th>반려동물 동반 가능정보 </th>
 	                                            <th>반려동물 전용 정보 </th>
-	                                            <th>입장 가능 동물 크기 </th>
-	                                            <th>장소(실내)여부 </th>
-	                                            <th>장소(실외)여부 </th>
-	                                            <th>애견동반추가요금 </th>
+	                                            
+	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                        	<th>check</th>
-	                                        	<th>고유번호</th>
+	                                           	
 	                                            <th>문화시설 이름</th>
-	                                            <th>문화시설 유형 </th>
 	                                            <th>도로명 주소</th>
 	                                            <th>전화번호 </th>
-	                                            <th>홈페이지</th>
-	                                            <th>휴무일 </th>
 	                                            <th>운영시간 </th>
-	                                            <th>주차가능여부 </th>
 	                                            <th>반려동물 동반 가능정보 </th>
 	                                            <th>반려동물 전용 정보 </th>
-	                                            <th>입장 가능 동물 크기 </th>
-	                                            <th>장소(실내)여부 </th>
-	                                            <th>장소(실외)여부 </th>
-	                                            <th>애견동반추가요금 </th>
+	                                            
+	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="W_DTO" items="${ withdetailList }">
+	                                    	<c:forEach var="W_DTO" items="${withList}" >
 											<tr>
 												<!-- pageScope에 vo가 생성되었다.  -->
-												<td><input type="checkbox" name="favorite" 
-												style="transform:scale(1.5);" value="${W_DTO.with_pet_no}" /></td>
-												<td>${W_DTO.with_pet_no}</td>
-												<td>${W_DTO.building}</td>
-												<td>${W_DTO.category3}</td>
-												<td>${W_DTO.road}</td>
-												<td>${W_DTO.homepage}</td>										
-												<td>${W_DTO.day_off}</td>
-												<td>${W_DTO.hour}</td>
-												<td>${W_DTO.parking}</td>
-												<td>${W_DTO.with_pet_info}</td>
-												<td>${W_DTO.only_pet_info}</td>
-												<td>${W_DTO.pet_size}</td>
-												<td>${W_DTO.pet_limit}</td>
-												<td>${W_DTO.inside}</td>
-												<td>${W_DTO.outside}</td>
-												<td>${W_DTO.extra}</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}" >
+												${W_DTO.building}
+												</a>
+												</td>
 												
-										
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
+												${W_DTO.road}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
+												${W_DTO.tel}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
+												${W_DTO.hour}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
+												${W_DTO.with_pet_info}
+												</a>
+												</td>
+												<td>
+												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
+												${W_DTO.only_pet_info}
+												</a>
+												</td>
+												
+												
+											
 											</tr>
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                             <form action="${pageContext.servletContext.contextPath }/with/withdetail" method="post">
-	                              <button type="button" class="send-favoritew col p-3 btn btn-primary" 
-											onclick="sendFavoritew();">전송</button>
-	    						  <button type="button" class="remove-favoritew col p-3 btn btn-primary" 
-											onclick="removeFavoritew();">삭제</button>
-								</form>
+	                              
 	                            </div>
-	                           
+						<%@ include file="../import/page-with_pet.jsp" %>
                         </div>
                     </div>
                 </main>
-                <footer class="py-4 bg-light mt-auto">
-                   
-                </footer>
-            </div>
-        </div>
-        
-    </body>
-</html>
+		
 
+
+					
+				</div>
+			
+		
+
+	
+
+</body>
+</html>

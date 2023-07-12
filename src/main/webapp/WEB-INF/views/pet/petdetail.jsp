@@ -19,7 +19,68 @@
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-	
+		<script>
+		function sendFavoritep() {
+			  var favoritep = [];
+			  $("input[name='favorite']:checked").each(function() {
+			    favoritep.push($(this).val());
+			  });
+
+			  $.ajax({
+			    url: "${pageContext.servletContext.contextPath}/pet/registerpet",
+			    type: "POST",
+			    data: {
+			      pet_notice_no: favoritep.join(","),
+			      
+			    },
+			    dataType: "json",
+			    success: function(data) {
+			      if (data.result === 1) {
+			        var msg = favoritep.length + "건 등록되었습니다.";
+			        alert(msg);
+			       
+			      } 
+			    },
+			    error: function(jqXHR, textStatus, errorThrown) {
+			      console.log(jqXHR);
+			      console.log(textStatus);
+			      console.log(errorThrown);
+			      alert("오류가 발생했습니다. 다시 시도해주세요.");
+			    }
+			  });
+			}
+			  function removeFavoritep() {
+				  var favoritep = [];
+				  $("input[name='favorite']:checked").each(function() {
+				    favoritep.push($(this).val());
+				  });
+
+				  $.ajax({
+				    url: "${pageContext.servletContext.contextPath}/pet/removepet",
+				    type: "POST",
+				    data: {
+				      pet_notice_no: favoritep.join(","),
+				      
+				    },
+				    dataType: "json",
+				    success: function(data) {
+				      if (data.result === 1) {
+				        var msg = favoritep.length + "건 삭제되었습니다.";
+				        alert(msg);
+				        
+				      } else {
+				        alert("처리에 실패했습니다. 다시 시도해주세요.");
+				      }
+				    },
+				    error: function(jqXHR, textStatus, errorThrown) {
+				      console.log(jqXHR);
+				      console.log(textStatus);
+				      console.log(errorThrown);
+				      alert("오류가 발생했습니다. 다시 시도해주세요.");
+				    }
+				  });
+				}
+			  </script>
 		<style>
 		
 		  a:hover{
@@ -162,6 +223,7 @@
 	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
 											<tr>
 												<!-- pageScope에 vo가 생성되었다.  -->
+												<td><input type="checkbox" name="favorite" style="transform:scale(1.5);" value="${P_DTO.pet_notice_no}" /></td>
 												<td><img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/></td>
 												<td>${P_DTO.happenDt}</td>
 												<td>${P_DTO.happenPlace}</td>
@@ -185,9 +247,12 @@
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                              
+	                              <button type="button" class="send-favoritep col p-3 btn btn-primary" 
+											onclick="sendFavoritep();">전송</button>
+	    								<button type="button" class="remove-favoritep col p-3 btn btn-primary" 
+											onclick="removeFavoritep();">삭제</button>
 	                            </div>
-	                           <%@ include file="../import/page-pet_noticedetail.jsp" %>
+	                           
 	                          
 	                          
                         </div>

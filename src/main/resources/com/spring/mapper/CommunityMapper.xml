@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
   <mapper namespace="com.spring.mapper.CommunityMapper">
   	<select id="selectCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
   		<![CDATA[
@@ -20,6 +21,7 @@
 		 select * from (select ROWNUM as rn, c_no, title, content, reg_date, (select nickname from members where nickname=community.nickname) as nickname from community community where ROWNUM <=(#{cri.pageNum}*#{cri.amount})) where rn >((#{cri.pageNum}-1)*#{cri.amount})
 		]]>
   	</select>
+<<<<<<< HEAD
   	
   	<insert id="insertCommunity">
 	      INSERT INTO community(c_no,nickname, title, content, reg_date) VALUES(seq_c_no.nextval,#{nickname,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, sysdate)
@@ -34,3 +36,7 @@
 	      DELETE FROM community WHERE c_no=#{c_no}
 	</delete>
   </mapper>
+=======
+  </mapper>
+
+>>>>>>> branch 'master' of https://github.com/kmj1000/4jojo.git

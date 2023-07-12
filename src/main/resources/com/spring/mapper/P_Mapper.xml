@@ -55,9 +55,11 @@
   		 ]]>
 			
   	</select>
-  			
-  
-  	
+  		 <select id="selectCountAllBoard" resultType="com.spring.domain.P_DTO">	
+  		
+  			SELECT COUNT(1)FROM pet_notice
+  		
+  		</select>
   	 <select id="selectAllBoardByPage" resultType="com.spring.domain.P_DTO">
   		<![CDATA[
   		SELECT * FROM (
@@ -87,4 +89,53 @@
 				WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} ) 
 				]]>
   	</select>
+  	<insert id="insertPetnoticeData">
+  		INSERT INTO favoritep( 
+						favoritep_no
+						,favoritep_reg_date
+						,pet_notice_no  
+						,happenDt  
+						,happenPlace 
+						,kindCd 
+						,colorCd 
+						,age 
+						,weight
+						,noticeNo 
+						,noticeSdt  
+						,noticeEdt  
+						,popfile  
+						,processState 
+						,sexCd 
+						,neuterYn 
+						,specialMark
+						,careNm
+						,careAddr
+						,careTel
+						)
+						values(
+						seq_favoritep_no.nextval
+						,sysdate
+						,(SELECT pet_notice_no from pet_notice where pet_notice_no=#{pet_notice_no})
+						,(SELECT happenDt FROM pet_notice WHERE happenDt = #{happenDt,jdbcType=VARCHAR})
+						,(SELECT happenPlace FROM pet_notice WHERE happenPlace = #{happenPlace,jdbcType=VARCHAR})
+						,(SELECT kindCd FROM pet_notice WHERE kindCd = #{kindCd,jdbcType=VARCHAR})
+						,(SELECT colorCd FROM pet_notice WHERE colorCd = #{colorCd,jdbcType=VARCHAR})
+						,(SELECT age FROM pet_notice WHERE age = #{age,jdbcType=VARCHAR})
+						,(SELECT weight FROM pet_notice WHERE weight = #{weight,jdbcType=VARCHAR})
+						,(SELECT noticeNo FROM pet_notice WHERE noticeNo = #{noticeNo,jdbcType=VARCHAR})
+						,(SELECT noticeSdt FROM pet_notice WHERE noticeSdt = #{noticeSdt,jdbcType=VARCHAR})
+						,(SELECT noticeEdt FROM pet_notice WHERE noticeEdt = #{noticeEdt,jdbcType=VARCHAR})
+						,(SELECT popfile FROM pet_notice WHERE popfile = #{popfile,jdbcType=VARCHAR})
+						,(SELECT processState FROM pet_notice WHERE processState = #{processState,jdbcType=VARCHAR})
+						,(SELECT sexCd FROM pet_notice WHERE sexCd = #{sexCd,jdbcType=VARCHAR})
+						,(SELECT neuterYn FROM pet_notice WHERE neuterYn = #{neuterYn,jdbcType=VARCHAR})
+						,(SELECT specialMark FROM pet_notice WHERE specialMark = #{specialMark,jdbcType=VARCHAR})
+						,(SELECT careNm FROM pet_notice WHERE careNm = #{careNm,jdbcType=VARCHAR})
+						,(SELECT careAddr FROM pet_notice WHERE careAddr = #{careAddr,jdbcType=VARCHAR})
+						,(SELECT careTel FROM pet_notice WHERE careTel = #{careTel,jdbcType=VARCHAR})
+						)
+  	</insert>
+  	<delete id="deletePetnoticeData">
+  		DELETE FROM favoritep WHERE pet_notice_no=#{pet_notice_no}
+  	</delete>
   	</mapper>

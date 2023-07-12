@@ -4,6 +4,6 @@ import com.spring.domain.MembersDTO;
 
 public interface FindEmailService {
 
-	String getFindEmail(MembersDTO mdto);
+	String findEmail(MembersDTO mdto);
 	
 }

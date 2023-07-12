@@ -17,20 +17,18 @@
 <meta name="author" content="" />
 <title>마이페이지</title>
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-<link href="${root}/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
+<link href="${root}/resources/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"   crossorigin="anonymous"></script>
 <script   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"   crossorigin="anonymous"></script>
-<script   src="${root}/bootstrap/js/scripts.js"></script>
+<script   src="${root}/resources/bootstrap/js/scripts.js"></script>
 <script   src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="${root}/bootstrap/js/datatables-simple-demo.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" 
-    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
-    crossorigin="anonymous"></script>
+<script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+ 
   <script>
   function withdrawMember() {
      $.ajax({
-       url: "/4jo/mypage",
+       url: "/4jojo/mypage",
        type: "POST",
        dataType: "json",
        success: function(data) {
@@ -100,9 +98,9 @@
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(email);%>
-            <%  if( email != null) { %>
+                <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+              <%System.out.println(id);%>
+            <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -123,7 +121,7 @@
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" href= "${root}/main" >
-         <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
@@ -149,45 +147,48 @@
                <div class="card-header">
                   <i class="fas fa-table me-1"></i> 개인정보조회
                </div>
-        	 <%@ include file = "../import/page-nation.jsp" %>
-              <%   
+   
+             <%--  <%   
                  String id = (String)session.getAttribute("SESS_EMAIL"); 
               // 세션에 저장된 아이디를 가져와서
               // 그 아이디 해당하는 회원정보를 가져온다.
               MypageMapper mapper = MypageDAOImpl.getInstance();
               MembersVO vo = dao.selectMypage(id);
-          %>
+          %> --%>
           
-               
+              
                <div class="card-body">
             
                   <table id="datatablesSimple" >
-             
+                    <c:forEach items = "${membersDTO}" var = "mdto">
+                 <%-- <c:if test = "${membersDTO.email eq sessionScope.id}">  --%>
+                    
                         <tr>
                            <td>닉네임</td>                        
-                            <td> <%=vo.getNickname() %> </td>      
+                            <td>${mdto.nickname}</td>      
                         </tr>                    
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td> <%=vo.getPwd() %> </td>
+                            <td>${mdto.pwd}</td>
                         </tr>                                         
                        
                         <tr>
                            <td>이메일</td>                 
-                         <td> <%=vo.getEmail() %> </td>
+                         <td>${mdto.email}</td>
                         </tr>
                        
                         <tr>
                            <td>이름</td>
-                           <td> <%=vo.getName() %> </td>       
+                           <td>${mdto.name}</td>       
                         </tr>                       
                        
                         <tr>
                            <td>전화번호</td>
-                           <td> <%=vo.getPhone() %> </td>    
+                           <td>${mdto.phone}</td>    
                         </tr>
-             
+                <%--  </c:if>  --%>
+                </c:forEach>
                </table>
             
                 

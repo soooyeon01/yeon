@@ -10,15 +10,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>보호소</title>
+        <title>보호소 즐겨찾기</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${ pageContext.servletContext.contextPath }/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 		<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/scripts.js"></script>
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-		<script src="${ pageContext.servletContext.contextPath }/bootstrap/js/datatables-simple-demo.js"></script>
-	
+		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
+		
 		<style>
 		
 		  a:hover{
@@ -57,8 +57,8 @@
 				   background-color: #f9f8f3;
 				    }
 		</style>
-    </head>
-   <body class="sb-nav-fixed bgcolor"> 
+		</head>
+    <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
@@ -68,7 +68,7 @@
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
-                <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
              
             <%}  %>
                 </div>
@@ -99,85 +99,99 @@
         
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1">보호소</h1>
-                      
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-1">보호소 즐겨찾기</h1>
+                     
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                              
+                             
                             </div>
                             <div class="card-body">
                            		
-                           		<table id="datatablesSimple">
+                           		
+	                                <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>
-	                                       
+	                                            <th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>보호소 번호</th>
+	                                            <th>이미지</th>
 	                                            <th>보호소 이름</th>
-	                                            <th>보호소 주소 </th>
+	                                            <th>보호소 주소</th>
 	                                            <th>보호소 전화번호</th>
-	                                            <th>평일운영시작시간 </th>
-	                                            <th>평일운영종료시간 </th>
-	                                            
-	                                            
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
 	                                    <tfoot>
 	                                        <tr>
-	                                           	
-	                                             <th>보호소 이름</th>
-	                                            <th>보호소 주소 </th>
+	                                           	<th>즐겨찾기번호</th>
+	                                            <th>닉네임</th>
+	                                            <th>보호소 번호</th>
+	                                            <th>이미지</th>
+	                                            <th>보호소 이름</th>
+	                                            <th>보호소 주소</th>
 	                                            <th>보호소 전화번호</th>
-	                                            <th>평일운영시작시간 </th>
-	                                            <th>평일운영종료시간 </th>
-	                                            
+	                                            <th>즐겨찾기 등록일</th>
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </tfoot>
 	                                    <tbody>
-	                                    	<c:forEach var="S_DTO" items="${ shelList }" >
-											<tr>
-												<!-- pageScope에 vo가 생성되었다.  -->
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.careNm}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.careAddr}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.careTel}
-												</a>
-												</td>										
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.weekOprStime}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.weekOprEtime}
-												</a>
-												</td>
-												
-											</tr>
-											</c:forEach>
-	                                    </tbody>
+								<c:forEach var="F_P_DTO" items="${favoritep}"
+									varStatus="status">
+									<tr>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.favoritep_no} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.nickname} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.pet_notice_no} </a></td>
+										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
+												<img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
+												</a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.careNm} </a></td>
+								
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.careAddr} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.careTel} </a></td>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
+												${F_P_DTO.favoritep_reg_date} </a></td>
+									</tr>
+								</c:forEach>
+							</tbody>
 	                                </table>
 	                              
 	                            </div>
-						<%@ include file="../import/page-shelter.jsp" %>
+	                            <%@ include file="../import/page-favoritep.jsp" %>
+	                          
                         </div>
                     </div>
                 </main>
-	
-	</div>
-	
-
-</body>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+    </body>
 </html>
+

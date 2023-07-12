@@ -32,4 +32,22 @@ public class S_ServiceImpl implements S_Service {
 		return mapper.selectAllBoardByPage(pageMaker);
 	}
 
+	@Override
+	public int getCountAllBoard() {
+		
+		return mapper.selectCountAllBoard();
+	}
+
+	@Override
+	public int registerShelterData(S_DTO dto) {
+		
+		return mapper.insertShelterData(dto);
+	}
+
+	@Override
+	public int removeShelterData(int shelter_no) {
+		
+		return mapper.deleteShelterData(shelter_no);
+	}
+
 }
