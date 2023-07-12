@@ -84,7 +84,7 @@ public class WithpetController {
 		
 		
 		int result=service.registerWithpetData(dto2);
-		//{ result : 1}
+		//{ result : 11}
 		
 		
 

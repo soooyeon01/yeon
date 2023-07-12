@@ -148,10 +148,12 @@
                 }
          }
             </script>
-                 <!-- 로고 -->              
-               <nav class="main bg-white" >
-               
-               </nav>
+                <!-- 로고 -->              
+        <nav class="main bg-white" >
+         <a class="mainlogo" href="${root}/main" >
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
+         </a>
+        </nav>
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/petnotice"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shelter"><b>보호소</b></a>
