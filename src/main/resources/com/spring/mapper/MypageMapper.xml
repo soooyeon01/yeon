@@ -5,13 +5,13 @@
   <mapper namespace="com.spring.mapper.MypageMapper">
   <select id="selectMypage" resultType="com.spring.domain.MembersDTO">
 
-
-        SELECT email
+	<!-- SELECT * FROM members --> 
+       	 SELECT email
               , pwd
               , phone
               , name
               , nickname 
-              FROM members WHERE email = #{email,jdbcType=VARCHAR}
+              FROM members WHERE email = 'kk@ss.com'  <!-- #{email,jdbcType=VARCHAR} -->
      </select>
      
      <update id="UpdateMypage">

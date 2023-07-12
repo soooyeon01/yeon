@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,49 @@ import lombok.RequiredArgsConstructor;
 public class MypageController {
    
    
-   private final MypageService service;
+//   private final MypageService service;
+//   
+//   @Autowired
+//   private MypageMapper mapper;
+//
+//   @RequestMapping("/mypage")
+//   public void showMypage(Model model) {
+//   
+//       model.addAttribute("membersDTO",mapper.selectMypage());
+//      
+//   }
+   
    
    @Autowired
    private MypageMapper mapper;
 
    @RequestMapping("/mypage")
-   public String showMypage(HttpSession session, Model model) {
-       String id = (String) session.getAttribute("SESS_EMAIL");
+   public String showMypage(HttpServletRequest request, Model model) {
+       
+	   	  HttpSession session = request.getSession(true);
+	      boolean SESS_AUTH = true;
+	      
+	      try {
+	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+	      }catch(Exception e) {}
+	      
+	      if( SESS_AUTH ) {
+	         
+//	         request.setCharacterEncoding("utf-8");
+	         request.setAttribute("SESS_AUTH", true);  
+	   
+	   String id = (String) session.getAttribute("SESS_EMAIL");
        List<MembersDTO> mdto = mapper.selectMypage(id);
        model.addAttribute("membersDTO", mdto);
        return "mypage/mypage";
+   }else {
+	   return "redirect:/main/main"; 
+		}
+	   
    }
+		
+   }
+
    
 //   @RequestMapping(value = "/", method = RequestMethod.GET)
 //   public String handleGetRequest(HttpServletRequest request, HttpSession session, Model model) {
@@ -66,14 +98,14 @@ public class MypageController {
 //      return "/mypage/mypage";
 //   }
 
-   @GetMapping("/mupdate")
-   public String updateMypage(MembersDTO mdto) {
-      service.modifyMember(mdto);
-      return "/mupdate";
-   }
-   
-   @GetMapping("/test")
-   public String test() {
-      return "/mypage/test";
-   }
-}
+//   @GetMapping("/mupdate")
+//   public String updateMypage(MembersDTO mdto) {
+//      service.modifyMember(mdto);
+//      return "/mupdate";
+//   }
+//   
+//   @GetMapping("/test")
+//   public String test() {
+//      return "/mypage/test";
+//   }
+//}

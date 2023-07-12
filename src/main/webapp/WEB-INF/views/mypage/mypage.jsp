@@ -17,20 +17,18 @@
 <meta name="author" content="" />
 <title>마이페이지</title>
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-<link href="${root}/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
+<link href="${root}/resources/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"   crossorigin="anonymous"></script>
 <script   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"   crossorigin="anonymous"></script>
-<script   src="${root}/bootstrap/js/scripts.js"></script>
+<script   src="${root}/resources/bootstrap/js/scripts.js"></script>
 <script   src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-<script src="${root}/bootstrap/js/datatables-simple-demo.js"></script>
-
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" 
-    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
-    crossorigin="anonymous"></script>
+<script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+ 
   <script>
   function withdrawMember() {
      $.ajax({
-       url: "/4jo/mypage",
+       url: "/4jojo/mypage",
        type: "POST",
        dataType: "json",
        success: function(data) {
@@ -123,7 +121,7 @@
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" href= "${root}/main" >
-         <img class = "img_main" src="image/logo.png" style="width: 250px; height: 90px;"/>
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
@@ -162,8 +160,8 @@
                <div class="card-body">
             
                   <table id="datatablesSimple" >
-                    <c:forEach items = " ${membersDTO}" var = "mdto">
-                    <c:if test = "${membersDTO.email eq sessionScope.id}">
+                    <c:forEach items = "${membersDTO}" var = "mdto">
+                 <c:if test = "${membersDTO.email eq sessionScope.id}">
                     
                         <tr>
                            <td>닉네임</td>                        
@@ -189,7 +187,7 @@
                            <td>전화번호</td>
                            <td>${mdto.phone}</td>    
                         </tr>
-                      </c:if>  
+                  </c:if>   
                 </c:forEach>
                </table>
             
