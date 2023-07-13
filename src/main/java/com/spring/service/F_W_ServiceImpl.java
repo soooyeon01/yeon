@@ -30,7 +30,7 @@ public class F_W_ServiceImpl implements F_W_Service {
 	@Override
 	public int getCountAllBoard() {
 		
-		return mapper.seletCountWBoard();
+		return mapper.selectCountWBoard();
 	}
 
 }

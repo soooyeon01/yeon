@@ -28,7 +28,7 @@ public class F_S_ServiceImpl implements F_S_Service {
 	@Override
 	public int getCountAllBoard() {
 		
-		return mapper.seletCountSBoard();
+		return mapper.selectCountSBoard();
 	}
 
 }
