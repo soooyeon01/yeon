@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.spring.domain.MembersDTO" %>
- <c:set var="root" value="${pageContext.servletContext.contextPath}" /> 
 <%@ page import="com.spring.mapper.MypageMapper" %> 
-<%-- <%@ page import="com.spring.servlet.dao.impl.MypageDAOImpl" %>  --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <c:set var="root" value="${pageContext.servletContext.contextPath}" /> 
 
 
 <!DOCTYPE html>
@@ -48,11 +47,22 @@
      });
    }
   
+  function login(){
+	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
+	  }
   
-  function nextPage(){
+  function mypage(){
   	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-
   }
+  
+  
+  function main(){
+  	location.href = "${pageContext.servletContext.contextPath}/main/main";
+  }
+/*   
+  function logout(){  
+	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
+	  } */
   
   </script>
 <style>
@@ -109,10 +119,11 @@
               <%System.out.println(id);%>
             <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="nextPage();" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
                    
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                 
+                
              
             <%}  %>
                 </div>
@@ -121,14 +132,14 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/logout";
+             location.href = "${pageContext.servletContext.contextPath}/user/logout";
                 }
-         }
+         	}
             </script>
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href= "${root}/main" >
+         <a class="mainlogo" href= "main();" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
@@ -168,8 +179,9 @@
                <div class="card-body">
             
                   <table id="datatablesSimple" >
-                    <c:forEach items = "${membersDTO}" var = "mdto">
-                 <%-- <c:if test = "${membersDTO.email eq sessionScope.id}">  --%>
+                 <c:forEach items="${membersDTO}" var="mdto">
+				  <% String id2 = (String)session.getAttribute("SESS_EMAIL"); %>
+				  <c:if test="${mdto.email eq sessionScope.id}">
                     
                         <tr>
                            <td>닉네임</td>                        
@@ -195,7 +207,7 @@
                            <td>전화번호</td>
                            <td>${mdto.phone}</td>    
                         </tr>
-                <%--  </c:if>  --%>
+                 </c:if> 
                 </c:forEach>
                </table>
             

@@ -12,12 +12,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LogoutController {
 	
-	@RequestMapping("")
+	@RequestMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
  
-        return "/logout/logout";
+        return "redirect:/main/main";
     }
-
 
 }
