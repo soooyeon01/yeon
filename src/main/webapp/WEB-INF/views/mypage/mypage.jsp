@@ -191,7 +191,7 @@
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>
+                            <td>${mdto.pwd}</td>                         
                         </tr>                                         
                        
                         <tr>
@@ -214,7 +214,8 @@
                 
                 
                <div align="center">
-                     <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypaper'" >내가쓴글</button>&nbsp; 
+               
+                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;

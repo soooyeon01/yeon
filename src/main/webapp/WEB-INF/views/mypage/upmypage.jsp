@@ -59,8 +59,7 @@
   
   function main(){
   	location.href = "${pageContext.servletContext.contextPath}/main/main";
-  }
-  
+  } 
   function favoritep(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
 	  }
@@ -70,10 +69,33 @@
   function favoritew(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
 	  }
-  function upmember(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmember";
-	  }
+
   
+  function pwdShow() {
+	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴
+	 let email =document.getElementsByName("email").value;
+	  var msg = "비밀번호 변경이 완료되었습니다."
+	  alert(msg);
+	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+	  return true;
+	} 
+  
+  function phoneShow() {
+		 let phone = document.getElementsByName("phone").value; //name속성을 받아옴
+		 let email =document.getElementsByName("email").value;
+		  var msg = "전화번호 변경이 완료되었습니다."
+		  alert(msg);
+		  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+		  return true;
+		} 
+  
+  function checkmypage() {
+		  var msg = "정보 변경이 완료되었습니다."
+		  alert(msg);
+		  location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+		  return true;
+		  
+		} 
 /*   
   function logout(){  
 	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
@@ -192,7 +214,12 @@
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>
+                            <td><form action="${pageContext.servletContext.contextPath }/mypage/upmypwd" method="get">
+   									<input type ="text" name ="pwd"  placeholder="${mdto.pwd}"/>
+   									<button type="submit" onclick="pwdShow();" >변경</button>
+   								<input type="hidden" name="email" value="${mdto.email}">	
+								</form>			
+							</td>
                         </tr>                                         
                        
                         <tr>
@@ -207,7 +234,12 @@
                        
                         <tr>
                            <td>전화번호</td>
-                           <td>${mdto.phone}</td>    
+                           <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="get">
+   									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
+   									<button type="submit" onclick="phoneShow();">변경</button>
+   								<input type="hidden" name="email" value="${mdto.email}">	
+								</form>	
+							</td>    
                         </tr>
                 </c:forEach>
                </table>
@@ -215,14 +247,11 @@
                 
                 
                <div align="center">
-                     <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypaper'" >내가쓴글</button>&nbsp; 
-                     <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
-                      <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="upmember();">정보 수정</button>&nbsp;
-                    </div>
                     
-                     <button type="button" class="btn" onclick="" style="font-size: 14px;">회원 탈퇴</button>
+                     <button type="button" class ="btn btn-warning" onclick="mypage();">이전</button>&nbsp;    
+                      <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
+                    </div>
+
             </div>
          </div>
       </main>

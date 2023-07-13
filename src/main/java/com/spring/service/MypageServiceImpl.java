@@ -23,8 +23,14 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<MembersDTO modifyMypage(MembersDTO mdto) {
-		int result = mapper.updateMypage(mdto);
+	public int modifyPwd(MembersDTO dto) {
+		int result = mapper.updatePwd(dto);
+		return result;
+	}
+
+	@Override
+	public int modifyPhone(MembersDTO dto) {
+		int result = mapper.updatePhone(dto);
 		return result;
 	}
 
