@@ -190,9 +190,84 @@
        	function toListPage() {
     		location.href="${pageContext.servletContext.contextPath}/community/clist";
     	}
-    </script>  
+    </script>
+    <style> 
+
+       a:hover{
+                background-color: #feeaa5;
+            }
+            .main{
+            padding-top: 0.7cm;
+            padding-left: 1.0cm;
+            padding-right : 1.5cm;
+            padding-bottom : 3cm;
+            height: 120px;
+            }         
+            .bg-yellow {
+              --bs-bg-opacity: 1;
+              background-color: #feeaa5 !important;
+         }
+         .main1{
+         border-bottom : 1px solid #645326;
+          padding-bottom : 2px;
+          padding-top : 2px;
+         }
+         .tab{
+             padding-bottom : 0;
+             padding-top : 0;
+            border-bottom : 1px solid #645326;
+            border-top : 1px solid #645326;
+         }
+         
+         .img_main{
+         width: 60%;
+          margin: 0px auto;
+          display: block;
+          width: 250px; height: 90px;
+          }
+          .bgcolor{
+         background-color: #f9f8f3;
+          }
+          
+        </style> 
 </head>
-<body>
+<body class="sb-nav-fixed"> 
+           <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+                 <div class="input-group">
+                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+              <%System.out.println(email);%>
+         <%  if( email != null) { %>
+                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
+            <%} else{%>
+                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
+            <%}  %>
+                </div>
+            </form>      
+            </nav>
+            <script>
+	            function logout() {
+	    		if (confirm("로그아웃 하시겠습니까?")) {
+	    		location.href = "${root}/logout";
+	   		 	}
+			}
+
+            </script>
+         <!-- 로고 -->              
+        <nav class="main bg-white" >
+         <a class="mainlogo" href="${root}/main/main" >
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
+         </a>
+        </nav>
+        
+        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+        </nav>
 <div class="container mt-3">
   <h2 style="text-align: center;">게시글 작성</h2>  
   <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="post">

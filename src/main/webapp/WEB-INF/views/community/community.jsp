@@ -72,9 +72,9 @@
               <%System.out.println(email);%>
          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
             <%}  %>
                 </div>
             </form>      
@@ -89,20 +89,18 @@
             </script>
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main" >
+         <a class="mainlogo" href="${root}/main/main" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
-         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link active" href="${root}/petnotice"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shelter"><b>보호소</b></a>
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/withpet"><b>위드펫</b></a>
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link " href="${root}/community"><b>커뮤니티</b></a>
-         <a class=" pt-3 pb-3 flex-sm-fill text-sm-center nav-link " href="${root}/notice"><b>공지사항</b></a>
-
-            </nav>
+        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+        </nav>
 	<div id="layoutSidenav_content">
 			<main>
                     <div class="container-fluid px-3 pt-3">
