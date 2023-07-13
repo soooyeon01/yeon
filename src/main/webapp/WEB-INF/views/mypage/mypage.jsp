@@ -46,19 +46,31 @@
        }
      });
    }
+  </script>
   
+  <!-- 이동경로 -->
+  <script>
   function login(){
 	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
 	  }
-  
   function mypage(){
   	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
   }
   
-  
   function main(){
   	location.href = "${pageContext.servletContext.contextPath}/main/main";
   }
+  
+  function favoritep(){
+	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
+	  }
+  function favorites(){
+	  	location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
+	  }
+  function favoritew(){
+	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
+	  }
+  
 /*   
   function logout(){  
 	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
@@ -122,9 +134,7 @@
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
                    
             <%} else{%>
-                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                 
-                //
-             
+                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
             <%}  %>
                 </div>
             </form>     
@@ -166,25 +176,12 @@
                <div class="card-header">
                   <i class="fas fa-table me-1"></i> 개인정보조회
                </div>
-   
-            
-        <!--          String id = (String)session.getAttribute("SESS_EMAIL"); 
-              // 세션에 저장된 아이디를 가져와서
-              // 그 아이디 해당하는 회원정보를 가져온다.
-              MypageMapper mapper = MypageDAOImpl.getInstance();
-              MembersVO vo = dao.selectMypage(id);
-     -->
-          
               
                <div class="card-body">
             
                   <table id="datatablesSimple" >
                  <c:forEach items="${membersDTO}" var="mdto">
-				 <%--  <% String id2 = (String)session.getAttribute("SESS_EMAIL"); 
-				  %>
-				  <% if(mdto.email == "SESS_EMAIL") %> --%>
-				 <%--  <c:if test="${mdto.email eq sessionScope.id}"> --%>
-                    
+
                         <tr>
                            <td>닉네임</td>                        
                             <td>${mdto.nickname}</td>      
@@ -209,7 +206,6 @@
                            <td>전화번호</td>
                            <td>${mdto.phone}</td>    
                         </tr>
-<%--                  </c:if>  --%>
                 </c:forEach>
                </table>
             
@@ -219,9 +215,11 @@
                      <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypaper'" >내가쓴글</button>&nbsp; 
                      <button type="button" class ="btn btn-warning" onclick="location.href='${root}/favorites'">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="location.href='${root}/favoritew'">위드펫 즐겨찾기</button>&nbsp;
+                      <button type="button" class ="btn btn-warning" onclick="location.href='${root}/favoritew'">공고 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="location.href='${root}/update'">정보 수정</button>&nbsp;
-
                     </div>
+                    
+                     <button type="button" class="btn" onclick="" style="font-size: 14px;">회원 탈퇴</button>
             </div>
          </div>
       </main>
