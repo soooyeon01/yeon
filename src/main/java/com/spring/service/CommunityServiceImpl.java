@@ -48,9 +48,9 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public int removeCommunity(int parseInt) {
+	public int removeCommunity(int c_no) {
 
-		return mapper.deleteCommunity(parseInt);
+		return mapper.deleteCommunity(c_no);
 	}
 
 }

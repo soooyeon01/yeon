@@ -59,18 +59,29 @@ public class CommunityController {
 		return "community/commuSel";
 	}
 	
-	@GetMapping("/commUp")
-	public String moveUpdt() {
-		return "community/commuUp";
+	@RequestMapping("/commuUp1")
+	public String CommunityUdt(Model model, int c_no) {
+		model.addAttribute("selectone",service.getCommunity(c_no));
+			return "community/commuUp";
+		}
+	
+	@PostMapping("/commuUp")
+	public String Updt(CommunityDTO commu) {
+	int	result=service.modifyCommunity(commu);
+		if(result>0) {
+			return "redirect:/community/commuSel?c_no="+commu.getC_no();
+		}else {
+			return "redirect:/community/commuUp?c_no="+commu.getC_no();
+		}
 	}
 	
-	@RequestMapping("/commuUp")
-	public String CommunityUdt(CommunityDTO commu) {
-		int result=service.modifyCommunity(commu);
+	@RequestMapping("/commuDel")
+	public String CommuDel(int c_no) {
+	int	result=service.removeCommunity(c_no);
 		if(result>0) {
-			return "community/commuSel";
+			return "redirect:/community/clist";
 		}else {
-			return "community/commuUp";
+			return "redirect:/community/commuSel?c_no="+c_no;
 		}
 	}
 	
