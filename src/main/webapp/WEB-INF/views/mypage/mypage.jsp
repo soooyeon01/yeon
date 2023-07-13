@@ -167,21 +167,23 @@
                   <i class="fas fa-table me-1"></i> 개인정보조회
                </div>
    
-             <%--  <%   
-                 String id = (String)session.getAttribute("SESS_EMAIL"); 
+            
+        <!--          String id = (String)session.getAttribute("SESS_EMAIL"); 
               // 세션에 저장된 아이디를 가져와서
               // 그 아이디 해당하는 회원정보를 가져온다.
               MypageMapper mapper = MypageDAOImpl.getInstance();
               MembersVO vo = dao.selectMypage(id);
-          %> --%>
+     -->
           
               
                <div class="card-body">
             
                   <table id="datatablesSimple" >
                  <c:forEach items="${membersDTO}" var="mdto">
-				  <% String id2 = (String)session.getAttribute("SESS_EMAIL"); %>
-				  <c:if test="${mdto.email eq sessionScope.id}">
+				 <%--  <% String id2 = (String)session.getAttribute("SESS_EMAIL"); 
+				  %>
+				  <% if(mdto.email == "SESS_EMAIL") %> --%>
+				 <%--  <c:if test="${mdto.email eq sessionScope.id}"> --%>
                     
                         <tr>
                            <td>닉네임</td>                        
@@ -207,7 +209,7 @@
                            <td>전화번호</td>
                            <td>${mdto.phone}</td>    
                         </tr>
-                 </c:if> 
+<%--                  </c:if>  --%>
                 </c:forEach>
                </table>
             

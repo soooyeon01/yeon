@@ -42,7 +42,7 @@ public class MypageController {
    @RequestMapping("/mypage")
    public String showMypage(HttpServletRequest request, Model model) {
        	   	
-	   	  HttpSession session = request.getSession(true);
+	   	  HttpSession session = request.getSession(false);
 	      boolean SESS_AUTH = false;
 	      
 	      try {
@@ -52,7 +52,7 @@ public class MypageController {
 	      if( SESS_AUTH ) {
 	    	 
 //	         request.setCharacterEncoding("utf-8");
-	         request.setAttribute("SESS_AUTH", true);
+	         request.setAttribute("SESS_AUTH", false);
 	         String email = (String) session.getAttribute("SESS_EMAIL");
 	         session.setAttribute("id", email);
 	   
