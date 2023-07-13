@@ -25,4 +25,10 @@ public class F_S_ServiceImpl implements F_S_Service {
 		return mapper.selectSBoardByPage(pageMaker);
 	}
 
+	@Override
+	public int getCountAllBoard() {
+		
+		return mapper.seletCountSBoard();
+	}
+
 }

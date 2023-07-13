@@ -15,7 +15,11 @@
       		FROM favorites f
       		]]>
   	</select>
-  	
+  	<select id="selectCountWBoard" parameterType="int" resultType="int">	
+  		
+  			SELECT COUNT(1)FROM favoritew
+  		
+  		</select>
   	 <select id="selectWBoardByPage" resultType="com.spring.domain.F_W_DTO">
   <![CDATA[
   SELECT 

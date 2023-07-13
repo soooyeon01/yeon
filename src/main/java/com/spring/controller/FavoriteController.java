@@ -22,21 +22,24 @@ public class FavoriteController {
 	private final F_P_Service servicep;
 	@GetMapping("/favorites")
 	public String getSBoard(Model model, Criteria cri) {
-		PageMaker pageMaker = new PageMaker(cri,101);
+		int totalCount=services.getCountAllBoard();
+		PageMaker pageMaker = new PageMaker(cri,totalCount);
 		model.addAttribute("favorites",services.getSBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/fa/favorites";
 	}
 	@GetMapping("/favoritew")
 	public String getWBoard(Model model, Criteria cri) {
-		PageMaker pageMaker = new PageMaker(cri,101);
+		int totalCount=servicew.getCountAllBoard();
+		PageMaker pageMaker = new PageMaker(cri,totalCount);
 		model.addAttribute("favoritew",servicew.getWBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/fa/favoritew";
 	}
 	@GetMapping("/favoritep")
 	public String getPBoard(Model model, Criteria cri) {
-		PageMaker pageMaker = new PageMaker(cri,101);
+		int totalCount=servicep.getCountAllBoard();
+		PageMaker pageMaker = new PageMaker(cri,totalCount);
 		model.addAttribute("favoritep",servicep.getPBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/fa/favoritep";

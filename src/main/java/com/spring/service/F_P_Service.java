@@ -9,4 +9,5 @@ import com.spring.util.PageMaker;
 public interface F_P_Service {
 	List<F_P_DTO> getPBoard();
 	List<F_P_DTO> getPBoardByPage(PageMaker pageMaker);
+	public int getCountAllBoard();
 }
