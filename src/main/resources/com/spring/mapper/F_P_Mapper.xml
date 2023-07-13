@@ -22,7 +22,7 @@
       		JOIN shelter p ON f.pet_notice_no = p.pet_notice_no
       		]]>
   	</select>
-  	<select id="seletCountPBoard" parameterType="int" resultType="int">	
+  	<select id="selectCountPBoard" parameterType="int" resultType="int">	
   		
   			SELECT COUNT(1)FROM favoritep
   		

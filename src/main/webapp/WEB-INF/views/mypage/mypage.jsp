@@ -219,7 +219,7 @@
                       <button type="button" class ="btn btn-warning" onclick="location.href='${root}/update'">정보 수정</button>&nbsp;
                     </div>
                     
-                     <button type="button" class="btn" onclick="" style="font-size: 14px;">회원 탈퇴</button>
+                     <button type="button" class="btn" onclick="location.href='${root}/mypage/getout'" style="font-size: 14px;">회원 탈퇴</button>
             </div>
          </div>
       </main>
