@@ -22,9 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MypageController {
    
-   
    @Autowired
-   private MypageMapper mapper;
+   private MypageService service;
 
    @RequestMapping("/mypage")
    public String showMypage(HttpServletRequest request, Model model) {
@@ -40,11 +39,11 @@ public class MypageController {
 	    	 
 //	         request.setCharacterEncoding("utf-8");
 	         request.setAttribute("SESS_AUTH", false);
-	         String id = (String) session.getAttribute("SESS_EMAIL");
+	         String email = (String) session.getAttribute("SESS_EMAIL");
 //	         session.setAttribute("id", email);
 	   
 		  
-	       List<MembersDTO> mdto = mapper.selectMypage(id);
+	       List<MembersDTO> mdto = service.getMypage(email);
 	       model.addAttribute("membersDTO", mdto);
 	       return "/mypage/mypage";
 	       
@@ -52,7 +51,16 @@ public class MypageController {
 			   return "redirect:/main/main"; 
 		   }
    		}  
+   
+ 
 
+//   @RequestMapping("/upmember")
+//   public void upMember(Model model) {
+//   
+//       model.addAttribute("upmember",service.selectMypage());
+//      
+//   }
+//   
    
 }
 
