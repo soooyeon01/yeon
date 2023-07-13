@@ -56,36 +56,53 @@ public class UserController {
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
 	        return "redirect:/main/main";
 	    } else {
-	        model.addAttribute("msg", "login failed, please try again!");
-	        return "/user/login";
+	        model.addAttribute("msg", "로그인 실패되었습니다");
+	        model.addAttribute("url", "login");
+	        return "/alert";    		
 	    }
 	}
 	
-	
-		
 	@GetMapping("/join")
 	public String joinget(MembersDTO mdto) {
 		return "user/join";
 	}
 	
 	@PostMapping("/join")
-	public String joinpost(MembersDTO mdto) {
+	public String joinpost(MembersDTO mdto, Model model) {
 		int isOk = 1;
-		String msg = null;
-		if( servicej.registerMembers(mdto) == isOk) {
-			msg = "success";
-		}else {
-			msg = "fail, try again";
-		}
 		
-		return "redirect:/user/login";
+		if( servicej.registerMembers(mdto) == isOk) {
+			model.addAttribute("msg", "회원가입 완료되었습니다");
+	        model.addAttribute("url", "login");
+	        return "/alert";
+		}else {
+			model.addAttribute("msg", "회원가입 실패하였습니다");
+			model.addAttribute("url", "join");
+	        return "/alert";
+		} //포기한다
+		
 	}
 
 	@GetMapping("/findEmail")
-	public String findEmail(MembersDTO mdto) {
-		servicee.findEmail(mdto);
+	public String findEmailget(MembersDTO mdto) {
 		return "user/findEmail";
 	}
+	@PostMapping("/findEmail")
+	public String findEmail(@RequestParam("name") String name,@RequestParam("phone") String phone,Model model) {
+		MembersDTO mdto = new MembersDTO();
+
+		String email = servicee.findEmail(mdto);
+		
+		if (email != null) {
+			  model.addAttribute("msg", "회원님의 이메일은 " + email + "입니다.");
+		} else {
+			  model.addAttribute("msg", "없는 정보입니다.");
+		}
+	
+		return "user/findEmail";
+	}
+	
+	
 	@GetMapping("/findPwd")
 	public String findPwd(MembersDTO mdto) {
 		servicep.findPwd(mdto);
