@@ -177,7 +177,7 @@
 
             <div class="card mb-4">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 개인정보조회
+                  <i class="fas fa-table me-1"></i> 개인정보변경
                </div>
               
                <div class="card-body">

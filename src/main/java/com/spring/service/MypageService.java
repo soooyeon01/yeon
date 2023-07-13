@@ -7,11 +7,9 @@ import com.spring.domain.MembersDTO;
 
 public interface MypageService {
 	
-
-	int modifyMember(MembersDTO mdto);
-
-	List<MembersDTO> getMypage();
-
+		
 	List<MembersDTO> getMypage(String email);
+	int modifyMypage(List<MembersDTO> mdto);
+	List<MembersDTO> modifyMypage(MembersDTO mdto);
 
 }

@@ -14,7 +14,7 @@
               FROM members WHERE email =  #{email,jdbcType=VARCHAR}
      </select>
      
-     <update id="UpdateMypage">
+     <update id="updateMypage">
    <![CDATA[UPDATE members 
          SET name = #{name,jdbcType=VARCHAR}
             , pwd = #{pwd,jdbcType=VARCHAR} 

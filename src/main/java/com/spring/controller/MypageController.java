@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.spring.domain.MembersDTO;
 import com.spring.mapper.MypageMapper;
 import com.spring.service.MypageService;
@@ -28,7 +27,7 @@ public class MypageController {
    @RequestMapping("/mypage")
    public String showMypage(HttpServletRequest request, Model model) {
        	   	
-	   	  HttpSession session = request.getSession(false);
+	   	  HttpSession session = request.getSession();
 	      boolean SESS_AUTH = false;
 	      
 	      try {
@@ -41,8 +40,7 @@ public class MypageController {
 	         request.setAttribute("SESS_AUTH", false);
 	         String email = (String) session.getAttribute("SESS_EMAIL");
 //	         session.setAttribute("id", email);
-	   
-		  
+	   	  
 	       List<MembersDTO> mdto = service.getMypage(email);
 	       model.addAttribute("membersDTO", mdto);
 	       return "/mypage/mypage";
@@ -52,17 +50,37 @@ public class MypageController {
 		   }
    		}  
    
- 
+   @RequestMapping("/upmypage")
+   public String updateMypage(HttpServletRequest request, Model model) {
+       	   	
+	   	  HttpSession session = request.getSession();
+	      boolean SESS_AUTH = false;
+	      
+	      try {
+	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+	      }catch(Exception e) {}
+	      
+	      if( SESS_AUTH ) {    	 
 
-//   @RequestMapping("/upmember")
-//   public void upMember(Model model) {
-//   
-//       model.addAttribute("upmember",service.selectMypage());
-//      
-//   }
-//   
-   
+	         request.setAttribute("SESS_AUTH", false);
+	         String email = (String) session.getAttribute("SESS_EMAIL");
+
+	       List<MembersDTO> mdto = service.getMypage(email);
+	       model.addAttribute("membersDTO", mdto);
+	       return "/mypage/upmypage";
+	       
+		   }else {
+			   return "redirect:/main/main"; 
+		   }
+   	}  
+
+
+
+
 }
+		   
+   
+
 
    
 // 
