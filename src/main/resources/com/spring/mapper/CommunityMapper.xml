@@ -15,6 +15,12 @@
 		 select * from community order by c_no desc
 		]]>
 	</select>
+	
+	<select id="selectMyCommunity" resultType="com.spring.domain.CommunityDTO">
+	    <![CDATA[
+		 select * from community where nickname=#{nickname,jdbcType=VARCHAR} order by c_no desc
+		]]>
+	</select>
   	
   	<select id="selectAllCommunityByPage" resultType="com.spring.domain.CommunityDTO">
   		<![CDATA[
@@ -31,6 +37,10 @@
 	      UPDATE community SET title=#{title,jdbcType=VARCHAR}, content=#{content,jdbcType=VARCHAR} WHERE c_no=#{c_no}
 	</update>
 	  
+	<update id="viewCount">
+		UPDATE community SET view_count=view_count+1 WHERE c_no=${c_no}
+	</update>
+	
 	<delete id="deleteCommunity">
 	      DELETE FROM community WHERE c_no=#{c_no}
 	</delete>

@@ -36,6 +36,12 @@ public class CommunityController {
 		return "community/community";
 	}
 	
+	@RequestMapping("/myclist")
+	public String MyCommunList(Model model) {
+		model.addAttribute("myCommuList",service.getMyCommunity());
+		return "community/mycommunity";
+	}
+	
 	@GetMapping("/newcommu")
 	public String moveRegi() {
 		return "community/commuRegi";
@@ -56,6 +62,7 @@ public class CommunityController {
 	public String CommuSel(Model model,int c_no) {
 		CommunityDTO selectone=service.getCommunity(c_no);
 		model.addAttribute("selectone", selectone);
+		service.viewCount(c_no);
 		return "community/commuSel";
 	}
 	
@@ -84,5 +91,11 @@ public class CommunityController {
 			return "redirect:/community/commuSel?c_no="+c_no;
 		}
 	}
+	
+	@RequestMapping("/Pwd")
+	public String pwd() {
+		return "community/mypagePwd";	
+	}
+	
 	
 }
