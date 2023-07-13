@@ -21,22 +21,23 @@ public class MypageServiceImpl implements MypageService {
 		List<MembersDTO> result = mapper.selectMypage(email);
 		return result;
 	}
-	
-	//업데이트도 추가해야함
+
 	@Override
-	public int modifyMember(MembersDTO mdto) {
-		int result = mapper.UpdateMember(mdto);
+	public int modifyPwd(MembersDTO dto) {
+		int result = mapper.updatePwd(dto);
 		return result;
 	}
 
 	@Override
-	public List<MembersDTO> getMypage() {
-		List<MembersDTO> result = mapper.selectMypage();
+	public int modifyPhone(MembersDTO dto) {
+		int result = mapper.updatePhone(dto);
 		return result;
 	}
+
+	
 }
 //	@Override
-//	public int modifyPwd(MembersVO vo) {
+//	public int modifymember(MembersDTO mdto) {
 //		return dao.updatePwd(vo);
 //	}
 //

@@ -14,13 +14,17 @@
               FROM members WHERE email =  #{email,jdbcType=VARCHAR}
      </select>
      
-     <update id="UpdateMypage">
+     <update id="updatePwd">
    <![CDATA[UPDATE members 
-         SET name = #{name,jdbcType=VARCHAR}
-            , pwd = #{pwd,jdbcType=VARCHAR} 
-            , phone = #{phone} 
-            , nickname = #{nickname,jdbcType=VARCHAR} 
+         SET pwd = #{pwd,jdbcType=VARCHAR}      
          WHERE email = #{email,jdbcType=VARCHAR}   ]]>
      </update>
+     
+     <update id="updatePhone">
+   <![CDATA[UPDATE members 
+         SET phone = #{phone}      
+         WHERE email = #{email,jdbcType=VARCHAR}   ]]>
+     </update>
+     
      
      </mapper>

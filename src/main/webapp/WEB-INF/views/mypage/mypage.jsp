@@ -70,8 +70,8 @@
   function favoritew(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
 	  }
-  function upmember(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmember";
+  function upmypage(){
+	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
 	  }
   
 /*   
@@ -134,8 +134,7 @@
               <%System.out.println(id);%>
             <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
-                   
+                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>
                 <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
             <%}  %> 
@@ -192,7 +191,7 @@
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>
+                            <td>${mdto.pwd}</td>                         
                         </tr>                                         
                        
                         <tr>
@@ -215,11 +214,12 @@
                 
                 
                <div align="center">
-                     <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypaper'" >내가쓴글</button>&nbsp; 
+               
+                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="upmember();">정보 수정</button>&nbsp;
+                      <button type="button" class ="btn btn-warning" onclick="upmypage();">정보 수정</button>&nbsp;
                     </div>
                     
                      <button type="button" class="btn" onclick="location.href='${root}/mypage/getout'" style="font-size: 14px;">회원 탈퇴</button>
