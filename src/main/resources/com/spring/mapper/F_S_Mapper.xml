@@ -16,6 +16,12 @@
       		JOIN shelter s ON f.shelter_no = s.shelter_no
       		]]>
   	</select>
+  	<select id="selectCountSBoard" parameterType="int" resultType="int">	
+  		
+  			SELECT COUNT(1)FROM favorites
+  		
+  		</select>
+  	
   	
   	 <select id="selectSBoardByPage" resultType="com.spring.domain.F_S_DTO">
   		<![CDATA[

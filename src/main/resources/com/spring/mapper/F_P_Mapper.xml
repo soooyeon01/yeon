@@ -22,7 +22,11 @@
       		JOIN shelter p ON f.pet_notice_no = p.pet_notice_no
       		]]>
   	</select>
-  	
+  	<select id="seletCountPBoard" parameterType="int" resultType="int">	
+  		
+  			SELECT COUNT(1)FROM favoritep
+  		
+  		</select>
   	
   	 <select id="selectPBoardByPage" resultType="com.spring.domain.F_P_DTO">
   		<![CDATA[
