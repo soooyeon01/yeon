@@ -139,12 +139,12 @@
                                 </table>
                                 
                             </div>
-                            <div class="rightbtn">
-                            	<input type="button" value="글쓰기" onclick="location.href='newcommu'">
+                           
+  
 								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
                              	<button class="btn write" type="submit">글쓰기
 								</form> --%>
-                             </div>
+                        
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
