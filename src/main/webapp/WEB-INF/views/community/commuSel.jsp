@@ -3,8 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.spring.mapper.MypageMapper" %> 
-<%@ page import="com.spring.mapper.MypageMapper" %> 
+<%@ page import="com.spring.mapper.MypageMapper" %>  
 <%@ page import="com.spring.domain.MembersDTO"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -142,14 +141,11 @@
          <a class=" pt-3 pb-3 flex-sm-fill text-sm-center nav-link " href="${root}/notice"><b>공지사항</b></a>
 
             </nav>
-</head>
-<body>
 <div class="container mt-3">
   <h2 style="text-align: center;">게시글</h2>  
 	<form action="${pageContext.servletContext.contextPath}/community/commuSel">
 	<input type="hidden" name="c_no" value="${selectone.c_no}">
 	<div class="row">
-  		<%-- <c:forEach var="select" items="${select}"> --%>
         <div class="mt-3 col p-3">
             <label for="reg_date">작성일:</label>
             <p class="form-control" name="reg_date">${selectone.reg_date}</p>
@@ -161,23 +157,12 @@
         <div class="mb-3 mt-3 col p-3">
             <label for="nickname">작성자:</label>
             <p class="form-control" name="nickname">${selectone.nickname}</p>
-            <p class="form-control" value="${select.reg_date}"></p>
-		</div>
-        <div class="mb-3 mt-3 col p-3">
-          	<label for="title">글제목:</label>
-            <p class="form-control" value="${select.title}"></p>
-        </div>
-        <div class="mb-3 mt-3 col p-3">
-            <label for="nickname">작성자:</label>
-            <p class="form-control" value="${select.nickname}"></p>
             <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
         </div> 
 		<div class="mb-3 mt-3">
         	<label for="content">글내용:</label>
         	<p id="cont" class="form-control" name="content">${selectone.content}</p>
-        	<p class="form-control" rows="5" value="${select.content}"></p>
      	</div>
-     <%-- </c:forEach> --%>
      </div>
 	</form>
     	<%-- <input type="hidden" name="method" value="${param.method }">
@@ -188,9 +173,6 @@
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</div>
-
-  	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
-
 </div>
 </body>
 </html>

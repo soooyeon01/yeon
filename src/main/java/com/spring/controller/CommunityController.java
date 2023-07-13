@@ -46,15 +46,16 @@ public class CommunityController {
 		
 		int result=service.registerCommunity(commu);
 		if(result>0) {
-			return "redirect:community/clist";
+			return "redirect:/community/clist";
 		}else {
-		return "redirect:/commuRegi";
+			return "redirect:/community/commuRegi";
 		}
 	}
 	
 	@GetMapping("/commuSel")
 	public String CommuSel(Model model,int c_no) {
-		model.addAttribute("select", service.getCommunity(c_no));
+		CommunityDTO selectone=service.getCommunity(c_no);
+		model.addAttribute("selectone", selectone);
 		return "community/commuSel";
 	}
 	
@@ -83,5 +84,5 @@ public class CommunityController {
 			return "redirect:/community/commuSel?c_no="+c_no;
 		}
 	}
-
+	
 }
