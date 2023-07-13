@@ -3,7 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.spring.mapper.MypageMapper" %>  
+<%@ page import="com.spring.mapper.MypageMapper"%> 
 <%@ page import="com.spring.domain.MembersDTO"%>
 <c:set var="root" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -14,40 +14,43 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>커뮤니티 상세</title>
+        <title>커뮤니티 수정</title>
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
         <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
-     	<script>  
-	       	function toListPage() {
-	    		location.href="${pageContext.servletContext.contextPath}/community/clist";
-	    		}
-	       	function moveCommUp() {
-	       		let c_no=document.getElementsByName("c_no").value;
-	       		let title=document.getElementsByName("title").value;
-				let content=document.getElementsByName("content").value;
-	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
-	       	}
-    	</script>  
-    	<script>
-			function confirmDelete() {
-	    		if (confirm("정말로 삭제하시겠습니까?")) {
-	        	// 사용자가 Yes를 선택한 경우 삭제 동작을 수행할 코드 작성
-	        	location.href = 'commuDel?c_no=${selectone.c_no}'; // 삭제 동작 예시
-	    		} else {
-	        // 사용자가 No를 선택한 경우 아무 동작도 수행하지 않음
-	    		}
-			}
-		</script>
-    	<style>
-    	#cont {
-    		width: 70rem;
-    		height: 20rem;
+     	<script type="text/javascript"><!--
+        /*=============================================================================
+        画像１個の後追いマウスストーカー　参考サイト : http://www5e.biglobe.ne.jp/~purest/javascript/index.html
+        ★古いブラウザ対応分削除し、CSSのtransition追加で、後追いに改造。　 2016/09/22
+        =============================================================================*/
+        (function (){  //即時関数で囲んでグローバル変数を消すため、この行はこのままで
+        
+        var mga="https://tistory1.daumcdn.net/tistory/4694508/skin/images/hai1.gif"; //★画像指定
+        var hx=15;          //★表示位置 x座標。マウスと画像の横位置。マイナスで左
+        var hy=15;          //★表示位置 y座標。マウスと画像の縦位置。マイナスで上
+        var TRANS="transition:all 1s ease-in;";//★マウス画像の後追い方法。css指定。速度や速度変化。わからないならこのままで
+        
+        //指定ここまで--------------------------------------------------------------
+        document.onmousemove=function (e){ var ob=document.getElementById("foo").style; ob.left=e.pageX+hx+"px"; ob.top=e.pageY+hy+"px";}
+        document.write("<img src="+mga+" id='foo' style='position:absolute; "+TRANS+"'>");
+        }());//即時関数終了
+        // --></script>
+        <script>
+        function upCommu() {
+        	let c_no=document.getElementsByName("c_no").value;
+			let title=document.getElementsByName("title").value;
+			let content=document.getElementsByName("content").value;
+
+			return true;
+		}
+       	function toListPage() {
+    		location.href="${pageContext.servletContext.contextPath}/community/clist";
     	}
-    	</style>
+    	</script>
         <style> 
 
        a:hover{
@@ -85,20 +88,7 @@
           .bgcolor{
          background-color: #f9f8f3;
           }
-         .bt {
-         width: 100%;
-         text-align:center;
-         }
-         .my{
-         /* padding: 1rem;
-     	 margin-left: 5rem;
-     	 margin-right: 5rem;
-     	 width: 10rem;
-     	 height: 2rem; */
-     	 width: 100px;
-    	margin: auto;
-    	display: block;
-         }
+          
         </style>
         
     </head>
@@ -140,37 +130,27 @@
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
         </nav>
 <div class="container mt-3">
-  <h2 style="text-align: center;">게시글</h2>  
-	<form action="${pageContext.servletContext.contextPath}/community/commuSel">
-	<input type="hidden" name="c_no" value="${selectone.c_no}">
-	<div class="row">
-        <div class="mt-3 col p-3">
-            <label for="reg_date">작성일:</label>
-            <p class="form-control" name="reg_date">${selectone.reg_date}</p>
-		</div>
+  <h2 style="text-align: center;">게시글 수정</h2>  
+  <form action="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}" method="post">
+  	<input type="hidden" name="c_no" value="${selectcone.c_no}">
+  
+    <div class="row">
         <div class="mb-3 mt-3 col p-3">
-          	<label for="title">글제목:</label>
-            <p class="form-control" name="title">${selectone.title}</p>
+        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title" value="${selectone.title}">
         </div>
         <div class="mb-3 mt-3 col p-3">
-            <label for="nickname">작성자:</label>
-            <p class="form-control" name="nickname">${selectone.nickname}</p>
-            <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
+        닉네임 : <p class="form-control" type="text" name="nickname">${selectone.nickname}</p>
         </div> 
-		<div class="mb-3 mt-3">
-        	<label for="content">글내용:</label>
-        	<p id="cont" class="form-control" name="content">${selectone.content}</p>
+    	<div class="mb-3 mt-3 col p-3">
+        내용 : <textarea class="form-control" rows="5" name="content">${selectone.content}</textarea>
      	</div>
-     </div>
-	</form>
-    	<%-- <input type="hidden" name="method" value="${param.method }">
-        <input type="hidden" name="c_no" value="${param.c_no }">
-		<input type="hidden" name="nickname" value="${communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname  }"> --%>
-	<div class="container bt">
-  	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
-	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
-	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
-	</div>
+    	<div class="row">
+       	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
+       	<div class="col p-3"></div>
+       	<button type="submit" class="register col p-3 btn btn-warning" onclick="upCommu();">전송</button>
+    </div>
+  </form>
 </div>
+
 </body>
 </html>

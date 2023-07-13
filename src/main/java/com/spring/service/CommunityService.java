@@ -12,5 +12,5 @@ public interface CommunityService {
 	
 	int registerCommunity(CommunityDTO dto);
 	int modifyCommunity(CommunityDTO dto);
-	int removeCommunity(int parseInt);
+	int removeCommunity(int c_no);
 }
