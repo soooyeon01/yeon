@@ -40,8 +40,8 @@ public class ShelterController {
 	}
 	@GetMapping("/shelall")
 	public String getAllBoard(Criteria cri, Model model) {
-		
-		PageMaker pageMaker = new PageMaker(cri, 101); 
+		int totalCount = service.getCountAllBoard();
+		PageMaker pageMaker = new PageMaker(cri, totalCount); 
 		model.addAttribute("shelList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/shel/shel";

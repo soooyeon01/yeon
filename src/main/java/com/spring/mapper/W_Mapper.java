@@ -8,7 +8,7 @@ import com.spring.util.PageMaker;
 public interface W_Mapper {
 	List<W_DTO> selectW(int with_pet_no);
 	List<W_DTO> selectAllBoard();
-	int selectCountAllBoard();
+	public int selectCountAllBoard();
 	List<W_DTO> selectAllBoardByPage(PageMaker pageMaker);
 	
 	int insertWith_petData(W_DTO dto);

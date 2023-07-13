@@ -27,4 +27,11 @@ public class F_P_ServiceImpl implements F_P_Service {
 		return mapper.selectPBoardByPage(pageMaker);
 	}
 
+
+	@Override
+	public int getCountAllBoard() {
+		
+		return mapper.selectCountPBoard();
+	}
+
 }

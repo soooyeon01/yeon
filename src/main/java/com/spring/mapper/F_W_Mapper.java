@@ -7,6 +7,6 @@ import com.spring.util.PageMaker;
 
 public interface F_W_Mapper {
 	List<F_W_DTO> selectWBoard();
-	int seletCountWBoard();	
+	int selectCountWBoard();	
 	List<F_W_DTO> selectWBoardByPage(PageMaker pageMaker);
 }

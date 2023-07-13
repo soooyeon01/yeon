@@ -38,8 +38,8 @@ public class WithpetController {
 	
 	@GetMapping("/withall")
 	public String getAllBoard(Criteria cri, Model model) {
-		
-		PageMaker pageMaker = new PageMaker(cri, 101); 
+		int totalCount = service.getCountAllBoard();
+		PageMaker pageMaker = new PageMaker(cri, totalCount); 
 		model.addAttribute("withList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/with/with";

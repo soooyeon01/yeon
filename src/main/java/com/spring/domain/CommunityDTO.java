@@ -13,5 +13,4 @@ public class CommunityDTO {
     private String title;
     private String content;
     private String reg_date;
-    private int count;
 }

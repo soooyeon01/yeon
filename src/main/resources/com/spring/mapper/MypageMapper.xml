@@ -11,7 +11,7 @@
               , phone
               , name
               , nickname 
-              FROM members WHERE email = 'ye@naver.com'  <!-- #{email,jdbcType=VARCHAR} -->
+              FROM members WHERE email =  #{email,jdbcType=VARCHAR}
      </select>
      
      <update id="UpdateMypage">

@@ -169,7 +169,7 @@
    
       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>마이페이지</b></h1>
+            <h1 class="mt-1"><b>정보변경</b></h1>
             </div>
             <ol class="breadcrumb mb-4 pt-3">
 
@@ -222,7 +222,7 @@
                       <button type="button" class ="btn btn-warning" onclick="upmember();">정보 수정</button>&nbsp;
                     </div>
                     
-                     <button type="button" class="btn" onclick="location.href='${root}/mypage/getout'" style="font-size: 14px;">회원 탈퇴</button>
+                     <button type="button" class="btn" onclick="" style="font-size: 14px;">회원 탈퇴</button>
             </div>
          </div>
       </main>

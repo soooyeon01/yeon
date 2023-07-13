@@ -35,8 +35,8 @@ public class PetnoticeController {
 	
 	@GetMapping("/petall")
 	public String getPBoard(Model model, Criteria cri) {
-		
-	    PageMaker pageMaker = new PageMaker(cri, 101);
+		int totalCount = service.getCountAllBoard();
+	    PageMaker pageMaker = new PageMaker(cri, totalCount);
 		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/pet/pet";
