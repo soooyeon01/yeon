@@ -15,16 +15,19 @@
      </select>
      
      <update id="updatePwd">
-   <![CDATA[UPDATE members 
+  		 UPDATE members 
          SET pwd = #{pwd,jdbcType=VARCHAR}      
-         WHERE email = #{email,jdbcType=VARCHAR}   ]]>
+         WHERE email = #{email,jdbcType=VARCHAR} 
      </update>
      
      <update id="updatePhone">
-   <![CDATA[UPDATE members 
+  		 UPDATE members 
          SET phone = #{phone}      
-         WHERE email = #{email,jdbcType=VARCHAR}   ]]>
+         WHERE email = #{email,jdbcType=VARCHAR}
      </update>
      
+     <delete id = "removeMember">
+     	delete from members where email = #{email,jdbcType=VARCHAR}
+     </delete>
      
      </mapper>

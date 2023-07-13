@@ -11,5 +11,7 @@ public interface MypageMapper {
 	int updatePhone(MembersDTO dto);
 
 	List<MembersDTO> selectMypage(String email);
+	
+	int removeMember(MembersDTO dto);
 
 }

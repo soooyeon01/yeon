@@ -71,7 +71,7 @@ public class MypageController {
 	       model.addAttribute("membersDTO", mdto);
 	       	     
 	       service.modifyPwd(dto);
-	   
+	      
 	       return "redirect:/mypage/upmypage";
 	       
 		   }else {
@@ -134,10 +134,61 @@ public class MypageController {
 	      
    	}  
 	      
+	      //회원탈퇴
+	      @GetMapping("/remove")
+	      public String removeMember(HttpServletRequest request, Model model, MembersDTO dto) {
+	          	   	
+	   	   	  HttpSession session = request.getSession();
+	   	      boolean SESS_AUTH = false;
+	   	      
+	   	      try {
+	   	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+	   	      }catch(Exception e) {}
+	   	      
+	   	      if( SESS_AUTH ) {    	 
+
+	   	         request.setAttribute("SESS_AUTH", false);
+	   	         String email = (String) session.getAttribute("SESS_EMAIL");
+
+	   	       List<MembersDTO> mdto = service.getMypage(email);
+	   	       model.addAttribute("membersDTO", mdto);	   	       	    
+	   	       
+	   	       service.removeMember(dto);
+	   	       	session.invalidate(); 
+	   	       
+	   	       return "redirect:/main/main";
+	   	       
+	   		   }else {
+	   			   return "redirect:/mypage/removeM"; 
+	   		   }
+	      
+   	}  	      
+	      
+	      //회원탈퇴 확인창
+	      @GetMapping("/removecheck")
+	      public String removeCheck(HttpServletRequest request, Model model, MembersDTO dto) {
+	          	   	
+	   	   	  HttpSession session = request.getSession();
+	   	      boolean SESS_AUTH = false;
+	   	      
+	   	      try {
+	   	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+	   	      }catch(Exception e) {}
+	   	      
+	   	      if( SESS_AUTH ) {    	 
+	   	         request.setAttribute("SESS_AUTH", false);
+	   	         String email = (String) session.getAttribute("SESS_EMAIL");
+
+	   	       List<MembersDTO> mdto = service.getMypage(email);
+	   	       model.addAttribute("membersDTO", mdto);	   	       	    
+	   	   
+	      
+   	}  
+	   	   return "/mypage/removeM";    
 }
 		   
    
-
+}
 
    
 // 

@@ -33,6 +33,13 @@ public class MypageServiceImpl implements MypageService {
 		int result = mapper.updatePhone(dto);
 		return result;
 	}
+	
+	//탈퇴
+	@Override
+	public int removeMember(MembersDTO dto) {
+		int result = mapper.removeMember(dto);
+		return result;
+	}
 
 	
 }

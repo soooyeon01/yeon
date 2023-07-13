@@ -13,5 +13,7 @@ public interface MypageService {
 	int modifyPwd(MembersDTO dto);
 
 	int modifyPhone(MembersDTO dto);
+	
+	int removeMember(MembersDTO dto);
 
 }
