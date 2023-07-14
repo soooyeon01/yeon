@@ -76,7 +76,7 @@
   function mypaper(){
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
 	  }
-  
+
 /*   
   function logout(){  
 	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
@@ -160,11 +160,11 @@
         </nav>
         
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/petnotice"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shelter"><b>보호소</b></a>
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/withpet"><b>위드펫</b></a>
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community"><b>커뮤니티</b></a>
-         <a class=" pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice"><b>공지사항</b></a>
    
             </nav>
    <div id="layoutSidenav_content">
@@ -214,10 +214,7 @@
                 </c:forEach>
                </table>
             
-                
-                
-               <div align="center">
-               
+               <div align="center">             
                      <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
