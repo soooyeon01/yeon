@@ -3,10 +3,11 @@ package com.spring.api.domain;
 import org.springframework.stereotype.Service;
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
-@Service
+@Setter
 @ToString
 public class WithpetDTO {
 	private int with_pet_no;
