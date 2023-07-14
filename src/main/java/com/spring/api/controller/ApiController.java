@@ -10,6 +10,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
 public class ApiController {
-	@GetMapping("/pet")
-	public String 
+//	@GetMapping("/pet")
+//	public String 
 }

@@ -22,6 +22,7 @@
    <!-- Application Loggers -->
    <logger name="com.spring.controller">
       <level value="info" />
+      <appender-ref ref="console"/>
       <appender-ref ref = "LOGFILE-DAILY" />
    </logger>
    

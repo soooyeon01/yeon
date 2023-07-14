@@ -45,16 +45,31 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+<<<<<<< HEAD
 	                           HttpSession session,Model model) {
 	    MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
 
+=======
+	                         HttpSession session,Model model,MembersDTO mdto) {
+	    //MembersDTO mdto = new MembersDTO();
+	    mdto.setEmail(email);
+	    mdto.setPwd(password);
+	    
+	    
+>>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
 	    if(service.countLogin(mdto) == 1) {
-	    	service.selectLogin(mdto);
+	    	mdto=service.selectLogin(mdto);
+	    	
 	        session.setAttribute("SESS_AUTH", true);
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
+<<<<<<< HEAD
 	        session.setAttribute("SESS_PWD", mdto.getPwd());
+=======
+	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
+	       
+>>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
 	        
 	        return "redirect:/main/main";
 	    } else {

@@ -14,8 +14,8 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public void selectLogin(MembersDTO mdto) {
-		mapper.selectLogin(mdto);
+	public MembersDTO selectLogin(MembersDTO mdto) {
+		return mapper.selectLogin(mdto);
 	}
 	
 	@Override
