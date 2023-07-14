@@ -27,7 +27,7 @@
      </update>
      
      <delete id = "removeMember">
-     	delete from members where email = #{email,jdbcType=VARCHAR}
+     	delete from members where pwd = #{pwd,jdbcType=VARCHAR}
      </delete>
      
      </mapper>

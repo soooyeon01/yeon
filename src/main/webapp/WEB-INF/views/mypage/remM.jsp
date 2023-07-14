@@ -76,7 +76,24 @@
   function mypaper(){
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
 	  }
-  
+  function remM() {
+	   var data = $("#form").serialize(); // form 데이터 직렬화
+	   $.ajax({
+	      url: "${pageContext.servletContext.contextPath}/mypage/remMC",
+	      data: data, // 수정: 직렬화된 form 데이터 전달
+	      type: "post",
+	      success: function(data, textStatus) {
+	         console.log(data);
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	         console.log(jqXHR);
+	         console.log(textStatus);
+	         console.log(errorThrown);
+	      }
+	   });
+	}
+
+
 /*   
   function logout(){  
 	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
@@ -182,24 +199,29 @@
                </div>
               
                <div class="card-body">
-            
 
-                <div>
+               <div align="center">
+               			
+                    
+                 <form action = "${pageContext.servletContext.contextPath }/mypage/remMC" id="form" method ="post">
+                  <div>
                      회원 탈퇴 시 회원만의 서비스를 받을 수 없습니다.<br>
                      탈퇴 하시겠습니까?
                  <br>
-                 <br>                                         
-                 	비밀번호 입력 : <input type ="text" name ="pwd"/>
-                 		
+                 <br>
+                                                               
+                 	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="password"/>                             		
                 </div>
-
-               <div align="center">
-               
-                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >이전</button>&nbsp; 
-                     <button type="button" class ="btn btn-warning" onclick="favorites();">탈퇴하기</button>&nbsp; 
+                <br>
+         	
+                    	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp; 
+                    	 
+                    	  <button type="submit" class ="btn btn-warning" onclick="remM();">탈퇴하기</button>&nbsp;
+                </form> 
+                
+                       
                       <input type="hidden" name="pwd" value="${mdto.pwd}">
-                      
-                    </div>
+                   
 
             </div>
          </div>
@@ -214,6 +236,8 @@
          </div>
       </footer>
    </div>
+   <script>
 
+</script>
 </body>
 </html>
