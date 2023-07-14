@@ -171,61 +171,36 @@
    
       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>마이페이지</b></h1>
+            <h1 class="mt-1"><b>회원 탈퇴</b></h1>
             </div>
             <ol class="breadcrumb mb-4 pt-3">
-
             </ol>
 
             <div class="card mb-4">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 개인정보조회
+                  <i class="fas fa-table me-1"></i> 회원정보 확인
                </div>
               
                <div class="card-body">
             
-                  <table id="datatablesSimple" >
-                 <c:forEach items="${membersDTO}" var="mdto">
 
-                        <tr>
-                           <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>      
-                        </tr>                    
-                      
-                        <tr>         
-                           <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>                         
-                        </tr>                                         
-                       
-                        <tr>
-                           <td>이메일</td>                 
-                         <td>${mdto.email}</td>
-                        </tr>
-                       
-                        <tr>
-                           <td>이름</td>
-                           <td>${mdto.name}</td>       
-                        </tr>                       
-                       
-                        <tr>
-                           <td>전화번호</td>
-                           <td>${mdto.phone}</td>    
-                        </tr>
-                </c:forEach>
-               </table>
-            
-                
-                
+                <div>
+                     회원 탈퇴 시 회원만의 서비스를 받을 수 없습니다.<br>
+                     탈퇴 하시겠습니까?
+                 <br>
+                 <br>                                         
+                 	비밀번호 입력 : <input type ="text" name ="pwd"/>
+                 		
+                </div>
+
                <div align="center">
                
-                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
-                     <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
-                      <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="upmypage();">정보 수정</button>&nbsp;
+                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >이전</button>&nbsp; 
+                     <button type="button" class ="btn btn-warning" onclick="favorites();">탈퇴하기</button>&nbsp; 
+                      <input type="hidden" name="pwd" value="${mdto.pwd}">
+                      
                     </div>
-                    
-                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px;">회원 탈퇴</button>
+
             </div>
          </div>
       </main>

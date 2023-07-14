@@ -134,12 +134,23 @@ public class MypageController {
 	      
    	}  
 	      
+	    //withdrawal 탈퇴 페이지 요청
+	      @GetMapping("/remM")
+	      public String remove() {
+	      	return "/mypage/remM";
+	      }
+	      
+	      
+	      
+	      
+	      
 	      //회원탈퇴
 	      @GetMapping("/remove")
 	      public String removeMember(HttpServletRequest request, Model model, MembersDTO dto) {
 	          	   	
 	   	   	  HttpSession session = request.getSession();
 	   	      boolean SESS_AUTH = false;
+	   	       
 	   	      
 	   	      try {
 	   	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
