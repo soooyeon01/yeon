@@ -49,6 +49,7 @@ public class UserController {
 	    MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
+	    mdto.setNickname(nickname);
 	    if(service.countLogin(mdto) == 1) {
 	    	service.selectLogin(mdto);
 	        session.setAttribute("SESS_AUTH", true);
