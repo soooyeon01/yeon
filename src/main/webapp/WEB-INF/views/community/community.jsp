@@ -3,7 +3,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -69,7 +69,9 @@
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+                <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
+              <%System.out.println(nickname);%>
          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
@@ -139,12 +141,9 @@
                                 </table>
                                 
                             </div>
-                            <div class="rightbtn">
+                           <%--  <c:if test="${sessionScope.email!=null}"> --%>
                             	<input type="button" value="글쓰기" onclick="location.href='newcommu'">
-								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
-                             	<button class="btn write" type="submit">글쓰기
-								</form> --%>
-                             </div>
+                            <%-- </c:if> --%>
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>

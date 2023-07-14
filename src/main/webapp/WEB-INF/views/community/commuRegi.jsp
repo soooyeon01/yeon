@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.spring.mapper.MypageMapper"%> 
 <%@ page import="com.spring.domain.MembersDTO"%>
+<c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,13 +16,11 @@
         <meta name="author" content="" />
         <title>커뮤니티 등록</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
-        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/page-nation.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/scripts.js"></script>
+        <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+        <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
         <script type="text/javascript">
 				// <![CDATA[
@@ -236,7 +235,9 @@
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+                <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
+              <%System.out.println("닉네임은? : "+nickname);%>
          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
@@ -277,7 +278,7 @@
         제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title">
         </div>
         <div class="mb-3 mt-3 col p-3">
-        닉네임 : <input class="form-control" type="text" name="nickname">
+        닉네임 : <div class="form-control" id="nickname" name="nickname" value="${sessionScope.SESS_NICKNAME}">${sessionScope.SESS_NICKNAME}</div>
         </div> 
     	<div class="mb-3 mt-3 col p-3">
         내용 : <textarea class="form-control" rows="5" name="content"></textarea>
@@ -287,7 +288,8 @@
        	<div class="col p-3"></div>
        	<button type="submit" class="register col p-3 btn btn-warning" onclick="addCommu();">전송</button>
     </div>
-  </form>
+	<input type="hidden" name="nickname" value="${commu.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.commu.nickname}"> 
+	</form>
   	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
 </div>
 

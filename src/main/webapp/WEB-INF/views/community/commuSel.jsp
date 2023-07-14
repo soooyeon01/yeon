@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.spring.mapper.MypageMapper" %>  
 <%@ page import="com.spring.domain.MembersDTO"%>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
