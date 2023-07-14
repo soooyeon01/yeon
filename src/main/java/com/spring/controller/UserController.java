@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.FindEmailService;
@@ -42,26 +44,25 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(@RequestParam("email") String email,
-	                        @RequestParam("pwd") String password,
-	                        HttpSession session,
-	                        Model model) {
+	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+	                         @RequestParam("nickname") String nickname, HttpSession session,Model model) {
 	    MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
-	    
+	    mdto.setNickname(nickname);
 	    if(service.countLogin(mdto) == 1) {
 	    	service.selectLogin(mdto);
 	        session.setAttribute("SESS_AUTH", true);
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
+	        session.setAttribute("SESS_PWD", mdto.getPwd());
+	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
+	        
 	        return "redirect:/main/main";
 	    } else {
-	        model.addAttribute("msg", "login failed, please try again!");
-	        return "/user/login";
+			model.addAttribute("msg", "로그인 실패");	
+			return "alert";
 	    }
 	}
-	
-	
 		
 	@GetMapping("/join")
 	public String joinget(MembersDTO mdto) {
@@ -69,23 +70,45 @@ public class UserController {
 	}
 	
 	@PostMapping("/join")
-	public String joinpost(MembersDTO mdto) {
+	public String joinpost(MembersDTO mdto, Model model) {
 		int isOk = 1;
-		String msg = null;
 		if( servicej.registerMembers(mdto) == isOk) {
-			msg = "success";
-		}else {
-			msg = "fail, try again";
-		}
-		
-		return "redirect:/user/login";
+			model.addAttribute("msg", "회원가입 완료"); 
+			model.addAttribute("url", "login"); 
+			return "alert";
+			
+		} else {
+			model.addAttribute("msg", "회원가입 실패"); 
+			return "alert";
+	    
+		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
 	}
 
 	@GetMapping("/findEmail")
-	public String findEmail(MembersDTO mdto) {
-		servicee.findEmail(mdto);
+	public String findEmailget(MembersDTO mdto) {
 		return "user/findEmail";
 	}
+	
+	@PostMapping("/findEmail")
+	public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
+    	MembersDTO mdto = new MembersDTO();
+		
+		mdto.setName(name);
+		mdto.setPhone(phone);
+		
+		String email = servicee.findEmail(mdto);
+		
+		if (email != null) {
+			model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
+			 return "alert";
+			
+		} else {
+			model.addAttribute("msg", "없는 정보입니다");	
+			 return "alert";
+		}
+	}
+	
+	
 	@GetMapping("/findPwd")
 	public String findPwd(MembersDTO mdto) {
 		servicep.findPwd(mdto);

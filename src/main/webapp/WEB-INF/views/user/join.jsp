@@ -116,8 +116,12 @@
                                                 <label for="name">이름</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="email" type="email" />
+                                                <input class="form-control" name="email" id="email" type="email" oninput="checkEmail()"/>                                                                                              
                                                 <label for="email">이메일</label>
+                                                
+                                                <span class="emailOn">사용 가능한 아이디입니다.</span>
+												<span class="emailOff">누군가 이 아이디를 사용하고 있어요.</span>
+                                                
                                             </div>
                                             <div class="form-floating mb-3">
                                                  <input class="form-control" name="nickname" id="nickname" type="text" />
