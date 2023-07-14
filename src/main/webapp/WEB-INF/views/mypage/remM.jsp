@@ -77,10 +77,10 @@
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
 	  }
   function remM() {
-	   var data = $("#form").serialize(); // form 데이터 직렬화
+	   var data = $("form").serialize(); // form 데이터 직렬화
 	   $.ajax({
 	      url: "${pageContext.servletContext.contextPath}/mypage/remMC",
-	      data: data, // 수정: 직렬화된 form 데이터 전달
+	      data: "data", // 수정: 직렬화된 form 데이터 전달
 	      type: "post",
 	      success: function(data, textStatus) {
 	         console.log(data);
