@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.spring.mapper.ApiMapper">
+  <insert id="insertPetData">
+  	INSERT INTO PET_NOTICE \ VALUES (seq_pet_notice_no.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  </insert>
+  <insert id="insertShelData">
+  	INSERT INTO shelter \VALUES (seq_shelter_no.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)
+  </insert>
+  <insert id="insertWithData">
+  	INSERT INTO WITH_PET \ VALUES (seq_with_pet_no.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+  </insert>
+</mapper>

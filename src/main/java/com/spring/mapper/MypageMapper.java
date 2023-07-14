@@ -6,10 +6,12 @@ import com.spring.domain.MembersDTO;
 
 public interface MypageMapper {
 	
-	List<MembersDTO> selectMypage();
+	int updatePwd(MembersDTO dto);
 	
-	int UpdateMember(MembersDTO mdto);
+	int updatePhone(MembersDTO dto);
 
-	List<MembersDTO> selectMypage(String id);
+	List<MembersDTO> selectMypage(String email);
+	
+	int removeMember(MembersDTO dto);
 
 }

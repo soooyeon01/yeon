@@ -1,22 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.List"%>
-<%@ page import="com.spring.domain.CommunityDTO"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.spring.mapper.MypageMapper"%> 
-<%@ page import="com.spring.domain.MembersDTO"%>
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>커뮤니티 등록</title>
-        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
-        <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/page-nation.css" rel="stylesheet" />
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>password 이봐 수정이..!</title>
+	<link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+       
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${pageContext.servletContext.contextPath}/resources/bootstrap/js/scripts.js"></script>
@@ -179,21 +176,55 @@
 		</script>
      <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
      <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
-     <script>  
-       	function addCommu() {
-			let nickname=document.getElementsByName("nickname").value;
-			let title=document.getElementsByName("title").value;
-			let content=document.getElementsByName("content").value;
-
-			return true;
-		}
-       	function toListPage() {
-    		location.href="${pageContext.servletContext.contextPath}/community/clist";
-    	}
-    </script>
-    <style> 
-
-       a:hover{
+	<script>
+	/* String pwd=request.getParameter("pwd");
+	String uppwd=request.getParameter("uppwd");
+	String checkpwd=request.getParameter("checkpwd");
+	MembersDAO dao=new MembersDAO() */
+	
+	function doubleCheck(value) {
+        let uppwd=document.getElementById("uppwd").value;
+        //let uppwd=document.getElementById("checkpwd").value;
+        let boxSpan=document.getElementById("box-span");
+        let ch=document.getElementById("checkpwd");
+        if(uppwd==value) {
+            boxSpan.className="box-span-on";
+            ch.className="form-control is-valid";
+        }else{
+            boxSpan.className="box-span-off";
+            ch.className="form-control is-invalid";
+        }
+    }
+	</script>
+	<style>
+        .box-submit {
+            text-align: center;
+        }
+        .box-input {
+            text-align: center;
+        }
+        .box-line-height {
+            margin-bottom: 10px;
+        }
+        .header > h3 {
+            text-align: center;
+        }
+        .box-span-on {
+            color: green;
+            font-weight: bold;
+            font-size: 2 rem;
+        }
+        .box-span-off {
+            color: red;
+            font-weight: 800;
+        }
+        :focus {
+            cursor: grab;
+        }
+        .btn:hover {
+        	cursor:grab;
+        }
+		a:hover{
                 background-color: #feeaa5;
             }
             .main{
@@ -204,56 +235,42 @@
             height: 120px;
             }         
             .bg-yellow {
-              --bs-bg-opacity: 1;
-              background-color: #feeaa5 !important;
-         }
-         .main1{
-         border-bottom : 1px solid #645326;
-          padding-bottom : 2px;
-          padding-top : 2px;
-         }
-         .tab{
-             padding-bottom : 0;
-             padding-top : 0;
-            border-bottom : 1px solid #645326;
-            border-top : 1px solid #645326;
-         }
-         
-         .img_main{
-         width: 60%;
-          margin: 0px auto;
-          display: block;
-          width: 250px; height: 90px;
-          }
-          .bgcolor{
-         background-color: #f9f8f3;
-          }
-          
-        </style> 
-</head>
-<body class="sb-nav-fixed"> 
-           <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(email);%>
-         <%  if( email != null) { %>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
-            <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
-                </div>
-            </form>      
-            </nav>
-            <script>
-	            function logout() {
-	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/logout";
-	   		 	}
+				  --bs-bg-opacity: 1;
+				  background-color: #feeaa5 !important;
 			}
-
-            </script>
+			.main1{
+			border-bottom : 1px solid #645326;
+			 padding-bottom : 2px;
+			 padding-top : 2px;
+			}
+			.tab{
+				 padding-bottom : 0;
+				 padding-top : 0;
+				border-bottom : 1px solid #645326;
+				border-top : 1px solid #645326;
+			}
+			
+			.img_main{
+			width: 60%;
+		    margin: 0px auto;
+		    display: block;
+		    width: 250px; height: 90px;
+		    }
+		    .bgcolor{
+		   background-color: #f9f8f3;
+		    }
+    </style>
+</head>
+<body class="bgcolor sb-nav-fixed"> 
+           <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+                <div class="input-group">
+                	<button type="button" class="btn" onclick="location='login.jsp'" style="font-size: 14px;">로그아웃</button>					
+					<button type="button" class="btn" onclick="location='mypage.jsp'" style="font-size: 14px;">마이페이지</button>
+                </div>
+            </form>     
+            </nav>
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" href="${root}/main/main" >
@@ -261,35 +278,64 @@
          </a>
         </nav>
         
-        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
-            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
-        </nav>
-<div class="container mt-3">
-  <h2 style="text-align: center;">게시글 작성</h2>  
-  <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="post">
-  
-    <div class="row">
-        <div class="mb-3 mt-3 col p-3">
-        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title">
-        </div>
-        <div class="mb-3 mt-3 col p-3">
-        닉네임 : <input class="form-control" type="text" name="nickname">
-        </div> 
-    	<div class="mb-3 mt-3 col p-3">
-        내용 : <textarea class="form-control" rows="5" name="content"></textarea>
-     	</div>
-    	<div class="row">
-       	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
-       	<div class="col p-3"></div>
-       	<button type="submit" class="register col p-3 btn btn-warning" onclick="addCommu();">전송</button>
-    </div>
-  </form>
-  	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
-</div>
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link active" aria-current="page" href="http://localhost:8080/4jo/view/pet_notice.jsp"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="http://localhost:8080/4jo/view/shelter.jsp"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="http://localhost:8080/4jo/view/with_pet.jsp"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link " href="http://localhost:8080/4jo/view/community.jsp"><b>커뮤니티</b></a>
+			<a class=" pt-3 pb-3 flex-sm-fill text-sm-center nav-link " href="http://localhost:8080/4jo/view/notice.jsp"><b>공지사항</b></a>
+   
+            </nav>
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-10 pt-4">
+				<h1 class="mt-1">마이페이지</h1>
+				<br>
+			<!-- form-control : 녹색 빨ㅅ간색 설정  -->
+				<%-- <c:forEach var="MembersVO" items="${requestScope.boardList}" varStatus="status"> </c:forEach> --%>
+					
+					<div class="form-group">
+						  <label class="form-label mt-4" for="inputValid">현재 비밀번호</label>
+						  <input type="text" class="form-control" id="pwd" placeholder="현재 비밀번호를 입력하세요.">
+
+					</div>
+					<div class="form-group up">
+						  <label class="form-label mt-4" for="inputValid">새 비밀번호</label>
+						  <input type="text" class="form-control" id="uppwd" placeholder="새 비밀번호를 입력하세요.">
+						 
+					</div>
+					<div class="form-group check">
+						  <label class="form-label mt-4" for="inputValid">비밀번호 확인</label>
+						  <input type="text" class="form-control " id="checkpwd" placeholder="새 비밀번호를 다시 입력해주세요." onkeyup="doubleCheck(this.value);">
+						  <span id="box-span" class="box-span-on"></span>
+					</div>
+					<br>
+					<input type="submit" value="비밀번호 변경" onclick="return check()">
+				<!-- 	 -->
+					
+					<br>
+					<br>
+					<div>
+							<td colspan="2" align="center">
+							<input type="submit" value="내가쓴글" onclick="location='login.jsp'" /> &nbsp; 
+							<input type="submit" value="보호소 즐겨찾기" onclick="location='login.jsp'" />&nbsp; 
+							<input type="submit" value="위드펫 즐겨찾기" onclick="location='login.jsp'" />
+							</td>
+							<a href="#">회원탈퇴</a>
+				</div>
+				
+		</main>
+		<footer class="py-4 bg-light mt-auto">
+			<div class="container-fluid px-4">
+				<div class="d-flex align-items-center justify-content-between small">
+					<div class="text-muted">Copyright &copy; Your Website 2023</div>
+
+					<div></div>
+				</div>
+			</div>
+		</footer>
+	</div>
+	</div>
 
 </body>
 </html>

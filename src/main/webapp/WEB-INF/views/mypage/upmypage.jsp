@@ -59,8 +59,7 @@
   
   function main(){
   	location.href = "${pageContext.servletContext.contextPath}/main/main";
-  }
-  
+  } 
   function favoritep(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
 	  }
@@ -70,13 +69,33 @@
   function favoritew(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
 	  }
-  function upmypage(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
-	  }
-  function mypaper(){
-	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
-	  }
+
   
+  function pwdShow() {
+	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴
+	 let email =document.getElementsByName("email").value;
+	  var msg = "비밀번호 변경이 완료되었습니다."
+	  alert(msg);
+	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+	  return true;
+	} 
+  
+  function phoneShow() {
+		 let phone = document.getElementsByName("phone").value; //name속성을 받아옴
+		 let email =document.getElementsByName("email").value;
+		  var msg = "전화번호 변경이 완료되었습니다."
+		  alert(msg);
+		  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+		  return true;
+		} 
+  
+  function checkmypage() {
+		  var msg = "정보 변경이 완료되었습니다."
+		  alert(msg);
+		  location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+		  return true;
+		  
+		} 
 /*   
   function logout(){  
 	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
@@ -137,7 +156,8 @@
               <%System.out.println(id);%>
             <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
+                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
+                   
             <%} else{%>
                 <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
             <%}  %> 
@@ -171,7 +191,7 @@
    
       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>마이페이지</b></h1>
+            <h1 class="mt-1"><b>정보변경</b></h1>
             </div>
             <ol class="breadcrumb mb-4 pt-3">
 
@@ -179,7 +199,7 @@
 
             <div class="card mb-4">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 개인정보조회
+                  <i class="fas fa-table me-1"></i> 개인정보변경
                </div>
               
                <div class="card-body">
@@ -194,7 +214,12 @@
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>                         
+                            <td><form action="${pageContext.servletContext.contextPath }/mypage/upmypwd" method="get">
+   									<input type ="text" name ="pwd"  placeholder="${mdto.pwd}"/>
+   									<button type="submit" onclick="pwdShow();" >변경</button>
+   								<input type="hidden" name="email" value="${mdto.email}">	
+								</form>			
+							</td>
                         </tr>                                         
                        
                         <tr>
@@ -209,7 +234,12 @@
                        
                         <tr>
                            <td>전화번호</td>
-                           <td>${mdto.phone}</td>    
+                           <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="get">
+   									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
+   									<button type="submit" onclick="phoneShow();">변경</button>
+   								<input type="hidden" name="email" value="${mdto.email}">	
+								</form>	
+							</td>    
                         </tr>
                 </c:forEach>
                </table>
@@ -217,15 +247,11 @@
                 
                 
                <div align="center">
-               
-                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
-                     <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
-                      <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="upmypage();">정보 수정</button>&nbsp;
-                    </div>
                     
-                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px;">회원 탈퇴</button>
+                     <button type="button" class ="btn btn-warning" onclick="mypage();">이전</button>&nbsp;    
+                      <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
+                    </div>
+
             </div>
          </div>
       </main>

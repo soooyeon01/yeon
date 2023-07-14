@@ -28,7 +28,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return mapper.selectAllCommunity();
 	}
 
-
+	@Override
+	public List<CommunityDTO> getMyCommunity() {
+		
+		return mapper.selectMyCommunity();
+	}
+	
 	@Override
 	public List<CommunityDTO> getAllCommunityByPage(PageMaker pageMaker) {
 		// TODO Auto-generated method stub
@@ -48,9 +53,16 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public int removeCommunity(int parseInt) {
+	public int removeCommunity(int c_no) {
 
-		return mapper.deleteCommunity(parseInt);
+		return mapper.deleteCommunity(c_no);
 	}
 
+	@Override
+	public int viewCount(int c_no) {
+		// TODO Auto-generated method stub
+		return mapper.viewCount(c_no);
+	}
+
+	
 }

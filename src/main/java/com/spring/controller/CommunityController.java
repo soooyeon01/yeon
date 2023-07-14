@@ -36,6 +36,12 @@ public class CommunityController {
 		return "community/community";
 	}
 	
+	@RequestMapping("/myclist")
+	public String MyCommunList(Model model) {
+		model.addAttribute("myCommuList",service.getMyCommunity());
+		return "community/mycommunity";
+	}
+	
 	@GetMapping("/newcommu")
 	public String moveRegi() {
 		return "community/commuRegi";
@@ -46,16 +52,50 @@ public class CommunityController {
 		
 		int result=service.registerCommunity(commu);
 		if(result>0) {
-			return "redirect:community/clist";
+			return "redirect:/community/clist";
 		}else {
-		return "redirect:/commuRegi";
+			return "redirect:/community/commuRegi";
 		}
 	}
 	
 	@GetMapping("/commuSel")
 	public String CommuSel(Model model,int c_no) {
-		model.addAttribute("select", service.getCommunity(c_no));
+		CommunityDTO selectone=service.getCommunity(c_no);
+		model.addAttribute("selectone", selectone);
+		service.viewCount(c_no);
 		return "community/commuSel";
 	}
+	
+	@RequestMapping("/commuUp1")
+	public String CommunityUdt(Model model, int c_no) {
+		model.addAttribute("selectone",service.getCommunity(c_no));
+			return "community/commuUp";
+		}
+	
+	@PostMapping("/commuUp")
+	public String Updt(CommunityDTO commu) {
+	int	result=service.modifyCommunity(commu);
+		if(result>0) {
+			return "redirect:/community/commuSel?c_no="+commu.getC_no();
+		}else {
+			return "redirect:/community/commuUp?c_no="+commu.getC_no();
+		}
+	}
+	
+	@RequestMapping("/commuDel")
+	public String CommuDel(int c_no) {
+	int	result=service.removeCommunity(c_no);
+		if(result>0) {
+			return "redirect:/community/clist";
+		}else {
+			return "redirect:/community/commuSel?c_no="+c_no;
+		}
+	}
+	
+	@RequestMapping("/Pwd")
+	public String pwd() {
+		return "community/mypagePwd";	
+	}
+	
 	
 }
