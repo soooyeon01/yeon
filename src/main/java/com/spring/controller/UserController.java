@@ -53,6 +53,9 @@ public class UserController {
 	    	service.selectLogin(mdto);
 	        session.setAttribute("SESS_AUTH", true);
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
+	        session.setAttribute("SESS_PWD", mdto.getPwd());
+	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
+	        
 	        return "redirect:/main/main";
 	    } else {
 			model.addAttribute("msg", "로그인 실패");	
