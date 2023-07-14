@@ -127,7 +127,6 @@ public class MypageController {
                   request.setAttribute("SESS_AUTH", false);
                   String email = (String) session.getAttribute("SESS_EMAIL");
 
-<<<<<<< HEAD
 	   	       List<MembersDTO> mdto = service.getMypage(email);
 	   	       model.addAttribute("membersDTO", mdto);	   	       	    
 	   	   
@@ -151,7 +150,7 @@ public class MypageController {
 	      public String removeC( HttpServletResponse response,HttpServletRequest request, Model model, MembersDTO dto) throws IOException{
 	          	   	
 	    	  HttpSession session = request.getSession(false);
-	    	  String inputpwd = request.getParameter("input");
+	    	  String inputpwd = request.getParameter("inputpwd");
 	    	  String pwd = (String)session.getAttribute("SESS_PWD");
 	    	  log.info("인풋"+inputpwd);
 	    	  log.info("인풋"+pwd);
@@ -176,15 +175,15 @@ public class MypageController {
 		   	   	  	session.invalidate(); 
 	   	   	  	
 		   	   	  	out.println("<script> alert('탈퇴가 완료되었습니다.');");		
-		   	   	  	out.println("location.href='/main/main'; </script>");
-		   	   	  	out.close();
+		   	   	  	out.println("location.href='4jojo/main/main'; </script>");
+		   	   	  	out.close();	
 		   	   	  	
 	   	   	  	return null;
 	   	   	  	
 	   	   	  	}else {
 	   	   	  		out.println("<script> alert('입력하신 정보가 맞지 않습니다.');");
 	   	   	  		out.println("history.go(-1); </script>");
-	   	   	  		out.println("location.href='/mypage/remM'; </script>");
+	   	   	  		out.println("location.href='4jojo/mypage/remM'; </script>");
 	   	   	  		out.close();
 	   	   	  		
 	   	   		return null;
@@ -192,7 +191,7 @@ public class MypageController {
 			   }else {
 				   		out.println("<script> alert('로그인하세요');");
 			   	  		out.close();
-			   	  	return "/main/main";
+			   	  	return "redirect:/main/main";
 			   }
 	      
 }     
@@ -285,81 +284,9 @@ public class MypageController {
 //	   	   return "/mypage/removeM";    
 //}
 //		   
-=======
-                List<MembersDTO> mdto = service.getMypage(email);
-                model.addAttribute("membersDTO", mdto);                       
-            
-                return "/mypage/upmypage";
-                
-                
-               }else {
-                  return "redirect:/main/main"; 
-               }
-         
-      }  
-         
-       //withdrawal 탈퇴 페이지 요청
-         @GetMapping("/remM")
-         public String remove() {
-            return "/mypage/remM";
-         }
-   
-         
-         //회원탈퇴
-         @GetMapping("/remove")
-         public String removeMember(HttpServletRequest request, Model model, MembersDTO dto) {
-                      
-                 HttpSession session = request.getSession();
-               boolean SESS_AUTH = false;
-                
-               
-               try {
-                  SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-               }catch(Exception e) {}
-               
-               if( SESS_AUTH ) {        
 
-                  request.setAttribute("SESS_AUTH", false);
-                  String email = (String) session.getAttribute("SESS_EMAIL");
+         
 
-                List<MembersDTO> mdto = service.getMypage(email);
-                model.addAttribute("membersDTO", mdto);                       
-                
-                service.removeMember(dto);
-                   session.invalidate(); 
-                
-                return "redirect:/main/main";
-                
-               }else {
-                  return "redirect:/mypage/removeM"; 
-               }
-         
-      }           
-         
-         //회원탈퇴 확인창
-         @GetMapping("/removecheck")
-         public String removeCheck(HttpServletRequest request, Model model, MembersDTO dto) {
-                      
-                 HttpSession session = request.getSession();
-               boolean SESS_AUTH = false;
-               
-               try {
-                  SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-               }catch(Exception e) {}
-               
-               if( SESS_AUTH ) {        
-                  request.setAttribute("SESS_AUTH", false);
-                  String email = (String) session.getAttribute("SESS_EMAIL");
-
-                List<MembersDTO> mdto = service.getMypage(email);
-                model.addAttribute("membersDTO", mdto);                       
-            
-         
-      }  
-            return "/mypage/removeM";    
-}
-         
->>>>>>> 7cc4f7d2b26cf774c7d98505c903a3732819b9cf
    
 }
 

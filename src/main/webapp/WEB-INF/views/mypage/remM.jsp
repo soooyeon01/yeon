@@ -77,11 +77,12 @@
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
 	  }
   function remM() {
-	   var data = $("#form").serialize(); // form 데이터 직렬화
+	   var data = $("form").serialize(); // form 데이터 직렬화
 	   $.ajax({
 	      url: "${pageContext.servletContext.contextPath}/mypage/remMC",
-	      data: data, // 수정: 직렬화된 form 데이터 전달
+	      data: "data", // 수정: 직렬화된 form 데이터 전달
 	      type: "post",
+	      
 	      success: function(data, textStatus) {
 	         console.log(data);
 	      },
@@ -92,7 +93,6 @@
 	      }
 	   });
 	}
-
 
 /*   
   function logout(){  
@@ -177,11 +177,11 @@
         </nav>
         
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/petnotice"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shelter"><b>보호소</b></a>
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/withpet"><b>위드펫</b></a>
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community"><b>커뮤니티</b></a>
-         <a class=" pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+     		 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice"><b>공지사항</b></a>
    
             </nav>
    <div id="layoutSidenav_content">
