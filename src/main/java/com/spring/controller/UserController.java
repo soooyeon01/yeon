@@ -45,7 +45,7 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-	                        HttpSession session,Model model) {
+	                         @RequestParam("nickname") String nickname, HttpSession session,Model model) {
 	    MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
