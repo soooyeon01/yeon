@@ -117,6 +117,7 @@
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="email" id="email" type="email" />
+                                                <input type="button">
                                                 <label for="email">이메일</label>
                                             </div>
                                             <div class="form-floating mb-3">
