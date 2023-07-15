@@ -1,89 +1,89 @@
 package com.spring.api.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.spring.api.domain.OpenAPI_ServiceResponse;
 import com.spring.api.domain.PetnoticeDTO;
 import com.spring.api.mapper.ApiMapper;
 
 import lombok.RequiredArgsConstructor;
+import okhttp3.HttpUrl;
 
 @RequiredArgsConstructor
 @Service
 public class PetServiceImpl implements PetService {
 
-    @Autowired
-    private ApiMapper mapper;
-    private final Gson gson;
+    private final ApiMapper mapper;
 
     @Override
-    public void registerPetData(PetnoticeDTO pdto) {
-        mapper.insertPetData(pdto);
-    }
-
-    @Override
-    public void saveData(String apiurl, String servicekey, int startpage, int numOfRows) {
-    
-        // ...
-
-        int pageNo = startpage;  // 시작 페이지
-        int totalCount = 0;      // 총 데이터 건수
-        int requestCount = 0;    // 요청한 데이터 건수
+    public void fetchDataAndSaveToDB() {
+        int pageNo = 1;
+        int numOfRows = 1000;
+        int totalDataCount = 0;
+        int currentDataCount = 0;
+        String serviceKey = "8mI5YJHYDClBCO0nVGTefXN%2FNRNDL4R68OP9EmufvlXPqdTKQSDm%2BsFUOYWKMuHHs%2Bi%2B1wxPQXr5HDnyjtr%2B8A%3D%3D";
         
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(Collections.singletonList(new StringHttpMessageConverter(StandardCharsets.UTF_8)));
+
         while (true) {
-            String apiUrl = apiurl + "?pageno=" + pageNo + "&numOfRows=" + numOfRows + "&serviceKey=" + servicekey;
-            // ...
+        	  HttpUrl url = HttpUrl.parse("https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic")
+                      .newBuilder()
+                      .addQueryParameter("pageNo", String.valueOf(pageNo))
+                      .addQueryParameter("numOfRows", String.valueOf(numOfRows))
+                      .addQueryParameter("serviceKey", serviceKey)
+                      .build();
 
-            int resultCount = parseData(response);
-            totalCount += resultCount;
-            requestCount += numOfRows;
+        	  ResponseEntity<OpenAPI_ServiceResponse> response = restTemplate.getForEntity(url.toString(), OpenAPI_ServiceResponse.class);
+        	  OpenAPI_ServiceResponse responseBody = response.getBody();
 
-            if (resultCount < numOfRows) {
-                // 요청한 건수보다 적게 들어온 경우, 마지막 페이지에 도달한 것으로 간주
+            // responseBody 데이터를 PetNoticeDTO 객체로 변환
+            PetnoticeDTO pdto = convertToPetNoticeDTO(responseBody);
+
+            // Null check for pdto
+            if (pdto != null) {
+                // MyBatis를 사용하여 DB에 저장
+                mapper.insertPetData(pdto);
+
+                // 현재 데이터 수와 전체 데이터 수 가져오기
+                currentDataCount = pdto.getPetnoticeDTO().size(); // 현재 데이터 수
+                totalDataCount = pdto.getTotalCount(); // 전체 데이터 수
+
+                // 데이터 모으기 종료 조건 검사
+                if (currentDataCount == 0 || currentDataCount >= totalDataCount) {
+                    break;
+                }
+            } else {
                 break;
             }
-            pageNo++;
+
+            pageNo++; // pageNo 증가
         }
-
-        // ...
     }
 
-    // ...
-}
-
-    public String makeApiCall(String apiUrl, String serviceKey) {
-        // 입력된 API URL과 Service Key로 실제 API 호출을 수행하는 코드
-        // 반환된 데이터를 문자열 형태로 반환
-
-        // 이 부분은 실제로는 URL 연결 및 API 호출을 수행하는 코드
-        String responseData = "API 호출 결과 데이터"; // 임시 데이터 추가
-        return responseData;
-    }
-
-    public PetnoticeDTO parseData(String responseData) {
-        JsonObject jsonObject = JsonParser.parseString(responseData).getAsJsonObject();
+    private PetnoticeDTO convertToPetNoticeDTO(OpenAPI_ServiceResponse responseBody) {
+    	 List<PetnoticeDTO> petnoticeList = responseBody.getResponse().getBody().getItems();
+    	 int totalCount = responseBody.getResponse().getBody().getTotalCount();
 
         PetnoticeDTO petnoticeDTO = new PetnoticeDTO();
-        petnoticeDTO.setHappenDt(jsonObject.has("happenDt") ? jsonObject.get("happenDt").getAsString() : "");
-        petnoticeDTO.setHappenPlace(jsonObject.has("happenPlace") ? jsonObject.get("happenPlace").getAsString() : "");
-        petnoticeDTO.setKindCd(jsonObject.has("kindCd") ? jsonObject.get("kindCd").getAsString() : "");
-        petnoticeDTO.setColorCd(jsonObject.has("colorCd") ? jsonObject.get("colorCd").getAsString() : "");
-        petnoticeDTO.setAge(jsonObject.has("age") ? jsonObject.get("age").getAsString() : "");
-        petnoticeDTO.setWeight(jsonObject.has("weight") ? jsonObject.get("weight").getAsString() : "");
-        petnoticeDTO.setNoticeNo(jsonObject.has("noticeNo") ? jsonObject.get("noticeNo").getAsString() : "");
-        petnoticeDTO.setNoticeSdt(jsonObject.has("noticeSdt") ? jsonObject.get("noticeSdt").getAsString() : "");
-        petnoticeDTO.setNoticeEdt(jsonObject.has("noticeEdt") ? jsonObject.get("noticeEdt").getAsString() : "");
-        petnoticeDTO.setPopfile(jsonObject.has("popfile") ? jsonObject.get("popfile").getAsString() : "");
-        petnoticeDTO.setProcessState(jsonObject.has("processState") ? jsonObject.get("processState").getAsString() : "");
-        petnoticeDTO.setSexCd(jsonObject.has("sexCd") ? jsonObject.get("sexCd").getAsString() : "");
-        petnoticeDTO.setNeuterYn(jsonObject.has("neuterYn") ? jsonObject.get("neuterYn").getAsString() : "");
-        petnoticeDTO.setSpecialMark(jsonObject.has("specialMark") ? jsonObject.get("specialMark").getAsString() : "");
-        petnoticeDTO.setCareNm(jsonObject.has("careNm") ? jsonObject.get("careNm").getAsString() : "");
-        petnoticeDTO.setCareAddr(jsonObject.has("careAddr") ? jsonObject.get("careAddr").getAsString() : "");
-        petnoticeDTO.setCareTel(jsonObject.has("careTel") ? jsonObject.get("careTel").getAsString() : "");
+        petnoticeDTO.setPetnoticeDTO(petnoticeList);
+        petnoticeDTO.setTotalCount(totalCount);
+
         return petnoticeDTO;
     }
 }
+
+ 

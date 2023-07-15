@@ -1,5 +1,7 @@
 package com.spring.api.domain;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.Getter;
@@ -10,6 +12,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PetnoticeDTO {
+	private List<PetnoticeDTO> petnoticeDTO;
+    private int totalCount;
 	private int pet_notice_no;
 	private String happenDt; 
 	private String happenPlace; 
