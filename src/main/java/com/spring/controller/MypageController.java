@@ -182,7 +182,7 @@ public class MypageController {
 	
 		              } else {
 		            	  model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
-			      			model.addAttribute("url", "remM"); //마이페이지 가면 세션이없어 알아서 메인으로 감.
+			      			model.addAttribute("url", "remM"); 
 			      			return "alert";
 		              }
 	          } else {
