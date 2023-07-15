@@ -9,9 +9,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -290,8 +294,7 @@ public class MypageController {
 	   	       model.addAttribute("membersDTO", mdto);	   	       	    
 	   	   
 	   	       return "/mypage/upmypage";
-	   	       
-	   	       
+  	       
 	   		   }else {
 	   			   return "redirect:/main/main"; 
 	   		   }
@@ -303,33 +306,19 @@ public class MypageController {
 	      public String remove() {
 	      	return "/mypage/remM";
 	      }	      	   
-	  
-	      //하는 중
+	  	
 	      @RequestMapping(value = "/remMC", method = RequestMethod.POST)
-	      public String removeC( HttpServletResponse response,HttpServletRequest request, Model model, MembersDTO dto) throws IOException{
-	          	   	
-	    	  HttpSession session = request.getSession(false);
-	    	  String inputpwd = request.getParameter("inputpwd");
-	    	  String pwd = (String)session.getAttribute("SESS_PWD");
-	    	  log.info("인풋"+inputpwd);
-	    	  log.info("인풋"+pwd);
-	    	  PrintWriter out = response.getWriter();
-	    	  response.setCharacterEncoding("utf-8");
-	    	  boolean SESS_AUTH = false;
-	    	  
-	    	  response.setContentType("text/html; charset=utf-8");
-	    	  
-	   	      try {
-	   	         SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-	   	      }catch(Exception e) {}
-	   	      
-	   	      if( SESS_AUTH ) {
-	   	         request.setAttribute("SESS_AUTH", false);	   	         
-	   	         session.setAttribute("pw", pwd);
-	   	   	  	if(pwd.equals(inputpwd)) {
-	   	   	  		
-	   	   	  		log.info("여기"+inputpwd);
+	      public String removeC(MembersDTO dto, HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
+	          HttpSession session = request.getSession(false);
+	          String email = (String) session.getAttribute("SESS_EMAIL");
 
+<<<<<<< HEAD
+	          // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴
+	          String pwd = service.getPwd(email);
+	          
+	          //입력값 가져오기
+	          String inputpwd = request.getParameter("inputpwd");	          
+=======
 		   	   	  	service.removeMember(dto);
 		   	   	  	session.invalidate(); 
 	   	   	  	
@@ -444,11 +433,41 @@ public class MypageController {
 //}
 //		   
 >>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
+>>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
 
-         
+	          PrintWriter out = response.getWriter();
+	          response.setCharacterEncoding("utf-8");
+	          boolean SESS_AUTH = false;
+	          response.setContentType("text/html; charset=utf-8");
 
-   
-}
+	          try {
+	              SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
+	          } catch (Exception e) {
+	          }
 
-   
-// 
+	          if (SESS_AUTH) {
+	              request.setAttribute("SESS_AUTH", false);
+
+		              if (pwd.equals(inputpwd)) {
+		                  service.removeMember(email);
+		                  session.invalidate();
+		                  model.addAttribute("msg", "탈퇴가 완료되었습니다."); 
+		      			model.addAttribute("url", "mypage"); //마이페이지 가면 세션이없어 알아서 메인으로 감.
+		      			return "alert";
+		                
+	
+		              } else {
+		            	  model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
+			      			model.addAttribute("url", "remM"); //마이페이지 가면 세션이없어 알아서 메인으로 감.
+			      			return "alert";
+		              }
+	          } else {
+	              out.println("<script> alert('로그인하세요');");
+	              out.close();
+	              return "redirect:/main/main";
+	          }
+	      }
+    
+  
+}	      
+	      
