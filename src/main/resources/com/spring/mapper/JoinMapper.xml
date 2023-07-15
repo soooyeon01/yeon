@@ -9,6 +9,6 @@
  </insert>
  
  <select id="emailCheck" parameterType="String" resultType="int">
-		SELECT COUNT(1) FROM members WHERE email= #{email,jdbcType=VARCHAR}
+		SELECT COUNT(email) FROM members WHERE email= #{email}
 </select>
  </mapper>

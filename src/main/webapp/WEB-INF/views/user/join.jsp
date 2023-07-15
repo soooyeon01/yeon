@@ -11,10 +11,6 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>옥독캣 - 회원가입</title>
-        <link href="${root}/resources/bootstrap/css/styles.css" rel="stylesheet" />
-        <script src="${root}/resources/bootstrap/js/scripts.js"></script>
-        
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <style>
 			.emailOn{
 			color:#008000;
@@ -25,7 +21,13 @@
 			color:#6A82FB; 
 			display: none;
 			}
-			</style>
+		</style>
+        <link href="${root}/resources/bootstrap/css/styles.css" rel="stylesheet" />
+        <script src="${root}/resources/bootstrap/js/scripts.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        
           <script>
         function verifyField(){
             let element = document.getElementById("name");
@@ -127,7 +129,6 @@
                     } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
                         $('.emailOn').css("display", "none");
                         $('.emailOff').css("display","inline-block");
-                        alert("아이디를 다시 입력해주세요");
                         $('#email').val('');
                     }
                 },
@@ -156,7 +157,7 @@
                                                 <label for="name">이름</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="email" type="email" oninput="emailCheck()">                                                                                              
+                                                <input class="form-control" name="email" id="email" type="email" onkeyup="emailCheck()">                                                                                              
                                                 <label for="email">이메일</label>
                                                 
                                                 <span class="emailOn">사용 가능한 아이디입니다.</span>
