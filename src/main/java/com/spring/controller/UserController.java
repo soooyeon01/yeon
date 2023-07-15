@@ -1,6 +1,11 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.FindEmailService;
@@ -39,68 +45,18 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-        HttpSession session,Model model,MembersDTO mdto) {
-	    //MembersDTO mdto = new MembersDTO();
-=======
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
->>>>>>> 1a8d200dfb57337afb05229a634e19e2833c73fa
 	                           HttpSession session,Model model) {
 	    MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
 
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
-	                         HttpSession session,Model model,MembersDTO mdto) {
-	    
->>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
-	    mdto.setEmail(email);
-	    mdto.setPwd(password);
-	                 
-	    
-<<<<<<< HEAD
-
-=======
-	    
-<<<<<<< HEAD
-
-=======
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
->>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
->>>>>>> 1a8d200dfb57337afb05229a634e19e2833c73fa
 	    if(service.countLogin(mdto) == 1) {
 	    	mdto=service.selectLogin(mdto);
 	    	
 	        session.setAttribute("SESS_AUTH", true);
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-=======
-<<<<<<< HEAD
-
->>>>>>> 1a8d200dfb57337afb05229a634e19e2833c73fa
 	        session.setAttribute("SESS_PWD", mdto.getPwd());
 	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-<<<<<<< HEAD
-=======
-
-	       
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
->>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
-	        
->>>>>>> 1a8d200dfb57337afb05229a634e19e2833c73fa
 	        return "redirect:/main/main";
 	    } else {
 			model.addAttribute("msg", "로그인 실패");	
@@ -127,8 +83,6 @@ public class UserController {
 	    
 		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
 	}
-	
-	
 
 	@GetMapping("/findEmail")
 	public String findEmailget(MembersDTO mdto) {
@@ -161,6 +115,7 @@ public class UserController {
 		return "user/findEmail";
 	}
 	
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
