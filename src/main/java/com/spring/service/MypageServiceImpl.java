@@ -36,9 +36,14 @@ public class MypageServiceImpl implements MypageService {
 	
 	//탈퇴
 	@Override
-	public int removeMember(MembersDTO dto) {
-		int result = mapper.removeMember(dto);
+	public int removeMember(String email) {
+		int result = mapper.removeMember(email);
 		return result;
+	}
+
+	@Override
+	public String getPwd(String email) {	
+		return mapper.selectPwd(email);
 	}
 
 	

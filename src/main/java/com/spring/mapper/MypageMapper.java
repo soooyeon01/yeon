@@ -12,6 +12,8 @@ public interface MypageMapper {
 
 	List<MembersDTO> selectMypage(String email);
 	
-	int removeMember(MembersDTO dto);
+	int removeMember(String pwd);
+
+	String selectPwd(String email);
 
 }

@@ -2,6 +2,8 @@ package com.spring.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.spring.domain.MembersDTO;
 
 
@@ -14,6 +16,8 @@ public interface MypageService {
 
 	int modifyPhone(MembersDTO dto);
 	
-	int removeMember(MembersDTO dto);
+	int removeMember(String email);
+
+	String getPwd(String email);
 
 }
