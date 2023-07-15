@@ -4,12 +4,58 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.ApiMapper">
   <insert id="insertPetData">
-  	INSERT INTO PET_NOTICE \ VALUES (seq_pet_notice_no.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  	INSERT INTO PET_NOTICE VALUES (seq_pet_notice_no.nextval,
+  	#{happenDt, jdbcType=VARCHAR}, 
+  	#{happenPlace, jdbcType=VARCHAR}, 
+  	#{kindCd, jdbcType=VARCHAR}, 
+  	#{colorCd, jdbcType=VARCHAR}, 
+  	#{age, jdbcType=VARCHAR}, 
+  	#{weight, jdbcType=VARCHAR}, 
+  	#{noticeNo, jdbcType=VARCHAR}, 
+  	#{noticeSdt, jdbcType=VARCHAR}, 
+  	#{noticeEdt, jdbcType=VARCHAR}, 
+  	#{popfile, jdbcType=VARCHAR}, 
+  	#{processState, jdbcType=VARCHAR}, 
+  	#{sexCd, jdbcType=VARCHAR}, 
+  	#{neuterYn, jdbcType=VARCHAR}, 
+  	#{specialMark, jdbcType=VARCHAR}, 
+  	#{careNm, jdbcType=VARCHAR}, 
+  	#{careAddr, jdbcType=VARCHAR}, 
+  	#{careTel, jdbcType=VARCHAR})
   </insert>
   <insert id="insertShelData">
-  	INSERT INTO shelter \VALUES (seq_shelter_no.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)
+  	INSERT INTO shelter VALUES (seq_shelter_no.nextval,
+  	#{careNm, jdbcType=VARCHAR}, 
+  	#{divisionNm, jdbcType=VARCHAR}, 
+  	#{saveTrgtAnimal, jdbcType=VARCHAR}, 
+  	#{careAddr, jdbcType=VARCHAR}, 
+  	#{weekOprStime, jdbcType=VARCHAR}, 
+  	#{weekOprEtime, jdbcType=VARCHAR}, 
+  	#{weekCellStime, jdbcType=VARCHAR}, 
+  	#{weekCellEtime, jdbcType=VARCHAR}, 
+  	#{weekendOprStime, jdbcType=VARCHAR}, 
+  	#{weekendOprEtime, jdbcType=VARCHAR},
+  	#{weekendCellStime, jdbcType=VARCHAR},
+  	#{weekendCellEtime, jdbcType=VARCHAR},
+  	#{closeDay, jdbcType=VARCHAR},
+  	#{careTel, jdbcType=VARCHAR})
   </insert>
   <insert id="insertWithData">
-  	INSERT INTO WITH_PET \ VALUES (seq_with_pet_no.nextval,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+  	INSERT INTO WITH_PET VALUES (seq_with_pet_no.nextval,
+  	#{building, jdbcType=VARCHAR}, 
+  	#{category3, jdbcType=VARCHAR}, 
+  	#{road, jdbcType=VARCHAR}, 
+  	#{tel, jdbcType=VARCHAR}, 
+  	#{homepage, jdbcType=VARCHAR}, 
+  	#{day_off, jdbcType=VARCHAR}, 
+  	#{hour, jdbcType=VARCHAR}, 
+  	#{parking, jdbcType=VARCHAR}, 
+  	#{with_pet_info, jdbcType=VARCHAR}, 
+  	#{only_pet_info, jdbcType=VARCHAR}, 
+  	#{pet_size, jdbcType=VARCHAR}, 
+  	#{pet_limit, jdbcType=VARCHAR}, 
+  	#{inside, jdbcType=VARCHAR}, 
+  	#{outside, jdbcType=VARCHAR},
+  	#{extra, jdbcType=VARCHAR})
   </insert>
 </mapper>
