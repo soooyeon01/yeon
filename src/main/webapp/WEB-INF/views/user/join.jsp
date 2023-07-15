@@ -157,7 +157,7 @@
                                                 <label for="name">이름</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="email" type="email" onkeyup="emailCheck()">                                                                                              
+                                                <input class="form-control" name="email" id="email" type="text" onkeyup="emailCheck()">                                                                                              
                                                 <label for="email">이메일</label>
                                                 
                                                 <span class="emailOn">사용 가능한 아이디입니다.</span>
