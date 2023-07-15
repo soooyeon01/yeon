@@ -208,14 +208,12 @@
                      회원 탈퇴 시 회원만의 서비스를 받을 수 없습니다.<br>
                      탈퇴 하시겠습니까?
                  <br>
-                 <br>
-                                                               
-                 	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="password"/>                             		
+                 <br>                                                    
+                 	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="Password"/>                             		
                 </div>
                 <br>
          	
-                    	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp; 
-                    	 
+                    	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp;    	 
                     	  <button type="submit" class ="btn btn-warning" onclick="remM();">탈퇴하기</button>&nbsp;
                 </form> 
                 

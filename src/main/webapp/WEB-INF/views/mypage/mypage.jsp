@@ -25,31 +25,14 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
   <script>
-  function withdrawMember() {
-     $.ajax({
-       url: "/4jojo/mypage",
-       type: "POST",
-       dataType: "json",
-       success: function(data) {
-         if (data.result === 1) {
-           alert("회원 탈퇴가 완료되었습니다.");
-           location.href = "/4jo/logout"; // 로그아웃 페이지로 이동
-         } else {
-           alert("회원 탈퇴 처리에 실패했습니다. 다시 시도해주세요.");
-         }
-       },
-       error: function(jqXHR, textStatus, errorThrown) {
-         console.log(jqXHR);
-         console.log(textStatus);
-         console.log(errorThrown);
-         alert("오류가 발생했습니다. 다시 시도해주세요.");
-       }
-     });
-   }
-  </script>
+	 function logout() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+		   }
+	}
   
   <!-- 이동경로 -->
-  <script>
+
   function login(){
 	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
 	  }
@@ -134,8 +117,8 @@
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
               <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(id);%>
-            <%  if( id != null) { %>
+
+           	 <% if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>
@@ -144,14 +127,7 @@
                 </div>
             </form>     
             </nav>
-            <script>
-               function logout() {
-             if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${pageContext.servletContext.contextPath}/user/logout";
-                }
-         	}
-            </script>
-            
+           
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" onclick= "main();" >

@@ -1,11 +1,6 @@
 package com.spring.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.FindEmailService;
@@ -45,31 +39,19 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-<<<<<<< HEAD
-	                           HttpSession session,Model model) {
-	    MembersDTO mdto = new MembersDTO();
-	    mdto.setEmail(email);
-	    mdto.setPwd(password);
 
-=======
-	                         HttpSession session,Model model,MembersDTO mdto) {
+        HttpSession session,Model model,MembersDTO mdto) {
 	    //MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
 	    
-	    
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
+
 	    if(service.countLogin(mdto) == 1) {
 	    	mdto=service.selectLogin(mdto);
 	    	
 	        session.setAttribute("SESS_AUTH", true);
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
-<<<<<<< HEAD
-	        session.setAttribute("SESS_PWD", mdto.getPwd());
-=======
 	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-	       
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
 	        
 	        return "redirect:/main/main";
 	    } else {
@@ -129,4 +111,9 @@ public class UserController {
 		return "user/findEmail";
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main/main";
+	}
 }
