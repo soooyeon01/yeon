@@ -122,14 +122,12 @@
                 type:'post', //POST 방식으로 전달
                 data:{email:email},
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                    if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                    if(cnt==0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+                        $('.emailOff').css("display","inline-block");
+                    	$('.emailOn').css("display", "none");
+                    } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
                         $('.emailOn').css("display","inline-block"); 
                         $('.emailOff').css("display", "none");
-
-                    } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                        $('.emailOn').css("display", "none");
-                        $('.emailOff').css("display","inline-block");
-                        $('#email').val('');
                     }
                 },
                 error:function(){
@@ -157,7 +155,7 @@
                                                 <label for="name">이름</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="email" type="text" onkeyup="emailCheck()">                                                                                              
+                                                <input class="form-control" name="email" id="email" type="text" oninput="emailCheck()">                                                                                              
                                                 <label for="email">이메일</label>
                                                 
                                                 <span class="emailOn">사용 가능한 아이디입니다.</span>
