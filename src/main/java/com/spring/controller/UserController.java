@@ -45,47 +45,18 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
 	                           HttpSession session,Model model) {
 	    MembersDTO mdto = new MembersDTO();
 	    mdto.setEmail(email);
 	    mdto.setPwd(password);
 
-=======
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
-	                         HttpSession session,Model model,MembersDTO mdto) {
-	    
-	    mdto.setEmail(email);
-	    mdto.setPwd(password);
-	                 
-	    
-	    
-<<<<<<< HEAD
-
-=======
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
 	    if(service.countLogin(mdto) == 1) {
 	    	mdto=service.selectLogin(mdto);
 	    	
 	        session.setAttribute("SESS_AUTH", true);
 	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
-<<<<<<< HEAD
-
 	        session.setAttribute("SESS_PWD", mdto.getPwd());
-=======
-<<<<<<< HEAD
-	        session.setAttribute("SESS_PWD", mdto.getPwd());
-=======
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
 	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-
-	       
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
-	        
 	        return "redirect:/main/main";
 	    } else {
 			model.addAttribute("msg", "로그인 실패");	
@@ -112,6 +83,8 @@ public class UserController {
 	    
 		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
 	}
+	
+	
 
 	@GetMapping("/findEmail")
 	public String findEmailget(MembersDTO mdto) {
