@@ -7,4 +7,8 @@
  INSERT INTO members(nickname, email, pwd, name, phone)
 		VALUES(#{nickname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
  </insert>
+ 
+ <select id="emailCheck" parameterType="String" resultType="int">
+		SELECT COUNT(1) FROM members WHERE email= #{email,jdbcType=VARCHAR}
+</select>
  </mapper>

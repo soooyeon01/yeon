@@ -44,25 +44,26 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-	                           HttpSession session,Model model) {
-	    MembersDTO mdto = new MembersDTO();
-	    mdto.setEmail(email);
-	    mdto.setPwd(password);
+	   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+	        HttpSession session,Model model,MembersDTO mdto) {
+	       //MembersDTO mdto = new MembersDTO();
+	       mdto.setEmail(email);
+	       mdto.setPwd(password);
+	       
+	       if(service.countLogin(mdto) == 1) {
+	          mdto=service.selectLogin(mdto);
+	          
+	           session.setAttribute("SESS_AUTH", true);
+	           session.setAttribute("SESS_EMAIL", mdto.getEmail());
+	           session.setAttribute("SESS_NICKNAME", mdto.getNickname());
+	           
+	           return "redirect:/main/main";
+	       } else {
+	         model.addAttribute("msg", "로그인 실패");   
+	         return "alert";
+	       }
+	   }
 
-	    if(service.countLogin(mdto) == 1) {
-	    	mdto=service.selectLogin(mdto);
-	    	
-	        session.setAttribute("SESS_AUTH", true);
-	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
-	        session.setAttribute("SESS_PWD", mdto.getPwd());
-	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-	        return "redirect:/main/main";
-	    } else {
-			model.addAttribute("msg", "로그인 실패");	
-			return "alert";
-	    }
-	}
 		
 	@GetMapping("/join")
 	public String joinget(MembersDTO mdto) {
@@ -80,8 +81,14 @@ public class UserController {
 		} else {
 			model.addAttribute("msg", "회원가입 실패"); 
 			return "alert";
-	    
 		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
+	}
+	
+	@PostMapping("/emailCheck")
+	@ResponseBody
+	public int emailCheck(@RequestParam("email") String email) {
+		int cnt = servicej.emailCheck(email);
+		return cnt;
 	}
 
 	@GetMapping("/findEmail")
