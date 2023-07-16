@@ -26,7 +26,7 @@ public class ApiWithDataController{
 	private static String serviceKey = "lqV979qx%2FDA%2B1cQUXxSoNyaRUMaI%2FEqK3ciILfmuyqdaKb%2FYPDZXwlePD6PoB77pXNWwtFVp4Y39BifgXv9%2BJg%3D%3D";
 	@RequestMapping("/withdata")
 	public String fetchWithData() {
-   // heritage 객체들을 저장할 list
+   // wdto 객체들을 저장할 list
 	   ArrayList<W_DTO> list = new ArrayList<>();
 	
 	   try {
@@ -54,30 +54,30 @@ public class ApiWithDataController{
 	
 	               Element eElement = (Element) nNode;
 	
-	               // heritage vo를 저장할 객체
-	               W_DTO heri = new W_DTO();
+	               // wdtotage vo를 저장할 객체
+	               W_DTO wdto = new W_DTO();
 	
 	               // 종목코드
-	               heri.setBuilding(getTagValue("시설명", eElement)); // 지정번호
-	               heri.setCategory3(getTagValue("카테고리3", eElement));
-	               heri.setRoad(getTagValue("도로명주소", eElement)); // 시도코드
-	               heri.setTel(getTagValue("전화번호", eElement)); // 위도
-	               heri.setHomepage(getTagValue("홈페이지", eElement)); // 경도
-	               heri.setDay_off(getTagValue("휴무일", eElement));
-	               heri.setHour(getTagValue("운영시간", eElement));
-	               heri.setParking(getTagValue("주차 가능여부", eElement));
-	               heri.setWith_pet_info(getTagValue("반려동물 동반 가능정보", eElement));
-	               heri.setOnly_pet_info(getTagValue("반려동물 전용 정보", eElement));
-	               heri.setPet_size(getTagValue("입장 가능 동물 크기", eElement));
-	               heri.setPet_limit(getTagValue("반려동물 제한사항", eElement));
-	               heri.setInside(getTagValue("장소(실내) 여부", eElement));
-	               heri.setOutside(getTagValue("장소(실외)여부", eElement));
-	               heri.setExtra(getTagValue("애견 동반 추가 요금", eElement));
-	               list.add(heri);
+	               wdto.setBuilding(getTagValue("시설명", eElement)); // 지정번호
+	               wdto.setCategory3(getTagValue("카테고리3", eElement));
+	               wdto.setRoad(getTagValue("도로명주소", eElement)); // 시도코드
+	               wdto.setTel(getTagValue("전화번호", eElement)); // 위도
+	               wdto.setHomepage(getTagValue("홈페이지", eElement)); // 경도
+	               wdto.setDay_off(getTagValue("휴무일", eElement));
+	               wdto.setHour(getTagValue("운영시간", eElement));
+	               wdto.setParking(getTagValue("주차 가능여부", eElement));
+	               wdto.setWith_pet_info(getTagValue("반려동물 동반 가능정보", eElement));
+	               wdto.setOnly_pet_info(getTagValue("반려동물 전용 정보", eElement));
+	               wdto.setPet_size(getTagValue("입장 가능 동물 크기", eElement));
+	               wdto.setPet_limit(getTagValue("반려동물 제한사항", eElement));
+	               wdto.setInside(getTagValue("장소(실내) 여부", eElement));
+	               wdto.setOutside(getTagValue("장소(실외)여부", eElement));
+	               wdto.setExtra(getTagValue("애견 동반 추가 요금", eElement));
+	               list.add(wdto);
 	
 	               // 서비스 시작!
 	               
-	               service.regitsterWithData(heri);
+	               service.regitsterWithData(wdto);
 	            }
 	            System.out.println("들어가는중");
 	         }

@@ -10,10 +10,6 @@
   		]]>
   	</select>
   	
-  	<select id="selectNickname">
-  		select email
-  	</select>
-  	
   	<select id="selectAllCommunity" resultType="com.spring.domain.CommunityDTO">
 	    <![CDATA[
 		 select * from community order by c_no desc

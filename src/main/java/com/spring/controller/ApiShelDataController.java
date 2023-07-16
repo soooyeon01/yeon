@@ -29,7 +29,7 @@ public class ApiShelDataController {
 	public String fetchShelData() {
       
 
-      // heritage 객체들을 저장할 list
+      // sdto 객체들을 저장할 list
       ArrayList<S_DTO> list = new ArrayList<>();
       
       try {
@@ -54,7 +54,7 @@ public class ApiShelDataController {
 	            NodeList nList = doc.getElementsByTagName("item");
 	            System.out.println("파싱할 리스트 수 : " + nList.getLength());
 	            System.out.println("여기1");
-	            S_DTO heri = null;
+	            S_DTO sdto = null;
 	            
 	            for (int temp = 0; temp < nList.getLength(); temp++) {
 	               Node nNode = nList.item(temp);
@@ -62,29 +62,29 @@ public class ApiShelDataController {
 	
 	                  Element eElement = (Element) nNode;
 	
-	                  // heritage vo를 저장할 객체
-	                  heri = new S_DTO();
-	                  heri.setCareNm(getTagValue("careNm", eElement));
-	                  heri.setDivisionNm(getTagValue("divisionNm", eElement)); // 지정번호
-	                  heri.setSaveTrgtAnimal(getTagValue("saveTrgtAnimal", eElement));
-	                  heri.setCareAddr(getTagValue("careAddr", eElement)); // 시도코드
-	                  heri.setWeekOprStime(getTagValue("weekOprStime", eElement)); // 위도
-	                  heri.setWeekOprEtime(getTagValue("weekOprEtime", eElement)); // 경도
-	                  heri.setWeekCellStime(getTagValue("weekCellStime", eElement));
-	                  heri.setWeekCellEtime(getTagValue("weekCellEtime", eElement));
-	                  heri.setWeekendOprStime(getTagValue("weekendOprStime", eElement));
-	                  heri.setWeekendOprEtime(getTagValue("weekendOprEtime", eElement));
-	                  heri.setWeekendCellStime(getTagValue("weekendCellStime", eElement));
-	                  heri.setWeekendCellEtime(getTagValue("weekendCellEtime", eElement));
-	                  heri.setCloseDay(getTagValue("closeDay", eElement));
-	                  heri.setCareTel(getTagValue("careTel", eElement));
+	                  // sdtotage vo를 저장할 객체
+	                  sdto = new S_DTO();
+	                  sdto.setCareNm(getTagValue("careNm", eElement));
+	                  sdto.setDivisionNm(getTagValue("divisionNm", eElement)); // 지정번호
+	                  sdto.setSaveTrgtAnimal(getTagValue("saveTrgtAnimal", eElement));
+	                  sdto.setCareAddr(getTagValue("careAddr", eElement)); // 시도코드
+	                  sdto.setWeekOprStime(getTagValue("weekOprStime", eElement)); // 위도
+	                  sdto.setWeekOprEtime(getTagValue("weekOprEtime", eElement)); // 경도
+	                  sdto.setWeekCellStime(getTagValue("weekCellStime", eElement));
+	                  sdto.setWeekCellEtime(getTagValue("weekCellEtime", eElement));
+	                  sdto.setWeekendOprStime(getTagValue("weekendOprStime", eElement));
+	                  sdto.setWeekendOprEtime(getTagValue("weekendOprEtime", eElement));
+	                  sdto.setWeekendCellStime(getTagValue("weekendCellStime", eElement));
+	                  sdto.setWeekendCellEtime(getTagValue("weekendCellEtime", eElement));
+	                  sdto.setCloseDay(getTagValue("closeDay", eElement));
+	                  sdto.setCareTel(getTagValue("careTel", eElement));
 	              
-	                  list.add(heri);
+	                  list.add(sdto);
 	
 	                  // 서비스 시작!
 	                 
 	
-	                 service.regitsterShelData(heri);
+	                 service.regitsterShelData(sdto);
 	               }
 	               System.out.println("들어가는중");
                }

@@ -128,7 +128,7 @@
               <%System.out.println(email);%>
             <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
                 <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
              
@@ -139,7 +139,7 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+             location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -171,7 +171,7 @@
                             </div>
                             <div class="card-body">
                            		
-                           		 <table id="datatablesSimple">
+                           		 <table class="table">
 	                                    <thead>
 	                                        <tr>
 	                                        	<th>check</th>
@@ -196,30 +196,7 @@
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                           	<th>check</th>
-	                                            <th>Image </th>
-	                                            <th>접수일</th>
-	                                            <th>발견장소 </th>
-	                                            <th>품종</th>
-	                                            <th>색상 </th>
-	                                            <th>나이</th>
-	                                            <th>체중 </th>
-	                                            <th>공고번호 </th>
-	                                            <th>공고시작일 </th>
-	                                            <th>공고종료일 </th>
-	                                            <th>상태 </th>
-	                                            <th>성별 </th>
-	                                            <th>중성화여부 </th>
-	                                            <th>특징 </th>
-	                                            <th>보호소이름 </th>
-	                                            <th>보호소전화번호 </th>
-	                                            <th>보호장소 </th>
-	                                            
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </tfoot>
+	                                    
 	                                    <tbody>
 	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
 											<tr>

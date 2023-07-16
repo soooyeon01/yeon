@@ -38,7 +38,14 @@ public class CommunityController {
 	 */
 	
 	@RequestMapping("/clist")
-	public String CommunityList(HttpServletRequest request, Model model) {
+	public String CommunityList(Model model) {
+		
+		model.addAttribute("communityList",service.getAllCommunity());
+		return "community/community";
+	}
+	
+	@RequestMapping("/myclist")
+	public String MyCommunList(HttpServletRequest request, Model model, String nickname) {
 		HttpSession session = request.getSession();
         boolean SESS_AUTH = false;
          
@@ -47,25 +54,16 @@ public class CommunityController {
         }catch(Exception e) {}
          
         if( SESS_AUTH ) {
-			/*
-			 * mdto.setNickname(nickname); session.setAttribute("SESS_NICKNAME",
-			 * mdto.getNickname()); logservice.selectLogin(mdto);
-			 */
 //          request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
-            String nickname = (String) session.getAttribute("SESS_NICKNAME");
-		model.addAttribute("communityList",service.getAllCommunity());
-		return "community/community";
+            nickname = (String) session.getAttribute("SESS_NICKNAME");
+//          session.setAttribute("id", email);
+            model.addAttribute("myCommuList",service.getMyCommunity(nickname));
+            return "community/mycommunity";
         }else {
         	return "redirect:/main/main";
         }
-	}
-	
-	@RequestMapping("/myclist")
-	public String MyCommunList(Model model) {
-		model.addAttribute("myCommuList",service.getMyCommunity());
-		return "community/mycommunity";
 	}
 	
 	@GetMapping("/newcommu")
