@@ -31,11 +31,12 @@
 		                data: {
 		                    region: region
 		                },
+		                dataType:"json",
 		                success: function (data, textStatus) {
 		                    console.log("succedss");
 		
-		                    if (data && data.length >0) {
-		                        const animals = data;
+		                    if (data.petList && data.petList.length > 0) {
+		                        const animals = data.petList;
 		                        
 		                        let animalsHtml = "";
 		                        for (let i = 0; i < animals.length; i++) {

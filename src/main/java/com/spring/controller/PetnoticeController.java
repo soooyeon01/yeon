@@ -3,7 +3,9 @@ package com.spring.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,16 +58,17 @@ public class PetnoticeController {
 		return "/pet/petdetail";
 	}
 	   
-	@RequestMapping("/petselect")
-	public ModelAndView getPetListByRegion(HttpServletRequest request) {
-		String region=request.getParameter("region");
-	    log.info("이게 널이니?"+region);
-	    List<P_DTO> petList = service.getRegionPet(region);
-	    ModelAndView modelAndView = new ModelAndView();
-	    modelAndView.addObject("petList", petList);
-	    modelAndView.setViewName("/pet/pet"); // "petListJsp"는 보여줄 jsp의 경로입니다. 수정해주시면 됩니다.
-	    return modelAndView;
-	}
+	@RequestMapping(value = "/petselect", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, List<P_DTO>> getPetListByRegion(@RequestParam("region") String region) {
+        log.info("이게 널이니?"+region);
+        List<P_DTO> petList = service.getRegionPet(region);
+
+        Map<String, List<P_DTO>> response = new HashMap<>();
+        response.put("petList", petList);
+
+        return response;
+    }
 	
 	
 	@RequestMapping("/registerpet")
