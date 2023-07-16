@@ -78,8 +78,8 @@ public class UserController {
 		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
 	}
 	
-	@PostMapping("/emailCheck")
 	@ResponseBody
+	@PostMapping("/emailCheck")
 	public int emailCheck(@RequestParam("email") String email) {
 		int cnt = servicej.emailCheck(email);
 		return cnt;
