@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.FindEmailService;
@@ -39,15 +40,26 @@ public class UserController {
    
    @PostMapping("/login")
    public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-                     HttpSession session,Model model,MembersDTO mdto) {
+        HttpSession session,Model model,MembersDTO mdto) {
        //MembersDTO mdto = new MembersDTO();
-      mdto.setEmail(email);
+       mdto.setEmail(email);
        mdto.setPwd(password);
-   
-
-<<<<<<< HEAD
+       
+       if(service.countLogin(mdto) == 1) {
+          mdto=service.selectLogin(mdto);
+          
+           session.setAttribute("SESS_AUTH", true);
+           session.setAttribute("SESS_EMAIL", mdto.getEmail());
+           session.setAttribute("SESS_NICKNAME", mdto.getNickname());
+           
+           return "redirect:/main/main";
+       } else {
+         model.addAttribute("msg", "로그인 실패");   
+         return "alert";
+       }
+   }
 		
-	@GetMapping("/join")
+   @GetMapping("/join")
 	public String joinget(MembersDTO mdto) {
 		return "user/join";
 	}
@@ -66,83 +78,48 @@ public class UserController {
 		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
 	}
 	
-	@ResponseBody
 	@PostMapping("/emailCheck")
+	@ResponseBody
 	public int emailCheck(@RequestParam("email") String email) {
 		int cnt = servicej.emailCheck(email);
 		return cnt;
 	}
-=======
-       if(service.countLogin(mdto) == 1) {
-          mdto=service.selectLogin(mdto);
-          
-           session.setAttribute("SESS_AUTH", true);
-           session.setAttribute("SESS_EMAIL", mdto.getEmail());
-           session.setAttribute("SESS_NICKNAME", mdto.getNickname());
->>>>>>> 996709609e98ab6451d03e20afa22d809c6f2305
 
-           
-           return "redirect:/main/main";
-       } else {
-         model.addAttribute("msg", "로그인 실패");   
-         return "alert";
-       }
-   }
-      
-   @GetMapping("/join")
-   public String joinget(MembersDTO mdto) {
-      return "user/join";
-   }
-   
-   @PostMapping("/join")
-   public String joinpost(MembersDTO mdto, Model model) {
-      int isOk = 1;
-      if( servicej.registerMembers(mdto) == isOk) {
-         model.addAttribute("msg", "회원가입 완료"); 
-         model.addAttribute("url", "login"); 
-         return "alert";
-         
-      } else {
-         model.addAttribute("msg", "회원가입 실패"); 
-         return "alert";
-       
-      } //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
-   }
+	@GetMapping("/findEmail")
+	public String findEmailget(MembersDTO mdto) {
+		return "user/findEmail";
+	}
+	
+	@PostMapping("/findEmail")
+	public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
+    	MembersDTO mdto = new MembersDTO();
+		
+		mdto.setName(name);
+		mdto.setPhone(phone);
+		
+		String email = servicee.findEmail(mdto);
+		
+		if (email != null) {
+			model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
+			 return "alert";
+			
+		} else {
+			model.addAttribute("msg", "없는 정보입니다");	
+			 return "alert";
+		}
+	}
+	
+	
+	@GetMapping("/findPwd")
+	public String findPwd(MembersDTO mdto) {
+		servicep.findPwd(mdto);
+		return "user/findEmail";
+	}
+	
 
-   @GetMapping("/findEmail")
-   public String findEmailget(MembersDTO mdto) {
-      return "user/findEmail";
-   }
-   
-   @PostMapping("/findEmail")
-   public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
-       MembersDTO mdto = new MembersDTO();
-      
-      mdto.setName(name);
-      mdto.setPhone(phone);
-      
-      String email = servicee.findEmail(mdto);
-      
-      if (email != null) {
-         model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
-          return "alert";
-         
-      } else {
-         model.addAttribute("msg", "없는 정보입니다");   
-          return "alert";
-      }
-   }
-   
-   
-   @GetMapping("/findPwd")
-   public String findPwd(MembersDTO mdto) {
-      servicep.findPwd(mdto);
-      return "user/findEmail";
-   }
-   
-   @GetMapping("/logout")
-   public String logout(HttpSession session) {
-      session.invalidate();
-      return "redirect:/main/main";
-   }
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main/main";
+	}
 }
