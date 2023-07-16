@@ -104,6 +104,7 @@ public class MypageController {
          HttpSession session = request.getSession();
          boolean SESS_AUTH = false;
          String phone = request.getParameter("phone");	
+         
          try {
             SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
          }catch(Exception e) {}
