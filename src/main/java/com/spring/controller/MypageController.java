@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -62,7 +63,7 @@ public class MypageController {
    
    
  //pwd
-   @GetMapping("/upmypwd")
+   @PostMapping("/upmypwd")
    public String upmypwd(HttpServletRequest request, Model model, MembersDTO dto) {
                 
            HttpSession session = request.getSession();
@@ -97,42 +98,54 @@ public class MypageController {
 	   }  
    		
    
- //pwd
-   @GetMapping("/upmyphone")
+ //phone
+   @PostMapping("/upmyphone")
    public String upmyphone(HttpServletRequest request, Model model, MembersDTO dto) {
-                
-         HttpSession session = request.getSession();
-         boolean SESS_AUTH = false;
-         String phone = request.getParameter("phone");	
-         
-         try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-         }catch(Exception e) {}
-         
-         if( SESS_AUTH ) {        
-      	   if(phone==""||phone==null) {
+      HttpSession session = request.getSession();
+      boolean SESS_AUTH = false;
+
+      try {
+         SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
+      } catch (Exception e) {
+      }
+
+      if (SESS_AUTH) {
+         String phone = request.getParameter("phone");
+
+         if (phone == null || phone.isEmpty()) {
+            log.info("여기2" + phone);
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
 
-	   	       List<MembersDTO> mdto = service.getMypage(email);
-	   	       model.addAttribute("membersDTO", mdto);
-	   	       
-		   	   model.addAttribute("msg", "변경하실 전화번호를 입력하세요."); 
-		   	   model.addAttribute("url", "upmypage");   	   
-		   	   return "alert";
-		   	   
-      	   }else {
-      		   service.modifyPhone(dto);
-      		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
-      		   model.addAttribute("url", "upmypage"); 
-      		   return "alert";
-      	   }    	   
-       
- 		   }else {
- 			   return "redirect:/main/main"; 
- 		   }
-   }  
-         
+            List<MembersDTO> mdto = service.getMypage(email);
+            model.addAttribute("membersDTO", mdto);
+
+            model.addAttribute("msg", "변경하실 전화번호를 입력하세요.");
+            model.addAttribute("url", "upmypage");
+            return "alert";
+
+         } else {
+            // 전화번호 입력값이 있을 경우 처리
+            int phone2 = 0;
+            try {
+               phone2 = Integer.parseInt(phone);
+               dto.setPhone(phone2);
+            } catch (NumberFormatException e) {
+               // 전화번호 입력값이 int로 변환할 수 없는 경우 처리
+               e.printStackTrace();
+            }
+            service.modifyPhone(dto);
+            model.addAttribute("msg", "비밀번호 변경이 완료되었습니다.");
+            model.addAttribute("url", "upmypage");
+            return "alert";
+         }
+
+      } else {
+         return "redirect:/main/main";
+      }
+   }
+   
+ 
 
          //페이지연결
          @GetMapping("/upmypage")

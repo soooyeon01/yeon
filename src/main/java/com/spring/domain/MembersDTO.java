@@ -12,6 +12,6 @@ public class MembersDTO {
 	private String email;
 	private String pwd;
 	private String name;
-	private int phone;
+	private Integer phone;
 
 }
