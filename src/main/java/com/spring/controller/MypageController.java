@@ -87,7 +87,7 @@ public class MypageController {
       	   }else {
       		   service.modifyPwd(dto);
       		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
-      		   model.addAttribute("url", "mypage"); 
+      		   model.addAttribute("url", "upmypage"); 
       		   return "alert";
       	   }    	   
        
@@ -117,13 +117,13 @@ public class MypageController {
 	   	       model.addAttribute("membersDTO", mdto);
 	   	       
 		   	   model.addAttribute("msg", "변경하실 전화번호를 입력하세요."); 
-		   	       	   
+		   	   model.addAttribute("url", "upmypage");   	   
 		   	   return "alert";
 		   	   
       	   }else {
       		   service.modifyPhone(dto);
       		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
-      		   model.addAttribute("url", "mypage"); 
+      		   model.addAttribute("url", "upmypage"); 
       		   return "alert";
       	   }    	   
        

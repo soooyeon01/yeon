@@ -192,7 +192,7 @@
                </table>
             
                <div align="center"> 
-              		 <form action="${pageContext.servletContext.contextPath}/community/myclist" method="get">            
+              		 <form action="${pageContext.servletContext.contextPath}/community/myclist" >            
                      <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
                       <input type="hidden" name="nickname" value="${mdto.nickname}"> 
                      </form>
