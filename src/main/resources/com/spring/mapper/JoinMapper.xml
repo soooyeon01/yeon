@@ -8,7 +8,7 @@
 		VALUES(#{nickname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{pwd,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR})
  </insert>
  
- <select id="emailCheck" parameterType="String" resultType="int">
-		SELECT COUNT(email) FROM members WHERE email= #{email}
+ <select id="emailCheck" parameterType="com.spring.domain.MembersDTO" resultType="int">
+		SELECT COUNT(*) FROM members WHERE email= #{email}
 </select>
  </mapper>

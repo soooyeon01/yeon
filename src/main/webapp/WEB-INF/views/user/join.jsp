@@ -11,22 +11,20 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>옥독캣 - 회원가입</title>
-        <style>
-			.emailOn{
-			color:#008000;
-			display: none;
-			}
-			
-			.emailOff{
-			color:#6A82FB; 
-			display: none;
-			}
-		</style>
+
         <link href="${root}/resources/bootstrap/css/styles.css" rel="stylesheet" />
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+        <style>
+        	.id_ok{
+        	color:#008000;
+        	display: none;
+        	}
+        	.id_already {
+        	color:#6A82FB;
+        	display: none;
+        	}
+        </style>
         
           <script>
         function verifyField(){
@@ -40,7 +38,7 @@
             if( !isValid (element,msg) ){
                 return false;
             }
-       		element  = document.getElementById("nickname");
+             element  = document.getElementById("nickname");
             msg = "닉네임을 입력하세요.";
             if( !isValid (element,msg) ){
                 return false;
@@ -115,32 +113,35 @@
             }
 
         }
-<<<<<<< HEAD
+
         
         function emailCheck(){
-            var email = $('#email').val();
+            var email = $('#email').val(); 
             $.ajax({
                 url:'./emailCheck', //Controller에서 요청 받을 주소
                 type:'post', //POST 방식으로 전달
                 data:{email:email},
+                dataType:'json',
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                	console.log("ajax cnt : "+cnt);
                     if(cnt==0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                        $('.emailOff').css("display","inline-block");
-                    	$('.emailOn').css("display", "none");
-                    } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                        $('.emailOn').css("display","inline-block"); 
-                        $('.emailOff').css("display", "none");
+                    	$('.id_ok').css("display","inline-block"); 
+                    	$('.id_already').css("display", "none");
+                    	alert("사용 가능한 이메일입니다.");
+                    }else if(cnt==1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    	$('.id_already').css("display","inline-block");
+                        $('.id_ok').css("display", "none");
+                    	alert("이미 사용 중인 이메일입니다.");
+                    	$('#id').val('');
                     }
                 },
                 error:function(){
                     alert("에러입니다");
                 }
             });
-            };;
+            };
+   
 
-        
-=======
->>>>>>> branch 'master' of https://github.com/kmj1000/4jojo.git
     </script>
     </head>
     <body class="bg-primary">
@@ -159,11 +160,13 @@
                                                 <label for="name">이름</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="email" type="text" oninput="emailCheck()">                                                                                              
+                                                <input class="form-control" name="email" id="email" type="email">                                                                                              
                                                 <label for="email">이메일</label>
                                                 
-                                                <span class="emailOn">사용 가능한 아이디입니다.</span>
-												<span class="emailOff">누군가 이 아이디를 사용하고 있어요.</span>
+                                                <button type="button" id="emailBtn" name="emailBtn" onclick="emailCheck();">중복확인</button>                                              
+                                                <span id="result"></span>
+                                                <span class="id_ok">사용 가능한 아이디입니다.</span>
+												<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
                                                 
                                             </div>
                                             <div class="form-floating mb-3">
