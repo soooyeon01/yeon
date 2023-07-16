@@ -51,9 +51,9 @@ public class S_ServiceImpl implements S_Service {
 	}
 
 	@Override
-	public int getRegionShel(S_DTO dto) {
+	public List<S_DTO> getRegionShel(String region) {
 		
-		return mapper.selectRegionShel(dto);
+		return mapper.selectRegionShel(region);
 	}
 
 }

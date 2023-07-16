@@ -14,5 +14,5 @@ public interface S_Mapper {
 	
 	int insertShelterData(S_DTO dto);
 	int deleteShelterData(int shelter_no);
-	int selectRegionShel(S_DTO dto);
+	List<S_DTO> selectRegionShel(String region);
 }

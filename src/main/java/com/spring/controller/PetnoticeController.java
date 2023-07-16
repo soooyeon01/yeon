@@ -58,7 +58,7 @@ public class PetnoticeController {
 		return "/pet/petdetail";
 	}
 	   
-	@RequestMapping(value = "/petselect", method = RequestMethod.POST)
+	@RequestMapping("/petselect")
     @ResponseBody
     public Map<String, List<P_DTO>> getPetListByRegion(@RequestParam("region") String region) {
         log.info("이게 널이니?"+region);
