@@ -68,7 +68,10 @@
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+                <% String nickname = (String) session.getAttribute("SESS_NICKNAME"); %>
+                 
               <%System.out.println(email);%>
+              <%System.out.println(nickname);%>
          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
@@ -127,7 +130,7 @@
                                     	<c:forEach var="myCommu" items="${requestScope.myCommuList}" varStatus="status">
                                         <tr>
                                             <td>${myCommu.c_no}</td>
-                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?nickname=${myCommu.nickname}">${myCommu.title}</a></td>
+                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${myCommu.c_no}">${myCommu.title}</a></td>
                                             <td>${myCommu.reg_date}</td>
                                             <td>${myCommu.nickname}</td>
                                             <td>${myCommu.view_count}</td>

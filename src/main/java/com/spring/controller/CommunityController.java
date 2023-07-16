@@ -60,7 +60,7 @@ public class CommunityController {
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
 //          session.setAttribute("id", email);
             model.addAttribute("myCommuList",service.getMyCommunity());
-            return "community/mycommunity";
+            return "redirect:/community/myclist?nickname="+nickname;
         }else {
         	return "redirect:/main/main";
         }
