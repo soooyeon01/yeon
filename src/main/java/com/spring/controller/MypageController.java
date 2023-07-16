@@ -101,7 +101,7 @@ public class MypageController {
    @GetMapping("/upmyphone")
    public String upmyphone(HttpServletRequest request, Model model, MembersDTO dto) {
                 
-          HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
          boolean SESS_AUTH = false;
          String phone = request.getParameter("phone");	
          try {
@@ -116,12 +116,12 @@ public class MypageController {
 	   	       List<MembersDTO> mdto = service.getMypage(email);
 	   	       model.addAttribute("membersDTO", mdto);
 	   	       
-		   	   model.addAttribute("msg", "변경하실 비밀번호를 입력하세요."); 
-		   	   model.addAttribute("url", "upmypage");       	   
+		   	   model.addAttribute("msg", "변경하실 전화번호를 입력하세요."); 
+		   	       	   
 		   	   return "alert";
 		   	   
       	   }else {
-      		   service.modifyPwd(dto);
+      		   service.modifyPhone(dto);
       		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
       		   model.addAttribute("url", "mypage"); 
       		   return "alert";
@@ -131,33 +131,7 @@ public class MypageController {
  			   return "redirect:/main/main"; 
  		   }
    }  
-         //phone
-         @GetMapping("/upmyphone")
-         public String updatePhone(HttpServletRequest request, Model model, MembersDTO dto) {
-                
-           HttpSession session = request.getSession();
-         boolean SESS_AUTH = false;
          
-         try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-         }catch(Exception e) {}
-         
-         if( SESS_AUTH ) {        
-
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
-
-          List<MembersDTO> mdto = service.getMypage(email);
-          model.addAttribute("membersDTO", mdto);
-                  
-          service.modifyPhone(dto);
-      
-          return "redirect:/mypage/upmypage";
-          
-         }else {
-            return "redirect:/main/main"; 
-         }
-   }     
 
          //페이지연결
          @GetMapping("/upmypage")
