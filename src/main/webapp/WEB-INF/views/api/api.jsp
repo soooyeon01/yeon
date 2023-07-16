@@ -8,8 +8,9 @@
 <script>
 
 </script>
+	
 </head>
 <body>
-	
+	<h1> 데이터가 db에 저장되었습니다. </h1>
 </body>
 </html>

@@ -30,7 +30,7 @@ public class ApiPetDataController {
     public String fetchPetData() {
         // original main() 메소드에서 하는 작업들을 여기로 옮깁니다.
     	
-        // heritage 객체들을 저장할 list
+        // pdto 객체들을 저장할 list
         ArrayList<P_DTO> list = new ArrayList<>();
       
         try {
@@ -60,32 +60,32 @@ public class ApiPetDataController {
       
                         Element eElement = (Element) nNode;
       
-                        // heritage vo를 저장할 객체
-                        P_DTO heri = new P_DTO();
+                        // pdtotage vo를 저장할 객체
+                        P_DTO pdto = new P_DTO();
       
-                        heri.setHappenDt(getTagValue("happenDt", eElement)); // 종목코드
-                        heri.setHappenPlace(getTagValue("happenPlace", eElement)); // 지정번호
-                        heri.setKindCd(getTagValue("kindCd", eElement));
-                        heri.setColorCd(getTagValue("colorCd", eElement)); // 시도코드
-                        heri.setAge(getTagValue("age", eElement)); // 위도
-                        heri.setWeight(getTagValue("weight", eElement)); // 경도
-                        heri.setNoticeNo(getTagValue("noticeNo", eElement));
-                        heri.setNoticeSdt(getTagValue("noticeSdt", eElement));
-                        heri.setNoticeEdt(getTagValue("noticeEdt", eElement));
-                        heri.setPopfile(getTagValue("popfile", eElement));
-                        heri.setProcessState(getTagValue("processState", eElement));
-                        heri.setSexCd(getTagValue("sexCd", eElement));
-                        heri.setNeuterYn(getTagValue("neuterYn", eElement));
-                        heri.setSpecialMark(getTagValue("specialMark", eElement));
-                        heri.setCareNm(getTagValue("careNm", eElement));
-                        heri.setCareAddr(getTagValue("careAddr", eElement));
-                        heri.setCareTel(getTagValue("careTel", eElement));
-                        list.add(heri);
+                        pdto.setHappenDt(getTagValue("happenDt", eElement)); // 종목코드
+                        pdto.setHappenPlace(getTagValue("happenPlace", eElement)); // 지정번호
+                        pdto.setKindCd(getTagValue("kindCd", eElement));
+                        pdto.setColorCd(getTagValue("colorCd", eElement)); // 시도코드
+                        pdto.setAge(getTagValue("age", eElement)); // 위도
+                        pdto.setWeight(getTagValue("weight", eElement)); // 경도
+                        pdto.setNoticeNo(getTagValue("noticeNo", eElement));
+                        pdto.setNoticeSdt(getTagValue("noticeSdt", eElement));
+                        pdto.setNoticeEdt(getTagValue("noticeEdt", eElement));
+                        pdto.setPopfile(getTagValue("popfile", eElement));
+                        pdto.setProcessState(getTagValue("processState", eElement));
+                        pdto.setSexCd(getTagValue("sexCd", eElement));
+                        pdto.setNeuterYn(getTagValue("neuterYn", eElement));
+                        pdto.setSpecialMark(getTagValue("specialMark", eElement));
+                        pdto.setCareNm(getTagValue("careNm", eElement));
+                        pdto.setCareAddr(getTagValue("careAddr", eElement));
+                        pdto.setCareTel(getTagValue("careTel", eElement));
+                        list.add(pdto);
       
                         // 서비스 시작!
                         
       
-                       service.regitsterPetData(heri);
+                       service.regitsterPetData(pdto);
                      }
                      System.out.println("들어가는중");
                   }
