@@ -110,7 +110,7 @@ public class MypageController {
          }catch(Exception e) {}
          
          if( SESS_AUTH ) {        
-      	   if(phone==null || phone == "") {
+      	   if(phone==""||phone==null) {
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
 
@@ -138,7 +138,7 @@ public class MypageController {
          @GetMapping("/upmypage")
          public String upmypage(HttpServletRequest request, Model model, MembersDTO dto) {
                       
-                 HttpSession session = request.getSession();
+               HttpSession session = request.getSession();
                boolean SESS_AUTH = false;
                
                try {
