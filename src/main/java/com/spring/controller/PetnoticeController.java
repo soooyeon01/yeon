@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -28,7 +29,8 @@ import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/pet/*")
@@ -52,23 +54,17 @@ public class PetnoticeController {
 		
 		return "/pet/petdetail";
 	}
-	@PostMapping("/petselect")
-    public @ResponseBody List<P_DTO> getAnimalsByRegion(@RequestParam("region") String region) {
-        // 지역에 따라 동물 목록을 검색하는 로직 구현
-        // 예시 코드 (실제 구현 시 수정 필요)
-
-        // 1. DB에서 동물 목록을 검색하거나 서비스 클래스의 메소드를 호출하여 데이터를 가져옵니다.
-        //    아래는 임시 데이터 목록을 생성하는 코드입니다.
-        List<P_DTO> animals = new ArrayList<>();
-        if ("서울특별시".equalsIgnoreCase(region)) {
-            service.getRegionPet(region);
-        } else if ("부산광역시".equalsIgnoreCase(region)) {
-        	service.getRegionPet(region);
-        }
-
-        // 2. 동물 목록을 프론트엔드로 반환합니다.
-        return animals;
-    }
+	   
+	@RequestMapping("/petselect")
+	public ModelAndView getPetListByRegion(HttpServletRequest request) {
+		String region=request.getParameter("region");
+	    log.info("이게 널이니?"+region);
+	    List<P_DTO> petList = service.getRegionPet(region);
+	    ModelAndView modelAndView = new ModelAndView();
+	    modelAndView.addObject("petList", petList);
+	    modelAndView.setViewName("/pet/pet"); // "petListJsp"는 보여줄 jsp의 경로입니다. 수정해주시면 됩니다.
+	    return modelAndView;
+	}
 	
 	
 	

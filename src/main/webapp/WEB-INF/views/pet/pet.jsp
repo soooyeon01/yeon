@@ -31,13 +31,12 @@
 		                data: {
 		                    region: region
 		                },
-		                dataType: "json",
 		                success: function (data, textStatus) {
-		                    console.log(data);
+		                    console.log("success");
 		
-		                    if (data && data.length == 0) {
+		                    if (data && data.length >0) {
 		                        const animals = data;
-		                        $("#animals-container .container").empty();
+		                        
 		                        let animalsHtml = "";
 		                        for (let i = 0; i < animals.length; i++) {
 		                            const animal = animals[i];
