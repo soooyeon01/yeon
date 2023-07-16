@@ -45,7 +45,7 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/myclist")
-	public String MyCommunList(HttpServletRequest request, Model model) {
+	public String MyCommunList(HttpServletRequest request, Model model, String nickname) {
 		HttpSession session = request.getSession();
         boolean SESS_AUTH = false;
          
@@ -57,10 +57,10 @@ public class CommunityController {
 //          request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
-            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            nickname = (String) session.getAttribute("SESS_NICKNAME");
 //          session.setAttribute("id", email);
-            model.addAttribute("myCommuList",service.getMyCommunity());
-            return "redirect:/community/myclist?nickname="+nickname;
+            model.addAttribute("myCommuList",service.getMyCommunity(nickname));
+            return "community/mycommunity";
         }else {
         	return "redirect:/main/main";
         }
