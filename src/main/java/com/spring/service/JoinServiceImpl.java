@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.MembersDTO;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class JoinServiceImpl  implements JoinService{
+	@Autowired
 	private final JoinMapper mapper;
 
 	@Override
@@ -21,6 +23,7 @@ public class JoinServiceImpl  implements JoinService{
 	@Override
 	public int emailCheck(String email) {
 		int cnt = mapper.emailCheck(email);
+		System.out.println("cnt : "+cnt);
 		return cnt;
 	}
 
