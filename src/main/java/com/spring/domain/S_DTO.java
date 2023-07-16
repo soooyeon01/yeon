@@ -23,4 +23,5 @@ public class S_DTO {
 	private String weekendCellEtime; 
 	private String closeDay;
 	private String careTel;
+	private String region;
 }

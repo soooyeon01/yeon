@@ -1,18 +1,21 @@
 package com.spring.controller;
 
 import java.io.IOException;
-
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
@@ -49,6 +52,28 @@ public class PetnoticeController {
 		
 		return "/pet/petdetail";
 	}
+	@PostMapping("/petselect")
+    public @ResponseBody List<P_DTO> getAnimalsByRegion(@RequestParam("region") String region) {
+        // 지역에 따라 동물 목록을 검색하는 로직 구현
+        // 예시 코드 (실제 구현 시 수정 필요)
+
+        // 1. DB에서 동물 목록을 검색하거나 서비스 클래스의 메소드를 호출하여 데이터를 가져옵니다.
+        //    아래는 임시 데이터 목록을 생성하는 코드입니다.
+        List<P_DTO> animals = new ArrayList<>();
+        if ("서울특별시".equalsIgnoreCase(region)) {
+            service.getRegionPet(region);
+        } else if ("부산광역시".equalsIgnoreCase(region)) {
+        	service.getRegionPet(region);
+        }
+
+        // 2. 동물 목록을 프론트엔드로 반환합니다.
+        return animals;
+    }
+	
+	
+	
+	
+	
 	@RequestMapping("/registerpet")
 	@ResponseBody
 	protected void  insertF_P(HttpServletRequest request, HttpServletResponse response

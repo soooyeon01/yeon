@@ -47,6 +47,13 @@ public class ShelterController {
 		return "/shel/shel";
 	}
 	
+	@RequestMapping("/shelselect")
+	public String SelectRegionPet(S_DTO dto) {
+		service.getRegionShel(dto);
+		return "/shel/shel";
+	}
+	
+	
 	@RequestMapping("/registershel")
 	@ResponseBody
 	protected void  insertF_S(HttpServletRequest request, HttpServletResponse response

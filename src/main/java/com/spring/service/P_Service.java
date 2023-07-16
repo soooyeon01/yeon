@@ -14,4 +14,6 @@ public interface P_Service {
 	
 	int registerP(P_DTO dto);
 	int removeP(int pet_notice_no);
+	List<P_DTO> getRegionPet(String region);
+	
 }

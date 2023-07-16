@@ -1,11 +1,13 @@
 package com.spring.controller;
 
 import java.util.ArrayList;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.w3c.dom.Document;
@@ -14,6 +16,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.spring.domain.P_DTO;
+import com.spring.domain.S_DTO;
+import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +27,12 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/*")
 public class ApiPetDataController {
 	// http://localhost:8080/4jojo/api/petdata
+	
+	@Scheduled(cron = "0 0/30 * * * ?") // 매일 자정에 실행
+	public void fetchPetDataScheduled(){
+	        fetchPetData();
+	}
+	
     private final ApiService service;
     private static final int max = 20;
     private static String serviceKey = "8mI5YJHYDClBCO0nVGTefXN%2FNRNDL4R68OP9EmufvlXPqdTKQSDm%2BsFUOYWKMuHHs%2Bi%2B1wxPQXr5HDnyjtr%2B8A%3D%3D";
@@ -53,7 +63,7 @@ public class ApiPetDataController {
                   NodeList nList = doc.getElementsByTagName("item");
                   System.out.println("파싱할 리스트 수 : " + nList.getLength());
                   System.out.println("여기1");
-                  
+                  list = removeDuplicates(list);
                   for (int temp = 0; temp < nList.getLength(); temp++) {
                      Node nNode = nList.item(temp);
                      if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -97,7 +107,10 @@ public class ApiPetDataController {
         }
         return "/api/api"; // 실행 후 결과를 표시할 view를 반환합니다.
     }
-
+    private ArrayList<P_DTO> removeDuplicates(ArrayList<P_DTO> list) {
+	    Set<P_DTO> set = new HashSet<>(list);
+	    return new ArrayList<>(set);
+	}
     // 기존의 main() 메소드를 삭제하거나 주석합니다.
 
     // tag값의 정보를 가져오는 메소드
