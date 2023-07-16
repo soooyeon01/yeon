@@ -58,11 +58,11 @@
 									console.log(shelters);
 							        shelHtml += `
 							            <tr>
-							                <td><a href="shel/sheldetail?shelter_no=`+shelters.shelter_no+`">`+shelters.careNm+`</a></td>
-							                <td><a href="shel/sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.careAddr+`</a></td>
-							                <td><a href="shel/sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.careTel+`</a></td>
-							                <td><a href="shel/sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.weekOprStime+`</a></td>
-							                <td><a href="shel/sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.weekOprEtime+`</a></td>
+							                <td><a href="sheldetail?shelter_no=`+shelters.shelter_no+`">`+shelters.careNm+`</a></td>
+							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.careAddr+`</a></td>
+							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.careTel+`</a></td>
+							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.weekOprStime+`</a></td>
+							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.weekOprEtime+`</a></td>
 							                
 							            </tr>`;
 							    }

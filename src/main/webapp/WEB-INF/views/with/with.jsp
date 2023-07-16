@@ -58,12 +58,12 @@
 
 							        withHtml += `
 							            <tr>
-							                <td><a href="with/withdetail?with_pet_no=`+withpet.with_pet_no+`">`+withpet.building+`</a></td>
-							                <td><a href="with/withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.road+`</a></td>
-							                <td><a href="with/withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.tel+`</a></td>
-							                <td><a href="with/withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.hour+`</a></td>
-							                <td><a href="with/withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.with_pet_info+`</a></td>
-							                <td><a href="with/withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.only_pet_info+`</a></td>
+							                <td><a href="withdetail?with_pet_no=`+withpet.with_pet_no+`">`+withpet.building+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.road+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.tel+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.hour+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.with_pet_info+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.only_pet_info+`</a></td>
 							            </tr>`;
 							    }
 
