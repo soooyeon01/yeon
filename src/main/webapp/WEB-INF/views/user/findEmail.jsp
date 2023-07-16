@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +11,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>이메일 찾기</title>
-         <link href="${pageContext.servletContext.contextPath}/resources/bootstrap/css/styles.css" rel="stylesheet" />
+         <link href="${root}/resources/bootstrap/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
              <script>
          	var msg = '<%= request.getParameter("msg")%>';
@@ -80,7 +82,7 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">이메일 찾기</h3></div>
                                     <div class="card-body">
                                         <div class="small mb-3 text-muted">정보를 입력해 주세요</div>
-                                        <form action="${pageContext.servletContext.contextPath}/user/findEmail" method="post">
+                                        <form action="${root}/user/findEmail" method="post">
                                         
                                         	<div class="form-floating mb-3">
                                                 <input class="form-control" id="name" name="name" type="text"  />
@@ -94,7 +96,7 @@
 
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="${pageContext.servletContext.contextPath}/user/login">로그인 하러 가기</a>
+                                                <a class="small" href="${root}/user/login">로그인 하러 가기</a>
                                                 <%-- <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/view/login.jsp">전송</a> --%>
                                                 <input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
                                                 </div>
@@ -102,7 +104,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="${pageContext.servletContext.contextPath}/user/join">회원가입</a></div>
+                                        <div class="small"><a href="${root}/user/join">회원가입</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -115,6 +117,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
+         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
     </body>
 </html>

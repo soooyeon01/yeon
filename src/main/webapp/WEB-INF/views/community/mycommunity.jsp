@@ -15,6 +15,7 @@
         <title>내가 쓴 글</title>
         <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
         <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
+        <link href="<c:url value='${root}/resources/bootstrap/css/mypageStyles.css' />" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
@@ -68,7 +69,10 @@
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+                <% String nickname = (String) session.getAttribute("SESS_NICKNAME"); %>
+                 
               <%System.out.println(email);%>
+              <%System.out.println(nickname);%>
          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
@@ -103,7 +107,7 @@
 	<div id="layoutSidenav_content">
 			<main>
                     <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1" >커뮤니티 페이지</h1>
+                        <h1 class="mt-1" >내가 쓴 글</h1>
                     
                         <div class="card mb-4">
                             <div class="card-header">
@@ -124,13 +128,13 @@
                                     </thead>
                                    
                                     <tbody>
-                                    	<c:forEach var="communityDTO" items="${requestScope.communityList}" varStatus="status">
+                                    	<c:forEach var="myCommu" items="${requestScope.myCommuList}" varStatus="status">
                                         <tr>
-                                            <td>${communityDTO.c_no}</td>
-                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
-                                            <td>${communityDTO.reg_date}</td>
-                                            <td>${communityDTO.nickname}</td>
-                                            <td>${communityDTO.view_count}</td>
+                                            <td>${myCommu.c_no}</td>
+                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${myCommu.c_no}">${myCommu.title}</a></td>
+                                            <td>${myCommu.reg_date}</td>
+                                            <td>${myCommu.nickname}</td>
+                                            <td>${myCommu.view_count}</td>
                                         </tr>
                                         </c:forEach>
                                         
@@ -142,7 +146,7 @@
   
 								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
                              	<button class="btn write" type="submit">글쓰기
-								</form> --%>
+								 --%>
                         
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 

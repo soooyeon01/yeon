@@ -57,6 +57,19 @@
 				   background-color: #f9f8f3;
 				    }
 		</style>
+		<style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .data {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+    </style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
@@ -66,7 +79,7 @@
               <%System.out.println(email);%>
             <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
                 <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
              
@@ -77,7 +90,7 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+             location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -107,77 +120,53 @@
                                 <i class="fas fa-table me-1"></i>
                               
                             </div>
-                            <div class="card-body">
-                           		
-                           		 <table id="datatablesSimple">
-	                                    <thead>
-	                                        <tr>
-	                                       		<th >Image </th>
-	                                            <th>품종</th>
-	                                            <th>나이</th>
-	                                            <th>체중 </th>
-	                                            <th>성별 </th>
-	                                            <th>특징 </th>
-	                                           
-	                                            
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                           	
-	                                            <th >Image </th>
-	                                            <th>품종</th>
-	                                            <th>나이</th>
-	                                            <th>체중 </th>
-	                                            <th>성별 </th>
-	                                            <th>특징 </th>
-	                                            
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </tfoot>
-	                                    <tbody>
-	                                    	<c:forEach var="P_DTO" items="${petList}">
-											
-											<tr>
-												<td >
-												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												${P_DTO.kindCd}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												${P_DTO.age}
-												</a>
-												</td>								
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												${P_DTO.weight}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												${P_DTO.sexCd}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}" >
-												${P_DTO.specialMark}
-												</a>
-												</td>
-											</tr>
+					<div class="card-body">
+
+
+
+
+
+						<div class="container">
+							<c:forEach var="P_DTO" items="${petList}">
+								<c:if test="${not empty P_DTO}">
+									<div class="data">
+										<a
+											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
+											<img src="${P_DTO.popfile}" alt="펫이미지" style="height: 300px" />
+										</a>
 										
-											</c:forEach>
-	                                    </tbody>
-	                                </table>
-	                              
-	                            </div>
-						<%@ include file="../import/page-pet_notice.jsp" %>
+										<div>
+												<br>
+												 <p
+													style="display: block;">품종 : ${P_DTO.kindCd} 
+												</p> 
+												<br>
+												 <p
+													style="display: block;">나이 : ${P_DTO.age} 
+												</p> 
+												<br>
+												 <p
+													style="display: block;">무게 : ${P_DTO.weight} 
+												</p> 
+												<br>
+												 <p
+													style="display: block;">성별 : ${P_DTO.sexCd} 
+												</p> 
+												<br>
+												 <p
+													style="display: block;">특징 : ${P_DTO.specialMark}
+												</p>
+												<br>
+											
+										</div>
+										
+									</div>
+								</c:if>
+							</c:forEach>
+						</div>
+
+					</div>
+					<%@ include file="../import/page-pet_notice.jsp" %>
                         	
                         </div>
                     </div>

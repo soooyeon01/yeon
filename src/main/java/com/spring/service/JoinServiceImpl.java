@@ -16,7 +16,13 @@ public class JoinServiceImpl  implements JoinService{
 	@Override
 	public int registerMembers(MembersDTO mdto) {
 		return mapper.registerMembers(mdto);
-		
+	}
+	
+	@Override
+	public int emailCheck(String email) {
+		int cnt = mapper.emailCheck(email);
+		System.out.println("cnt: " + cnt);
+		return cnt;
 	}
 
 }

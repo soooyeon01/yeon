@@ -133,7 +133,7 @@
               <%System.out.println(email);%>
             <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
                 <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
              
@@ -144,7 +144,7 @@
         <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+             location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -175,7 +175,7 @@
                             </div>
                             <div class="card-body">
                            		
-                           		 <table id="datatablesSimple">
+                           		 <table class="table">
 	                                    <thead>
 	                                        <tr>
 	                                        	<th>check</th>
@@ -196,26 +196,7 @@
 	                                            <th>애견동반추가요금 </th>
 	                                        </tr>
 	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                        	<th>check</th>
-	                                        	<th>고유번호</th>
-	                                            <th>문화시설 이름</th>
-	                                            <th>문화시설 유형 </th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>홈페이지</th>
-	                                            <th>휴무일 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>주차가능여부 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            <th>입장 가능 동물 크기 </th>
-	                                            <th>장소(실내)여부 </th>
-	                                            <th>장소(실외)여부 </th>
-	                                            <th>애견동반추가요금 </th>
-	                                        </tr>
-	                                    </tfoot>
+	                                    
 	                                    <tbody>
 	                                    	<c:forEach var="W_DTO" items="${ withdetailList }">
 											<tr>

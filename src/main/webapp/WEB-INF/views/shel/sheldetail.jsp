@@ -135,7 +135,7 @@
               <%System.out.println(email);%>
             <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
                 <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
              
@@ -146,7 +146,7 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+             location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -180,7 +180,7 @@
                             
                             <div class="card-body">
                            		
-                           		 <table id="datatablesSimple">
+                           		 <table class="table">
 
 	                                    <thead>
 	                                        <tr>
@@ -202,27 +202,7 @@
 	                                            <th>휴무일 </th>
 	                                        </tr>
 	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                        	<th>check</th>
-	                                           	<th>고유번호</th>
-	                                            <th>보호소 이름</th>
-	                                            <th>보호소 유형 </th>
-	                                            <th>구조대상동물</th>
-	                                            <th>보호소 주소 </th>	
-	                                            <th>보호소 전화번호</th>                                            
-	                                            <th>평일운영시작시간 </th>
-	                                            <th>평일운영종료시간 </th>
-	                                            <th>평일분양시작시간 </th>
-	                                            <th>평일분양종료시간 </th>
-	                                            <th>주말운영시작시간 </th>
-	                                            <th>주말운영종료시간 </th>
-	                                            <th>주말분양시작시간 </th>
-	                                            <th>주말분양종료시간 </th>
-	                                            <th>휴무일 </th>
-	                                        </tr>
-	                                        
-	                                    </tfoot>
+	                                   
 	                                    
 	                                    
 	                                    <tbody>

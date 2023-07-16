@@ -34,8 +34,11 @@
 		
 		<!-- service scan -->
 		<context:component-scan base-package="com.spring.service"></context:component-scan>
+		
+		
 		<!-- persistence scan -->
 		<mybatis-spring:scan base-package="com.spring.mapper"></mybatis-spring:scan>
+		
 		
 		<!-- test scan -->
 		<context:component-scan base-package="com.spring.test"></context:component-scan>

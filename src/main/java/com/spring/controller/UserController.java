@@ -26,135 +26,94 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/user/*")
 @RequiredArgsConstructor
 public class UserController {
-	@Autowired
-	private final LoginService service;
-	private final JoinService servicej;
-	private final FindEmailService servicee;
-	private final FindPwdService servicep;
-	
-	@GetMapping("/login")
-	public String loginget(MembersDTO mdto) {
-		return "user/login";
-	}
-	
-	@PostMapping("/login")
-	public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-<<<<<<< HEAD
+   @Autowired
+   private final LoginService service;
+   private final JoinService servicej;
+   private final FindEmailService servicee;
+   private final FindPwdService servicep;
+   
+   @GetMapping("/login")
+   public String loginget(MembersDTO mdto) {
+      return "user/login";
+   }
+   
+   @PostMapping("/login")
+   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+                     HttpSession session,Model model,MembersDTO mdto) {
+       //MembersDTO mdto = new MembersDTO();
+      mdto.setEmail(email);
+       mdto.setPwd(password);
+   
 
-        HttpSession session,Model model,MembersDTO mdto) {
-	    //MembersDTO mdto = new MembersDTO();
-=======
-<<<<<<< HEAD
+       if(service.countLogin(mdto) == 1) {
+          mdto=service.selectLogin(mdto);
+          
+           session.setAttribute("SESS_AUTH", true);
+           session.setAttribute("SESS_EMAIL", mdto.getEmail());
+           session.setAttribute("SESS_NICKNAME", mdto.getNickname());
 
-=======
-<<<<<<< HEAD
-	                           HttpSession session,Model model) {
-	    MembersDTO mdto = new MembersDTO();
-	    mdto.setEmail(email);
-	    mdto.setPwd(password);
+           
+           return "redirect:/main/main";
+       } else {
+         model.addAttribute("msg", "로그인 실패");   
+         return "alert";
+       }
+   }
+      
+   @GetMapping("/join")
+   public String joinget(MembersDTO mdto) {
+      return "user/join";
+   }
+   
+   @PostMapping("/join")
+   public String joinpost(MembersDTO mdto, Model model) {
+      int isOk = 1;
+      if( servicej.registerMembers(mdto) == isOk) {
+         model.addAttribute("msg", "회원가입 완료"); 
+         model.addAttribute("url", "login"); 
+         return "alert";
+         
+      } else {
+         model.addAttribute("msg", "회원가입 실패"); 
+         return "alert";
+       
+      } //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
+   }
 
-=======
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
-	                         HttpSession session,Model model,MembersDTO mdto) {
-	    
->>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
-	    mdto.setEmail(email);
-	    mdto.setPwd(password);
-	                 
-	    
-<<<<<<< HEAD
-
-=======
-	    
-<<<<<<< HEAD
-
-=======
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
->>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
-	    if(service.countLogin(mdto) == 1) {
-	    	mdto=service.selectLogin(mdto);
-	    	
-	        session.setAttribute("SESS_AUTH", true);
-	        session.setAttribute("SESS_EMAIL", mdto.getEmail());
-<<<<<<< HEAD
-	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-=======
-<<<<<<< HEAD
-
-	        session.setAttribute("SESS_PWD", mdto.getPwd());
-=======
-<<<<<<< HEAD
-	        session.setAttribute("SESS_PWD", mdto.getPwd());
-=======
->>>>>>> 089aa7acb1abfd04ccea562a1b72d316909d33d6
-	        session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-
-	       
->>>>>>> e1eb812cbf5b655bacf9b174bea0a88d69849dc1
->>>>>>> 086706b2916a916242defa1665f6df930f8c0f04
-	        
-	        return "redirect:/main/main";
-	    } else {
-			model.addAttribute("msg", "로그인 실패");	
-			return "alert";
-	    }
-	}
-		
-	@GetMapping("/join")
-	public String joinget(MembersDTO mdto) {
-		return "user/join";
-	}
-	
-	@PostMapping("/join")
-	public String joinpost(MembersDTO mdto, Model model) {
-		int isOk = 1;
-		if( servicej.registerMembers(mdto) == isOk) {
-			model.addAttribute("msg", "회원가입 완료"); 
-			model.addAttribute("url", "login"); 
-			return "alert";
-			
-		} else {
-			model.addAttribute("msg", "회원가입 실패"); 
-			return "alert";
-	    
-		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
-	}
-
-	@GetMapping("/findEmail")
-	public String findEmailget(MembersDTO mdto) {
-		return "user/findEmail";
-	}
-	
-	@PostMapping("/findEmail")
-	public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
-    	MembersDTO mdto = new MembersDTO();
-		
-		mdto.setName(name);
-		mdto.setPhone(phone);
-		
-		String email = servicee.findEmail(mdto);
-		
-		if (email != null) {
-			model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
-			 return "alert";
-			
-		} else {
-			model.addAttribute("msg", "없는 정보입니다");	
-			 return "alert";
-		}
-	}
-	
-	
-	@GetMapping("/findPwd")
-	public String findPwd(MembersDTO mdto) {
-		servicep.findPwd(mdto);
-		return "user/findEmail";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/main/main";
-	}
+   @GetMapping("/findEmail")
+   public String findEmailget(MembersDTO mdto) {
+      return "user/findEmail";
+   }
+   
+   @PostMapping("/findEmail")
+   public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
+       MembersDTO mdto = new MembersDTO();
+      
+      mdto.setName(name);
+      mdto.setPhone(phone);
+      
+      String email = servicee.findEmail(mdto);
+      
+      if (email != null) {
+         model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
+          return "alert";
+         
+      } else {
+         model.addAttribute("msg", "없는 정보입니다");   
+          return "alert";
+      }
+   }
+   
+   
+   @GetMapping("/findPwd")
+   public String findPwd(MembersDTO mdto) {
+      servicep.findPwd(mdto);
+      return "user/findEmail";
+   }
+   
+   @GetMapping("/logout")
+   public String logout(HttpSession session) {
+      session.invalidate();
+      return "redirect:/main/main";
+   }
 }
