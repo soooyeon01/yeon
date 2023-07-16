@@ -166,7 +166,7 @@
                         <tr>
                            <td>닉네임</td>                        
                             <td>${mdto.nickname}</td>
-                            <input type="hidden" name="nickname" value="${mdto.nickname}">      
+                                
                         </tr>                    
                       
                         <tr>         
@@ -194,6 +194,7 @@
                <div align="center"> 
               		 <form action="${pageContext.servletContext.contextPath}/community/myclist" method="get">            
                      <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
+                      <input type="hidden" name="nickname" value="${mdto.nickname}"> 
                      </form>
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
