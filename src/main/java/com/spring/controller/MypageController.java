@@ -64,7 +64,7 @@ public class MypageController {
    @GetMapping("/upmypwd")
    public String updatePwd(HttpServletRequest request, Model model, MembersDTO dto) {
                 
-           HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
          boolean SESS_AUTH = false;
          
          try {
@@ -72,13 +72,13 @@ public class MypageController {
          }catch(Exception e) {}
          
          if( SESS_AUTH ) {        
-
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
+        	 
+          request.setAttribute("SESS_AUTH", false);
+          String email = (String) session.getAttribute("SESS_EMAIL");
 
           List<MembersDTO> mdto = service.getMypage(email);
           model.addAttribute("membersDTO", mdto);
-                  
+                 
           service.modifyPwd(dto);
          
           return "redirect:/mypage/upmypage";
@@ -121,20 +121,30 @@ public class MypageController {
                       
                  HttpSession session = request.getSession();
                boolean SESS_AUTH = false;
-               
+               String pwd = request.getParameter("pwd");	
                try {
                   SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
                }catch(Exception e) {}
                
                if( SESS_AUTH ) {        
-
+            	   if(pwd==null || pwd == "") {
                   request.setAttribute("SESS_AUTH", false);
                   String email = (String) session.getAttribute("SESS_EMAIL");
 
-	   	       List<MembersDTO> mdto = service.getMypage(email);
-	   	       model.addAttribute("membersDTO", mdto);	   	       	    
-	   	   
-	   	       return "/mypage/upmypage";
+		   	       List<MembersDTO> mdto = service.getMypage(email);
+		   	       model.addAttribute("membersDTO", mdto);
+		   	       
+			   	   model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
+			   	   model.addAttribute("url", "upmypage");       	   
+			   	   return "alert";
+			   	   
+            	   }else {
+            		   service.modifyPwd(dto);
+            		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
+            		   model.addAttribute("url", "mypage"); 
+            		   return "alert";
+            	   }
+            	   
   	       
 	   		   }else {
 	   			   return "redirect:/main/main"; 
@@ -192,6 +202,11 @@ public class MypageController {
 	          }
 	      }
     
+	      //정보변경 화면연결
+	      @GetMapping("/update")
+	      public String update() {
+	      	return "/mypage/update";
+	      }	
   
 }	      
 	      

@@ -43,7 +43,6 @@
 		location.href = "${pageContext.servletContext.contextPath}/user/logout";
 	 	}
 	}
-
   
   <!-- 마이페이지 -->
   
@@ -60,7 +59,10 @@
 	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
 	  }
   function mypaper(){
-	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+		let nickname=document.getElementsByName("nickname").value;
+		location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+		  return true;
+	  
 	  }
 
   </script>
@@ -163,12 +165,13 @@
 
                         <tr>
                            <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>      
+                            <td>${mdto.nickname}</td>
+                            <input type="hidden" name="nickname" value="${mdto.nickname}">      
                         </tr>                    
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>                         
+                            <td >*******</td>                         
                         </tr>                                         
                        
                         <tr>
@@ -189,7 +192,7 @@
                </table>
             
                <div align="center">             
-                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
+                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
