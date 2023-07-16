@@ -145,7 +145,7 @@
   
 								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
                              	<button class="btn write" type="submit">글쓰기
-								</form> --%>
+								 --%>
                         
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
