@@ -32,7 +32,7 @@
 		                    region: region
 		                },
 		                success: function (data, textStatus) {
-		                    console.log("success");
+		                    console.log("succedss");
 		
 		                    if (data && data.length >0) {
 		                        const animals = data;
