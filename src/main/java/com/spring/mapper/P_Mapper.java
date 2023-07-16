@@ -13,4 +13,6 @@ public interface P_Mapper {
 	
 	int insertPetnoticeData(P_DTO dto);
 	int deletePetnoticeData(int pet_notice_no);
+	List<P_DTO> selectRegionPet(String region);
+	
 }

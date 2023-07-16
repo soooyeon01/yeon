@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class ApiPetDataController {
 	// http://localhost:8080/4jojo/api/petdata
 	
-	@Scheduled(cron = "0 0/20 * * * ?") // 매일 자정에 실행
+	@Scheduled(cron = "0 0/30 * * * ?") // 매일 자정에 실행
 	public void fetchPetDataScheduled(){
 	        fetchPetData();
 	}

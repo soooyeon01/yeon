@@ -27,7 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class ApiWithDataController{
 	//  http://localhost:8080/4jojo/api/withdata
 	
-	@Scheduled(cron = "0 0/30 * * * ?") // 매일 자정에 실행
+	@Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행
 	public void fetchPetDataScheduled(){
 	     fetchWithData();
 	     
@@ -43,6 +43,11 @@ public class ApiWithDataController{
 	   ArrayList<W_DTO> list = new ArrayList<>();
 	
 	   try {
+		   
+		   
+		   
+		   
+		   
 	      // parsing할 url 지정(API 키 포함해서)
 	      for (int i = 1; i < max; i++) {
 	     	 String url = "https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc"

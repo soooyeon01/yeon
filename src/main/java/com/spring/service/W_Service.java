@@ -2,6 +2,7 @@ package com.spring.service;
 
 import java.util.List;
 
+import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
 import com.spring.util.PageMaker;
 
@@ -13,4 +14,5 @@ public interface W_Service {
 	
 	int registerWithpetData(W_DTO dto);
 	int removeWithpetData(int with_pet_no);
+	int getRegionWith(W_DTO dto);
 }

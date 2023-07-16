@@ -30,7 +30,7 @@ public class ApiShelDataController {
 	// http://localhost:8080/4jojo/api/sheldata
 	
 	
-	@Scheduled(cron = "0 0/10 * * * ?") // 매일 자정에 실행
+	@Scheduled(cron = "0 0/10 0 * * ?") // 매일 자정에 실행
 	public void fetchPetDataScheduled(){
 	        fetchShelData();
 	}

@@ -50,6 +50,13 @@ public class WithpetController {
 		return "/with/withdetail";
 	}
 	
+	@RequestMapping("/withselect")
+	public String SelectRegionPet(W_DTO dto) {
+		service.getRegionWith(dto);
+		return "/with/with";
+	}
+	
+	
 	@RequestMapping("/registerwith")
 	@ResponseBody
 	protected void  insertF_W(HttpServletRequest request, HttpServletResponse response

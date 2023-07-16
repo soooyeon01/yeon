@@ -2,6 +2,7 @@ package com.spring.mapper;
 
 import java.util.List;
 
+import com.spring.domain.P_DTO;
 import com.spring.domain.S_DTO;
 import com.spring.util.PageMaker;
 
@@ -13,4 +14,5 @@ public interface S_Mapper {
 	
 	int insertShelterData(S_DTO dto);
 	int deleteShelterData(int shelter_no);
+	int selectRegionShel(S_DTO dto);
 }
