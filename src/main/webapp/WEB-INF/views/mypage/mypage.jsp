@@ -178,7 +178,7 @@
                            <td>이메일</td>                 
                          <td>${mdto.email}</td>
                         </tr>
-                       <!-- 1 -->
+                     
                         <tr>
                            <td>이름</td>
                            <td>${mdto.name}</td>       
@@ -191,8 +191,10 @@
                 </c:forEach>
                </table>
             
-               <div align="center">             
+               <div align="center"> 
+              		 <form action="${pageContext.servletContext.contextPath}/community/myclist method="get">            
                      <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
+                     </form>
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;

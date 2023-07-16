@@ -61,32 +61,76 @@ public class MypageController {
          }  
    
    
+ //pwd
    @GetMapping("/upmypwd")
-   public String updatePwd(HttpServletRequest request, Model model, MembersDTO dto) {
+   public String upmypwd(HttpServletRequest request, Model model, MembersDTO dto) {
                 
-         HttpSession session = request.getSession();
+           HttpSession session = request.getSession();
          boolean SESS_AUTH = false;
-         
+         String pwd = request.getParameter("pwd");	
          try {
             SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
          }catch(Exception e) {}
          
          if( SESS_AUTH ) {        
-        	 
-          request.setAttribute("SESS_AUTH", false);
-          String email = (String) session.getAttribute("SESS_EMAIL");
+      	   if(pwd==null || pwd == "") {
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
 
-          List<MembersDTO> mdto = service.getMypage(email);
-          model.addAttribute("membersDTO", mdto);
-                 
-          service.modifyPwd(dto);
+	   	       List<MembersDTO> mdto = service.getMypage(email);
+	   	       model.addAttribute("membersDTO", mdto);
+	   	       
+		   	   model.addAttribute("msg", "변경하실 비밀번호를 입력하세요."); 
+		   	   model.addAttribute("url", "upmypage");       	   
+		   	   return "alert";
+		   	   
+      	   }else {
+      		   service.modifyPwd(dto);
+      		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
+      		   model.addAttribute("url", "mypage"); 
+      		   return "alert";
+      	   }    	   
+       
+ 		   }else {
+ 			   return "redirect:/main/main"; 
+ 		   }
+	   }  
+   		
+   
+ //pwd
+   @GetMapping("/upmyphone")
+   public String upmyphone(HttpServletRequest request, Model model, MembersDTO dto) {
+                
+          HttpSession session = request.getSession();
+         boolean SESS_AUTH = false;
+         String phone = request.getParameter("phone");	
+         try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+         }catch(Exception e) {}
          
-          return "redirect:/mypage/upmypage";
-          
-         }else {
-            return "redirect:/main/main"; 
-         }
-   }     
+         if( SESS_AUTH ) {        
+      	   if(phone==null || phone == "") {
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+
+	   	       List<MembersDTO> mdto = service.getMypage(email);
+	   	       model.addAttribute("membersDTO", mdto);
+	   	       
+		   	   model.addAttribute("msg", "변경하실 비밀번호를 입력하세요."); 
+		   	   model.addAttribute("url", "upmypage");       	   
+		   	   return "alert";
+		   	   
+      	   }else {
+      		   service.modifyPwd(dto);
+      		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
+      		   model.addAttribute("url", "mypage"); 
+      		   return "alert";
+      	   }    	   
+       
+ 		   }else {
+ 			   return "redirect:/main/main"; 
+ 		   }
+   }  
          //phone
          @GetMapping("/upmyphone")
          public String updatePhone(HttpServletRequest request, Model model, MembersDTO dto) {
@@ -121,30 +165,20 @@ public class MypageController {
                       
                  HttpSession session = request.getSession();
                boolean SESS_AUTH = false;
-               String pwd = request.getParameter("pwd");	
+               
                try {
                   SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
                }catch(Exception e) {}
                
                if( SESS_AUTH ) {        
-            	   if(pwd==null || pwd == "") {
+
                   request.setAttribute("SESS_AUTH", false);
                   String email = (String) session.getAttribute("SESS_EMAIL");
 
-		   	       List<MembersDTO> mdto = service.getMypage(email);
-		   	       model.addAttribute("membersDTO", mdto);
-		   	       
-			   	   model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
-			   	   model.addAttribute("url", "upmypage");       	   
-			   	   return "alert";
-			   	   
-            	   }else {
-            		   service.modifyPwd(dto);
-            		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
-            		   model.addAttribute("url", "mypage"); 
-            		   return "alert";
-            	   }
-            	   
+	   	       List<MembersDTO> mdto = service.getMypage(email);
+	   	       model.addAttribute("membersDTO", mdto);	   	       	    
+	   	   
+	   	       return "/mypage/upmypage";
   	       
 	   		   }else {
 	   			   return "redirect:/main/main"; 
