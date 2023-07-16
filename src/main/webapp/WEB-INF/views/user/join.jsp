@@ -123,8 +123,7 @@
                 data:{email:email},
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
                     if(cnt==0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                        $('.emailOff').css("display","inline-block");
-                    	$('.emailOn').css("display", "none");
+                        alert("사용 가능한 이메일입니다.")
                     } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
                         $('.emailOn').css("display","inline-block"); 
                         $('.emailOff').css("display", "none");
@@ -158,8 +157,7 @@
                                                 <input class="form-control" name="email" id="email" type="text" oninput="emailCheck()">                                                                                              
                                                 <label for="email">이메일</label>
                                                 
-                                                <span class="emailOn">사용 가능한 아이디입니다.</span>
-												<span class="emailOff">누군가 이 아이디를 사용하고 있어요.</span>
+                                                <button class="emailCheck" type="button" id="emailCheck" name="emailCheck" onclick="emailCheck"></button>                                              
                                                 
                                             </div>
                                             <div class="form-floating mb-3">
