@@ -192,7 +192,7 @@
                </table>
             
                <div align="center"> 
-              		 <form action="${pageContext.servletContext.contextPath}/community/myclist method="get">            
+              		 <form action="${pageContext.servletContext.contextPath}/community/myclist" method="get">            
                      <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
                      </form>
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
