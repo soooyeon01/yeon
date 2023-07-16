@@ -1,11 +1,6 @@
 package com.spring.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,40 +27,39 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/user/*")
 @RequiredArgsConstructor
 public class UserController {
-	@Autowired
-	private final LoginService service;
-	private final JoinService servicej;
-	private final FindEmailService servicee;
-	private final FindPwdService servicep;
-	
-	@GetMapping("/login")
-	public String loginget(MembersDTO mdto) {
-		return "user/login";
-	}
-	
-	@PostMapping("/login")
-	   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
-	        HttpSession session,Model model,MembersDTO mdto) {
-	       //MembersDTO mdto = new MembersDTO();
-	       mdto.setEmail(email);
-	       mdto.setPwd(password);
-	       
-	       if(service.countLogin(mdto) == 1) {
-	          mdto=service.selectLogin(mdto);
-	          
-	           session.setAttribute("SESS_AUTH", true);
-	           session.setAttribute("SESS_EMAIL", mdto.getEmail());
-	           session.setAttribute("SESS_NICKNAME", mdto.getNickname());
-	           
-	           return "redirect:/main/main";
-	       } else {
-	         model.addAttribute("msg", "로그인 실패");   
-	         return "alert";
-	       }
-	   }
-
+   @Autowired
+   private final LoginService service;
+   private final JoinService servicej;
+   private final FindEmailService servicee;
+   private final FindPwdService servicep;
+   
+   @GetMapping("/login")
+   public String loginget(MembersDTO mdto) {
+      return "user/login";
+   }
+   
+   @PostMapping("/login")
+   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+        HttpSession session,Model model,MembersDTO mdto) {
+       //MembersDTO mdto = new MembersDTO();
+       mdto.setEmail(email);
+       mdto.setPwd(password);
+       
+       if(service.countLogin(mdto) == 1) {
+          mdto=service.selectLogin(mdto);
+          
+           session.setAttribute("SESS_AUTH", true);
+           session.setAttribute("SESS_EMAIL", mdto.getEmail());
+           session.setAttribute("SESS_NICKNAME", mdto.getNickname());
+           
+           return "redirect:/main/main";
+       } else {
+         model.addAttribute("msg", "로그인 실패");   
+         return "alert";
+       }
+   }
 		
-	@GetMapping("/join")
+   @GetMapping("/join")
 	public String joinget(MembersDTO mdto) {
 		return "user/join";
 	}

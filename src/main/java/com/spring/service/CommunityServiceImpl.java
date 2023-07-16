@@ -29,9 +29,9 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public List<CommunityDTO> getMyCommunity() {
+	public List<CommunityDTO> getMyCommunity(String nickname) {
 		
-		return mapper.selectMyCommunity();
+		return mapper.selectMyCommunity(nickname);
 	}
 	
 	@Override

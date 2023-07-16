@@ -32,6 +32,10 @@
 	    	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
 	    	 }
 	      
+	      function main(){
+	    		location.href = "${pageContext.servletContext.contextPath}/main/main";
+	   	 }
+	      
      	</script>
         <style> 
 
@@ -94,7 +98,7 @@
            
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main" >
+         <a class="mainlogo" href="${root}/main/main" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>

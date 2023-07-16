@@ -21,7 +21,6 @@ public class JoinServiceImpl  implements JoinService{
 	@Override
 	public int emailCheck(String email) {
 		int cnt = mapper.emailCheck(email);
-		System.out.println("cnt: " + cnt);
 		return cnt;
 	}
 
