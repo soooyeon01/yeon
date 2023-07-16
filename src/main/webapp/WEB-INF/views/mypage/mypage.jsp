@@ -178,7 +178,7 @@
                            <td>이메일</td>                 
                          <td>${mdto.email}</td>
                         </tr>
-                       
+                       <!-- 1 -->
                         <tr>
                            <td>이름</td>
                            <td>${mdto.name}</td>       
