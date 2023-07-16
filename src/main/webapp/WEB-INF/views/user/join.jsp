@@ -113,7 +113,9 @@
                 boxSpan.className = "box-span-off";
                 boxSpan.textContent = "불일치함";
             }
+
         }
+<<<<<<< HEAD
         
         function emailCheck(){
             var email = $('#email').val();
@@ -137,6 +139,8 @@
             };;
 
         
+=======
+>>>>>>> branch 'master' of https://github.com/kmj1000/4jojo.git
     </script>
     </head>
     <body class="bg-primary">

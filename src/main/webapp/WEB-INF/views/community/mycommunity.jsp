@@ -103,7 +103,7 @@
 	<div id="layoutSidenav_content">
 			<main>
                     <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1" >커뮤니티 페이지</h1>
+                        <h1 class="mt-1" >내가 쓴 글</h1>
                     
                         <div class="card mb-4">
                             <div class="card-header">
@@ -124,13 +124,13 @@
                                     </thead>
                                    
                                     <tbody>
-                                    	<c:forEach var="communityDTO" items="${requestScope.communityList}" varStatus="status">
+                                    	<c:forEach var="myCommu" items="${requestScope.myCommuList}" varStatus="status">
                                         <tr>
-                                            <td>${communityDTO.c_no}</td>
-                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
-                                            <td>${communityDTO.reg_date}</td>
-                                            <td>${communityDTO.nickname}</td>
-                                            <td>${communityDTO.view_count}</td>
+                                            <td>${myCommu.c_no}</td>
+                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?nickname=${myCommu.nickname}">${myCommu.title}</a></td>
+                                            <td>${myCommu.reg_date}</td>
+                                            <td>${myCommu.nickname}</td>
+                                            <td>${myCommu.view_count}</td>
                                         </tr>
                                         </c:forEach>
                                         

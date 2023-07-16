@@ -25,24 +25,26 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
   <script>
-	 function logout() {
+  <!-- 최상단 -->
+
+ 	function login(){
+		location.href = "${pageContext.servletContext.contextPath}/user/login";
+	  }
+  	function mypage(){
+  		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+ 	 }
+  
+ 	function main(){
+  		location.href = "${pageContext.servletContext.contextPath}/main/main";
+ 	 }
+
+   	function logout() {
 		if (confirm("로그아웃 하시겠습니까?")) {
 		location.href = "${pageContext.servletContext.contextPath}/user/logout";
-		   }
+	 	}
 	}
   
-  <!-- 이동경로 -->
-
-  function login(){
-	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
-	  }
-  function mypage(){
-  	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-  }
-  
-  function main(){
-  	location.href = "${pageContext.servletContext.contextPath}/main/main";
-  }
+  <!-- 마이페이지 -->
   
   function favoritep(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
@@ -57,14 +59,12 @@
 	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
 	  }
   function mypaper(){
-	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+		let nickname=document.getElementsByName("nickname").value;
+		location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+		  return true;
+	  
 	  }
 
-/*   
-  function logout(){  
-	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
-	  } */
-  
   </script>
 <style>
       .deleteMember{
@@ -165,12 +165,13 @@
 
                         <tr>
                            <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>      
+                            <td>${mdto.nickname}</td>
+                            <input type="hidden" name="nickname" value="${mdto.nickname}">      
                         </tr>                    
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td>${mdto.pwd}</td>                         
+                            <td >*******</td>                         
                         </tr>                                         
                        
                         <tr>
@@ -191,7 +192,7 @@
                </table>
             
                <div align="center">             
-                     <button type="button" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp; 
+                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;

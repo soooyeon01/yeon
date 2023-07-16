@@ -141,7 +141,7 @@
                                 
                             </div>
                            <%--  <c:if test="${sessionScope.email!=null}"> --%>
-                            	<input type="button" value="글쓰기" onclick="location.href='newcommu'">
+                            	<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newcommu'">
                             <%-- </c:if> --%>
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 

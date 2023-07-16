@@ -24,43 +24,29 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
-  <script>
-  function withdrawMember() {
-     $.ajax({
-       url: "/4jojo/mypage",
-       type: "POST",
-       dataType: "json",
-       success: function(data) {
-         if (data.result === 1) {
-           alert("회원 탈퇴가 완료되었습니다.");
-           location.href = "/4jo/logout"; // 로그아웃 페이지로 이동
-         } else {
-           alert("회원 탈퇴 처리에 실패했습니다. 다시 시도해주세요.");
-         }
-       },
-       error: function(jqXHR, textStatus, errorThrown) {
-         console.log(jqXHR);
-         console.log(textStatus);
-         console.log(errorThrown);
-         alert("오류가 발생했습니다. 다시 시도해주세요.");
-       }
-     });
-   }
-  </script>
+ 
   
-  <!-- 이동경로 -->
   <script>
-  function login(){
-	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
+  <!-- 최상단 -->
+
+ 	function login(){
+		location.href = "${pageContext.servletContext.contextPath}/user/login";
 	  }
-  function mypage(){
-  	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-  }
+  	function mypage(){
+  		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+ 	 }
   
-  function main(){
-  	location.href = "${pageContext.servletContext.contextPath}/main/main";
-  }
+ 	function main(){
+  		location.href = "${pageContext.servletContext.contextPath}/main/main";
+ 	 }
+
+   	function logout() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+	 	}
+	}
   
+  <!-- 마이페이지 -->
   function favoritep(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
 	  }
@@ -76,6 +62,8 @@
   function mypaper(){
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
 	  }
+  
+  <!-- inputpwd값 보내기 -->
   function remM() {
 	   var data = $("form").serialize(); // form 데이터 직렬화
 	   $.ajax({
@@ -94,11 +82,6 @@
 	   });
 	}
 
-/*   
-  function logout(){  
-	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
-	  } */
-  
   </script>
 <style>
       .deleteMember{

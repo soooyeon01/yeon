@@ -64,7 +64,7 @@ public class MypageController {
    @GetMapping("/upmypwd")
    public String updatePwd(HttpServletRequest request, Model model, MembersDTO dto) {
                 
-           HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
          boolean SESS_AUTH = false;
          
          try {
@@ -72,13 +72,13 @@ public class MypageController {
          }catch(Exception e) {}
          
          if( SESS_AUTH ) {        
-
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
+        	 
+          request.setAttribute("SESS_AUTH", false);
+          String email = (String) session.getAttribute("SESS_EMAIL");
 
           List<MembersDTO> mdto = service.getMypage(email);
           model.addAttribute("membersDTO", mdto);
-                  
+                 
           service.modifyPwd(dto);
          
           return "redirect:/mypage/upmypage";
@@ -121,77 +121,92 @@ public class MypageController {
                       
                  HttpSession session = request.getSession();
                boolean SESS_AUTH = false;
-               
+               String pwd = request.getParameter("pwd");	
                try {
                   SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
                }catch(Exception e) {}
                
                if( SESS_AUTH ) {        
-
+            	   if(pwd==null || pwd == "") {
                   request.setAttribute("SESS_AUTH", false);
                   String email = (String) session.getAttribute("SESS_EMAIL");
 
-                List<MembersDTO> mdto = service.getMypage(email);
-                model.addAttribute("membersDTO", mdto);                       
-            
-                return "/mypage/upmypage";
-            
-               }else {
-                  return "redirect:/main/main"; 
-               }
-         
-      }  
-         
-       //withdrawal 탈퇴 페이지 요청
-         @GetMapping("/remM")
-         public String remove() {
-            return "/mypage/remM";
-         }               
-        
-         @RequestMapping(value = "/remMC", method = RequestMethod.POST)
-         public String removeC(MembersDTO dto, HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
-             HttpSession session = request.getSession(false);
-             String email = (String) session.getAttribute("SESS_EMAIL");
+		   	       List<MembersDTO> mdto = service.getMypage(email);
+		   	       model.addAttribute("membersDTO", mdto);
+		   	       
+			   	   model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
+			   	   model.addAttribute("url", "upmypage");       	   
+			   	   return "alert";
+			   	   
+            	   }else {
+            		   service.modifyPwd(dto);
+            		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
+            		   model.addAttribute("url", "mypage"); 
+            		   return "alert";
+            	   }
+            	   
+  	       
+	   		   }else {
+	   			   return "redirect:/main/main"; 
+	   		   }
+	      
+   	}  
+	      
+	    //withdrawal 탈퇴 페이지 요청
+	      @GetMapping("/remM")
+	      public String remove() {
+	      	return "/mypage/remM";
+	      }	      	   
+	  	
+	      @RequestMapping(value = "/remMC", method = RequestMethod.POST)
+	      public String removeC(MembersDTO dto, HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
+	          HttpSession session = request.getSession(false);
+	          String email = (String) session.getAttribute("SESS_EMAIL");
 
-             // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴
-             String pwd = service.getPwd(email);
-             
-             //입력값 가져오기
-             String inputpwd = request.getParameter("inputpwd");             
+	          // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴
+	          String pwd = service.getPwd(email);
+	          
+	          //입력값 가져오기
+	          String inputpwd = request.getParameter("inputpwd");	          
 
-             PrintWriter out = response.getWriter();
-             response.setCharacterEncoding("utf-8");
-             boolean SESS_AUTH = false;
-             response.setContentType("text/html; charset=utf-8");
+	          PrintWriter out = response.getWriter();
+	          response.setCharacterEncoding("utf-8");
+	          boolean SESS_AUTH = false;
+	          response.setContentType("text/html; charset=utf-8");
 
-             try {
-                 SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
-             } catch (Exception e) {
-             }
+	          try {
+	              SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
+	          } catch (Exception e) {
+	          }
 
-             if (SESS_AUTH) {
-                 request.setAttribute("SESS_AUTH", false);
+	          if (SESS_AUTH) {
+	              request.setAttribute("SESS_AUTH", false);
 
-                    if (pwd.equals(inputpwd)) {
-                        service.removeMember(email);
-                        session.invalidate();
-                        model.addAttribute("msg", "탈퇴가 완료되었습니다."); 
-                     model.addAttribute("url", "mypage"); //마이페이지 가면 세션이없어 알아서 메인으로 감.
-                     return "alert";
-                      
-   
-                    } else {
-                       model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
-                        model.addAttribute("url", "remM"); //마이페이지 가면 세션이없어 알아서 메인으로 감.
-                        return "alert";
-                    }
-             } else {
-                 out.println("<script> alert('로그인하세요');");
-                 out.close();
-                 return "redirect:/main/main";
-             }
-         }
+		              if (pwd.equals(inputpwd)) {
+		                  service.removeMember(email);
+		                  session.invalidate();
+		                  model.addAttribute("msg", "탈퇴가 완료되었습니다."); 
+		      			model.addAttribute("url", "mypage"); //마이페이지 가면 세션이없어 알아서 메인으로 감.
+		      			return "alert";
+		                
+	
+		              } else {
+		            	  model.addAttribute("msg", "잘못된 비밀번호 입니다."); 
+			      			model.addAttribute("url", "remM"); 
+			      			return "alert";
+		              }
+	          } else {
+	              out.println("<script> alert('로그인하세요');");
+	              out.close();
+	              return "redirect:/main/main";
+	          }
+	      }
     
+	      //정보변경 화면연결
+	      @GetMapping("/update")
+	      public String update() {
+	      	return "/mypage/update";
+	      }	
   
-}         
-         
+}	      
+	      
