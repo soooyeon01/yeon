@@ -29,7 +29,7 @@ public class ApiPetDataController {
 	// http://localhost:8080/4jojo/api/petdata
 	
 	
-	 @Scheduled(cron = "0 */5 * * * ?") // 매일 자정에 실행 public void
+	 @Scheduled(cron = "0 0 */6 * * ?") // 매일 자정에 실행 public void
 	 void fetchPetDataScheduled()
 	 { 
 		 fetchPetData();	 
