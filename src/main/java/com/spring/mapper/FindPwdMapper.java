@@ -6,6 +6,6 @@ public interface FindPwdMapper {
 
 
 	String findPwd(MembersDTO mdto);
-
+	int updatePwd(MembersDTO mdto);
 	
 }
