@@ -41,8 +41,8 @@
         <script>
         function upNot() {
         	let notice_no=document.getElementsByName("notice_no").value;
-			let title=document.getElementsByName("title").value;
-			let content=document.getElementsByName("content").value;
+			let notice_title=document.getElementsByName("notice_title").value;
+			let notice_content=document.getElementsByName("notice_content").value;
 
 			return true;
 		}
@@ -135,13 +135,13 @@
   
     <div class="row">
         <div class="mb-3 mt-3 col p-3">
-        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title" value="${selectone.title}">
+        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="notice_title" value="${selectone.notice_title}">
         </div>
         <div class="mb-3 mt-3 col p-3">
         닉네임 : <p class="form-control" type="text" name="nickname">${selectone.nickname}</p>
         </div> 
     	<div class="mb-3 mt-3 col p-3">
-        내용 : <textarea class="form-control" rows="5" name="content">${selectone.content}</textarea>
+        내용 : <textarea class="form-control" rows="5" name="notice_content">${selectone.notice_content}</textarea>
      	</div>
     	<div class="row">
        	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>

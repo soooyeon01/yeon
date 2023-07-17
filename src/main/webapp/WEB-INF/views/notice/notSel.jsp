@@ -22,20 +22,19 @@
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
      	<script>  
 	       	function toListPage() {
-	    		location.href="${pageContext.servletContext.contextPath}/community/nlist";
+	    		location.href="${pageContext.servletContext.contextPath}/notice/nlist";
 	    		}
 	       	function moveNotUp() {
 	       		let notice_no=document.getElementsByName("notice_no").value;
-	       		let title=document.getElementsByName("title").value;
-				let content=document.getElementsByName("content").value;
-	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
+	       		let notice_title=document.getElementsByName("notice_title").value;
+				let notice_content=document.getElementsByName("notice_content").value;
 	       	}
     	</script>  
     	<script>
 			function confirmDelete() {
 	    		if (confirm("정말로 삭제하시겠습니까?")) {
 	        	// 사용자가 Yes를 선택한 경우 삭제 동작을 수행할 코드 작성
-	        	location.href = 'NotDel?notice_no=${selectone.notice_no}'; // 삭제 동작 예시
+	        	location.href = 'notDel?notice_no=${selectone.notice_no}'; // 삭제 동작 예시
 	    		} else {
 	        // 사용자가 No를 선택한 경우 아무 동작도 수행하지 않음
 	    		}
@@ -304,7 +303,7 @@
 		</div>
         <div class="mb-3 mt-3 col p-3">
           	<label for="title">글제목:</label>
-            <p class="form-control" name="title">${selectone.title}</p>
+            <p class="form-control" name="notice_title">${selectone.notice_title}</p>
         </div>
         <div class="mb-3 mt-3 col p-3">
             <label for="nickname">작성자:</label>
@@ -312,18 +311,18 @@
             <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
         </div> 
          <div class="mt-3 col p-3">
-            <label for="reg_date">조회수:</label>
+            <label for="view_count">조회수:</label>
             <p class="form-control" name="view_count">${selectone.view_count}</p>
 		</div>
 		<div class="mb-3 mt-3">
-        	<label for="content">글내용:</label>
-        	<p id="cont" class="form-control" name="content">${selectone.content}</p>
+        	<label for="notice_content">글내용:</label>
+        	<p id="cont" class="form-control" name="notice_content">${selectone.notice_content}</p>
      	</div>
      </div>
 	</form>
 	<div class="container bt">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
-  	<c:if test="${sessionScope.nickname=='관리자'}">
+  	<c:if test="${sessionScope.SESS_NICKNAME=='관리자'}">
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='notUp1?notice_no=${selectone.notice_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>

@@ -82,7 +82,7 @@
             <script>
 	            function logout() {
 	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/logout";
+	    		location.href = "${root}/user/logout";
 	   		 	}
 			}
 
@@ -115,7 +115,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>공지 번호</th>
+                                            <!-- <th>공지 번호</th> -->
                                             <th>공지 제목</th>
                                             <th>공지 작성일</th>
                                             <th>공지 작성자</th>
@@ -128,7 +128,7 @@
                                     <tbody>
                                     	<c:forEach var="noticeDTO" items="${requestScope.noticeList}" varStatus="status">
                                         <tr>
-                                            <td>${noticeDTO.notice_no}</td>
+                                            <%-- <td>${noticeDTO.notice_no}</td> --%>
                                             <td><a href="${pageContext.servletContext.contextPath}/notice/notSel?notice_no=${noticeDTO.notice_no}">${noticeDTO.notice_title}</a></td>
                                             <td>${noticeDTO.notice_reg_date}</td>
                                             <td>${noticeDTO.nickname}</td>
@@ -138,7 +138,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <c:if test="${noticeDTO.nickname=='관리자'}">
+                            <c:if test="${sessionScope.SESS_NICKNAME=='관리자'}">
                             	<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newNot'">
                             </c:if>
                             <%-- <%@ include file="../import/page-notice.jsp" %> --%>

@@ -26,5 +26,16 @@ public class JoinServiceImpl  implements JoinService{
 		System.out.println("cnt : "+cnt);
 		return cnt;
 	}
+	
+	@Override
+	public int nicknameCheck(String nickname) {
+		int cnt = mapper.nicknameCheck(nickname);
+		return cnt;
+	}
+	@Override
+	public int phoneCheck(int phone) {
+		int cnt = mapper.phoneCheck(phone);
+		return cnt;
+	}
 
 }
