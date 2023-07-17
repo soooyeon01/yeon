@@ -87,6 +87,7 @@
          .bt {
          width: 100%;
          text-align:center;
+         display : flex
          }
          .my{
          /* padding: 1rem;
@@ -171,8 +172,10 @@
 		<input type="hidden" name="nickname" value="${communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname  }"> --%>
 	<div class="container bt">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
+	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname}">
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
+	</c:if>
 	</div>
 </div>
 </body>
