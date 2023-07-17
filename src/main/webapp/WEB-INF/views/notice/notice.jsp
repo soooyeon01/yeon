@@ -138,7 +138,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <c:if test="${noticeDTO.nickname=='관리자'}">
+                            <c:if test="${sessionScope.SESS_NICKNAME=='관리자'}">
                             	<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newNot'">
                             </c:if>
                             <%-- <%@ include file="../import/page-notice.jsp" %> --%>
