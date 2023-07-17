@@ -47,8 +47,8 @@ public class W_ServiceImpl implements W_Service {
 	}
 
 	@Override
-	public int getRegionWith(W_DTO dto) {
+	public List<W_DTO> getRegionWith(String region) {
 		
-		return mapper.selectRegionWith(dto);
+		return mapper.selectRegionWith(region);
 	}
 }

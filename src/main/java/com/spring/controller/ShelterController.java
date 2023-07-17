@@ -3,6 +3,9 @@ package com.spring.controller;
 import java.io.IOException;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,22 +16,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_S_DTO;
 import com.spring.domain.S_DTO;
-
+import com.spring.domain.W_DTO;
 import com.spring.service.S_Service;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequiredArgsConstructor
-
+@Log4j
 @RequestMapping("/shel/*")
 public class ShelterController {
 	private final S_Service service;
@@ -48,10 +53,16 @@ public class ShelterController {
 	}
 	
 	@RequestMapping("/shelselect")
-	public String SelectRegionPet(S_DTO dto) {
-		service.getRegionShel(dto);
-		return "/shel/shel";
-	}
+    @ResponseBody
+    public Map<String, List<S_DTO>> getShelListByRegion(@RequestParam("region") String region) {
+        log.info("이게 널이니?"+region);
+        List<S_DTO> shelList = service.getRegionShel(region);
+
+        Map<String, List<S_DTO>> response = new HashMap<>();
+        response.put("shelList", shelList);
+
+        return response;
+    }
 	
 	
 	@RequestMapping("/registershel")

@@ -30,10 +30,10 @@ public class ApiShelDataController {
 	// http://localhost:8080/4jojo/api/sheldata
 	
 	
-	@Scheduled(cron = "0 0/10 0 * * ?") // 매일 자정에 실행
-	public void fetchPetDataScheduled(){
-	        fetchShelData();
-	}
+	/*
+	 * @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행 public void
+	 * fetchPetDataScheduled(){ fetchShelData(); }
+	 */
 	 
 	private final ApiService service;
 	private static final int max = 20;

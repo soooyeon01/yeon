@@ -23,7 +23,6 @@
 		    $(document).ready(function () {
 		        $("#region-select").on("change", function () {
 		            const region = $(this).val();
-		
 		            // 서버로 데이터를 보낼 Ajax 호출을 작성합니다
 		            $.ajax({
 		                url: "${pageContext.servletContext.contextPath}/pet/petselect", // Replace this with your server endpoint
@@ -31,43 +30,47 @@
 		                data: {
 		                    region: region
 		                },
-		                success: function (data, textStatus) {
+		                dataType:"json",
+		                success:function (data, textStatus) {
 		                    console.log("succedss");
-		
-		                    if (data && data.length >0) {
-		                        const animals = data;
-		                        
-		                        let animalsHtml = "";
-		                        for (let i = 0; i < animals.length; i++) {
-		                            const animal = animals[i];
-		
-		                            animalsHtml += `
+							console.log(data.petList.length);
+		                    if (data.petList && data.petList.length > 0) {
+		                        const animals = data.petList;
+		                      
+		                        let animalsHtml = ``;
+		                        for (let i = 0; i < 10; i++) {
+		                            let animal = animals[i];
+									//console.log(animal);
+									
+		                             animalsHtml += `
+		                           
 		                            <div class="data">
-		                              <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${animal.pet_notice_no}">
-		                                <img src="${animal.popfile}" alt="펫이미지" style="height: 300px" />
+		                              <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=`+animal.pet_notice_no+`">
+		                                <img src=`+animal.popfile+` alt="펫이미지" style="height: 300px" />
 		                              </a>
 		                              <div>
 		                                <br>
-		                                <p style="display: block;">품종 : ${animal.kindCd}</p>
+		                                <p style="display: block;">품종 : `+animal.kindCd+`</p>
 		                                <br>
-		                                <p style="display: block;">나이 : ${animal.age}</p>
+		                                <p style="display: block;">나이 : `+animal.age+`</p>
 		                                <br>
-		                                <p style="display: block;">무게 : ${animal.weight}</p>
+		                                <p style="display: block;">무게 : `+animal.weight+`</p>
 		                                <br>
-		                                <p style="display: block;">성별 : ${animal.sexCd}</p>
+		                                <p style="display: block;">성별 : `+animal.sexCd+`</p>
 		                                <br>
-		                                <p style="display: block;">특징 : ${animal.specialMark}</p>
+		                                <p style="display: block;">특징 : `+animal.specialMark+`</p>
 		                                <br>
 		                              </div>
 		                            </div>`;
+		                            
 		                        }
-		
 		                        // 지역 선택에 따른 동물 목록을 업데이트합니다.
 		                        $("#animals-container .container").html(animalsHtml);
 		                    } else {
 		                        // 검색된 동물이 없는 경우에는 '검색된 동물이 없습니다.' 메시지를 출력합니다.
 		                        $("#animals-container .container").html("<p>검색된 동물이 없습니다.</p>");
-		                    }
+		                    } 
+									
 		                },
 		                error: function (jqXHR, textStatus, errorThrown) {
 		                    console.log(jqXHR);

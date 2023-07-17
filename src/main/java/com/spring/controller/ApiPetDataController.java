@@ -28,10 +28,10 @@ import lombok.RequiredArgsConstructor;
 public class ApiPetDataController {
 	// http://localhost:8080/4jojo/api/petdata
 	
-	@Scheduled(cron = "0 0 0/1 * * ?") // 매일 자정에 실행
-	public void fetchPetDataScheduled(){
-	        fetchPetData();
-	}
+	/*
+	 * @Scheduled(cron = "0 0 0/1 * * ?") // 매일 자정에 실행 public void
+	 * fetchPetDataScheduled(){ fetchPetData(); }
+	 */
 	
     private final ApiService service;
     private static final int max = 20;
