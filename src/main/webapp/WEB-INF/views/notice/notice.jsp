@@ -132,13 +132,13 @@
                                             <td><a href="${pageContext.servletContext.contextPath}/notice/notSel?notice_no=${noticeDTO.notice_no}">${noticeDTO.notice_title}</a></td>
                                             <td>${noticeDTO.notice_reg_date}</td>
                                             <td>${noticeDTO.nickname}</td>
-                                            <td>${communityDTO.view_count}</td>
+                                            <td>${noticeDTO.view_count}</td>
                                         </tr>
                                         </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
-                            <c:if test="${sessionScope.nickname=='관리자'}">
+                            <c:if test="${noticeDTO.nickname=='관리자'}">
                             	<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newNot'">
                             </c:if>
                             <%-- <%@ include file="../import/page-notice.jsp" %> --%>
