@@ -28,9 +28,11 @@
 	      		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
 	      }
 	      
-	      function logout(){
-	    	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
-	    	 }
+	      function logout() {
+	  		if (confirm("로그아웃 하시겠습니까?")) {
+	  		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+	  	 	}
+	  	}
 	      
 	      function main(){
 	    		location.href = "${pageContext.servletContext.contextPath}/main/main";
