@@ -181,8 +181,8 @@
      <script>  
        	function addNot() {
 			let nickname=document.getElementsByName("nickname").value;
-			let title=document.getElementsByName("title").value;
-			let content=document.getElementsByName("content").value;
+			let notice_title=document.getElementsByName("notice_title").value;
+			let notice_content=document.getElementsByName("notice_content").value;
 
 			return true;
 		}
@@ -274,20 +274,20 @@
   <form action="${pageContext.servletContext.contextPath}/notice/newNot" method="post">
     <div class="row">
         <div class="mb-3 mt-3 col p-3">
-        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title">
+        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="notice_title">
         </div>
         <div class="mb-3 mt-3 col p-3">
         닉네임 : <div class="form-control" id="nickname" name="nickname" value="${sessionScope.SESS_NICKNAME}">${sessionScope.SESS_NICKNAME}</div>
         </div> 
     	<div class="mb-3 mt-3 col p-3">
-        내용 : <textarea class="form-control" rows="5" name="content"></textarea>
+        내용 : <textarea class="form-control" rows="5" name="notice_content"></textarea>
      	</div>
     	<div class="row">
        	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
        	<div class="col p-3"></div>
        	<button type="submit" class="register col p-3 btn btn-warning" onclick="addNot();">전송</button>
     </div>
-	<input type="hidden" name="nickname" value="${commu.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.commu.nickname}"> 
+	<input type="hidden" name="nickname" value="${noti.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.noti.nickname}"> 
 	</form>
   	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
 </div>
