@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.spring.mapper.CommunityMapper">
+  	<!-- <select id="selectCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
+  		<![CDATA[
+  		select c_no, title, content, nickname, reg_date, view_count from community where c_no=#{c_no}
+  		]]>
+  	</select>
+ -->  	
+  	<select id="replyList" parameterType="int" resultType="com.spring.domain.ReplyDTO">
+	    <![CDATA[
+		 select r_no, c_no, nickname. content, reg_date from reply where c_no=#{c_no}
+		]]>
+	</select>
+  	
+  	<insert id="insertReply">
+	      INSERT INTO reply(r_no, c_no, nickname, content, reg_date) VALUES(seq_reply_no.nextval, #{c_no}, #{nickname,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, sysdate)
+	<!-- #{nickname,jdbcType=VARCHAR} --><!-- #{title,jdbcType=VARCHAR} --><!-- #{content,jdbcType=VARCHAR} -->
+	</insert>
+	  
+	<update id="updateReply">
+	      UPDATE reply SET content=#{content,jdbcType=VARCHAR} WHERE r_no=#{r_no} and c_no=#{c_no}
+	</update>
+
+	<delete id="deleteReply">
+	      DELETE FROM reply WHERE r_no=#{r_no} and c_no=#{c_no}
+	</delete>
+  </mapper>

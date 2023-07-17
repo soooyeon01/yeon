@@ -128,11 +128,15 @@ public class UserController {
 	
 	
 	@GetMapping("/findPwd")
-	public String findPwd(MembersDTO mdto) {
-		servicep.findPwd(mdto);
-		return "user/findEmail";
+	public String findPwdget(MembersDTO mdto) {
+		return "user/findPwd";
 	}
 	
+	@PostMapping
+	public String findPwd(MembersDTO mdto) {
+		servicep.findPwd(mdto);
+		return "user/findPwd";
+	}
 
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
