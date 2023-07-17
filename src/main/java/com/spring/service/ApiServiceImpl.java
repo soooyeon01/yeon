@@ -32,4 +32,28 @@ public class ApiServiceImpl implements ApiService {
 		return mapper.insertWithData(wdto);
 	}
 
+	@Override
+	public int removePetData(P_DTO pdto) {
+		
+		return mapper.deletePetData(pdto);
+	}
+
+	@Override
+	public int removeShelData(S_DTO sdto) {
+		
+		return mapper.deleteShelData(sdto);
+	}
+
+	@Override
+	public int removeWithData(W_DTO wdto) {
+		
+		return mapper.deleteWithData(wdto);
+	}
+
+	@Override
+	public int removePetEnd(P_DTO pdto) {
+		
+		return mapper.deletePetEnd(pdto);
+	}
+
 }

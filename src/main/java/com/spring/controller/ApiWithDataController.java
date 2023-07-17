@@ -27,12 +27,14 @@ import lombok.RequiredArgsConstructor;
 public class ApiWithDataController{
 	//  http://localhost:8080/4jojo/api/withdata
 	
-	/*
-	 * @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행 public void
-	 * fetchPetDataScheduled(){ fetchWithData();
-	 * 
-	 * }
-	 */
+	
+	  @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행 public void
+	  void fetchPetDataScheduled()
+	  { 
+		  fetchWithData();
+	  
+	  }
+	
 	
 	
 	private final ApiService service;
@@ -97,6 +99,7 @@ public class ApiWithDataController{
 	               // 서비스 시작!
 	               
 	               service.regitsterWithData(wdto);
+	               service.removeWithData(wdto);
 	            }
 	            System.out.println("들어가는중");
 	         }
