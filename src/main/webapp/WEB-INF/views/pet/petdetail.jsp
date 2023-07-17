@@ -170,60 +170,34 @@
                             </div>
                             <div class="card-body">
                            		
-                           		 <table class="table">
-	                                    <thead>
-	                                        <tr>
-	                                        	<th>check</th>
-	                                       		<th>Image </th>
-	                                            <th>접수일</th>
-	                                            <th>발견장소 </th>
-	                                            <th>품종</th>
-	                                            <th>색상 </th>
-	                                            <th>나이</th>
-	                                            <th>체중 </th>
-	                                            <th>공고번호 </th>
-	                                            <th>공고시작일 </th>
-	                                            <th>공고종료일 </th>
-	                                            <th>상태 </th>
-	                                            <th>성별 </th>
-	                                            <th>중성화여부 </th>
-	                                            <th>특징 </th>
-	                                            <th>보호소이름 </th>
-	                                            <th>보호소전화번호 </th>
-	                                            <th>보호장소 </th>
-	                                            
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </thead>
-	                                    
-	                                    <tbody>
+                           		  
 	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
-											<tr>
+											
 												<!-- pageScope에 vo가 생성되었다.  -->
-												<td><input type="checkbox" name="favorite" style="transform:scale(1.5);" value="${P_DTO.pet_notice_no}" /></td>
-												<td><img src="${P_DTO.popfile}" alt="펫이미지" style="height:100px"/></td>
-												<td>${P_DTO.happenDt}</td>
-												<td>${P_DTO.happenPlace}</td>
-												<td>${P_DTO.kindCd}</td>
-												<td>${P_DTO.colorCd}</td>
-												<td>${P_DTO.age}</td>										
-												<td>${P_DTO.weight}</td>
-												<td>${P_DTO.noticeNo}</td>
-												<td>${P_DTO.noticeSdt}</td>
-												<td>${P_DTO.noticeEdt}</td>
-												<td>${P_DTO.processState}</td>
-												<td>${P_DTO.sexCd}</td>
-												<td>${P_DTO.neuterYn}</td>
-												<td>${P_DTO.specialMark}</td>
-												<td>${P_DTO.careNm}</td>
-												<td>${P_DTO.careAddr}</td>
-												<td>${P_DTO.careTel}</td>
+												<p><input type="checkbox" name="favorite" style="transform:scale(1.5);" value="${P_DTO.pet_notice_no}" /></p>
+												<p><img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/></p>
+												<div style="font-size:15px;">접수일<p style="font-size:20px;">${P_DTO.happenDt}</p></div>
+												<div style="font-size:15px;">발견장소<p style="font-size:20px;">${P_DTO.happenPlace}</p></div>
+												<div style="font-size:15px;">품종<p style="font-size:20px;">${P_DTO.kindCd}</p></div>
+												<div style="font-size:15px;">색상<p style="font-size:20px;">${P_DTO.colorCd}</p></div>
+												<div style="font-size:15px;">나이<p style="font-size:20px;">${P_DTO.age}</p></div>								
+												<div style="font-size:15px;">체중<p style="font-size:20px;">${P_DTO.weight}</p></div>
+												<div style="font-size:15px;">공고번호<p style="font-size:20px;">${P_DTO.noticeNo}</p></div>
+												<div style="font-size:15px;">공고시작일<p style="font-size:20px;">${P_DTO.noticeSdt}</p></div>
+												<div style="font-size:15px;">공고종료일<p style="font-size:20px;">${P_DTO.noticeEdt}</p></div>
+												<div style="font-size:15px;">상태<p style="font-size:20px;">${P_DTO.processState}</p></div>
+												<div style="font-size:15px;">성별<p style="font-size:20px;">${P_DTO.sexCd}</p></div>
+												<div style="font-size:15px;">중성화여부<p style="font-size:20px;">${P_DTO.neuterYn}</p></div>
+												<div style="font-size:15px;">특징<p style="font-size:20px;">${P_DTO.specialMark}</p></div>
+												<div style="font-size:15px;">보호소이름<p style="font-size:20px;">${P_DTO.careNm}</p></div>
+												<div style="font-size:15px;">보호소전화번호<p style="font-size:20px;">${P_DTO.careAddr}</p></div>
+												<div style="font-size:15px;">보호장소<p style="font-size:20px;">${P_DTO.careTel}</p></div>
 												
 												
-											</tr>
+											
 											</c:forEach>
-	                                    </tbody>
-	                                </table>
+	                                
+	                                
 	                              <button type="button" class="send-favoritep col p-3 btn btn-primary" 
 											onclick="sendFavoritep();">전송</button>
 	    								<button type="button" class="remove-favoritep col p-3 btn btn-primary" 
