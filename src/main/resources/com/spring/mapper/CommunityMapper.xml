@@ -6,7 +6,7 @@
   <mapper namespace="com.spring.mapper.CommunityMapper">
   	<select id="selectCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
   		<![CDATA[
-  		select c_no, title, content, nickname, reg_date from community where c_no=#{c_no}
+  		select c_no, title, content, nickname, reg_date, view_count from community where c_no=#{c_no}
   		]]>
   	</select>
   	

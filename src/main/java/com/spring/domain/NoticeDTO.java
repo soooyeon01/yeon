@@ -14,5 +14,6 @@ public class NoticeDTO {
     private String nickname;
     private String notice_title;
     private String notice_content;
-    private Date notice_reg_date;
+    private String notice_reg_date;
+    private int view_count;
 }
