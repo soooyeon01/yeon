@@ -28,10 +28,13 @@ import lombok.RequiredArgsConstructor;
 public class ApiPetDataController {
 	// http://localhost:8080/4jojo/api/petdata
 	
-	/*
-	 * @Scheduled(cron = "0 0 0/1 * * ?") // 매일 자정에 실행 public void
-	 * fetchPetDataScheduled(){ fetchPetData(); }
-	 */
+	
+	 @Scheduled(cron = "0 0 0/1 * * ?") // 매일 자정에 실행 public void
+	 void fetchPetDataScheduled()
+	 { 
+		 fetchPetData();	 
+	 }
+	 
 	
     private final ApiService service;
     private static final int max = 20;
@@ -63,7 +66,7 @@ public class ApiPetDataController {
                   NodeList nList = doc.getElementsByTagName("item");
                   System.out.println("파싱할 리스트 수 : " + nList.getLength());
                   System.out.println("여기1");
-                  list = removeDuplicates(list);
+                  
                   for (int temp = 0; temp < nList.getLength(); temp++) {
                      Node nNode = nList.item(temp);
                      if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -96,6 +99,8 @@ public class ApiPetDataController {
                         
       
                        service.regitsterPetData(pdto);
+                       service.removePetData(pdto);
+                       service.removePetEnd(pdto);
                      }
                      System.out.println("들어가는중");
                   }
@@ -107,9 +112,9 @@ public class ApiPetDataController {
         }
         return "/api/api"; // 실행 후 결과를 표시할 view를 반환합니다.
     }
-    private ArrayList<P_DTO> removeDuplicates(ArrayList<P_DTO> list) {
-	    Set<P_DTO> set = new HashSet<>(list);
-	    return new ArrayList<>(set);
+    private void removePetData(P_DTO pdto) {
+	    
+	   service.removePetData(pdto); 
 	}
     // 기존의 main() 메소드를 삭제하거나 주석합니다.
 

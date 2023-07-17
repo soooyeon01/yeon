@@ -81,10 +81,24 @@ public class UserController {
 		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
 	}
 	
-	@PostMapping("/emailCheck")
 	@ResponseBody
+	@PostMapping("/emailCheck")
 	public int emailCheck(@RequestParam("email") String email) {
 		int cnt = servicej.emailCheck(email);
+		return cnt;
+	}
+	
+	@ResponseBody
+	@PostMapping("/nicknameCheck")
+	public int nicknameCheck(@RequestParam("nickname") String nickname) {
+		int cnt = servicej.nicknameCheck(nickname);
+		return cnt;
+	}
+	
+	@ResponseBody
+	@PostMapping("/phoneCheck")
+	public int phoneCheck(@RequestParam("phone") int phone) {
+		int cnt = servicej.phoneCheck(phone);
 		return cnt;
 	}
 

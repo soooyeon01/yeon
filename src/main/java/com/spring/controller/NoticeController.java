@@ -24,10 +24,26 @@ public class NoticeController {
 	private final NoticeService service;
 	private final LoginService logservice;
 	
-	@RequestMapping("/nlist")
-	public String NoticeList(Model model) {
-		model.addAttribute("noticeList", service.getAllNotice());
-		return "notice/notice";
+	@GetMapping("/nlist")
+	public String NoticeList(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+         
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+         
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+//          session.setAttribute("id", email);
+            
+			model.addAttribute("noticeList", service.getAllNotice());
+			return "notice/notice";
+        }
+		return "main/main";
 	}
 	
 	@GetMapping("/newNot")
