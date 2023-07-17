@@ -1,9 +1,14 @@
 package com.spring.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.w3c.dom.Document;
@@ -13,6 +18,7 @@ import org.w3c.dom.NodeList;
 
 
 import com.spring.domain.S_DTO;
+import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,9 +28,20 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/*")
 public class ApiShelDataController {
 	// http://localhost:8080/4jojo/api/sheldata
+	
+	
+	
+	  @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행 public void
+	  void fetchPetDataScheduled()
+	  { 
+		  fetchShelData(); 
+	  }
+	 
+	 
 	private final ApiService service;
 	private static final int max = 20;
 	private static String serviceKey = "vPYPuEmQxsTmZx%2BMhGPBNw5QXD9P1oWLThzGQjTSlEg%2FNBb05bVez9RVHAYkGwXcAfJHD43kuDJf81MUKBJq4A%3D%3D";
+	
 	@RequestMapping("/sheldata")
 	public String fetchShelData() {
       
@@ -54,16 +71,16 @@ public class ApiShelDataController {
 	            NodeList nList = doc.getElementsByTagName("item");
 	            System.out.println("파싱할 리스트 수 : " + nList.getLength());
 	            System.out.println("여기1");
-	            S_DTO sdto = null;
-	            
+	        
+	            list = removeDuplicates(list);
 	            for (int temp = 0; temp < nList.getLength(); temp++) {
 	               Node nNode = nList.item(temp);
 	               if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 	
 	                  Element eElement = (Element) nNode;
-	
+	                  S_DTO sdto =  new S_DTO();
 	                  // sdtotage vo를 저장할 객체
-	                  sdto = new S_DTO();
+	                 
 	                  sdto.setCareNm(getTagValue("careNm", eElement));
 	                  sdto.setDivisionNm(getTagValue("divisionNm", eElement)); // 지정번호
 	                  sdto.setSaveTrgtAnimal(getTagValue("saveTrgtAnimal", eElement));
@@ -85,6 +102,7 @@ public class ApiShelDataController {
 	                 
 	
 	                 service.regitsterShelData(sdto);
+	                 service.removeShelData(sdto);
 	               }
 	               System.out.println("들어가는중");
                }
@@ -99,6 +117,12 @@ public class ApiShelDataController {
       return "/api/api";
 
 } // try~catch end
+	
+	private ArrayList<S_DTO> removeDuplicates(ArrayList<S_DTO> list) {
+	    Set<S_DTO> set = new HashSet<>(list);
+	    return new ArrayList<>(set);
+	}
+	
 	public static String getTagValue(String tag, Element eElement) {
 		   Node nlList = eElement.getElementsByTagName(tag).item(0);
 		   if (nlList != null) {

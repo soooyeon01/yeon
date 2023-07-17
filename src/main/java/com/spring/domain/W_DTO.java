@@ -24,4 +24,5 @@ public class W_DTO {
 	private String inside;
 	private String outside; 
 	private String extra;
+	private String region;
 }

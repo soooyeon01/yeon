@@ -45,4 +45,10 @@ public class W_ServiceImpl implements W_Service {
 		
 		return mapper.deleteWith_petData(with_pet_no);
 	}
+
+	@Override
+	public List<W_DTO> getRegionWith(String region) {
+		
+		return mapper.selectRegionWith(region);
+	}
 }

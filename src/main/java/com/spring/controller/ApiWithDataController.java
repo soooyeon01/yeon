@@ -1,8 +1,13 @@
 package com.spring.controller;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -21,6 +26,17 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/*")
 public class ApiWithDataController{
 	//  http://localhost:8080/4jojo/api/withdata
+	
+	
+	  @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행 public void
+	  void fetchPetDataScheduled()
+	  { 
+		  fetchWithData();
+	  
+	  }
+	
+	
+	
 	private final ApiService service;
 	private static final int max = 30;
 	private static String serviceKey = "lqV979qx%2FDA%2B1cQUXxSoNyaRUMaI%2FEqK3ciILfmuyqdaKb%2FYPDZXwlePD6PoB77pXNWwtFVp4Y39BifgXv9%2BJg%3D%3D";
@@ -30,6 +46,11 @@ public class ApiWithDataController{
 	   ArrayList<W_DTO> list = new ArrayList<>();
 	
 	   try {
+		   
+		   
+		   
+		   
+		   
 	      // parsing할 url 지정(API 키 포함해서)
 	      for (int i = 1; i < max; i++) {
 	     	 String url = "https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc"
@@ -47,7 +68,7 @@ public class ApiWithDataController{
 	         NodeList nList = doc.getElementsByTagName("item");
 	         System.out.println("파싱할 리스트 수: " + nList.getLength());
 	         System.out.println("여기1");
-	
+	         list = removeDuplicates(list);
 	         for (int temp = 0; temp < nList.getLength(); temp++) {
 	            Node nNode = nList.item(temp);
 	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -78,6 +99,7 @@ public class ApiWithDataController{
 	               // 서비스 시작!
 	               
 	               service.regitsterWithData(wdto);
+	               service.removeWithData(wdto);
 	            }
 	            System.out.println("들어가는중");
 	         }
@@ -87,6 +109,13 @@ public class ApiWithDataController{
 	   }
 	   return "/api/api";
 	} // try~catch end
+	
+	
+	private ArrayList<W_DTO> removeDuplicates(List<W_DTO> list) {
+        Set<W_DTO> set = new HashSet<>(list);
+        return new ArrayList<>(set);
+    }
+	
 	
 	// tag값의 정보를 가져오는 메소드
 	 public static String getTagValue(String name, Element eElement) {

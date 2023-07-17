@@ -29,8 +29,11 @@ import lombok.extern.log4j.Log4j;
 public class UserController {
    @Autowired
    private final LoginService service;
+   @Autowired
    private final JoinService servicej;
+   @Autowired
    private final FindEmailService servicee;
+   @Autowired
    private final FindPwdService servicep;
    
    @GetMapping("/login")

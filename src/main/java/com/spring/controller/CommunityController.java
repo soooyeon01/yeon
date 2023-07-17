@@ -66,12 +66,12 @@ public class CommunityController {
         }
 	}
 	
-	@GetMapping("/newcommu")
+	@GetMapping("/newCommu")
 	public String moveRegi() {
 		return "community/commuRegi";
 	}
 	
-	@RequestMapping("/newcommu")
+	@RequestMapping("/newCommu")
 	public String CommunityRegi(HttpServletRequest request, CommunityDTO commu, MembersDTO mdto) {
 		HttpSession session = request.getSession();
         boolean SESS_AUTH = false;
@@ -99,7 +99,7 @@ public class CommunityController {
     }
 	
 	@GetMapping("/commuSel")
-	public String CommuSel(HttpServletRequest request, Model model,int c_no, String nickname) {
+	public String CommuSel(HttpServletRequest request, Model model, int c_no, String nickname) {
 		HttpSession session = request.getSession();
         boolean SESS_AUTH = false;
          

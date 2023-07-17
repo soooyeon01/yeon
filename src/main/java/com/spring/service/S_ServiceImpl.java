@@ -50,4 +50,10 @@ public class S_ServiceImpl implements S_Service {
 		return mapper.deleteShelterData(shelter_no);
 	}
 
+	@Override
+	public List<S_DTO> getRegionShel(String region) {
+		
+		return mapper.selectRegionShel(region);
+	}
+
 }

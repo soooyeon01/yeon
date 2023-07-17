@@ -85,7 +85,7 @@
             <script>
 	            function logout() {
 	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/logout";
+	    		location.href = "${root}/user/logout";
 	   		 	}
 			}
 
@@ -144,7 +144,7 @@
                             </div>
                            
   
-								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
+								<%-- <form action="${pageContext.servletContext.contextPath}/community/newCommu" method="get">
                              	<button class="btn write" type="submit">글쓰기
 								 --%>
                         

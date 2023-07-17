@@ -26,4 +26,5 @@ public class P_DTO {
 	private String careNm; 
 	private String careAddr; 
 	private String careTel; 
+	private String region;
 }

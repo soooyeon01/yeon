@@ -1,19 +1,26 @@
 package com.spring.controller;
 
 import java.io.IOException;
-
-
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -25,7 +32,8 @@ import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/pet/*")
@@ -49,6 +57,20 @@ public class PetnoticeController {
 		
 		return "/pet/petdetail";
 	}
+	   
+	@RequestMapping("/petselect")
+    @ResponseBody
+    public Map<String, List<P_DTO>> getPetListByRegion(@RequestParam("region") String region) {
+        log.info("이게 널이니?"+region);
+        List<P_DTO> petList = service.getRegionPet(region);
+
+        Map<String, List<P_DTO>> response = new HashMap<>();
+        response.put("petList", petList);
+
+        return response;
+    }
+	
+	
 	@RequestMapping("/registerpet")
 	@ResponseBody
 	protected void  insertF_P(HttpServletRequest request, HttpServletResponse response

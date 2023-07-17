@@ -18,7 +18,69 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-	
+		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+		<script>
+		    $(document).ready(function () {
+		        $("#region-select").on("change", function () {
+		            const region = $(this).val();
+		            // 서버로 데이터를 보낼 Ajax 호출을 작성합니다
+		            $.ajax({
+		                url: "${pageContext.servletContext.contextPath}/pet/petselect", // Replace this with your server endpoint
+		                type: "POST",
+		                data: {
+		                    region: region
+		                },
+		                dataType:"json",
+		                success:function (data, textStatus) {
+		                    console.log("succedss");
+							console.log(data.petList.length);
+		                    if (data.petList && data.petList.length > 0) {
+		                        const animals = data.petList;
+		                      
+		                        let animalsHtml = ``;
+		                        for (let i = 0; i < 10; i++) {
+		                            let animal = animals[i];
+									//console.log(animal);
+									
+		                             animalsHtml += `
+		                           
+		                            <div class="data">
+		                              <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=`+animal.pet_notice_no+`">
+		                                <img src=`+animal.popfile+` alt="펫이미지" style="height: 300px" />
+		                              </a>
+		                              <div>
+		                                <br>
+		                                <p style="display: block;">품종 : `+animal.kindCd+`</p>
+		                                <br>
+		                                <p style="display: block;">나이 : `+animal.age+`</p>
+		                                <br>
+		                                <p style="display: block;">무게 : `+animal.weight+`</p>
+		                                <br>
+		                                <p style="display: block;">성별 : `+animal.sexCd+`</p>
+		                                <br>
+		                                <p style="display: block;">특징 : `+animal.specialMark+`</p>
+		                                <br>
+		                              </div>
+		                            </div>`;
+		                            
+		                        }
+		                        // 지역 선택에 따른 동물 목록을 업데이트합니다.
+		                        $("#animals-container .container").html(animalsHtml);
+		                    } else {
+		                        // 검색된 동물이 없는 경우에는 '검색된 동물이 없습니다.' 메시지를 출력합니다.
+		                        $("#animals-container .container").html("<p>검색된 동물이 없습니다.</p>");
+		                    } 
+									
+		                },
+		                error: function (jqXHR, textStatus, errorThrown) {
+		                    console.log(jqXHR);
+		                    console.log(textStatus);
+		                    console.log(errorThrown);
+		                }
+		            });
+		        });
+		    });
+		</script>
 		<style>
 		
 		  a:hover{
@@ -121,11 +183,30 @@
                               
                             </div>
 					<div class="card-body">
+						<select id="region-select">
+						  <option value="">지역 선택</option>
+						  <option value="서울특별시">서울특별시</option>
+						  <option value="부산광역시">부산광역시</option>
+						  <option value="대구광역시">대구광역시</option>
+						  <option value="인천광역시">인천광역시</option>
+						  <option value="광주광역시">광주광역시</option>
+						  <option value="대전광역시">대전광역시</option>
+						  <option value="울산광역시">울산광역시</option>
+						  <option value="세종특별자치시">세종특별자치시</option>
+						  <option value="경기도">경기도</option>
+						  <option value="강원도">강원도</option>
+						  <option value="충청북도">충청북도</option>
+						  <option value="충청남도">충청남도</option>
+						  <option value="전라북도">전라북도</option>
+						  <option value="전라남도">전라남도</option>
+						  <option value="경상북도">경상북도</option>
+						  <option value="경상남도">경상남도</option>
+						  <option value="제주특별자치도">제주특별자치도</option>
+						</select>
 
 
 
-
-
+						<div id="animals-container">
 						<div class="container">
 							<c:forEach var="P_DTO" items="${petList}">
 								<c:if test="${not empty P_DTO}">
@@ -164,7 +245,7 @@
 								</c:if>
 							</c:forEach>
 						</div>
-
+					</div>
 					</div>
 					<%@ include file="../import/page-pet_notice.jsp" %>
                         	

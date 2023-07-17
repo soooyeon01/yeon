@@ -58,4 +58,38 @@
   	#{outside, jdbcType=VARCHAR},
   	#{extra, jdbcType=VARCHAR})
   </insert>
+  
+  <delete id="deletePetData">
+  	<![CDATA[
+  	DELETE FROM pet_notice a
+      WHERE ROWID > (SELECT MIN(ROWID) 
+                       FROM pet_notice b
+                        WHERE a.popfile = b.popfile)
+                        ]]>
+  </delete>
+  
+  <delete id="deleteShelData">
+  	<![CDATA[
+  	DELETE FROM shelter a
+      WHERE ROWID > (SELECT MIN(ROWID) 
+                       FROM shelter b
+                        WHERE a.careNm = b.careNm)
+                        ]]>
+  </delete>
+  
+  <delete id="deleteWithData">
+  	<![CDATA[
+  	DELETE FROM with_pet a
+      WHERE ROWID > (SELECT MIN(ROWID) 
+                       FROM with_pet b
+                        WHERE a.road = b.road)
+                        ]]>	
+  </delete>
+  <delete id="deletePetEnd">
+  	DELETE FROM pet_notice WHERE SUBSTR(PROCESSSTATE,1,2)='종료'
+  </delete>
+  
+  
+  
+  
 </mapper>

@@ -2,6 +2,9 @@ package com.spring.controller;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_W_DTO;
+import com.spring.domain.P_DTO;
 import com.spring.domain.W_DTO;
 import com.spring.service.W_Service;
 import com.spring.util.Criteria;
@@ -49,6 +53,19 @@ public class WithpetController {
 		model.addAttribute("withdetailList",service.getW(with_pet_no));
 		return "/with/withdetail";
 	}
+	
+	@RequestMapping("/withselect")
+    @ResponseBody
+    public Map<String, List<W_DTO>> getWithListByRegion(@RequestParam("region") String region) {
+        log.info("이게 널이니?"+region);
+        List<W_DTO> withList = service.getRegionWith(region);
+
+        Map<String, List<W_DTO>> response = new HashMap<>();
+        response.put("withList", withList);
+
+        return response;
+    }
+	
 	
 	@RequestMapping("/registerwith")
 	@ResponseBody
@@ -138,4 +155,10 @@ public class WithpetController {
 	
 		response.getWriter().println( new Gson().toJson(jsonObj) );
 	}
+	
+	@RequestMapping("/six")
+	public String choose(W_DTO dto) {
+		return "/six";
+	}
+	
 }
