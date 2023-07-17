@@ -271,7 +271,7 @@
         </nav>
 <div class="container mt-3">
   <h2 style="text-align: center;">공지 작성</h2>  
-  <form action="${pageContext.servletContext.contextPath}/community/newNot" method="post">
+  <form action="${pageContext.servletContext.contextPath}/notice/newNot" method="post">
     <div class="row">
         <div class="mb-3 mt-3 col p-3">
         제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title">
