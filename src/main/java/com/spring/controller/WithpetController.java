@@ -155,5 +155,10 @@ public class WithpetController {
 	
 		response.getWriter().println( new Gson().toJson(jsonObj) );
 	}
-		
+	
+	@RequestMapping("/six")
+	public String choose(W_DTO dto) {
+		return "/six";
+	}
+	
 }
