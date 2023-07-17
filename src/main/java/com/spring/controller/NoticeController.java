@@ -48,7 +48,7 @@ public class NoticeController {
 	
 	@GetMapping("/newNot")
 	public String moveRegi() {
-		return "community/noticeRegi";
+		return "community/notRegi";
 	}
 	
 	@RequestMapping("/newNot")
