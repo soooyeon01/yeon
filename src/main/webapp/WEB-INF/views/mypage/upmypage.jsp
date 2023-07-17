@@ -25,6 +25,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
   <script>
+  
   function withdrawMember() {
      $.ajax({
        url: "/4jojo/mypage",
@@ -49,6 +50,7 @@
   </script>
   
   <!-- 이동경로 -->
+  
   <script>
   function login(){
 	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
@@ -73,19 +75,14 @@
   
   function pwdShow() {
 	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴
-	 let email =document.getElementsByName("email").value;
-	  var msg = "비밀번호 변경이 완료되었습니다."
-	  alert(msg);
-	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypwd";
 	  return true;
 	} 
   
   function phoneShow() {
-		 let phone = document.getElementsByName("phone").value; //name속성을 받아옴
-		 let email =document.getElementsByName("email").value;
-		  var msg = "전화번호 변경이 완료되었습니다."
-		  alert(msg);
-		  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴
+		  console.log("여기"+phone);
+		  location.href = "${pageContext.servletContext.contextPath}/mypage/upmyphone";
 		  return true;
 		} 
   
@@ -94,13 +91,8 @@
 		  alert(msg);
 		  location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
 		  return true;
-		  
-		} 
-/*   
-  function logout(){  
-	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
-	  } */
-  
+  }
+
   </script>
 <style>
       .deleteMember{
@@ -164,14 +156,13 @@
                 </div>
             </form>     
             </nav>
-            <script>
-               function logout() {
-             if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${pageContext.servletContext.contextPath}/user/logout";
-                }
-         	}
+           <script>
+            function logout() {
+		        if (confirm("로그아웃 하시겠습니까?")) {
+		        location.href = "${pageContext.servletContext.contextPath}/user/logout";
+		           }
+		    	}
             </script>
-            
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" onclick= "main();" >
@@ -180,11 +171,12 @@
         </nav>
         
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/petnotice"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shelter"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/withpet"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community"><b>커뮤니티</b></a>
+         <a class=" pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+   
             </nav>
    <div id="layoutSidenav_content">
    
@@ -213,10 +205,10 @@
                       
                         <tr>         
                            <td >비밀번호</td>
-                            <td><form action="${pageContext.servletContext.contextPath }/mypage/upmypwd" method="get">
+                            <td><form action="${pageContext.servletContext.contextPath }/mypage/upmypwd" method="post">
    									<input type ="text" name ="pwd"  placeholder="${mdto.pwd}"/>
    									<button type="submit" onclick="pwdShow();" >변경</button>
-   								<input type="hidden" name="email" value="${mdto.email}">	
+   									<input type="hidden" name="email" value="${mdto.email}">
 								</form>			
 							</td>
                         </tr>                                         
@@ -233,10 +225,10 @@
                        
                         <tr>
                            <td>전화번호</td>
-                           <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="get">
+                           <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="post">
    									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
    									<button type="submit" onclick="phoneShow();">변경</button>
-   								<input type="hidden" name="email" value="${mdto.email}">	
+   									<input type="hidden" name="email" value="${mdto.email}">
 								</form>	
 							</td>    
                         </tr>
