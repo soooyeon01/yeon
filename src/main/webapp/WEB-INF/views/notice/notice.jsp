@@ -1,52 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="com.spring.domain.CommunityDTO"%>
+<%@ page import="com.spring.domain.NoticeDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.spring.mapper.MypageMapper" %>  
-<%@ page import="com.spring.domain.MembersDTO"%>
 <c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>커뮤니티 상세</title>
+        <title>공지</title>
+        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
         <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
-     	<script>  
-	       	function toListPage() {
-	    		location.href="${pageContext.servletContext.contextPath}/community/clist";
-	    		}
-	       	function moveCommUp() {
-	       		let c_no=document.getElementsByName("c_no").value;
-	       		let title=document.getElementsByName("title").value;
-				let content=document.getElementsByName("content").value;
-	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
-	       	}
-    	</script>  
-    	<script>
-			function confirmDelete() {
-	    		if (confirm("정말로 삭제하시겠습니까?")) {
-	        	// 사용자가 Yes를 선택한 경우 삭제 동작을 수행할 코드 작성
-	        	location.href = 'commuDel?c_no=${selectone.c_no}'; // 삭제 동작 예시
-	    		} else {
-	        // 사용자가 No를 선택한 경우 아무 동작도 수행하지 않음
-	    		}
-			}
-		</script>
-    	<style>
-    	#cont {
-    		width: 70rem;
-    		height: 20rem;
-    	}
-    	</style>
+     	<script>
+     	
+     	</script>
         <style> 
 
        a:hover{
@@ -84,30 +59,18 @@
           .bgcolor{
          background-color: #f9f8f3;
           }
-         .bt {
-         width: 100%;
-         text-align:center;
-         }
-         .my{
-         /* padding: 1rem;
-     	 margin-left: 5rem;
-     	 margin-right: 5rem;
-     	 width: 10rem;
-     	 height: 2rem; */
-     	 width: 100px;
-    	margin: auto;
-    	display: block;
-         }
+          
         </style>
-        
     </head>
-   <body class="sb-nav-fixed"> 
+   	<body class="sb-nav-fixed"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
+                <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
-         <%  if( email != null) { %>
+              <%System.out.println(nickname);%>
+          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -119,7 +82,7 @@
             <script>
 	            function logout() {
 	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/user/logout";
+	    		location.href = "${root}/logout";
 	   		 	}
 			}
 
@@ -138,42 +101,63 @@
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
-<div class="container mt-3">
-  <h2 style="text-align: center;">게시글</h2>  
-	<form action="${pageContext.servletContext.contextPath}/community/commuSel">
-	<input type="hidden" name="c_no" value="${selectone.c_no}">
-	<div class="row">
-        <div class="mt-3 col p-3">
-            <label for="reg_date">작성일:</label>
-            <p class="form-control" name="reg_date">${selectone.reg_date}</p>
-		</div>
-        <div class="mb-3 mt-3 col p-3">
-          	<label for="title">글제목:</label>
-            <p class="form-control" name="title">${selectone.title}</p>
-        </div>
-        <div class="mb-3 mt-3 col p-3">
-            <label for="nickname">작성자:</label>
-            <p class="form-control" name="nickname">${selectone.nickname}</p>
-            <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
-        </div> 
-         <div class="mt-3 col p-3">
-            <label for="reg_date">조회수:</label>
-            <p class="form-control" name="view_count">${selectone.view_count}</p>
-		</div>
-		<div class="mb-3 mt-3">
-        	<label for="content">글내용:</label>
-        	<p id="cont" class="form-control" name="content">${selectone.content}</p>
-     	</div>
-     </div>
-	</form>
-    	<%-- <input type="hidden" name="method" value="${param.method }">
-        <input type="hidden" name="c_no" value="${param.c_no }">
-		<input type="hidden" name="nickname" value="${communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname  }"> --%>
-	<div class="container bt">
-  	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
-	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
-	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
+                <main>
+                    <div class="container-fluid px-3 pt-3">
+                        <h1 class="mt-1" >공지사항</h1>
+                     
+                       
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                             
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>공지 번호</th>
+                                            <th>공지 제목</th>
+                                            <th>공지 작성일</th>
+                                            <th>공지 작성자</th>
+                                            <th>조회수</th>
+                                        </tr>
+                          
+                                    </thead>
+                                    <tfoot>
+                                    </tfoot>
+                                    <tbody>
+                                    	<c:forEach var="noticeDTO" items="${requestScope.noticeList}" varStatus="status">
+                                        <tr>
+                                            <td>${noticeDTO.notice_no}</td>
+                                            <td><a href="${pageContext.servletContext.contextPath}/notice/notSel?notice_no=${noticeDTO.notice_no}">${noticeDTO.notice_title}</a></td>
+                                            <td>${noticeDTO.notice_reg_date}</td>
+                                            <td>${noticeDTO.nickname}</td>
+                                            <td>${noticeDTO.view_count}</td>
+                                        </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <c:if test="${noticeDTO.nickname=='관리자'}">
+                            	<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newNot'">
+                            </c:if>
+                            <%-- <%@ include file="../import/page-notice.jsp" %> --%>
+                           <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
+                        	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
+                        </div>
+                    </div>
+                </main>
+                <footer class="py-4 bg-light mt-auto">
+			<div class="container-fluid px-4">
+				<div class="d-flex align-items-center justify-content-between small">
+		
+
+					<div></div>
+				</div>
+			</div>
+		</footer>
 	</div>
-</div>
+	</div>
+
 </body>
 </html>

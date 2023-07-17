@@ -144,7 +144,7 @@
                             </div>
                            
   
-								<%-- <form action="${pageContext.servletContext.contextPath}/community/newcommu" method="get">
+								<%-- <form action="${pageContext.servletContext.contextPath}/community/newCommu" method="get">
                              	<button class="btn write" type="submit">글쓰기
 								 --%>
                         

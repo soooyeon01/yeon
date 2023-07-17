@@ -71,9 +71,6 @@ public class PetnoticeController {
     }
 	
 	
-	
-	
-	
 	@RequestMapping("/registerpet")
 	@ResponseBody
 	protected void  insertF_P(HttpServletRequest request, HttpServletResponse response
