@@ -84,6 +84,20 @@ public class UserController {
 		int cnt = servicej.emailCheck(email);
 		return cnt;
 	}
+	
+	@ResponseBody
+	@PostMapping("/nicknameCheck")
+	public int nicknameCheck(@RequestParam("nickname") String nickname) {
+		int cnt = servicej.nicknameCheck(nickname);
+		return cnt;
+	}
+	
+	@ResponseBody
+	@PostMapping("/phoneCheck")
+	public int phoneCheck(@RequestParam("phone") int phone) {
+		int cnt = servicej.phoneCheck(phone);
+		return cnt;
+	}
 
 	@GetMapping("/findEmail")
 	public String findEmailget(MembersDTO mdto) {

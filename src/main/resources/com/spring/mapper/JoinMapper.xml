@@ -11,4 +11,12 @@
  <select id="emailCheck" parameterType="com.spring.domain.MembersDTO" resultType="int">
 		SELECT COUNT(*) FROM members WHERE email= #{email}
 </select>
+
+ <select id="nicknameCheck" parameterType="com.spring.domain.MembersDTO" resultType="int">
+		SELECT COUNT(*) FROM members WHERE nickname= #{nickname}
+</select>
+
+ <select id="phoneCheck" parameterType="com.spring.domain.MembersDTO" resultType="int">
+		SELECT COUNT(*) FROM members WHERE phone= #{phone}
+</select>
  </mapper>

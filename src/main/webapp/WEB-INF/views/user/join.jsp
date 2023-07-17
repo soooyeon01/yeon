@@ -29,16 +29,25 @@
             if( !isValid (element,msg) ){
                 return false;
             }
+            if( !emailCheck() ){  // 중복 체크 추가
+                return false;
+            }
        		element  = document.getElementById("nickname");
             msg = "닉네임을 입력하세요.";
             if( !isValid (element,msg) ){
                 return false;
             } 
+            if( !nicknameCheck() ){  // 중복 체크 추가
+                return false;
+            }
             element  = document.getElementById("phone");
             msg = "핸드폰 번호를 입력하세요.";
             if( !isValid (element,msg) ){
                 return false;
             } 
+            if( !phoneCheck() ){  // 중복 체크 추가
+                return false;
+            }
             element  = document.getElementById("pwd");
             msg = "비밀번호를 입력하세요.";
             if( !isValid (element,msg) ){
@@ -63,6 +72,8 @@
                 return false;
             } 
             return true;
+            
+     
         }
         
         function number(element, msg) {
@@ -75,6 +86,7 @@
             }
             return result;
         }
+        
         function isValid(element, msg){
             let result = false;
             if(element.value == ''){
@@ -105,25 +117,92 @@
 
         }
 
-        
         function emailCheck(){
-            var email = $('#email').val(); 
+            var email = $('#email').val();
+            var result = true;
+            
             $.ajax({
                 url:'./emailCheck', //Controller에서 요청 받을 주소
                 type:'post', //POST 방식으로 전달
                 data:{email:email},
-                success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                    if(cnt==0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                        alert("이미 사용 중인 이메일입니다.")
-                    } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                        alert("사용 가능한 이메일입니다.")
+                dataType:'json',
+                async: false,
+                success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+                	console.log("ajax cnt : "+cnt);
+                    if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
+                    	alert("이미 사용 중인 이메일입니다.");
+                    	result = false;
                     }
                 },
                 error:function(){
                     alert("에러입니다");
                 }
             });
-            };;
+            return result;
+            };
+            function checkEmail() {
+                if (emailCheck()) {
+                    alert("사용 가능한 이메일입니다.");
+                }
+            }
+            
+            function nicknameCheck(){
+                var nickname = $('#nickname').val();
+                var result = true;
+                
+                $.ajax({
+                    url:'./nicknameCheck', //Controller에서 요청 받을 주소
+                    type:'post', //POST 방식으로 전달
+                    data:{nickname:nickname},
+                    dataType:'json',
+                    async: false,
+                    success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+                    	console.log("ajax cnt : "+cnt);
+                        if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
+                        	alert("이미 사용 중인 닉네임입니다.");
+                        	result = false;
+                        }
+                    },
+                    error:function(){
+                        alert("에러입니다");
+                    }
+                });
+                return result;
+                };
+                function checkNickname() {
+                    if (nicknameCheck()) {
+                        alert("사용 가능한 닉네임입니다.");
+                    }
+                }
+                
+                function phoneCheck(){
+                    var phone = $('#phone').val();
+                    var result = true;
+                    
+                    $.ajax({
+                        url:'./phoneCheck', //Controller에서 요청 받을 주소
+                        type:'post', //POST 방식으로 전달
+                        data:{phone:phone},
+                        dataType:'json',
+                        async: false,
+                        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+                        	console.log("ajax cnt : "+cnt);
+                            if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
+                            	alert("이미 사용 중인 번호입니다.");
+                            	result = false;
+                            }
+                        },
+                        error:function(){
+                            alert("에러입니다");
+                        }
+                    });
+                    return result;
+                    };
+                    function checkPhone() {
+                        if (phoneCheck()) {
+                            alert("사용 가능한 번호입니다.");
+                        }
+                    }
    
 
     </script>
@@ -146,18 +225,18 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="email" id="email" type="email">                                                                                              
                                                 <label for="email">이메일</label>
-                                                
-                                                <button type="button" id="emailBtn" name="emailBtn" onclick="emailCheck();">중복</button>                                              
-                                                <span id="result"></span>
+                                                <button type="button" id="emailBtn" name="emailBtn" onclick="checkEmail();">중복</button>                                              
                                                 
                                             </div>
                                             <div class="form-floating mb-3">
                                                  <input class="form-control" name="nickname" id="nickname" type="text" />
                                                 <label for="nickname">닉네임</label>
+                                                  <button type="button" id="nicknameBtn" name="nicknameBtn" onclick="checkNickname();">중복</button>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="phone" id="phone" type="tel" />
                                                 <label for="phone">핸드폰 (-없이 숫자만 입력하세요)</label>
+                                                  <button type="button" id="phoneBtn" name="phoneBtn" onclick="checkPhone();">중복</button>
                                             </div>
                                             
                                             
