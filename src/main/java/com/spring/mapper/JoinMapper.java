@@ -9,4 +9,5 @@ public interface JoinMapper {
 	public int nicknameCheck(String nickname);
 	public int phoneCheck(int phone);
 
+
 }

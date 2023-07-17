@@ -29,10 +29,11 @@ public class ApiPetDataController {
 	// http://localhost:8080/4jojo/api/petdata
 	
 	
-	 @Scheduled(cron = "0 0 0/1 * * ?") // 매일 자정에 실행 public void
+	 @Scheduled(cron = "0 */5 * * * ?") // 매일 자정에 실행 public void
 	 void fetchPetDataScheduled()
 	 { 
 		 fetchPetData();	 
+		 
 	 }
 	 
 	
@@ -100,22 +101,22 @@ public class ApiPetDataController {
       
                        service.regitsterPetData(pdto);
                        service.removePetData(pdto);
-                       service.removePetEnd(pdto);
+             		 service.removePetEnd(pdto);	
+                   	   
                      }
                      System.out.println("들어가는중");
+                     
                   }
+                  
                } // if end
-
+            	
             // for end
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "/api/api"; // 실행 후 결과를 표시할 view를 반환합니다.
     }
-    private void removePetData(P_DTO pdto) {
-	    
-	   service.removePetData(pdto); 
-	}
+    
     // 기존의 main() 메소드를 삭제하거나 주석합니다.
 
     // tag값의 정보를 가져오는 메소드

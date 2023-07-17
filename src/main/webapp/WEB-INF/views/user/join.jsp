@@ -15,9 +15,9 @@
         <link href="${root}/resources/bootstrap/css/styles.css" rel="stylesheet" />
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
-<<<<<<< HEAD
+
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-=======
+
         <style>
         	.id_ok{
         	color:#008000;
@@ -28,7 +28,7 @@
         	display: none;
         	}
         </style>
->>>>>>> f0806e8dec5d65e22667ece8abe1b5c0b0bae3e6
+
         
           <script>
         function verifyField(){
@@ -42,14 +42,12 @@
             if( !isValid (element,msg) ){
                 return false;
             }
-<<<<<<< HEAD
+
             if( !emailCheck() ){  // 중복 체크 추가
                 return false;
             }
        		element  = document.getElementById("nickname");
-=======
-             element  = document.getElementById("nickname");
->>>>>>> f0806e8dec5d65e22667ece8abe1b5c0b0bae3e6
+
             msg = "닉네임을 입력하세요.";
             if( !isValid (element,msg) ){
                 return false;
@@ -134,29 +132,26 @@
 
         }
 
-<<<<<<< HEAD
         function emailCheck(){
             var email = $('#email').val();
             var result = true;
-            
-=======
         
         function emailCheck(){
             var email = $('#email').val(); 
->>>>>>> f0806e8dec5d65e22667ece8abe1b5c0b0bae3e6
+
             $.ajax({
                 url:'./emailCheck', //Controller에서 요청 받을 주소
                 type:'post', //POST 방식으로 전달
                 data:{email:email},
                 dataType:'json',
-<<<<<<< HEAD
+
                 async: false,
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
                 	console.log("ajax cnt : "+cnt);
                     if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
                     	alert("이미 사용 중인 이메일입니다.");
                     	result = false;
-=======
+
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
                 	console.log("ajax cnt : "+cnt);
                     if(cnt==0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
@@ -168,14 +163,14 @@
                         $('.id_ok').css("display", "none");
                     	alert("이미 사용 중인 이메일입니다.");
                     	$('#id').val('');
->>>>>>> f0806e8dec5d65e22667ece8abe1b5c0b0bae3e6
+
                     }
                 },
                 error:function(){
                     alert("에러입니다");
                 }
             });
-<<<<<<< HEAD
+
             return result;
             };
             function checkEmail() {
@@ -241,9 +236,9 @@
                             alert("사용 가능한 번호입니다.");
                         }
                     }
-=======
+
             };
->>>>>>> f0806e8dec5d65e22667ece8abe1b5c0b0bae3e6
+
    
 
     </script>
@@ -266,15 +261,14 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="email" id="email" type="email">                                                                                              
                                                 <label for="email">이메일</label>
-<<<<<<< HEAD
+
                                                 <button type="button" id="emailBtn" name="emailBtn" onclick="checkEmail();">중복</button>                                              
-=======
+
                                                 
                                                 <button type="button" id="emailBtn" name="emailBtn" onclick="emailCheck();">중복확인</button>                                              
                                                 <span id="result"></span>
                                                 <span class="id_ok">사용 가능한 아이디입니다.</span>
 												<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
->>>>>>> f0806e8dec5d65e22667ece8abe1b5c0b0bae3e6
                                                 
                                             </div>
                                             <div class="form-floating mb-3">
