@@ -14,5 +14,6 @@ public interface S_Service {
 	
 	int registerShelterData(S_DTO dto);
 	int removeShelterData(int shelter_no);
-	int getRegionShel(S_DTO dto);
+	
+	List<S_DTO> getRegionShel(String region);
 }

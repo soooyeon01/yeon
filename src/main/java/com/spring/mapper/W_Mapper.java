@@ -14,5 +14,5 @@ public interface W_Mapper {
 	
 	int insertWith_petData(W_DTO dto);
 	int deleteWith_petData(int with_pet_no);
-	int selectRegionWith(W_DTO dto);
+	List<W_DTO> selectRegionWith(String region);
 }
