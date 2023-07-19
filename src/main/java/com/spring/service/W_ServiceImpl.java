@@ -51,4 +51,11 @@ public class W_ServiceImpl implements W_Service {
 		
 		return mapper.selectRegionWith(region);
 	}
+	
+	//위드펫카테고리
+		@Override
+		public List<W_DTO> getCategoryWith(String category3) {		
+			List<W_DTO> result = mapper.selectCategoryWith(category3);
+			return result;
+		}
 }
