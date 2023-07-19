@@ -1,5 +1,7 @@
 package com.spring.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.MembersDTO;
+import com.spring.domain.ReplyDTO;
 import com.spring.service.CommunityService;
 import com.spring.service.LoginService;
+import com.spring.service.ReplyService;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
@@ -28,6 +32,7 @@ public class CommunityController {
 
 	private final CommunityService service;
 	private final LoginService logservice;
+	private final ReplyService rservice;
 	
 	/*
 	 * @RequestMapping("/clist") 
@@ -116,6 +121,10 @@ public class CommunityController {
 		CommunityDTO selectone=service.getCommunity(c_no);
 		model.addAttribute("selectone", selectone);
 		service.viewCount(c_no);
+		List<ReplyDTO> reply=null;
+		reply=rservice.getReplyList(c_no);
+		model.addAttribute("reply", reply);
+		
 		return "community/commuSel";
         }else {
         	return "redirect:/main/main";

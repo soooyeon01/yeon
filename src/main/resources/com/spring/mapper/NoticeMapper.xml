@@ -6,7 +6,7 @@
   <mapper namespace="com.spring.mapper.NoticeMapper">
   	<select id="selectNotice" parameterType="int" resultType="com.spring.domain.NoticeDTO">
   		<![CDATA[
-  		select notice_no, title, content, nickname, reg_date, view_count from community where notice_no=#{notice_no}
+  		select * from notice where notice_no=#{notice_no}
   		]]>
   	</select>
   	
@@ -17,16 +17,16 @@
 	</select>
   	
   	<insert id="insertNotice">
-	      INSERT INTO notice(notice_no,nickname, title, content, reg_date) VALUES(seq_notice_no.nextval,#{nickname,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, sysdate)
+	      INSERT INTO notice(notice_no, nickname, notice_title, notice_content, notice_reg_date) VALUES(seq_notice_no.nextval,#{nickname,jdbcType=VARCHAR}, #{notice_title,jdbcType=VARCHAR}, #{notice_content,jdbcType=VARCHAR}, sysdate)
 	<!-- #{nickname,jdbcType=VARCHAR} --><!-- #{title,jdbcType=VARCHAR} --><!-- #{content,jdbcType=VARCHAR} -->
 	</insert>
 	
 	<update id="updateNotice">
-	      UPDATE notice SET title=#{title,jdbcType=VARCHAR}, content=#{content,jdbcType=VARCHAR} WHERE notice_no=#{notice_no}
+	      UPDATE notice SET notice_title=#{notice_title,jdbcType=VARCHAR}, notice_content=#{notice_content,jdbcType=VARCHAR} WHERE notice_no=#{notice_no}
 	</update>
   	
   	<update id="viewCount">
-		UPDATE notice SET view_count=view_count+1 WHERE notice_no=${notice_no}
+		UPDATE notice SET view_count=view_count+1 WHERE notice_no=#{notice_no}
 	</update>
 	
 	<delete id="deleteNotice">

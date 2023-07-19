@@ -48,11 +48,11 @@ public class NoticeController {
 	
 	@GetMapping("/newNot")
 	public String moveRegi() {
-		return "community/notRegi";
+		return "notice/notRegi";
 	}
 	
 	@RequestMapping("/newNot")
-	public String NoticeRegi(HttpServletRequest request, NoticeDTO not, MembersDTO mdto) {
+	public String NoticeRegi(HttpServletRequest request, NoticeDTO noti, MembersDTO mdto) {
 		HttpSession session = request.getSession();
         boolean SESS_AUTH = false;
          
@@ -67,7 +67,7 @@ public class NoticeController {
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
 //          session.setAttribute("id", email);
             
-			int result=service.registerNotice(not);
+			int result=service.registerNotice(noti);
 			if(result>0) {
 				return "redirect:/notice/nlist";
 			}else {
@@ -112,10 +112,10 @@ public class NoticeController {
 	public String Updt(NoticeDTO not) {
 	int	result=service.modifyNotice(not);
 		if(result>0) {
-			return "redirect:/notice/notSel?c_no="+not.getNotice_no();
+			return "redirect:/notice/notSel?notice_no="+not.getNotice_no();
 			
 		}else {
-			return "redirect:/notice/notUp?c_no="+not.getNotice_no();
+			return "redirect:/notice/notUp?notice_no="+not.getNotice_no();
 		}
 	}
 	
@@ -123,9 +123,9 @@ public class NoticeController {
 	public String NoticeDel(int notice_no) {
 	int	result=service.removeNotice(notice_no);
 		if(result>0) {
-			return "redirect:/community/nlist";
+			return "redirect:/notice/nlist";
 		}else {
-			return "redirect:/community/notSel?notice_no="+notice_no;
+			return "redirect:/notice/notSel?notice_no="+notice_no;
 		}
 	}
 	

@@ -116,7 +116,7 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>글번호</th>
+                                            <!-- <th>글번호</th> -->
                                             <th>제목</th>
                                             <th>작성일</th>
                                             <th>작성자</th>
@@ -128,7 +128,7 @@
                                     <tbody>
                                     	<c:forEach var="communityDTO" items="${requestScope.communityList}" varStatus="status">
                                         <tr>
-                                            <td>${communityDTO.c_no}</td>
+                                            <%-- <td>${communityDTO.c_no}</td> --%>
                                             <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
                                             <td>${communityDTO.reg_date}</td>
                                             <td>${communityDTO.nickname}</td>
