@@ -47,6 +47,23 @@
 		
 		window.location.href=addr+'&region='+region;	
 	}
+	
+	function setPageNumbersHTML(startPage, endPage, currentPage, prev, next, servletContextPath, region) {
+		  var pageNumbersHTML = '<div class="datatable-bottom"><nav class="datatable-pagination"><ul class="datatable-pagination-list">'
+		  if (prev) {
+		    pageNumbersHTML += '<li class="datatable-pagination-list-item"><a href="javascript:void(0);" onclick="changePage(' + (startPage - 1) + ');" class="datatable-pagination-list-item-link">‹</a></li>';
+		  }
+		  for (let i = startPage; i <= endPage; i++) {
+		    var isSelected = i === currentPage;
+		    pageNumbersHTML += '<li class="datatable-pagination-list-item"><a href="javascript:void(0);" onclick="changePage(' + i + ');" class="datatable-pagination-list-item-link"' + (isSelected ? 'style="background-color:tomato;"' : '') + '>' + i + '</a></li>';
+		  }
+		  if (next) {
+		    pageNumbersHTML += '<li class="datatable-pagination-list-item"><a href="javascript:void(0);" onclick="changePage(' + (endPage + 1) + ');" class="datatable-pagination-list-item-link">›</a></li>';
+		  }
+		  pageNumbersHTML += '</ul></nav></div>';
+
+		  return pageNumbersHTML;
+		}
 </script>
 						
 						

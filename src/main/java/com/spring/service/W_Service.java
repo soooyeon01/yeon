@@ -15,4 +15,5 @@ public interface W_Service {
 	int registerWithpetData(W_DTO dto);
 	int removeWithpetData(int with_pet_no);
 	List<W_DTO> getRegionWith(String region);
+	//public int getRegionWithCount(String region);
 }

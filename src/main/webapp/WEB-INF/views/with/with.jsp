@@ -22,24 +22,28 @@
 		<script>
 		    $(document).ready(function () {
 		        $("#region-select").on("change", function () {
-		            const region = $(this).val();
+		            let region = $(this).val();
+		          
+		           	console.log("이건 지역이야"+region);
 		            // 서버로 데이터를 보낼 Ajax 호출을 작성합니다
 		            $.ajax({
 		                url: "${pageContext.servletContext.contextPath}/with/withselect", // Replace this with your server endpoint
 		                type: "POST",
 		                data: {
 		                    region: region
+		             
 		                },
 		                dataType:"json",
 		                success:function (data, textStatus) {
 		                    console.log("succedss");
-							console.log(data.withList.length);
+							
+							
 							if (data.withList && data.withList.length > 0) {
 							    const withs = data.withList;
-
+								console.log("withs:"+withs[0]);
 							    // 테이블 레이아웃 먼저 생성
 							    let withHtml = `
-							        <table class="table">
+							    	<table id="datatablesSimple">
 							            <thead>
 							                <tr>
 							                    <th>문화시설 이름</th>
@@ -55,7 +59,7 @@
 							    // 데이터를 테이블 로우로 추가
 							    for (let i = 0; i < 10; i++) {
 							        let withpet = withs[i];
-
+									
 							        withHtml += `
 							            <tr>
 							                <td><a href="withdetail?with_pet_no=`+withpet.with_pet_no+`">`+withpet.building+`</a></td>

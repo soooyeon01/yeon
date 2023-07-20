@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_P_DTO;
@@ -48,7 +50,7 @@ public class PetnoticeController {
 	    PageMaker pageMaker = new PageMaker(cri, totalCount);
 		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
-		return "/pet/pet";
+		return "/pet/pet";	
 	}
 	@GetMapping("/petdetail")
 	public String getAllBoard(int pet_notice_no, Model model) {
@@ -59,17 +61,30 @@ public class PetnoticeController {
 	}
 	   
 	@RequestMapping("/petselect")
-    @ResponseBody
-    public Map<String, List<P_DTO>> getPetListByRegion(@RequestParam("region") String region) {
-        log.info("이게 널이니?"+region);
-        List<P_DTO> petList = service.getRegionPet(region);
-
-        Map<String, List<P_DTO>> response = new HashMap<>();
-        response.put("petList", petList);
-
-        return response;
-    }
-	
+	@ResponseBody
+	public Map<String, List<P_DTO>> getPetListByRegion(@RequestParam("region") String region
+	                                                    ) {
+	    List<P_DTO> petList = service.getRegionPet(region);
+	    Map<String, List<P_DTO>> response = new HashMap<>();
+	    
+	    response.put("petList", petList);
+	    
+	    return response;
+	}
+//	@RequestMapping("/petselect")
+//	@ResponseBody
+//	public String getPetListByRegion(@RequestParam("region") String region, Criteria cri, Model model) throws JsonProcessingException {
+//	    List<P_DTO> petList = service.getRegionPet(region);
+//	    PageMaker pageMaker = new PageMaker(cri, 101);
+//	    model.addAttribute("petList", petList);
+//	    model.addAttribute("pageMaker", pageMaker);
+//	    model.addAttribute("region", region);
+//
+//	    ObjectMapper objectMapper = new ObjectMapper();
+//	    String jsonData = objectMapper.writeValueAsString(model);
+//
+//	    return jsonData;
+//	}
 	
 	@RequestMapping("/registerpet")
 	@ResponseBody
