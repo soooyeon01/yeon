@@ -28,9 +28,11 @@
 	      		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
 	      }
 	      
-	      function logout(){
-	    	  	location.href = "${pageContext.servletContext.contextPath}/user/logout";
-	    	 }
+	      function logout() {
+	  		if (confirm("로그아웃 하시겠습니까?")) {
+	  		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+	  	 	}
+	  	}
 	      
 	      function main(){
 	    		location.href = "${pageContext.servletContext.contextPath}/main/main";
@@ -106,7 +108,7 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
 

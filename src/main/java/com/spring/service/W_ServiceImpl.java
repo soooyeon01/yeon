@@ -51,6 +51,7 @@ public class W_ServiceImpl implements W_Service {
 		
 		return mapper.selectRegionWith(region);
 	}
+<<<<<<< HEAD
 
 	/*
 	 * @Override public int getRegionWithCount(String region) { return
@@ -58,4 +59,13 @@ public class W_ServiceImpl implements W_Service {
 	 */
 	
 	
+=======
+	
+	//위드펫카테고리
+		@Override
+		public List<W_DTO> getCategoryWith(String category3) {		
+			List<W_DTO> result = mapper.selectCategoryWith(category3);
+			return result;
+		}
+>>>>>>> 16b4933a55d252b725794cec01221b640001c6c3
 }

@@ -24,44 +24,35 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
+
+	<script>
+	function submitForm(category3) {
+        document.getElementById('hiddenInput').value = category3;
+        document.getElementById('myForm').submit();
+       console.log(category3);
+    }
+    </script>
   <script>
-  
-  function withdrawMember() {
-     $.ajax({
-       url: "/4jojo/mypage",
-       type: "POST",
-       dataType: "json",
-       success: function(data) {
-         if (data.result === 1) {
-           alert("회원 탈퇴가 완료되었습니다.");
-           location.href = "/4jo/logout"; // 로그아웃 페이지로 이동
-         } else {
-           alert("회원 탈퇴 처리에 실패했습니다. 다시 시도해주세요.");
-         }
-       },
-       error: function(jqXHR, textStatus, errorThrown) {
-         console.log(jqXHR);
-         console.log(textStatus);
-         console.log(errorThrown);
-         alert("오류가 발생했습니다. 다시 시도해주세요.");
-       }
-     });
-   }
-  </script>
-  
-  <!-- 이동경로 -->
-  
-  <script>
-  function login(){
-	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
+  <!-- 최상단 -->
+
+ 	function login(){
+		location.href = "${pageContext.servletContext.contextPath}/user/login";
 	  }
-  function mypage(){
-  	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-  }
+  	function mypage(){
+  		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+ 	 }
   
-  function main(){
-  	location.href = "${pageContext.servletContext.contextPath}/main/main";
-  } 
+ 	function main(){
+  		location.href = "${pageContext.servletContext.contextPath}/main/main";
+ 	 }
+
+   	function logout() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+	 	}
+	}
+  
+  <!-- 마이페이지 -->
   function favoritep(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
 	  }
@@ -71,27 +62,35 @@
   function favoritew(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
 	  }
-
+  function upmypage(){
+	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+	  }
+  function mypaper(){
+	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+	  }
+  function withcaselect(){
+	  	location.href = "${pageContext.servletContext.contextPath}/with/withcaselect";
+	  }
   
-  function pwdShow() {
-	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴
-	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypwd";
-	  return true;
-	} 
   
-  function phoneShow() {
-		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴
-		  console.log("여기"+phone);
-		  location.href = "${pageContext.servletContext.contextPath}/mypage/upmyphone";
-		  return true;
-		} 
-  
-  function checkmypage() {
-		  var msg = "정보 변경이 완료되었습니다."
-		  alert(msg);
-		  location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-		  return true;
-  }
+  <!-- inputpwd값 보내기 -->
+  function remM() {
+	   var data = $("form").serialize(); // form 데이터 직렬화
+	   $.ajax({
+	      url: "${pageContext.servletContext.contextPath}/mypage/remMC",
+	      data: "data", // 수정: 직렬화된 form 데이터 전달
+	      type: "post",
+	      
+	      success: function(data, textStatus) {
+	         console.log(data);
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	         console.log(jqXHR);
+	         console.log(textStatus);
+	         console.log(errorThrown);
+	      }
+	   });
+	}
 
   </script>
 <style>
@@ -148,21 +147,21 @@
               <%System.out.println(id);%>
             <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
-                   
+                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>
                 <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
             <%}  %> 
                 </div>
             </form>     
             </nav>
-           <script>
-            function logout() {
-		        if (confirm("로그아웃 하시겠습니까?")) {
-		        location.href = "${pageContext.servletContext.contextPath}/user/logout";
-		           }
-		    	}
+            <script>
+               function logout() {
+             if (confirm("로그아웃 하시겠습니까?")) {
+             location.href = "${pageContext.servletContext.contextPath}/user/logout";
+                }
+         	}
             </script>
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" onclick= "main();" >
@@ -171,7 +170,7 @@
         </nav>
         
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+     		 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
@@ -182,67 +181,45 @@
    
       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>정보변경</b></h1>
+            <h1 class="mt-1"><b>위드펫</b></h1>
             </div>
             <ol class="breadcrumb mb-4 pt-3">
-
             </ol>
 
-            <div class="card mb-4">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 개인정보변경
+                
                </div>
               
                <div class="card-body">
-            
-                  <table id="datatablesSimple" >
-                 <c:forEach items="${membersDTO}" var="mdto">
-
-                        <tr>
-                           <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>      
-                        </tr>                    
-                      
-                        <tr>         
-                           <td >비밀번호</td>
-                            <td><form action="${root }/mypage/upmypwd" method="post">
-   									<input type ="text" name ="pwd"  placeholder="${mdto.pwd}"/>
-   									<button type="submit" onclick="pwdShow();" >변경</button>
-   									<input type="hidden" name="email" value="${mdto.email}">
-								</form>			
-							</td>
-                        </tr>                                         
-                       
-                        <tr>
-                           <td>이메일</td>                 
-                         <td>${mdto.email}</td>
-                        </tr>
-                       
-                        <tr>
-                           <td>이름</td>
-                           <td>${mdto.name}</td>       
-                        </tr>                       
-                       
-                        <tr>
-                           <td>전화번호</td>
-                           <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="post">
-   									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
-   									<button type="submit" onclick="phoneShow();">변경</button>
-   									<input type="hidden" name="email" value="${mdto.email}">
-								</form>	
-							</td>    
-                        </tr>
-                </c:forEach>
-               </table>
-            
-                
-                
                <div align="center">
-                    
-                     <button type="button" class ="btn btn-warning" onclick="mypage();">이전</button>&nbsp;    
-                      <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
-                    </div>
 
+				
+				  <form id="myForm" action="${root}/with/withcaselect" method="post">
+		        <input type="hidden" id="hiddenInput" name="hiddenInput">
+		        <h3>카페,식당</h3>
+		        <button class ="btn btn-warning" type="submit" value="카페" onclick="submitForm(this.value)">카페</button>
+		        <button class ="btn btn-warning" type="submit" value="식당" onclick="submitForm(this.value)">식당</button>
+		        <br><br>
+		        
+		        <h3>여행</h3>
+		        <button class ="btn btn-warning" type="submit" value="여행지" onclick="submitForm(this.value)">여행지</button>		        
+		        <button class ="btn btn-warning" type="submit" value="펜션" onclick="submitForm(this.value)">펜션</button>
+		        <button class ="btn btn-warning" type="submit" value="호텔" onclick="submitForm(this.value)">호텔</button>
+		        <br><br>
+		        
+		        <h3>문화</h3>
+		        <button class ="btn btn-warning" type="submit" value="박물관" onclick="submitForm(this.value)">박물관</button>
+		        <button class ="btn btn-warning" type="submit" value="미술관" onclick="submitForm(this.value)">미술관</button>
+		        <button class ="btn btn-warning" type="submit" value="문예회관" onclick="submitForm(this.value)">문예회관</button>
+		        <br><br>
+		        
+		        <h3>케어</h3>
+		        <button class ="btn btn-warning" type="submit" value="동물병원" onclick="submitForm(this.value)">동물병원</button>
+		        <button class ="btn btn-warning" type="submit" value="동물약국" onclick="submitForm(this.value)">동물약국</button>
+		        <button class ="btn btn-warning" type="submit" value="위탁관리" onclick="submitForm(this.value)">위탁관리</button>
+		        <button class ="btn btn-warning" type="submit" value="미용" onclick="submitForm(this.value)">미용</button>
+		        <br>
+    </form>
             </div>
          </div>
       </main>
@@ -256,6 +233,8 @@
          </div>
       </footer>
    </div>
+   <script>
 
+</script>
 </body>
 </html>

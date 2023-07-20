@@ -32,6 +32,7 @@
 	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
 	       	}
     	</script>  
+    	
     	<script>
 			function confirmDelete() {
 	    		if (confirm("정말로 삭제하시겠습니까?")) {
@@ -175,51 +176,7 @@
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>
 	</div>
-	<!-- 댓글기능 시작-->
-	
-	<ul>
-		<!-- <li>
-			<div>
-				<p>첫번째 댓글 작성자</p>
-				<p>첫번째 댓글</p>
-			</div>
-		</li>
-		<li>
-			<div>
-				<p>두번째 댓글 작성자</p>
-				<p>두번째 댓글</p>
-			</div>
-		</li>
-		<li>
-			<div>
-				<p>세번째 댓글 작성자</p>
-				<p>세번째 댓글</p>
-			</div>
-		</li> -->
-		<c:forEach var="reply" items=${reply}>
-			<li>
-				<div>
-					<p>${reply.nickname} / <fmt:formatDate value="${reply.reg_date}" pattern="yyyy-mm-dd"></fmt:formatDate></p>
-					<p>${reply.content}</p>
-				</div>
-			</li>
-		</c:forEach>
-	</ul>
-	<div>
-		<p>
-			<label>댓글작성자 :</label><input type="text">
-		</p>
-		<p>
-			<textarea rows="5" cols="50"></textarea>
-		</p>
-		<p>
-			<button type="button">댓글 작성</button>
-		</p>
-	</div>
-
-	<!-- 댓글기능 끝 -->
-	
-	
+	<%@ include file="../community/reply.jsp" %>
 </div>
 </body>
 </html>
