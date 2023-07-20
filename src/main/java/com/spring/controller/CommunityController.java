@@ -1,16 +1,28 @@
 package com.spring.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.domain.CommunityDTO;
 import com.spring.domain.MembersDTO;
@@ -33,7 +45,6 @@ public class CommunityController {
 	private final CommunityService service;
 	private final LoginService logservice;
 	private final ReplyService rservice;
-	
 	/*
 	 * @RequestMapping("/clist") 
 	 * public String CommunityList(Model model,Criteria
@@ -41,6 +52,36 @@ public class CommunityController {
 	 * model.addAttribute("communityList",service.getAllCommunityByPage(pageMaker));
 	 * model.addAttribute("pageMaker",pageMaker); return "community/community"; }
 	 */
+	
+	@PostMapping("/newR")
+	public String InsertComment(@RequestBody ReplyDTO rdto, HttpSession session) {
+		System.out.println("댓글 등록 통신 성공");
+		if(session.getAttribute("login") == null) {
+			return "fail";
+		} else {
+			System.out.println("로긘함. 스크랩 진행");
+			
+			rservice.registerReply(rdto);
+			System.out.println("댓글 등록 서비스 성공");
+			return "newSuccess";
+		}
+	}
+
+	@GetMapping("replyList/{c_no}")
+	public Map<String, Object> getList(@PathVariable int c_no, Model model) {
+		System.out.println("댓글 목록 컨트롤러 동작");
+		List<ReplyDTO> list = rservice.getReplyList(c_no);
+		int total = rservice.cntTotal(c_no);
+		
+		ModelAndView view = new ModelAndView();
+		System.out.println("댓글 갯수 " + rservice.cntTotal(c_no));
+		view.setViewName("/community/reply");
+		Map<String, Object> map = new HashMap<>();
+		map.put("list", list);
+		map.put("total", total);
+		
+		return map;
+	}
 	
 	@RequestMapping("/clist")
 	public String CommunityList(Model model) {
@@ -114,22 +155,17 @@ public class CommunityController {
          
         if( SESS_AUTH ) {
            
-//            request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
-//            session.setAttribute("id", email);
-		CommunityDTO selectone=service.getCommunity(c_no);
-		model.addAttribute("selectone", selectone);
-		service.viewCount(c_no);
-		List<ReplyDTO> reply=null;
-		reply=rservice.getReplyList(c_no);
-		model.addAttribute("reply", reply);
-		
-		return "community/commuSel";
+	//      request.setCharacterEncoding("utf-8");
+	        request.setAttribute("SESS_AUTH", false);
+	        String email = (String) session.getAttribute("SESS_EMAIL");
+	//      session.setAttribute("id", email);
+			CommunityDTO selectone=service.getCommunity(c_no);
+			model.addAttribute("selectone", selectone);
+			service.viewCount(c_no);	
+			return "community/commuSel";
         }else {
         	return "redirect:/main/main";
-        }
-			
+        }	
 	}
 	
 	@RequestMapping("/commuUp1")

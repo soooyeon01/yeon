@@ -11,6 +11,6 @@ public class ReplyDTO {
 	private int r_no;
 	private int c_no;
 	private String nickname;
-	private String content;
+	private String rcontent;
 	private String reg_date;
 }
