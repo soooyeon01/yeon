@@ -23,6 +23,12 @@ public class ReplyServiceImpl implements ReplyService {
 	}
 
 	@Override
+	public int cntTotal(int c_no) {
+		
+		return mapper.cntTotal(c_no);
+	}
+	
+	@Override
 	public int registerReply(ReplyDTO dto) {
 		
 		return mapper.insertReply(dto);
@@ -39,5 +45,7 @@ public class ReplyServiceImpl implements ReplyService {
 		
 		return mapper.deleteReply(dto);
 	}
+
+	
 
 }

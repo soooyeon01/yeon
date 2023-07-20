@@ -12,17 +12,21 @@
  -->  	
   	<select id="replyList" parameterType="int" resultType="com.spring.domain.ReplyDTO">
 	    <![CDATA[
-		 select r_no, c_no, nickname. content, reg_date from reply where c_no=#{c_no}
+		 select r_no, (select c_no from community where c_no=reply.c_no) as c_no, (select nickname from members where nickname=reply.nickname) as nickname, rcontent, reg_date from reply where c_no=#{c_no}
 		]]>
 	</select>
+	
+	<select id="cntTotal" resultType="int">
+  		select count(*) from reply where c_no = #{c_no}
+  	</select>
   	
   	<insert id="insertReply">
-	      INSERT INTO reply(r_no, c_no, nickname, content, reg_date) VALUES(seq_reply_no.nextval, #{c_no}, #{nickname,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, sysdate)
+	      INSERT INTO reply(r_no, c_no, nickname, rcontent, reg_date) VALUES(seq_reply_no.nextval, #{c_no}, #{nickname,jdbcType=VARCHAR}, #{rcontent,jdbcType=VARCHAR}, sysdate)
 	<!-- #{nickname,jdbcType=VARCHAR} --><!-- #{title,jdbcType=VARCHAR} --><!-- #{content,jdbcType=VARCHAR} -->
 	</insert>
 	  
 	<update id="updateReply">
-	      UPDATE reply SET content=#{content,jdbcType=VARCHAR} WHERE r_no=#{r_no} and c_no=#{c_no}
+	      UPDATE reply SET rcontent=#{rcontent,jdbcType=VARCHAR} WHERE r_no=#{r_no} and c_no=#{c_no}
 	</update>
 
 	<delete id="deleteReply">

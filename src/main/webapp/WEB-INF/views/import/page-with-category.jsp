@@ -9,21 +9,21 @@
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.startPage - 1}&region=${region}" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${pageMaker.startPage -1}" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
 						    		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" varStatus="status">
 					    			<c:choose>
 					    				<c:when test="${ status.index == pageMaker.cri.pageNum }">
-					    					<c:set scope="page" var="selectedBgColor" value="style='background-color:tomato;'"></c:set>
+					    					<c:set scope="page" var="selectedBgColor" value="style='background-color:yellow;'"></c:set>
 					    				</c:when>
 					    				<c:otherwise>
 					    					<c:set scope="page" var="selectedBgColor" value=""></c:set>
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${status.index}&region=${region}" class="datatable-pagination-list-item-link" 
+						    			<a 	href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${status.index}" 
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,7 +31,7 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.endPage + 1}&region=${region}" class="datatable-pagination-list-item-link">›</a>
+						    			<a href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${pageMaker.endPage + 1}" class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>

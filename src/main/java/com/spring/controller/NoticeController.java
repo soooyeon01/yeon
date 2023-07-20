@@ -24,6 +24,11 @@ public class NoticeController {
 	private final NoticeService service;
 	private final LoginService logservice;
 	
+	@GetMapping("/new")
+	public String test() {
+		return "notice/NewFile";
+	}
+	
 	@GetMapping("/nlist")
 	public String NoticeList(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();

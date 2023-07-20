@@ -49,13 +49,12 @@ public class P_ServiceImpl implements P_Service {
 		return mapper.deletePetnoticeData(pet_notice_no);
 	}
 
-	@Override
 	public List<P_DTO> getRegionPet(String region) {
-		
-		return mapper.selectRegionPet(region);
+	    List<P_DTO> petList = mapper.selectRegionPet(region);
+
+	    
+	    return petList;
 	}
-
-
-	
+		
 
 }
