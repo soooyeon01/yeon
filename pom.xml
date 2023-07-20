@@ -195,34 +195,35 @@
 		    <artifactId>jackson-dataformat-xml</artifactId>
 		    <version>2.15.2</version>
 		</dependency>
-<<<<<<< HEAD
 		<!-- 이메일 보내기 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
-			<groupId>com.sun.mail</groupId>
-			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version>
+		    <groupId>javax.mail</groupId>
+		    <artifactId>mail</artifactId>
+		    <version>1.4.7</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
 		<dependency>
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-context-support</artifactId>
-		    <version>${org.springframework-version}</version>
+		    <version>5.3.9</version>
 		</dependency>
 		
+				
 		<!-- 메일 api -->
 	<dependency>
 		<groupId>org.apache.commons</groupId>
 		<artifactId>commons-email</artifactId>
 		<version>1.2</version>
 	</dependency>
-		
-=======
-		<!-- https://mvnrepository.com/artifact/org.json/json --><dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.json/json --><dependency>
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
 		    <version>20180130</version>
 		</dependency>
->>>>>>> bc21266c121aa83fb9f88f58915b9f716ac4f5a1
+		
 
 				
 	</dependencies>

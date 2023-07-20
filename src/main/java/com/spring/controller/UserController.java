@@ -133,12 +133,12 @@ public class UserController {
 		return "user/findPwd";
 	}
 	
-	@PostMapping
+	@PostMapping ("/findPwd")
 	public String findPwd(MembersDTO mdto) {
 		servicep.findPwd(mdto);
 		return "user/findPwd";
 	}
-
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

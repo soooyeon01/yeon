@@ -75,33 +75,24 @@
         }
         
         
-        $("#checkEmail").click(function () {
-            const userEmail = $("#userEmail").val();
-            const sendEmail = document.forms["sendEmail"];
-            $.ajax({
-                type: 'post',
-                url: 'emailDuplication',
-                data: {
-                    'memberEmail': userEmail
-                },
-                dataType: "text",
-                success: function (result) {
-                    if(result == "no"){
-                        // 중복되는 것이 있다면 no == 일치하는 이메일이 있다!
-                        alert('임시비밀번호를 전송 했습니다.');
-                        sendEmail.submit();
-                    }else {
-                        alert('가입되지 않은 이메일입니다.');
-                    }
-
-                },error: function () {
-                    console.log('에러 체크!!')
-                }
-            })
-        });
+        $(function(){
+    		$("#findPwd").click(function(){
+    			$.ajax({
+    				url : "./findpw",
+    				type : "POST",
+    				data : {
+    					name : $("#name").val(),
+    					phone : $("#phone").val(),
+    					email : $("#email").val()
+    				},
+    				success : function(result) {
+    					alert(result);
+    				},
+    			})
+    		});
+    	})
     </script>
    
-    </script>
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -139,6 +130,21 @@
                                             </div>
                                         </form>
                                     </div>
+                                   
+			<div class="input-group-addon">
+				<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+			</div>
+				<div class="mail-check-box">
+			<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
+			</div>
+				<span id="mail-check-warn"></span>
+			</div>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="${root}/user/join">회원가입</a></div>
                                     </div>
