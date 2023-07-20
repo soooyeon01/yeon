@@ -1,5 +1,7 @@
 package com.spring.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.MembersDTO;
@@ -14,9 +16,8 @@ public class FindPwdServiceImpl implements FindPwdService {
 	private final FindPwdMapper mapper;
 
 	@Override
-	public String findPwd(MembersDTO mdto) {
+	public void findPwd(MembersDTO mdto) {
 		String result = mapper.findPwd(mdto);
-		return result;
 	}
 	
 	 @Override
@@ -24,4 +25,6 @@ public class FindPwdServiceImpl implements FindPwdService {
 	        return mapper.updatePwd(mdto);
 	    }
 
+	 
+	 
 }

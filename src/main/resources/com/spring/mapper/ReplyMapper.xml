@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-  <mapper namespace="com.spring.mapper.CommunityMapper">
+  <mapper namespace="com.spring.mapper.ReplyMapper">
   	<!-- <select id="selectCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
   		<![CDATA[
   		select c_no, title, content, nickname, reg_date, view_count from community where c_no=#{c_no}
