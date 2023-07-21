@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
+import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 public interface W_Service {
@@ -17,5 +18,7 @@ public interface W_Service {
 	List<W_DTO> getRegionWith(String region);
 	
 	//위드펫카테고리
-	List<W_DTO> getCategoryWith(String category3);
+//	List<W_DTO> getCategoryWith(String category3); 
+//	List<W_DTO> selectCategoryByPage(PageMaker pageMaker);
+	List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3);
 }

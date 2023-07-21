@@ -24,6 +24,8 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
+ 
+  
   <script>
   <!-- 최상단 -->
 
@@ -44,30 +46,31 @@
 	 	}
 	}
   
-  <!-- 마이페이지 -->
-  
-  function favoritep(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
-	  }
-  function favorites(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
-	  }
-  function favoritew(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
-	  }
+  <!-- 정보수정 -->
+
   function upmypage(){
 	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
 	  }
-  function updatecheck(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/updatecheck";
-	  }
+ 
   
-  function mypaper(){
-		let nickname=document.getElementsByName("nickname").value;
-		location.href = "${pageContext.servletContext.contextPath}/community/myclist";
-		  return true;
-	  
-	  }
+  <!-- inputpwd값 보내기 -->
+  function remM() {
+	   var data = $("form").serialize(); // form 데이터 직렬화
+	   $.ajax({
+	      url: "${root}/mypage/updatecneck",
+	      data: "data", // 수정: 직렬화된 form 데이터 전달
+	      type: "post",
+	      
+	      success: function(data, textStatus) {
+	         console.log(data);
+	      },
+	      error: function(jqXHR, textStatus, errorThrown) {
+	         console.log(jqXHR);
+	         console.log(textStatus);
+	         console.log(errorThrown);
+	      }
+	   });
+	}
 
   </script>
 <style>
@@ -121,8 +124,8 @@
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
               <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-
-           	 <% if( id != null) { %>
+              <%System.out.println(id);%>
+            <%  if( id != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>
@@ -131,7 +134,14 @@
                 </div>
             </form>     
             </nav>
-           
+            <script>
+               function logout() {
+             if (confirm("로그아웃 하시겠습니까?")) {
+             location.href = "${pageContext.servletContext.contextPath}/user/logout";
+                }
+         	}
+            </script>
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" onclick= "main();" >
@@ -148,65 +158,45 @@
             </nav>
    <div id="layoutSidenav_content">
    
-      <main>
+       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>마이페이지</b></h1>
+            <h1 class="mt-1"><b>회원정보확인</b></h1>
             </div>
             <ol class="breadcrumb mb-4 pt-3">
-
             </ol>
 
-            <div class="card mb-4">
+         <div class="card mb-4">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 개인정보조회
+                  <i class="fas fa-table me-1"></i> 회원정보확인
                </div>
               
                <div class="card-body">
-            
-                  <table id="datatablesSimple" >
-                 <c:forEach items="${membersDTO}" var="mdto">
 
-                        <tr>
-                           <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>
-                                
-                        </tr>                    
-                      
-                        <tr>         
-                           <td >비밀번호</td>
-                            <td >*******</td>                         
-                        </tr>                                         
-                       
-                        <tr>
-                           <td>이메일</td>                 
-                         <td>${mdto.email}</td>
-                        </tr>
-                     
-                        <tr>
-                           <td>이름</td>
-                           <td>${mdto.name}</td>       
-                        </tr>                       
-                       
-                        <tr>
-                           <td>전화번호</td>
-                           <td>${mdto.phone}</td>    
-                        </tr>
-                </c:forEach>
-               </table>
-            
-               <div align="center"> 
-              		 <form action="${pageContext.servletContext.contextPath}/community/myclist" method="post">            
-                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
-                      <input type="hidden" name="nickname" value="${mdto.nickname}"> 
-                     </form>
-                     <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
-                      <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="updatecheck();">정보 수정</button>&nbsp;
-                    </div>
+               <div align="center">
+               			
                     
-                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px;">회원 탈퇴</button>
+                 <form action = "${pageContext.servletContext.contextPath }/mypage/upmypage" id="form" method ="post">
+                  
+                  <div>
+                   <br>
+                     <%=id%>님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.<br>
+                     </div>    
+                     <div>        
+                 <br>                                                    
+                 	비밀번호 : <input class="form-control" type="password" name ="inputpwd" id="inputpwd" placeholder="Password"/>                             		
+                </div>
+                <br>
+         	
+                    	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp;    	 
+                    	  <button type="submit" class ="btn btn-warning" onclick="upmypage();">확인</button>&nbsp;
+                </form> 
+                
+                       
+                      <input type="hidden" name="pwd" value="${mdto.pwd}">
+                   
+
             </div>
+         </div>
          </div>
       </main>
       <footer class="py-4 bg-light mt-auto">
@@ -219,6 +209,8 @@
          </div>
       </footer>
    </div>
+   <script>
 
+</script>
 </body>
 </html>

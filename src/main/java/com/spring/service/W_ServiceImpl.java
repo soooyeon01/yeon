@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.domain.W_DTO;
 import com.spring.mapper.W_Mapper;
+import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
@@ -53,9 +54,22 @@ public class W_ServiceImpl implements W_Service {
 	}
 	
 	//위드펫카테고리
+//		@Override
+//		public List<W_DTO> getCategoryWith(String category3) {		
+//			List<W_DTO> result = mapper.selectCategoryWith(category3);
+//			return result;
+//		}
+
+//		@Override
+//		public List<W_DTO> selectCategoryByPage(PageMaker pageMaker) {
+//			return mapper.selectCategoryByPage(pageMaker);
+//		}
+
 		@Override
-		public List<W_DTO> getCategoryWith(String category3) {		
-			List<W_DTO> result = mapper.selectCategoryWith(category3);
-			return result;
+		public List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3) {
+			return mapper.selectCategoryWith(pageMaker,category3);
+		
 		}
+
+		
 }
