@@ -128,7 +128,6 @@
                 dataType:'json',
                 async: false,
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
-                	console.log("ajax cnt : "+cnt);
                     if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
                     	alert("이미 사용 중인 이메일입니다.");
                     	result = false;
