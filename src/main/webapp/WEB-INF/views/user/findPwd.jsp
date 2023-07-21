@@ -13,9 +13,9 @@
         <title>비밀번호 찾기</title>
           <link href="${root}/resources/bootstrap/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
              <script>
          	var msg = '<%= request.getParameter("msg")%>';
-        	console.log("Dsa");
         	window.onload = function(){
         		showMsg();
         	}
@@ -32,7 +32,6 @@
             if( !isValid (element,msg) ){
                 return false;
             }
-            console.log("1");
             element  = document.getElementById("phone");
             msg = "핸드폰 번호를 입력하세요.";
             if( !isValid (element,msg) ){
@@ -48,7 +47,6 @@
             if( !number (element,msg) ){
                 return false;
             } 
-            console.log("2");
             return true;
         }
    
@@ -61,7 +59,6 @@
             } else {
                 result = true;
             }
-            console.log("3");
             return result;
         }
         
@@ -74,11 +71,28 @@
             }else{
                 result = true;
             }
-            console.log("4");
             return result;
         }
         
+        
+        $(function(){
+    		$("#findPwd").click(function(){
+    			$.ajax({
+    				url : "./findPwd",
+    				type : "POST",
+    				data : {
+    					name : $("#name").val(),
+    					phone : $("#phone").val(),
+    					email : $("#email").val()
+    				},
+    				success : function(result) {
+    					
+    				},
+    			})
+    		});
+    	})
     </script>
+   
     </head>
     <body class="bg-primary">
         <div id="layoutAuthentication">
@@ -110,11 +124,13 @@
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="${root}/user/login">로그인 하러 가기</a>
                                                 <%-- <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/view/login.jsp">전송</a> --%>
-                                                <input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
+                                                <input class="btn btn-warning btn-block" id="findPwd" type="submit" value="전송" onclick="return verifyField();">
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
+    
+
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="${root}/user/join">회원가입</a></div>
                                     </div>

@@ -7,13 +7,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MembersDTO {
+public class ReplyDTO {
+	private int r_no;
+	private int c_no;
 	private String nickname;
-	private String email;
-	private String pwd;
-	private String name;
-	private Integer phone;
-	
-	private String tempPwd;
-
+	private String rcontent;
+	private String reg_date;
 }

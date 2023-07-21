@@ -52,24 +52,14 @@ public class W_ServiceImpl implements W_Service {
 		
 		return mapper.selectRegionWith(region);
 	}
-	
+
+
 	//위드펫카테고리
-//		@Override
-//		public List<W_DTO> getCategoryWith(String category3) {		
-//			List<W_DTO> result = mapper.selectCategoryWith(category3);
-//			return result;
-//		}
+	@Override
+	public List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3) {
+		return mapper.selectCategoryWith(pageMaker,category3);
+	
+	}
 
-//		@Override
-//		public List<W_DTO> selectCategoryByPage(PageMaker pageMaker) {
-//			return mapper.selectCategoryByPage(pageMaker);
-//		}
 
-		@Override
-		public List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3) {
-			return mapper.selectCategoryWith(pageMaker,category3);
-		
-		}
-
-		
 }

@@ -7,6 +7,6 @@
   		SELECT pwd FROM  members WHERE (name, phone,email) IN ( (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}) )
   	</select>
   	<update id="updatePwd">
-  	UPDATE members SET pwd = #{pwd} WHERE email = #{email}
+  	UPDATE members SET pwd = #{tempPwd} WHERE email = #{email}
   	</update>
   	</mapper>

@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,18 +55,45 @@ public class WithpetController {
 		return "/with/withdetail";
 	}
 	
-	@RequestMapping("/withselect")
-    @ResponseBody
-    public Map<String, List<W_DTO>> getWithListByRegion(@RequestParam("region") String region) {
-        log.info("이게 널이니?"+region);
-        List<W_DTO> withList = service.getRegionWith(region);
-
-        Map<String, List<W_DTO>> response = new HashMap<>();
-        response.put("withList", withList);
-
-        return response;
-    }
+//	@RequestMapping("/withselect")
+//	@ResponseBody
+//	public Map<String, Object> getWithListByRegion(
+//	        @RequestParam("region") String region,
+//	        @RequestParam("page") int page,
+//	        @RequestParam("pageSize") int pageSize
+//	) {
+//	    // 페이징 시작과 끝 위치 계산
+//	    int start = (page - 1) * pageSize + 1;
+//	    int end = page * pageSize;
+//	    
+//	    // 서비스를 호출하여 페이징 처리된 글 리스트를 가져옵니다.
+//	    List<W_DTO> withList = service.getRegionWith(region, start, end);
+//	    
+//	    // 총 항목 수를 가져옵니다.
+//	    int totalCount = service.getRegionWithCount(region);
+//	    
+//	    // 결과를 맵에 저장합니다.
+//	    Map<String, Object> response = new HashMap<>();
+//	    response.put("withList", withList);
+//	    response.put("totalCount", totalCount);
+//	    
+//	    return response;
+//	}
 	
+	@RequestMapping("/withselect")
+	@ResponseBody
+	public Map<String, List<W_DTO>> getWithListByRegion(@RequestParam("region") String region) {
+	    
+	    // 서비스를 호출하여 페이징 처리된 글 리스트를 불러옵니다.
+	    List<W_DTO> withList = service.getRegionWith(region);
+	    
+	    // 결과를 맵에 저장합니다.
+	    Map<String, List<W_DTO>> response = new HashMap<>();
+	    response.put("withList", withList);
+	   
+	   
+	    return response;
+	}
 	
 	@RequestMapping("/registerwith")
 	@ResponseBody
@@ -160,23 +188,8 @@ public class WithpetController {
 		}
 
 		
-//		 @RequestMapping("/withcaselect")
-//			public String withCaSelect(@RequestParam("hiddenInput") String category3,Model model ,Criteria cri ) {
-//			
-//			log.info("들어온 정보는?"+category3); 
-//			int totalCount = service.getCountAllBoard();
-//			PageMaker pageMaker = new PageMaker(cri, totalCount); 	 
-//			
-//			List<W_DTO> dto = service.getCategoryWith(category3);
-////			model.addAttribute("categoryList", dto);
-//			
-//			model.addAttribute("pageMaker",pageMaker);
-//			model.addAttribute("categoryList",service.selectCategoryByPage(pageMaker));
-//		   
-//		   return "/with/withcaselect";		          
-//		         }
 		
-		 @RequestMapping("/withcaselect")
+		@RequestMapping("/withcaselect")
 		 public String withCaSelect(Model model, Criteria cri, @RequestParam("hiddenInput") String category3) {
 			
 			log.info("들어온 정보는?"+category3); 

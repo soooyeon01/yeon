@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
+<%@ page import="com.spring.controller.CommunityController"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.spring.mapper.MypageMapper" %>  
@@ -21,6 +22,7 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
      	<script>  
 	       	function toListPage() {
 	    		location.href="${pageContext.servletContext.contextPath}/community/clist";
@@ -32,6 +34,105 @@
 	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
 	       	}
     	</script>  
+    	<script>
+			$('#Reply_regist').click(function() {
+			
+   			//Json으로 전달할 파라미터 변수선언
+   			let c_no = ${selectone.c_no};
+   			let nickname = "${selectone.nickname}";
+   			let rcontent = $('#rcontent').val();
+   			
+   			log.info(c_no);
+   			log.info(nickname);
+   			log.info(rcontent);
+   		
+   			if(nickname == ''){
+   				alert('로그인 후 이용해주세요');
+   				return;
+   			}else if(rcontent == '') {
+   				alert('내용을 입력하세요');
+   			}
+   			
+   			$.ajax({
+   				type:'post',
+   				url:'<c:url value="/community/newR"/>',
+   				data: JSON.stringify(
+   					{
+   						"c_no":c_no,
+   						"nickname":nickname,
+   						"rcontent":rcontent
+   					}		
+   				),
+   				contentType: 'application/json',
+   				success:function(data){
+   					log.info('통신성공' + data);
+   					if(data === 'newSuccess') {
+   						alert('댓글 등록이 완료되었습니다.');
+   						log.info('댓글 등록 완료');
+   						$('#nickname').val(nickname);
+   	   					$('#rcontent').val('');
+   	   					getList();
+   					} else {
+   						alert('로그인 이후 이용해주시기 바랍니다.');
+   						log.info('댓글 등록 실패');
+   					}
+   				},
+   				error:function(){
+   					alert('통신실패');
+   				}
+   			});// 댓글 비동기 끝
+   			
+		});// 댓글등록 이벤트 끝
+		
+		getList();
+		
+		function getList() {
+			
+			const c_no = ${selectone.c_no};
+			const nickname = "${selectone.nickname}";
+   			const rcontent = $('#rcontent').val();
+   			/* const com_no = ${com}; */
+			$.getJSON(
+					"<c:url value='/community/replyList/'/>" + c_no,
+					/* "/community/replyList/" + c_no, */
+				function(data) {
+					if(data.total > 0){
+						var list = data.list;
+						
+						var reply_html = "<div>";
+						
+						$('#count').html(data.total);
+						for(i = 0;i < list.length;i++){
+							log.info(data.total);
+							var rcontent = list[i].rcontent;
+							var nickname = list[i].nickname;
+							reply_html += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
+							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
+							if(nickname === ${selectone.nickname}){
+								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+">[삭제]</span><br></div><hr>";
+								 
+							}
+							else{
+								reply_html += "</div><hr>";
+							}
+						}
+						
+						$(".reply_Box").html(reply_html);
+						
+						
+					}
+					else{
+						var reply_html = "<div>등록된 댓글이 없습니다.</div>";
+						$(".reply_Box").html(reply_html);
+					}
+			
+				
+				}
+				);//getJson
+
+		}
+		</script>
+
     	<script>
 			function confirmDelete() {
 	    		if (confirm("정말로 삭제하시겠습니까?")) {
@@ -175,51 +276,38 @@
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>
 	</div>
-	<!-- 댓글기능 시작-->
-	
-	<ul>
-		<!-- <li>
-			<div>
-				<p>첫번째 댓글 작성자</p>
-				<p>첫번째 댓글</p>
-			</div>
-		</li>
-		<li>
-			<div>
-				<p>두번째 댓글 작성자</p>
-				<p>두번째 댓글</p>
-			</div>
-		</li>
-		<li>
-			<div>
-				<p>세번째 댓글 작성자</p>
-				<p>세번째 댓글</p>
-			</div>
-		</li> -->
-		<c:forEach var="reply" items=${reply}>
-			<li>
-				<div>
-					<p>${reply.nickname} / <fmt:formatDate value="${reply.reg_date}" pattern="yyyy-mm-dd"></fmt:formatDate></p>
-					<p>${reply.content}</p>
-				</div>
-			</li>
-		</c:forEach>
-	</ul>
-	<div>
-		<p>
-			<label>댓글작성자 :</label><input type="text">
-		</p>
-		<p>
-			<textarea rows="5" cols="50"></textarea>
-		</p>
-		<p>
-			<button type="button">댓글 작성</button>
-		</p>
+	<%-- <%@ include file="../community/reply.jsp" %> --%>
+	<div class="reply-box">
+                    <input type="hidden" id="c_no" name="c_no" value="${selectone.c_no}">
+   		                 <div class="reply-count">댓글 <span id="count">
+   		                 <c:out value="${map.total}"/></span>
+   		                 </div>
+							
+   		                 	   <!-- <span class="c-icon"><i class="fa-solid fa-user"></i>  -->
+   		                 <div class="reply-name">
+	                        <span class="anonym">작성자 : 
+	                        <input type="text" class="form-control" id="nickname" name ="nickname" value='${sessionScope.SESS_NICKNAME}' readonly  style="width: 100px; border:none;">
+	                        </span>
+	                      </div>   
+	                        	
+	                        <!-- </span> -->
+                     <!--<img src="/익명.jpg" width ="50px" alt="My Image"><!-->
+                    <div class="reply-sbox">
+                        <textarea class="reply-input" id="rcontent" cols="80" rows="2" name="rcontent" ></textarea>
+                        <!-- <span class="com-function-btn" type="hidden">
+                            
+                            <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
+                            <a href="#"><i class="fa-solid fa-trash-can"></i></a>
+                         </span> -->
+                    </div>
+                    	<div class="regBtn">
+           					<button id="Reply_regist"> 댓글등록</button>
+    					</div>
+    <div class="reply_Box" style="border:1px solid gray;"> 
+    <!-- 댓글이 들어갈 박스 -->
 	</div>
-
-	<!-- 댓글기능 끝 -->
-	
-	
+   </div>
+		
 </div>
 </body>
 </html>

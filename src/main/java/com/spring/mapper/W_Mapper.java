@@ -2,7 +2,8 @@ package com.spring.mapper;
 
 import java.util.List;
 
-import com.spring.domain.P_DTO;
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.W_DTO;
 import com.spring.util.PageMaker;
 
@@ -14,5 +15,10 @@ public interface W_Mapper {
 	
 	int insertWith_petData(W_DTO dto);
 	int deleteWith_petData(int with_pet_no);
-	List<W_DTO> selectRegionWith(String region);
+	 List<W_DTO> selectRegionWith( String region);
+	//public int selectRegionWithCount(String region);
+	List<W_DTO> selectCategoryWith(String category3);
+	
+	//위드펫카테고리
+	List<W_DTO> selectCategoryWith(@Param("pageMaker") PageMaker pageMaker, @Param("category3") String category3);
 }
