@@ -12,7 +12,7 @@ public class MembersDTO {
 	private String email;
 	private String pwd;
 	private String name;
-	private Integer phone;
+	private int phone;
 	
 	private String tempPwd;
 

@@ -19,7 +19,76 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-		
+		<script>
+		    $(document).ready(function () {
+		        $("#region-select").on("change", function () {
+		            const region = $(this).val();
+		            // 서버로 데이터를 보낼 Ajax 호출을 작성합니다
+		            $.ajax({
+		                url: "${pageContext.servletContext.contextPath}/with/withselect", // Replace this with your server endpoint
+		                type: "POST",
+		                data: {
+		                    region: region
+		                },
+		                dataType:"json",
+		                success:function (data, textStatus) {
+		                    console.log("succedss");
+							console.log(data.withList.length);
+							if (data.withList && data.withList.length > 0) {
+							    const withs = data.withList;
+
+							    // 테이블 레이아웃 먼저 생성
+							    let withHtml = `
+							        <table class="table">
+							            <thead>
+							                <tr>
+							                    <th>문화시설 이름</th>
+							                    <th>도로명 주소</th>
+							                    <th>전화번호</th>
+							                    <th>운영시간</th>
+							                    <th>반려동물 동반 가능정보</th>
+							                    <th>반려동물 전용 정보</th>
+							                </tr>
+							            </thead>
+							            <tbody>`;
+
+							    // 데이터를 테이블 로우로 추가
+							    for (let i = 0; i < 10; i++) {
+							        let withpet = withs[i];
+
+							        withHtml += `
+							            <tr>
+							                <td><a href="withdetail?with_pet_no=`+withpet.with_pet_no+`">`+withpet.building+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.road+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.tel+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.hour+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.with_pet_info+`</a></td>
+							                <td><a href="withdetail?&with_pet_no=`+withpet.with_pet_no+`">`+withpet.only_pet_info+`</a></td>
+							            </tr>`;
+							    }
+
+							    // 테이블 태그 닫기
+							    withHtml += `</tbody></table>`;
+
+							    // 생성한 테이블 HTML을 with_container로 설정된 div 요소에 추가
+							   document.getElementById('with-container').innerHTML = withHtml;
+							
+			                    // 지역 선택에 따른 동물 목록을 업데이트합니다.
+			                   // $("#with-container .container").html(withHtml);
+			                } else {
+			                    // 검색된 동물이 없는 경우에는 '검색된 동물이 없습니다.' 메시지를 출력합니다.
+			                    $("#with-container .container").html("<p>검색된 동물이 없습니다.</p>");
+			                }
+			            },
+			            error: function (jqXHR, textStatus, errorThrown) {
+			                console.log(jqXHR);
+			                console.log(textStatus);
+			                console.log(errorThrown);
+			            }
+			        });
+			    });
+			});
+		</script>
 		<style>
 		
 		  a:hover{
@@ -58,6 +127,7 @@
 				   background-color: #f9f8f3;
 				    }
 		</style>
+		
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
@@ -107,8 +177,29 @@
                                 <i class="fas fa-table me-1"></i>                              
                             </div>
                             <div class="card-body">
-     						
+     						<select id="region-select">
+							  <option value="">지역 선택</option>
+							  <option value="서울특별시">서울특별시</option>
+							  <option value="부산광역시">부산광역시</option>
+							  <option value="대구광역시">대구광역시</option>
+							  <option value="인천광역시">인천광역시</option>
+							  <option value="광주광역시">광주광역시</option>
+							  <option value="대전광역시">대전광역시</option>
+							  <option value="울산광역시">울산광역시</option>
+							  <option value="세종특별자치시">세종특별자치시</option>
+							  <option value="경기도">경기도</option>
+							  <option value="강원도">강원도</option>
+							  <option value="충청북도">충청북도</option>
+							  <option value="충청남도">충청남도</option>
+							  <option value="전라북도">전라북도</option>
+							  <option value="전라남도">전라남도</option>
+							  <option value="경상북도">경상북도</option>
+							  <option value="경상남도">경상남도</option>
+							  <option value="제주특별자치도">제주특별자치도</option>
+							</select>
+                            		
                            	<div id="with-container">
+        	
                            		 <table id="datatablesSimple">
 	                                    <thead>
 	                                        <tr>	                                          
@@ -162,12 +253,13 @@
 	                                </table>
 	                              </div>	                              
 	                          </div>
+	                          <%@ include file="../import/page-with-categoryselect.jsp" %> 
                         </div>
                     </div>
                 </main>
 		
 				</div>
-			 <%@ include file="../import/page-with-category.jsp" %> 
+			 
 		
 
 	

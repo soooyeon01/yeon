@@ -124,9 +124,6 @@ public class WithpetController {
 		int result=service.registerWithpetData(dto2);
 		//{ result : 11}
 		
-		
-
-		
 		JsonObject jsonObj = new JsonObject();
 		jsonObj.addProperty("result", result);
 	
@@ -177,29 +174,28 @@ public class WithpetController {
 		response.getWriter().println( new Gson().toJson(jsonObj) );
 	}
 	
-//	//화면 출력부터
-//		@GetMapping("/withca")
-//		public String selectCa(){
-//	    return "/with/withca";
-//		}
-//
-//
-//		
-//		 @RequestMapping("/withcaselect")
-//			public String withCaSelect(@RequestParam("hiddenInput") String category3, HttpServletRequest request,Model model /* ,Criteria cri */) {
-//			
-//			log.info("들어온 정보는?"+category3); 
-////			int totalCount = service.getCountAllBoard();
-////			PageMaker pageMaker = new PageMaker(cri, totalCount); 	 
-//			
-//			List<W_DTO> dto = service.getCategoryWith(category3);
-//			model.addAttribute("categoryList", dto);
-//			
-////			model.addAttribute("pageMaker",pageMaker);
-////			model.addAttribute("categoryList",service.getCategoryByPage(pageMaker));
-//		   
-//		   return "/with/withcaselect";
-//		          
-//		         }
-	
+
+	//화면 출력부터
+		@GetMapping("/withca")
+		public String selectCa(){
+	    return "/with/withca";
+		}
+
+		
+		
+		@RequestMapping("/withcaselect")
+		 public String withCaSelect(Model model, Criteria cri, @RequestParam("hiddenInput") String category3) {
+			
+			log.info("들어온 정보는?"+category3); 
+			int totalCount = service.getCountAllBoard();
+			PageMaker pageMaker = new PageMaker(cri, totalCount); 	 
+			model.addAttribute("pageMaker",pageMaker);
+			List<W_DTO> categoryList  = service.selectCategoryWith(pageMaker,category3);
+			model.addAttribute("categoryList", categoryList);
+		   
+		   return "/with/withcaselect";
+		 }
+		 
+		 
+
 }

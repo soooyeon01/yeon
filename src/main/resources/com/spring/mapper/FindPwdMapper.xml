@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.FindPwdMapper">
   <select id="findPwd" resultType="string">
-  		SELECT pwd FROM  members WHERE (name, phone,email) IN ( (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}) )
+  		SELECT COUNT(*) FROM  members WHERE (name, phone,email) IN ( (#{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}) )
   	</select>
   	<update id="updatePwd">
   	UPDATE members SET pwd = #{tempPwd} WHERE email = #{email}

@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
+import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 public interface W_Service {
@@ -23,8 +24,13 @@ public interface W_Service {
 	int removeWithpetData(int with_pet_no);
 	
 
-	
-//	//위드펫카테고리
-//	List<W_DTO> getCategoryWith(String category3);
+	//public int getRegionWithCount(String region);
+
+
+
+	//위드펫카테고리
+
+	List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3);
+
 
 }

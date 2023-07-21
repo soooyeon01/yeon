@@ -167,4 +167,8 @@
   	<delete id="deleteWith_petData">
   		DELETE FROM favoritew WHERE with_pet_no=#{with_pet_no}
   	</delete>
+  	
+  	<select resultType="com.spring.domain.W_DTO" id="selectCategoryWith">
+		<![CDATA[ select * from with_pet where category3 =  #{category3,jdbcType=VARCHAR} ]]>
+	</select>
   	</mapper>

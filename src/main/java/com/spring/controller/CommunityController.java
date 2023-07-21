@@ -54,28 +54,40 @@ public class CommunityController {
 	 */
 	
 	@PostMapping("/newR")
-	public String InsertComment(@RequestBody ReplyDTO rdto, HttpSession session) {
-		System.out.println("댓글 등록 통신 성공");
-		if(session.getAttribute("login") == null) {
-			return "fail";
-		} else {
-			System.out.println("로긘함. 스크랩 진행");
+	public String InsertComment(@RequestBody ReplyDTO rdto, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+        System.out.println("댓글 등록 통신 성공");
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+         
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            
+            log.info("로긘함. 스크랩 진행");
 			
 			rservice.registerReply(rdto);
-			System.out.println("댓글 등록 서비스 성공");
+			log.info("댓글 등록 서비스 성공");
 			return "newSuccess";
+        } else {
+			return "fail";
 		}
 	}
-
-	@GetMapping("replyList/{c_no}")
+	// localhost:8080/4jojo/community/replyList/{c_no}
+	@GetMapping("/reply/{c_no}")
 	public Map<String, Object> getList(@PathVariable int c_no, Model model) {
-		System.out.println("댓글 목록 컨트롤러 동작");
+		log.info("댓글 목록 컨트롤러 동작");
 		List<ReplyDTO> list = rservice.getReplyList(c_no);
 		int total = rservice.cntTotal(c_no);
+		model.addAttribute("total",total);
 		
-		ModelAndView view = new ModelAndView();
-		System.out.println("댓글 갯수 " + rservice.cntTotal(c_no));
-		view.setViewName("/community/reply");
+		//ModelAndView view = new ModelAndView();
+		log.info("댓글 갯수 " + rservice.cntTotal(c_no));
+		//view.setViewName("/community/commuSel");
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", list);
 		map.put("total", total);

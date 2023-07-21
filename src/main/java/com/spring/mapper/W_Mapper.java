@@ -19,6 +19,11 @@ public interface W_Mapper {
 	
 	int insertWith_petData(W_DTO dto);
 	int deleteWith_petData(int with_pet_no);
+
 	
+
+
 	
+	//위드펫카테고리
+	List<W_DTO> selectCategoryWith(@Param("pageMaker") PageMaker pageMaker, @Param("category3") String category3);
 }
