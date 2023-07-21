@@ -16,88 +16,29 @@
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
 	rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.js"
-	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-	crossorigin="anonymous"></script>
-<script>
-          $(document).ready(function () {
-              $("#region-select").on("change", function () {
-                  const region = $(this).val();
-                  $.ajax({
-                      url: "${pageContext.servletContext.contextPath}/pet/region", 
-                      type: "POST",
-                      data: {
-                          region: region,
-                         pageNum:1
-                      },
-                      dataType:"json",
-                      success:function (data, textStatus) {
-                          console.log("succedss");
-                     
-                          if (data.petList && data.petList.length > 0) {
-                              const animals = data.petList;
-                             
-                              let animalsHtml = ``;
-                              for (let i = 0; i < 10; i++) {
-                                  let animal = animals[i];
-                                  
-                           //console.log(animal);
-                           
-                                   animalsHtml += `
-                                 
-                                  <div class="data">
-                                    <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=`+animal.pet_notice_no+`">
-                                      <img src=`+animal.popfile+` alt="펫이미지" style="height: 300px" />
-                                    </a>
-                                    <div>
-                                      <br>
-                                      <p style="display: block;">품종 : `+animal.kindCd+`</p>
-                                      <br>
-                                      <p style="display: block;">나이 : `+animal.age+`</p>
-                                      <br>
-                                      <p style="display: block;">무게 : `+animal.weight+`</p>
-                                      <br>
-                                      <p style="display: block;">성별 : `+animal.sexCd+`</p>
-                                      <br>
-                                      <p style="display: block;">특징 : `+animal.specialMark+`</p>
-                                      <br>
-                                    </div>
-                                  </div>`;
-                                   
-                              }
-                              // 지역 선택에 따른 동물 목록을 업데이트합니다.
-                            
-                              $("#animals-container .container").html(animalsHtml);
-                              
-                          } else {
-                              // 검색된 동물이 없는 경우에는 '검색된 동물이 없습니다.' 메시지를 출력합니다.
-                              location.href="${pageContext.servletContext.contextPath}/pet/petall";
-                             
-                          } 
-                           
-                      },
-                      error: function (jqXHR, textStatus, errorThrown) {
-                          console.log(jqXHR);
-                          console.log(textStatus);
-                          console.log(errorThrown);
-                      }
-                  });
-              });
-          });
-          
-      </script>
+			<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+				crossorigin="anonymous"></script>
+			<script
+				src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
+			<script src="https://code.jquery.com/jquery-3.7.0.js"
+				integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+				crossorigin="anonymous"></script>
+			<script>
+	          $(document).ready(function () {
+	              $("#region-select").on("change", function () {
+	                  const region = $(this).val();
+	                  location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region; 
+	              })
+	          });
+	       </script>
 <style>
 a:hover {
 	background-color: #feeaa5;
@@ -275,7 +216,7 @@ a:hover {
 										<div class="data">
 											<a
 												href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="height: 300px" />
+												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:200px; height:300px;" />
 											</a>
 
 											<div>

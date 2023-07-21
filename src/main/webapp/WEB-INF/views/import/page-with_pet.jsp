@@ -2,14 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<%@ page import="com.spring.util.PageMaker" %>
 						<div class="datatable-bottom">
 					    	<nav class="datatable-pagination">
 						    	<ul class="datatable-pagination-list">
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.startPage - 1}&region=${region}" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}');" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
@@ -23,7 +23,7 @@
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${status.index}&region=${region}" class="datatable-pagination-list-item-link" 
+						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}');"
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,12 +31,33 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.endPage + 1}&region=${region}" class="datatable-pagination-list-item-link">›</a>
+						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}');"  class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>
 			    			</nav>
 						</div>
+	<script>
+	
+	function prev(prevPage){
+		var selectElement = document.getElementById("region-select");
+		var region = selectElement.options[selectElement.selectedIndex].value;
+		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&pageNum=" + prevPage; 
+	}
+
+	function pageNum(page){
+		var selectElement = document.getElementById("region-select");
+		var region = selectElement.options[selectElement.selectedIndex].value;
+		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&pageNum=" + page; 
+	}
+	
+	function next(nextPage){
+		var selectElement = document.getElementById("region-select");
+		var region = selectElement.options[selectElement.selectedIndex].value;
+		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&pageNum=" + nextPage; 
+	}
+	
+</script>
 						
 						
 						

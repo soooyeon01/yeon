@@ -20,75 +20,13 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 		<script>
-		    $(document).ready(function () {
-		        $("#region-select").on("change", function () {
-		            const region = $(this).val();
-		            // 서버로 데이터를 보낼 Ajax 호출을 작성합니다
-		            $.ajax({
-		                url: "${pageContext.servletContext.contextPath}/shel/shelselect", // Replace this with your server endpoint
-		                type: "POST",
-		                data: {
-		                    region: region
-		                },
-		                dataType:"json",
-		                success:function (data, textStatus) {
-		                    console.log("succedss");
-							console.log(data.shelList.length);
-							if (data.shelList && data.shelList.length > 0) {
-							    const shels = data.shelList;
-
-							    // 테이블 레이아웃 먼저 생성
-							    let shelHtml = `
-							        <table class="table">
-							            <thead>
-							                <tr>
-							                    <th>문화시설 이름</th>
-							                    <th>도로명 주소</th>
-							                    <th>전화번호</th>
-							                    <th>운영시간</th>
-							                    <th>반려동물 동반 가능정보</th>
-							                    <th>반려동물 전용 정보</th>
-							                </tr>
-							            </thead>
-							            <tbody>`;
-
-							    // 데이터를 테이블 로우로 추가
-							    for (let i = 0; i < 10; i++) {
-							        let shelters = shels[i];
-									console.log(shelters);
-							        shelHtml += `
-							            <tr>
-							                <td><a href="sheldetail?shelter_no=`+shelters.shelter_no+`">`+shelters.careNm+`</a></td>
-							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.careAddr+`</a></td>
-							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.careTel+`</a></td>
-							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.weekOprStime+`</a></td>
-							                <td><a href="sheldetail?&shelter_no=`+shelters.shelter_no+`">`+shelters.weekOprEtime+`</a></td>
-							                
-							            </tr>`;
-							    }
-
-							    // 테이블 태그 닫기
-							    shelHtml += `</tbody></table>`;
-
-							    // 생성한 테이블 HTML을 with_container로 설정된 div 요소에 추가
-							   document.getElementById('shel-container').innerHTML = shelHtml;
-							
-			                    // 지역 선택에 따른 동물 목록을 업데이트합니다.
-			                   // $("#with-container .container").html(shelHtml);
-			                } else {
-			                    // 검색된 동물이 없는 경우에는 '검색된 동물이 없습니다.' 메시지를 출력합니다.
-			                    $("#shel-container .container").html("<p>검색된 동물이 없습니다.</p>");
-			                }
-			            },
-			            error: function (jqXHR, textStatus, errorThrown) {
-			                console.log(jqXHR);
-			                console.log(textStatus);
-			                console.log(errorThrown);
-			            }
-			        });
-			    });
-			});
-		</script>
+	          $(document).ready(function () {
+	              $("#region-select").on("change", function () {
+	                  const region = $(this).val();
+	                  location.href="${pageContext.servletContext.contextPath}/shel/shelall?region=" + region; 
+	              })
+	          });
+	       </script>
 		<style>
 		
 		  a:hover{
@@ -177,26 +115,44 @@
                               
                             </div>
                             <div class="card-body">
-	                            <select id="region-select">
-								  <option value="">지역 선택</option>
-								  <option value="서울특별시">서울특별시</option>
-								  <option value="부산광역시">부산광역시</option>
-								  <option value="대구광역시">대구광역시</option>
-								  <option value="인천광역시">인천광역시</option>
-								  <option value="광주광역시">광주광역시</option>
-								  <option value="대전광역시">대전광역시</option>
-								  <option value="울산광역시">울산광역시</option>
-								  <option value="세종특별자치시">세종특별자치시</option>
-								  <option value="경기도">경기도</option>
-								  <option value="강원도">강원도</option>
-								  <option value="충청북도">충청북도</option>
-								  <option value="충청남도">충청남도</option>
-								  <option value="전라북도">전라북도</option>
-								  <option value="전라남도">전라남도</option>
-								  <option value="경상북도">경상북도</option>
-								  <option value="경상남도">경상남도</option>
-								  <option value="제주특별자치도">제주특별자치도</option>
-								</select>
+	                          <select id="region-select">
+							<option value="">지역 선택</option>
+							<option value="서울특별시"
+								<c:if test='${ param.region eq "서울특별시" }'>selected="selected"</c:if>>서울특별시</option>
+							<option value="부산광역시"
+								<c:if test='${ param.region eq "부산광역시" }'>selected="selected"</c:if>>부산광역시</option>
+							<option value="대구광역시"
+								<c:if test='${ param.region eq "대구광역시" }'>selected="selected"</c:if>>대구광역시</option>
+							<option value="인천광역시"
+								<c:if test='${ param.region eq "인천광역시" }'>selected="selected"</c:if>>인천광역시</option>
+							<option value="광주광역시"
+								<c:if test='${ param.region eq "광주광역시" }'>selected="selected"</c:if>>광주광역시</option>
+							<option value="대전광역시"
+								<c:if test='${ param.region eq "대전광역시" }'>selected="selected"</c:if>>대전광역시</option>
+							<option value="울산광역시"
+								<c:if test='${ param.region eq "울산광역시" }'>selected="selected"</c:if>>울산광역시</option>
+							<option value="세종특별자치시"
+								<c:if test='${ param.region eq "세종특별자치시" }'>selected="selected"</c:if>>세종특별자치시</option>
+							<option value="경기도"
+								<c:if test='${ param.region eq "경기도" }'>selected="selected"</c:if>>경기도</option>
+							<option value="강원도"
+								<c:if test='${ param.region eq "강원도" }'>selected="selected"</c:if>>강원도</option>
+							<option value="충청북도"
+								<c:if test='${ param.region eq "충청북도" }'>selected="selected"</c:if>>충청북도</option>
+							<option value="충청남도"
+								<c:if test='${ param.region eq "충청남도" }'>selected="selected"</c:if>>충청남도</option>
+							<option value="전라북도"
+								<c:if test='${ param.region eq "전라북도" }'>selected="selected"</c:if>>전라북도</option>
+							<option value="전라남도"
+								<c:if test='${ param.region eq "전라남도" }'>selected="selected"</c:if>>전라남도</option>
+							<option value="경상북도"
+								<c:if test='${ param.region eq "경상북도" }'>selected="selected"</c:if>>경상북도</option>
+							<option value="경상남도"
+								<c:if test='${ param.region eq "경상남도" }'>selected="selected"</c:if>>경상남도</option>
+							<option value="제주특별자치도"
+								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
+						</select>
+
                             
                            		<div id="shel-container">
                            		<table class="table">
@@ -215,7 +171,7 @@
 	                                    </thead>
 	                                    
 	                                    <tbody>
-	                                    	<c:forEach var="S_DTO" items="${ shelList }" >
+	                                    	<c:forEach var="S_DTO" items="${ response.shelList }" >
 											<tr>
 												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>

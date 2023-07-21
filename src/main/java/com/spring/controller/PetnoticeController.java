@@ -55,55 +55,38 @@ public class PetnoticeController {
 //	}
 	@RequestMapping("/petall")
 	@ResponseBody
-    public ModelAndView getPetListByRegion(Model model, Criteria cri) {
-		
+    public ModelAndView getPetListByRegion(
+    		@RequestParam(value="region", required=false, defaultValue="") String region,
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			Model model, 
+			Criteria cri) {
 		
 		ModelAndView mav = new ModelAndView("/pet/pet");
 		
-		int totalCount = service.getCountAllBoard();
-		PageMaker pageMaker=new PageMaker(cri, totalCount);
-		List<P_DTO>  petList = service.getAllBoardByPage( pageMaker);
+		PageMaker pageMaker;
+	    List<P_DTO> petList;
+	    int totalCount;
+	    cri = new Criteria(pageNum);
+	    
+		if (region.isEmpty()) {
+	        totalCount = service.getCountAllBoard();
+	        pageMaker = new PageMaker(cri, totalCount);
+	        petList = service.getAllBoardByPage(pageMaker);
+		        
+	    } else {
+	    	totalCount = service.getCountRegionPet(region);
+	        pageMaker = new PageMaker(cri, totalCount);    
+	        petList = service.getRegionPet(region, pageMaker);
+	    }
+		
        
 		Map<String, Object> response = new HashMap<>();
-	     response.put("petList", petList);
+	    response.put("petList", petList);
 	    model.addAttribute("pageMaker", pageMaker);
-	     mav.addObject("response", response);
-	     return mav;
+	    mav.addObject("response", response);
+	    return mav;
     }
 
-	//지역별 조회
-	@RequestMapping("/region")
-	@ResponseBody
-	public Map<String, Object> getPetListByRegionAjax(@RequestParam("region") String region,@RequestParam("pageNum") int pageNum, Criteria cri, Model model) {
-	    PageMaker pageMaker;
-	    List<P_DTO> petList;
-	    cri=new Criteria(pageNum);
-	    
-	    if (region.isEmpty()) {
-	        int totalCount = service.getCountAllBoard();
-	        pageMaker = new PageMaker(cri, totalCount);
-	       log.info("1="+pageMaker);
-	        petList = service.getAllBoardByPage( pageMaker);
-	        
-	    } else {
-	    	int totalCount = service.getCountRegionPet(region);
-	        pageMaker = new PageMaker(cri, totalCount);    
-	        log.info("2="+pageMaker);
-	        petList = service.getRegionPet(region, pageMaker);
-	    
-	    }
-	    
-	    Map<String, Object> response = new HashMap<>();
-	 
-	    response.put("region", region);
-	    
-	    response.put("petList", petList);
-	  
-	    model.addAttribute("pageMaker", pageMaker);
-	
-	    return response;
-	 
-	}
 	//상세조회
 	@GetMapping("/petdetail")
 	public String getAllBoard(int pet_notice_no, Model model) {
