@@ -81,7 +81,7 @@
    			const rcontent = $('#rcontent').val();
    			/* const com_no = ${com}; */
 			$.getJSON(
-					"<c:url value='/Comment/CommentList/'/>" + c_no,
+					 "/community/replyList/" + c_no,
 				function(data) {
 					if(data.total > 0){
 						var list = data.list;
