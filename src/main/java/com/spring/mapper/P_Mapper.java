@@ -2,17 +2,24 @@ package com.spring.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.spring.domain.P_DTO;
 import com.spring.util.PageMaker;
 
 public interface P_Mapper {
 	List<P_DTO> selectP(int pet_notice_no);
 	List<P_DTO> selectAllBoard();
-	int selectCountAllBoard();
-	List<P_DTO> selectAllBoardByPage(PageMaker pageMaker);
 	
+	
+	//지역별 조회
+	List<P_DTO> selectAllBoardByPage(PageMaker pageMaker);
+	List<P_DTO> selectRegionPet(@Param("region") String region, @Param("pageMaker") PageMaker pageMaker);
+	int selectCountAllBoard();
+	int selectCountRegionPet(String region);
+	//즐겨찾기
 	int insertPetnoticeData(P_DTO dto);
 	int deletePetnoticeData(int pet_notice_no);
-	List<P_DTO> selectRegionPet(String region);
+	// List<P_DTO> selectRegionPet(String region);
 	
 }

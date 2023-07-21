@@ -13,5 +13,7 @@ public class MembersDTO {
 	private String pwd;
 	private String name;
 	private Integer phone;
+	
+	private String tempPwd;
 
 }

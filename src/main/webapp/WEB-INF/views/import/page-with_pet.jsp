@@ -9,7 +9,7 @@
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.startPage -1}" class="datatable-pagination-list-item-link">‹</a>
+					    				<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.startPage - 1}&region=${region}" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
@@ -23,7 +23,7 @@
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a 	href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${status.index}" 
+						    			<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${status.index}&region=${region}" class="datatable-pagination-list-item-link" 
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,7 +31,7 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.endPage + 1}" class="datatable-pagination-list-item-link">›</a>
+						    			<a id="pagination-link" href="${pageContext.servletContext.contextPath}/with/withall?pageNum=${pageMaker.endPage + 1}&region=${region}" class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>

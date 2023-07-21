@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_P_DTO;
@@ -42,14 +45,66 @@ public class PetnoticeController {
 	private final P_Service service;
 	// localhost:8080/4jojo/pet/petdetail
 	
-	@GetMapping("/petall")
-	public String getPBoard(Model model, Criteria cri) {
+//	@GetMapping("/petall")
+//	public String getPBoard(@RequestParam("region") String region, Model model, Criteria cri) {
+//		int totalCount = service.getCountAllBoard();
+//	    PageMaker pageMaker = new PageMaker(cri, totalCount);
+//		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
+//		model.addAttribute("pageMaker",pageMaker);
+//		return "/pet/pet";	
+//	}
+	@RequestMapping("/petall")
+	@ResponseBody
+    public ModelAndView getPetListByRegion(Model model, Criteria cri) {
+		
+		
+		ModelAndView mav = new ModelAndView("/pet/pet");
+		
 		int totalCount = service.getCountAllBoard();
-	    PageMaker pageMaker = new PageMaker(cri, totalCount);
-		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
-		model.addAttribute("pageMaker",pageMaker);
-		return "/pet/pet";
+		PageMaker pageMaker=new PageMaker(cri, totalCount);
+		List<P_DTO>  petList = service.getAllBoardByPage( pageMaker);
+       
+		Map<String, Object> response = new HashMap<>();
+	     response.put("petList", petList);
+	    model.addAttribute("pageMaker", pageMaker);
+	     mav.addObject("response", response);
+	     return mav;
+    }
+
+	//지역별 조회
+	@RequestMapping("/region")
+	@ResponseBody
+	public Map<String, Object> getPetListByRegionAjax(@RequestParam("region") String region,@RequestParam("pageNum") int pageNum, Criteria cri, Model model) {
+	    PageMaker pageMaker;
+	    List<P_DTO> petList;
+	    cri=new Criteria(pageNum);
+	    
+	    if (region.isEmpty()) {
+	        int totalCount = service.getCountAllBoard();
+	        pageMaker = new PageMaker(cri, totalCount);
+	       log.info("1="+pageMaker);
+	        petList = service.getAllBoardByPage( pageMaker);
+	        
+	    } else {
+	    	int totalCount = service.getCountRegionPet(region);
+	        pageMaker = new PageMaker(cri, totalCount);    
+	        log.info("2="+pageMaker);
+	        petList = service.getRegionPet(region, pageMaker);
+	    
+	    }
+	    
+	    Map<String, Object> response = new HashMap<>();
+	 
+	    response.put("region", region);
+	    
+	    response.put("petList", petList);
+	  
+	    model.addAttribute("pageMaker", pageMaker);
+	
+	    return response;
+	 
 	}
+	//상세조회
 	@GetMapping("/petdetail")
 	public String getAllBoard(int pet_notice_no, Model model) {
 		
@@ -58,19 +113,8 @@ public class PetnoticeController {
 		return "/pet/petdetail";
 	}
 	   
-	@RequestMapping("/petselect")
-    @ResponseBody
-    public Map<String, List<P_DTO>> getPetListByRegion(@RequestParam("region") String region) {
-        log.info("이게 널이니?"+region);
-        List<P_DTO> petList = service.getRegionPet(region);
 
-        Map<String, List<P_DTO>> response = new HashMap<>();
-        response.put("petList", petList);
-
-        return response;
-    }
-	
-	
+	// 즐겨찾기 등록
 	@RequestMapping("/registerpet")
 	@ResponseBody
 	protected void  insertF_P(HttpServletRequest request, HttpServletResponse response
@@ -115,6 +159,8 @@ public class PetnoticeController {
 	
 		response.getWriter().println( new Gson().toJson(jsonObj) );
 	}
+	
+	// 즐겨찾기 삭제
 	@RequestMapping("/removepet")
 	@ResponseBody
 	protected void  deleteF_P(HttpServletRequest request, HttpServletResponse response
