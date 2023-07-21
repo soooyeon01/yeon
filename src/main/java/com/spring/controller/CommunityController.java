@@ -68,17 +68,17 @@ public class CommunityController {
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
             
-            System.out.println("로긘함. 스크랩 진행");
+            log.info("로긘함. 스크랩 진행");
 			
 			rservice.registerReply(rdto);
-			System.out.println("댓글 등록 서비스 성공");
+			log.info("댓글 등록 서비스 성공");
 			return "newSuccess";
         } else {
 			return "fail";
 		}
 	}
 	// localhost:8080/4jojo/community/replyList/{c_no}
-	@GetMapping("/replyList/{c_no}")
+	@GetMapping("/reply/{c_no}")
 	public Map<String, Object> getList(@PathVariable int c_no, Model model) {
 		log.info("댓글 목록 컨트롤러 동작");
 		List<ReplyDTO> list = rservice.getReplyList(c_no);
