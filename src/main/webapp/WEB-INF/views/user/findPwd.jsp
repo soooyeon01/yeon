@@ -78,7 +78,7 @@
         $(function(){
     		$("#findPwd").click(function(){
     			$.ajax({
-    				url : "./findpw",
+    				url : "./findPwd",
     				type : "POST",
     				data : {
     					name : $("#name").val(),
@@ -86,7 +86,7 @@
     					email : $("#email").val()
     				},
     				success : function(result) {
-    					alert(result);
+    					
     				},
     			})
     		});
@@ -119,7 +119,6 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" id="email" name="email" type="email"  />
                                                 <label for="email">이메일</label>
-                                                <div class="error">유효하지 않은 이메일주소 입니다  </div>
                                             </div>
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
@@ -130,21 +129,8 @@
                                             </div>
                                         </form>
                                     </div>
-                                   
-			<div class="input-group-addon">
-				<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
-			</div>
-				<div class="mail-check-box">
-			<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled" maxlength="6">
-			</div>
-				<span id="mail-check-warn"></span>
-			</div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+    
+
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="${root}/user/join">회원가입</a></div>
                                     </div>

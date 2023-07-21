@@ -17,5 +17,6 @@ public interface W_Mapper {
 	int deleteWith_petData(int with_pet_no);
 	 List<W_DTO> selectRegionWith( String region);
 	//public int selectRegionWithCount(String region);
+	List<W_DTO> selectCategoryWith(String category3);
 	
 }

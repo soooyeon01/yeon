@@ -35,11 +35,11 @@ public class FindPwdServiceImpl implements FindPwdService {
 	    public void sendEmail(MembersDTO mdto, String div) {
 	        String charSet = "utf-8";
 	        String hostSMTP = "smtp.naver.com";
-	        String hostSMTPid = "서버 이메일 주소(보내는 사람 이메일 주소)";
-	        String hostSMTPpwd = "서버 이메일 비번(보내는 사람 이메일 비번)";
+	        String hostSMTPid = "2qiuo@naver.com";
+	        String hostSMTPpwd = "Yesol1101@";
 
-	        String fromEmail = "보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
-	        String fromName = "프로젝트이름 또는 보내는 사람 이름";
+	        String fromEmail = "2qiuo@naver.com";
+	        String fromName = "오키도키요";
 	        String subject = "";
 	        String msg = "";
 
@@ -80,39 +80,41 @@ public class FindPwdServiceImpl implements FindPwdService {
 	 //비밀번호찾기
 	 @Override
 	    public void findPwd(HttpServletResponse response, MembersDTO mdto) throws IOException {
-	        response.setContentType("text/html;charset=utf-8");
-	        MembersDTO ck = new MembersDTO();
-	        PrintWriter out = response.getWriter();
-	        
-	        // 가입된 아이디가 없으면
-	        if(mdto.getName() == null) {
-	            out.print("등록되지 않은 아이디입니다.");
-	            out.close();
-	        }
-	        // 가입된 이메일이 아니면
-	        else if(!mdto.getEmail().equals(ck.getEmail())) {
-	            out.print("등록되지 않은 이메일입니다.");
-	            out.close();
-	        }
-	        else {
-	            // 임시 비밀번호 생성
-	            String tempPwd = "";
-	            for (int i = 0; i < 12; i++) {
-	                tempPwd += (char) ((Math.random() * 26) + 97);
-	            }
-	            mdto.setTempPwd(tempPwd);
-	            
-	            // DB에 임시 비밀번호 저장
-	            updatePwd(mdto);
-	            
-	            // 이메일로 임시 비밀번호 발송
-	            sendEmail(mdto, "findpw");
-
-	            out.print("이메일로 임시 비밀번호를 발송하였습니다.");
-	            out.close();
-	        }
+//	        response.setContentType("text/html;charset=utf-8");
+//	        MembersDTO ck = new MembersDTO();
+//	        PrintWriter out = response.getWriter();
+//	        
+//	     // 가입된 이름과 이메일이 없으면 
+//	        if(mdto.nameCheck(mdto.getName()) == null || mdto.emailCheck(mdto.getEmail()) == null) {
+//	          out.print("등록되지 않은 이름 또는 이메일입니다.");
+//	          out.close();
+//	        }
+//	        // 가입한 이름과 이메일이 존재하면
+//	        else {
+//	          MembersDTO member = mdto.getMemberByNameAndEmail(mdto.getName(), mdto.getEmail());
+//	          // 핸드폰 번호와 일치하지 않으면
+//	          if (member.getPhone() != mdto.getPhone()) {
+//	            out.print("등록되지 않은 핸드폰 번호입니다.");
+//	            out.close();
+//	          }
+//	        else {
+//	            // 임시 비밀번호 생성
+//	            String tempPwd = "";
+//	            for (int i = 0; i < 12; i++) {
+//	                tempPwd += (char) ((Math.random() * 26) + 97);
+//	            }
+//	            mdto.setTempPwd(tempPwd);
+//	            
+//	            // DB에 임시 비밀번호 저장
+//	            updatePwd(mdto);
+//	            
+//	            // 이메일로 임시 비밀번호 발송
+//	            sendEmail(mdto, "findpw");
+//
+//	            out.print("이메일로 임시 비밀번호를 발송하였습니다.");
+//	            out.close();
+//	        }
 	    }
-
 
 
 

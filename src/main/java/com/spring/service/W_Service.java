@@ -16,8 +16,12 @@ public interface W_Service {
 	int removeWithpetData(int with_pet_no);
 	List<W_DTO> getRegionWith(String region);
 
+	//public int getRegionWithCount(String region);
+
 	
 	//위드펫카테고리
 	List<W_DTO> getCategoryWith(String category3);
+
+
 
 }
