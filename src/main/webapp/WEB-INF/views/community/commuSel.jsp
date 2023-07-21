@@ -35,16 +35,13 @@
 	       	}
     	</script>  
     	<script>
-			$('#Reply_regist').click(function() {
+    	$(document).ready(function() {
+    	$('#Reply_regist').click(function() {
 			
    			//Json으로 전달할 파라미터 변수선언
    			let c_no = ${selectone.c_no};
    			let nickname = "${selectone.nickname}";
    			let rcontent = $('#rcontent').val();
-   			
-   			log.info(c_no);
-   			log.info(nickname);
-   			log.info(rcontent);
    		
    			if(nickname == ''){
    				alert('로그인 후 이용해주세요');
@@ -93,7 +90,7 @@
    			const rcontent = $('#rcontent').val();
    			/* const com_no = ${com}; */
 			$.getJSON(
-					"<c:url value='/community/replyList/'/>" + c_no,
+					"<c:url value='/community/reply/'/>" + c_no,
 					/* "/community/replyList/" + c_no, */
 				function(data) {
 					if(data.total > 0){
@@ -131,6 +128,7 @@
 				);//getJson
 
 		}
+    	}) ;//jquery
 		</script>
 
     	<script>
