@@ -19,4 +19,6 @@ public interface W_Mapper {
 	//public int selectRegionWithCount(String region);
 	List<W_DTO> selectCategoryWith(String category3);
 	
+	//위드펫카테고리
+	List<W_DTO> selectCategoryWith(@Param("pageMaker") PageMaker pageMaker, @Param("category3") String category3);
 }
