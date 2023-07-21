@@ -25,10 +25,15 @@ public class P_ServiceImpl implements P_Service {
 		return mapper.selectAllBoard();
 	}
 
-
+//지역별 조회
 	@Override
 	public List<P_DTO> getAllBoardByPage(PageMaker pageMaker) {
 		return mapper.selectAllBoardByPage(pageMaker);
+	}
+	@Override
+	public List<P_DTO> getRegionPet(String region, PageMaker pageMaker) {
+		
+		return mapper.selectRegionPet(region, pageMaker);
 	}
 
 	@Override
@@ -36,7 +41,11 @@ public class P_ServiceImpl implements P_Service {
 		int result = mapper.selectCountAllBoard();
 		return result;
 	}
-
+	@Override
+	public int getCountRegionPet(String region) {
+		return mapper.selectCountRegionPet(region);
+	}
+// 즐겨찾기	
 	@Override
 	public int registerP(P_DTO dto) {
 		
@@ -49,12 +58,14 @@ public class P_ServiceImpl implements P_Service {
 		return mapper.deletePetnoticeData(pet_notice_no);
 	}
 
-	public List<P_DTO> getRegionPet(String region) {
-	    List<P_DTO> petList = mapper.selectRegionPet(region);
+//	public List<P_DTO> getRegionPet(String region) {
+//	    List<P_DTO> petList = mapper.selectRegionPet(region);
+//
+//	    
+//	    return petList;
+//	}
 
-	    
-	    return petList;
-	}
+	
 		
 
 }
