@@ -18,7 +18,7 @@
       		     , p.careAddr
       		     , p.careTel
       		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
-      		FROM FAVORITEP f
+      		FROM favoritep f
       		JOIN shelter p ON f.pet_notice_no = p.pet_notice_no
       		]]>
   	</select>
@@ -50,11 +50,11 @@
         		, p.careAddr
         		, p.careTel
         		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
-        		FROM FAVORITEP f
+        		FROM favoritep f
         		JOIN pet_notice p ON f.pet_notice_no = p.pet_notice_no
-        		WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )
+        		WHERE ROWNUM <= ( #{cri.pageNum, jdbcType=INTEGER} * #{cri.amount} )
         		            )
-        		   WHERE RN > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} )
+        		   WHERE RN > ( ( #{cri.pageNum, jdbcType=INTEGER} - 1 ) * #{cri.amount} )
         		   
         		   ]]>
   		</select>

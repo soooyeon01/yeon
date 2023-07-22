@@ -48,17 +48,19 @@
 		
 		function sendFavoritep(img_fa1) {
 		    var favoritep = img_fa1.data("value");
-
+		    console.log(favoritep);
 		    $.ajax({
 		        url: "${pageContext.servletContext.contextPath}/pet/registerpet",
 		        type: "POST",
 		        data: {
-		            pet_notice_no: favoritep
+		           pet_notice_no: favoritep
 		        },
 		        dataType: "json",
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
+		            }else{
+		            	alert("처리 실패");
 		            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -115,7 +117,7 @@
 			               // $("#fa").prop("checked",false);
 			            });
 			        });
-		});
+		
 			</script>
 		<style>
 		
@@ -220,18 +222,18 @@
                               
                             </div>
                             <div class="card-body">
-                      			<div style="float:right;">
-                      				 <label>
-										 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
-										 <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png">
-										 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa2.png" style="display:none;">
-									</label>
                       			
-                      			</div>
 						
                            		  
 	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
-											
+												<div style="float:right;">
+				                      				 <label>
+														 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
+														 <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png">
+														 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa2.png" style="display:none;">
+													</label>
+				                      			
+				                      			</div>	
 												<p>
 												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/>
 												</p>

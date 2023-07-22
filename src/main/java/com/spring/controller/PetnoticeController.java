@@ -106,9 +106,9 @@ public class PetnoticeController {
 	)throws ServletException, IOException {
 	    F_P_DTO dto = new F_P_DTO();
 	    P_DTO dto2 = new P_DTO();
-	   
+	  
 		String pet_notice_no = request.getParameter("pet_notice_no");
-		
+		 log.info(pet_notice_no);
 		Date favoritep_reg_date = new Date(System.currentTimeMillis());
         if (pet_notice_no == null || pet_notice_no.equals("")) {
         	pet_notice_no = "-1";

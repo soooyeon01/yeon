@@ -95,7 +95,7 @@ public class ShelterController {
 	    S_DTO dto2 = new S_DTO();
 	   
 		String shelter_no = request.getParameter("shelter_no");
-		
+		log.info(shelter_no);
 		Date favorites_reg_date = new Date(System.currentTimeMillis());
         if (shelter_no == null || shelter_no.equals("")) {
             shelter_no = "-1";

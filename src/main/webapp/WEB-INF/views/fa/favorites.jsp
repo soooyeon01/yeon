@@ -66,9 +66,9 @@
               <%System.out.println(email);%>
             <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
              
             <%}  %>
                 </div>
