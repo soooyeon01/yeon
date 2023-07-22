@@ -206,7 +206,7 @@ a:hover {
 							<option value="제주특별자치도"
 								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
 						</select>
-
+						
 
 
 						<div id="animals-container">
