@@ -180,42 +180,14 @@
 	                                   
 	                                    <tbody>
 	                                    	<c:forEach var="W_DTO" items="${response.withList}" >
-											<tr>
+											<tr onclick="location.href='${pageContext.servletContext.contextPath}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'">
 												<!-- pageScope에 vo가 생성되었다.  -->
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.building}
-												</a>
-												</td>
-												
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.road}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.tel}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.hour}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.with_pet_info}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?&with_pet_no=${W_DTO.with_pet_no}" >
-												${W_DTO.only_pet_info}
-												</a>
-												</td>
-												
-												
-											
+												<td>${W_DTO.building}</td>
+												<td>${W_DTO.road}</td>
+												<td>${W_DTO.tel}</td>
+												<td>${W_DTO.hour}</td>
+												<td>${W_DTO.with_pet_info}</td>
+												<td>${W_DTO.only_pet_info}</td>
 											</tr>
 											</c:forEach>
 	                                    </tbody>

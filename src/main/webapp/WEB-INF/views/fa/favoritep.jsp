@@ -127,30 +127,14 @@
 	                                    <tbody>
 								<c:forEach var="F_P_DTO" items="${favoritep}"
 									varStatus="status">
-									<tr>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.favoritep_no} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.nickname} </a></td>
-										
-										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${F_P_DTO.pet_notice_no}" >
-												<img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
-												</a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.careNm} </a></td>
-								
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.careAddr} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.careTel} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.favoritep_reg_date} </a></td>
+									<tr onclick="location.href='${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}'">
+										<td>${F_P_DTO.favoritep_no}</td>
+										<td>${F_P_DTO.nickname}</td>
+										<td><img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/></td>
+										<td>${F_P_DTO.careNm}</td>
+										<td>${F_P_DTO.careAddr}</td>
+										<td>${F_P_DTO.careTel}</td>
+										<td>${F_P_DTO.favoritep_reg_date}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -151,7 +151,7 @@ a:hover {
 			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
 			href="${root}/shel/shelall"><b>보호소</b></a> <a
 			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/with/withall"><b>위드펫</b></a> <a
+			href="${root}/with/withca"><b>위드펫</b></a> <a
 			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
 			href="${root}/community/clist"><b>커뮤니티</b></a> <a
 			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
