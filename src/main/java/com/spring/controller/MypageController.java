@@ -50,7 +50,6 @@ public class MypageController {
 //            request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
-//            session.setAttribute("id", email);
            
           List<MembersDTO> mdto = service.getMypage(email);
           model.addAttribute("membersDTO", mdto);
@@ -78,8 +77,6 @@ public class MypageController {
  	     model.addAttribute("membersDTO", mdto);
  	     
  	    String nowpwd = service.getPwd(email); //현재비밀번호
-	     log.info("현재비번" + nowpwd);
-	     log.info("새 비밀번호 : "+newpwd);
          
          try {
             SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
@@ -131,7 +128,7 @@ public class MypageController {
          String phone = request.getParameter("phone");
 
          if (phone == null || phone.isEmpty()) {
-            log.info("여기2" + phone);
+            //log.info("여기2" + phone);
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
 
