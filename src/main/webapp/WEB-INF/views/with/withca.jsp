@@ -27,7 +27,7 @@
 
 	<script>
 	function submitForm(category3) {
-        document.getElementById('hiddenInput').value = category3;
+        document.getElementById('category3').value = category3;
         document.getElementById('myForm').submit();
        console.log(category3);
     }
@@ -68,8 +68,8 @@
   function mypaper(){
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
 	  }
-  function withcaselect(){
-	  	location.href = "${pageContext.servletContext.contextPath}/with/withcaselect";
+  function withall(){
+	  	location.href = "${pageContext.servletContext.contextPath}/with/withall";
 	  }
   
   
@@ -194,8 +194,8 @@
                <div align="center">
 
 				
-				  <form id="myForm" action="${root}/with/withcaselect" method="post">
-		        <input type="hidden" id="hiddenInput" name="hiddenInput">
+				  <form id="myForm" action="${root}/with/withall" method="get">
+		        <input type="hidden" id="category3" name="category3">
 		        <h3>카페,식당</h3>
 		        <button class ="btn btn-warning" type="submit" value="카페" onclick="submitForm(this.value)">카페</button>
 		        <button class ="btn btn-warning" type="submit" value="식당" onclick="submitForm(this.value)">식당</button>

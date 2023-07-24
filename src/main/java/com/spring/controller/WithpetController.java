@@ -73,10 +73,42 @@ public class WithpetController {
 	    return mav;
     }
 	
+	// 지역별 조회
+		@RequestMapping("/withall")
+		@ResponseBody
+	    public ModelAndView getWithListByRegion(
+	    		@RequestParam(value="region", required=false, defaultValue="") String region,
+				@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+				@RequestParam(value="category3", required=false) String category3, //추가
+				Model model, 
+				Criteria cri) {
+			
+			ModelAndView mav = new ModelAndView("/with/with");
+			
+			PageMaker pageMaker;
+		    List<W_DTO> withList;
+		    int totalCount;
+		    cri = new Criteria(pageNum);
+		    
+		    log.info(category3);
+		    
+			
+		    	totalCount = service.getCountCategorywith(category3);
+		        pageMaker = new PageMaker(cri, totalCount);    
+		        withList = service.getCategoryWith(category3, pageMaker); //추가
+		    log.info(totalCount);
+		    log.info(withList);
+			
+	       
+			Map<String, Object> response = new HashMap<>();
+		    response.put("withList", withList);
+		    model.addAttribute("pageMaker", pageMaker);
+		    mav.addObject("response", response);
+		    return mav;
+	    }
 	
 	
-	
-	
+
 	
 	@GetMapping("/withdetail")
 	public String getW(int with_pet_no, Model model) {
@@ -183,19 +215,19 @@ public class WithpetController {
 
 		
 		
-		@RequestMapping("/withcaselect")
-		 public String withCaSelect(Model model, Criteria cri, @RequestParam("hiddenInput") String category3) {
-			
-			log.info("들어온 정보는?"+category3); 
-			int totalCount = service.getCountAllBoard();
-			PageMaker pageMaker = new PageMaker(cri, totalCount); 	 
-			model.addAttribute("pageMaker",pageMaker);
-			List<W_DTO> categoryList  = service.selectCategoryWith(pageMaker,category3);
-			model.addAttribute("categoryList", categoryList);
-		   
-		   return "/with/withcaselect";
-		 }
-		 
+//		@RequestMapping("/withcaselect")
+//		 public String withCaSelect(Model model, Criteria cri, @RequestParam("hiddenInput") String category3) {
+//			
+//			log.info("들어온 정보는?"+category3); 
+//			int totalCount = service.getCountAllBoard();
+//			PageMaker pageMaker = new PageMaker(cri, totalCount); 	 
+//			model.addAttribute("pageMaker",pageMaker);
+//			List<W_DTO> categoryList  = service.selectCategoryWith(pageMaker,category3);
+//			model.addAttribute("categoryList", categoryList);
+//		   
+//		   return "/with/withcaselect";
+//		 }
+//		 
 		 
 
 }

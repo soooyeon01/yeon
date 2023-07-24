@@ -200,7 +200,7 @@
                             		
                            	<div id="with-container">
         	
-                           		 <table id="datatablesSimple">
+                           		 <table id="table" style="border : 1px;">
 	                                    <thead>
 	                                        <tr>	                                          
 	                                            <th>문화시설 이름</th>
