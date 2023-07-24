@@ -72,7 +72,7 @@ public class ApiShelDataController {
 	            System.out.println("파싱할 리스트 수 : " + nList.getLength());
 	            System.out.println("여기1");
 	        
-	            list = removeDuplicates(list);
+	        
 	            for (int temp = 0; temp < nList.getLength(); temp++) {
 	               Node nNode = nList.item(temp);
 	               if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -118,10 +118,7 @@ public class ApiShelDataController {
 
 } // try~catch end
 	
-	private ArrayList<S_DTO> removeDuplicates(ArrayList<S_DTO> list) {
-	    Set<S_DTO> set = new HashSet<>(list);
-	    return new ArrayList<>(set);
-	}
+	
 	
 	public static String getTagValue(String tag, Element eElement) {
 		   Node nlList = eElement.getElementsByTagName(tag).item(0);

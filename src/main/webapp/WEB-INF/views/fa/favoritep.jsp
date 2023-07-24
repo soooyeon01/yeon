@@ -93,7 +93,7 @@
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice"><b>공지사항</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
    
             </nav>
         
@@ -110,12 +110,11 @@
                             <div class="card-body">
                            		
                            		
-	                                <table id="datatablesSimple">
+	                                <table class="table">
 	                                    <thead>
 	                                        <tr>
 	                                            <th>즐겨찾기번호</th>
 	                                            <th>닉네임</th>
-	                                            <th>공고 번호</th>
 	                                            <th>이미지</th>
 	                                            <th>보호소 이름</th>
 	                                            <th>보호소 주소</th>
@@ -124,19 +123,7 @@
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                           	<th>즐겨찾기번호</th>
-	                                            <th>닉네임</th>
-	                                            <th>보호소 번호</th>
-	                                            <th>이미지</th>
-	                                            <th>보호소 이름</th>
-	                                            <th>보호소 주소</th>
-	                                            <th>보호소 전화번호</th>
-	                                            <th>즐겨찾기 등록일</th>
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </tfoot>
+	                                    
 	                                    <tbody>
 								<c:forEach var="F_P_DTO" items="${favoritep}"
 									varStatus="status">
@@ -147,9 +134,7 @@
 										<td><a
 											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
 												${F_P_DTO.nickname} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.pet_notice_no} </a></td>
+										
 										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${F_P_DTO.pet_notice_no}" >
 												<img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
 												</a></td>

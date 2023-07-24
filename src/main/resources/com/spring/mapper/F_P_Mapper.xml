@@ -17,9 +17,9 @@
       		     , p.careNm
       		     , p.careAddr
       		     , p.careTel
-      		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      		     , (SELECT nickname FROM members WHERE nickname = #{nickname,jdbcType=VARCHAR}) as nickname order by favoritep_no desc
       		FROM favoritep f
-      		JOIN shelter p ON f.pet_notice_no = p.pet_notice_no
+      		JOIN pet_notice p ON f.pet_notice_no = p.pet_notice_no
       		]]>
   	</select>
   	<select id="selectCountPBoard" parameterType="int" resultType="int">	
@@ -38,7 +38,7 @@
              ,careNm
               ,careAddr
              ,careTel
-             ,(SELECT nickname FROM members WHERE nickname='AA') as nickname
+             ,nickname
              FROM (
               SELECT 
               ROWNUM as RN
@@ -49,12 +49,12 @@
         		, p.careNm
         		, p.careAddr
         		, p.careTel
-        		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+        		, (SELECT nickname FROM members WHERE nickname = #{nickname,jdbcType=VARCHAR}) as nickname
         		FROM favoritep f
         		JOIN pet_notice p ON f.pet_notice_no = p.pet_notice_no
-        		WHERE ROWNUM <= ( #{cri.pageNum, jdbcType=INTEGER} * #{cri.amount} )
+        		WHERE ROWNUM <= ( #{pageMaker.cri.pageNum, jdbcType=INTEGER} * #{pageMaker.cri.amount} )
         		            )
-        		   WHERE RN > ( ( #{cri.pageNum, jdbcType=INTEGER} - 1 ) * #{cri.amount} )
+        		   WHERE RN > ( ( #{pageMaker.cri.pageNum, jdbcType=INTEGER} - 1 ) * #{pageMaker.cri.amount} )
         		   
         		   ]]>
   		</select>

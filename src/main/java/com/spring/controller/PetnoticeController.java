@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -89,11 +90,25 @@ public class PetnoticeController {
 
 	//상세조회
 	@GetMapping("/petdetail")
-	public String getAllBoard(int pet_notice_no, Model model) {
-		
-		model.addAttribute("petdetailList",service.getP(pet_notice_no));
+	public String getAllBoard(HttpServletRequest request, int pet_notice_no, Model model) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+         
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+         
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            model.addAttribute("petdetailList",service.getP(pet_notice_no));
 		
 		return "/pet/petdetail";
+        }else {
+        	return "redirect:/main/main";
+        }
 	}
 	   
 

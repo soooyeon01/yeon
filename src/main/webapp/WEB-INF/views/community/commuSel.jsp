@@ -40,7 +40,7 @@
 			
    			//Json으로 전달할 파라미터 변수선언
    			let c_no = ${selectone.c_no};
-   			let nickname = "${selectone.nickname}";
+   			let nickname = "${sessionScope.SESS_NICKNAME}";
    			let rcontent = $('#rcontent').val();
    		
    			if(nickname == ''){
@@ -88,9 +88,13 @@
 		
 		$(document).on("click", "#delete", function() {
 			/* const com_bno = ${board_no}; */
+			//const nickname = "${selectone.nickname}";
+   			/* const com_content =$('#com-content').text(); */
+   			const r_no = $(this).data("rno");
+   			//const r_no = "${list2.r_no}";
+   			console.log("r_no는 "+r_no);
 			const nickname = "${selectone.nickname}";
    			/* const com_content =$('#com-content').text(); */
-   			
    			const r_no = ${list2.r_no};
    			console.log(r_no);
    			
@@ -150,8 +154,13 @@
 							reply_html += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
 							//reply_html += "<span id='Rno_"+Rno+"' >" + Rno + "</span><br>";
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
+<<<<<<< HEAD
+							if(nickname === "${sessionScope.SESS_NICKNAME}"){
+								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>";
+=======
 							if(nickname === "${selectone.nickname}"){
 								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+">[삭제]</span><br></div><hr>";
+>>>>>>> 460ca114cb3d527ae0d77b0c9e2bd1fb3e0a9dc8
 								 
 							}
 							else{
@@ -323,7 +332,12 @@
 	<div class="reply-box">
                     <input type="hidden" id="c_no" name="c_no" value="${selectone.c_no}">
    		                 <div>
+<<<<<<< HEAD
+   		                 <span>
+   		                 <input type="hidden" id="r_no" name="r_no" value="${list2.r_no}"></span>
+=======
    		                 <input type="hidden" id="r_no" name="r_no" value="${r_no}"></span>
+>>>>>>> 460ca114cb3d527ae0d77b0c9e2bd1fb3e0a9dc8
    		                 </div>
 						 <div class="reply-count">댓글 <span id="count">
    		                 <c:out value="${map.total}"/></span>
