@@ -24,8 +24,9 @@
 				,neuterYn
 				,specialMark
 				,careNm
-				,careTel
 				,careAddr
+				,careTel
+				
 				FROM  pet_notice 
 				 WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
 				 AND SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1) = #{region} 
@@ -59,9 +60,10 @@
 		,neuterYn
 		,specialMark
 		,careNm
-		,careTel
 		,careAddr
-		FROM pet_notice WHERE pet_notice_no=#{pet_notice} 
+		,careTel
+		
+		FROM pet_notice WHERE pet_notice_no=#{pet_notice_no} 
 		]]>
   	</select>
   	
@@ -84,8 +86,9 @@
 		,neuterYn
 		,specialMark
 		,careNm
-		,careTel
 		,careAddr
+		,careTel
+		
 		from pet_notice
   		 WHERE ROWNUM <=(2*10)
   		 )
@@ -119,8 +122,9 @@
 				,neuterYn
 				,specialMark
 				,careNm
-				,careTel
 				,careAddr
+				,careTel
+				
 				FROM  pet_notice 
 				 WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} ) 
 				  )

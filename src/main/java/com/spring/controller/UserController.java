@@ -132,12 +132,37 @@ public class UserController {
 	public String findPwdget(MembersDTO mdto) {
 		return "user/findPwd";
 	}
+//	
+//	@PostMapping ("/findPwd")
+//	public String findPwd(MembersDTO mdto) {
+//		servicep.findPwd(mdto);
+//		return "user/findPwd";
+//	}
 	
-	@PostMapping ("/findPwd")
-	public String findPwd(MembersDTO mdto) {
-		servicep.findPwd(mdto);
-		return "user/findPwd";
-	}
+	
+	@PostMapping ("/findPwd") 
+	public String findPwd(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("phone") int phone, Model model) throws IOException{
+		MembersDTO mdto = new MembersDTO();
+		
+		mdto.setName(name);
+		mdto.setEmail(email);
+		mdto.setPhone(phone);
+		
+		System.out.println("메롱 - " + name);
+		String pwd = servicep.findPwd(mdto);
+		
+		if (pwd != null) {
+			model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다."); 
+			 return "alert";
+			
+		} else {
+			model.addAttribute("msg", "없는 정보입니다");	
+			 return "alert";
+		}
+	}	
+	
+	
+	
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

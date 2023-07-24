@@ -38,218 +38,23 @@
 			    			</nav>
 						</div>
 	<script>
-	function updatePageNumberStyles(selectedPageNumber) {
-	    $('li.datatable-pagination-list-item a').each(function() {
-	        const pageNumber = parseInt($(this).text(), 10);
-	        if (pageNumber === selectedPageNumber) {
-	            $(this).css('background-color', 'tomato');
-	        } else {
-	            $(this).css('background-color', '');
-	        }
-	    });
-	}
+
 	function prev(prevPage){
-		var addr = "${pageContext.servletContext.contextPath}/pet/region"
 		var selectElement = document.getElementById("region-select");
-		//cri.setPageNum(page);
-		
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		$.ajax({
-            url: addr, 
-            type: "POST",
-            data: {
-                region: region,
-            	pageNum:page
-            },
-            dataType:"json",
-            success:function (data, textStatus) {
-                console.log("succedss");
-                window.scrollTo(0, 0);
-                updatePageNumberStyles(parseInt(prevPage, 10));
-                if (data.petList && data.petList.length > 0) {
-                    const animals = data.petList;
-                 
-                    let animalsHtml = ``;
-                    for (let i = 0; i < 10; i++) {
-                        let animal = animals[i];
-                         animalsHtml += `
-                       
-                        <div class="data">
-                          <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=`+animal.pet_notice_no+`">
-                            <img src=`+animal.popfile+` alt="펫이미지" style="height: 300px" />
-                          </a>
-                          <div>
-                            <br>
-                            <p style="display: block;">품종 : `+animal.kindCd+`</p>
-                            <br>
-                            <p style="display: block;">나이 : `+animal.age+`</p>
-                            <br>
-                            <p style="display: block;">무게 : `+animal.weight+`</p>
-                            <br>
-                            <p style="display: block;">성별 : `+animal.sexCd+`</p>
-                            <br>
-                            <p style="display: block;">특징 : `+animal.specialMark+`</p>
-                            <br>
-                          </div>
-                        </div>`;
-                        
-                    }
-                   
-                  
-                    $("#animals-container .container").html(animalsHtml);
-                 
-                } else {
-     
-                    location.href="${pageContext.servletContext.contextPath}/pet/petall";
-                   
-                } 
-                
-             
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
+		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + prevPage; 
 	}
-	
-	
-	
+
 	function pageNum(page){
-	
-		var addr = "${pageContext.servletContext.contextPath}/pet/region"
 		var selectElement = document.getElementById("region-select");
-		//cri.setPageNum(page);
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		//console.log("page"+page);
-                $.ajax({
-                    url: addr, 
-                    type: "POST",
-                    data: {
-                        region: region,
-                    	pageNum:page
-                    },
-                    dataType:"json",
-                    success:function (data, textStatus) {
-                        console.log("succedss");
-                        window.scrollTo(0, 0);
-                        updatePageNumberStyles(parseInt(page, 10));
-                        if (data.petList && data.petList.length > 0) {
-                            const animals = data.petList;
-                         
-                            let animalsHtml = ``;
-                            for (let i = 0; i < 10; i++) {
-                                let animal = animals[i];
-                                 animalsHtml += `
-                               
-                                <div class="data">
-                                  <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=`+animal.pet_notice_no+`">
-                                    <img src=`+animal.popfile+` alt="펫이미지" style="height: 300px" />
-                                  </a>
-                                  <div>
-                                    <br>
-                                    <p style="display: block;">품종 : `+animal.kindCd+`</p>
-                                    <br>
-                                    <p style="display: block;">나이 : `+animal.age+`</p>
-                                    <br>
-                                    <p style="display: block;">무게 : `+animal.weight+`</p>
-                                    <br>
-                                    <p style="display: block;">성별 : `+animal.sexCd+`</p>
-                                    <br>
-                                    <p style="display: block;">특징 : `+animal.specialMark+`</p>
-                                    <br>
-                                  </div>
-                                </div>`;
-                                
-                            }
-                           
-                          
-                            $("#animals-container .container").html(animalsHtml);
-                         	
-                        } else {
-             
-                            location.href="${pageContext.servletContext.contextPath}/pet/petall";
-                           
-                        } 
-                         
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        console.log(jqXHR);
-                        console.log(textStatus);
-                        console.log(errorThrown);
-                    }
-                });
-          
+		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + page; 
 	}
 	
 	function next(nextPage){
-		var addr = "${pageContext.servletContext.contextPath}/pet/region"
 		var selectElement = document.getElementById("region-select");
-		//cri.setPageNum(page);
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		//location.href='${pageContext.servletContext.contextPath}/pet/petall?pageNum=${pageMaker.endPage + 1}&region=${param.region}'
-		$.ajax({
-            url: addr, 
-            type: "POST",
-            data: {
-                region: region,
-            	pageNum:nextPage
-            },
-            dataType:"json",
-            success:function (data, textStatus) {
-                console.log("succedss");
-                window.scrollTo(0, 0);
-                updatePageNumberStyles(parseInt(nextPage, 10));
-                if (data.petList && data.petList.length > 0) {
-                    const animals = data.petList;
-                 
-                    let animalsHtml = ``;
-                    for (let i = 0; i < 10; i++) {
-                        let animal = animals[i];
-                         animalsHtml += `
-                       
-                        <div class="data">
-                          <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=`+animal.pet_notice_no+`">
-                            <img src=`+animal.popfile+` alt="펫이미지" style="height: 300px" />
-                          </a>
-                          <div>
-                            <br>
-                            <p style="display: block;">품종 : `+animal.kindCd+`</p>
-                            <br>
-                            <p style="display: block;">나이 : `+animal.age+`</p>
-                            <br>
-                            <p style="display: block;">무게 : `+animal.weight+`</p>
-                            <br>
-                            <p style="display: block;">성별 : `+animal.sexCd+`</p>
-                            <br>
-                            <p style="display: block;">특징 : `+animal.specialMark+`</p>
-                            <br>
-                          </div>
-                        </div>`;
-                        
-                    }
-                  
-                  
-                    $("#animals-container .container").html(animalsHtml);
-                 
-                } else {
-                    
-                    location.href="${pageContext.servletContext.contextPath}/pet/petall";
-                   
-                } 
-                 
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });	
-				
-				
-				
-				
+		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + nextPage; 
 	}
 	
 </script>

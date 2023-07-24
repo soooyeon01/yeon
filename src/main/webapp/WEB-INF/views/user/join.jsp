@@ -134,7 +134,7 @@
                     }
                 },
                 error:function(){
-                    alert("에러입니다");
+                  
                 }
             });
             return result;
@@ -163,7 +163,7 @@
                         }
                     },
                     error:function(){
-                        alert("에러입니다");
+      
                     }
                 });
                 return result;
@@ -192,7 +192,7 @@
                             }
                         },
                         error:function(){
-                            alert("에러입니다");
+                       
                         }
                     });
                     return result;
