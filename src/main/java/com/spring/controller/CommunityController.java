@@ -54,14 +54,16 @@ public class CommunityController {
 	 */
 	
 	@PostMapping("/newR")
-	public String InsertComment(@RequestBody ReplyDTO rdto, HttpServletRequest request) {
+	@ResponseBody		
+	public Map<String, String> newR(@RequestBody ReplyDTO rdto, HttpServletRequest request) {
 		HttpSession session = request.getSession();
         boolean SESS_AUTH = false;
         System.out.println("댓글 등록 통신 성공");
+        
         try {
             SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
         }catch(Exception e) {}
-         
+        Map<String, String> map = new HashMap<>(); 
         if( SESS_AUTH ) {
 //          request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
@@ -72,16 +74,54 @@ public class CommunityController {
 			
 			rservice.registerReply(rdto);
 			log.info("댓글 등록 서비스 성공");
-			return "newSuccess";
+			
+			map.put("result", "newSuccess");
+			
         } else {
-			return "fail";
+        	map.put("result", "fail");
 		}
+        return map;
 	}
+	
+	@PostMapping("/delR")
+	@ResponseBody		
+	public Map<String, String> DeleteR(@RequestBody ReplyDTO rdto, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+        System.out.println("댓글 삭제 통신 성공");
+        
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+        Map<String, String> map = new HashMap<>(); 
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            
+            log.info("로그인 유지중...");
+			
+			rservice.removeReply(rdto);
+			log.info("댓글 삭제 서비스 성공");
+			
+			map.put("result", "delSuccess");
+			
+        } else {
+        	map.put("result", "fail");
+		}
+        return map;
+	}
+	
 	// localhost:8080/4jojo/community/replyList/{c_no}
 	@GetMapping("/reply/{c_no}")
+	@ResponseBody
 	public Map<String, Object> getList(@PathVariable int c_no, Model model) {
 		log.info("댓글 목록 컨트롤러 동작");
 		List<ReplyDTO> list = rservice.getReplyList(c_no);
+		List<ReplyDTO> list2 = rservice.getReplyList(c_no);
+		log.info("댓글리스트"+list);
+		model.addAttribute("list2",list2);
 		int total = rservice.cntTotal(c_no);
 		model.addAttribute("total",total);
 		

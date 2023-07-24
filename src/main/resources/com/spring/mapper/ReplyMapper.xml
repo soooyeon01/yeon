@@ -24,12 +24,8 @@
 	      INSERT INTO reply(r_no, c_no, nickname, rcontent, reg_date) VALUES(seq_reply_no.nextval, #{c_no}, #{nickname,jdbcType=VARCHAR}, #{rcontent,jdbcType=VARCHAR}, sysdate)
 	<!-- #{nickname,jdbcType=VARCHAR} --><!-- #{title,jdbcType=VARCHAR} --><!-- #{content,jdbcType=VARCHAR} -->
 	</insert>
-	  
-	<update id="updateReply">
-	      UPDATE reply SET rcontent=#{rcontent,jdbcType=VARCHAR} WHERE r_no=#{r_no} and c_no=#{c_no}
-	</update>
 
 	<delete id="deleteReply">
-	      DELETE FROM reply WHERE r_no=#{r_no} and c_no=#{c_no}
+	      DELETE FROM reply WHERE r_no=#{r_no}
 	</delete>
   </mapper>
