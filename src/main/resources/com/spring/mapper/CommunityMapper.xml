@@ -45,3 +45,4 @@
 	      DELETE FROM community WHERE c_no=#{c_no}
 	</delete>
   </mapper>
+	

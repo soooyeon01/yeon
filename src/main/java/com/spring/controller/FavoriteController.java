@@ -1,5 +1,9 @@
 package com.spring.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,30 +25,73 @@ public class FavoriteController {
 	private final F_W_Service servicew;
 	private final F_P_Service servicep;
 	@GetMapping("/favorites")
-	public String getSBoard(Model model, Criteria cri) {
+	public String getSBoard(HttpServletRequest request, Model model, Criteria cri, String nickname) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+         
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+         
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            nickname = (String) session.getAttribute("SESS_NICKNAME");
 		int totalCount=services.getCountAllBoard();
 		PageMaker pageMaker = new PageMaker(cri,totalCount);
-		model.addAttribute("favorites",services.getSBoardByPage(pageMaker));
+		model.addAttribute("favorites",services.getSBoardByPage(nickname,pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/fa/favorites";
+        }else {
+        	return "redirect:/main/main";
+        }
 	}
 	@GetMapping("/favoritew")
-	public String getWBoard(Model model, Criteria cri) {
+	public String getWBoard(HttpServletRequest request, Model model, Criteria cri, String nickname) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+         
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+         
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            nickname = (String) session.getAttribute("SESS_NICKNAME");
 		int totalCount=servicew.getCountAllBoard();
 		PageMaker pageMaker = new PageMaker(cri,totalCount);
-		model.addAttribute("favoritew",servicew.getWBoardByPage(pageMaker));
+		model.addAttribute("favoritew",servicew.getWBoardByPage(nickname,pageMaker));
 		model.addAttribute("pageMaker",pageMaker);
 		return "/fa/favoritew";
+        }else {
+        	return "redirect:/main/main";
+        }
 	}
-	@GetMapping("/favoritep")
-	public String getPBoard(Model model, Criteria cri) {
-		int totalCount=servicep.getCountAllBoard();
-		PageMaker pageMaker = new PageMaker(cri,totalCount);
-		model.addAttribute("favoritep",servicep.getPBoardByPage(pageMaker));
-		model.addAttribute("pageMaker",pageMaker);
-		return "/fa/favoritep";
-	}
-	
-	
-	
+	@RequestMapping("/favoritep")
+	public String getPBoard(HttpServletRequest request, Model model, Criteria cri, String nickname) {
+		HttpSession session = request.getSession();
+        boolean SESS_AUTH = false;
+         
+        try {
+            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
+        }catch(Exception e) {}
+         
+        if( SESS_AUTH ) {
+//          request.setCharacterEncoding("utf-8");
+            request.setAttribute("SESS_AUTH", false);
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            nickname = (String) session.getAttribute("SESS_NICKNAME");
+			int totalCount=servicep.getCountAllBoard();
+			PageMaker pageMaker = new PageMaker(cri,totalCount);
+			model.addAttribute("favoritep",servicep.getPBoardByPage(nickname,pageMaker));
+			model.addAttribute("pageMaker",pageMaker);
+			return "/fa/favoritep";
+	        }else {
+	        	return "redirect:/main/main";
+			}
+		}
+		
 }

@@ -46,11 +46,6 @@ public class ApiWithDataController{
 	   ArrayList<W_DTO> list = new ArrayList<>();
 	
 	   try {
-		   
-		   
-		   
-		   
-		   
 	      // parsing할 url 지정(API 키 포함해서)
 	      for (int i = 1; i < max; i++) {
 	     	 String url = "https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc"
@@ -68,7 +63,7 @@ public class ApiWithDataController{
 	         NodeList nList = doc.getElementsByTagName("item");
 	         System.out.println("파싱할 리스트 수: " + nList.getLength());
 	         System.out.println("여기1");
-	         list = removeDuplicates(list);
+	        
 	         for (int temp = 0; temp < nList.getLength(); temp++) {
 	            Node nNode = nList.item(temp);
 	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -111,11 +106,7 @@ public class ApiWithDataController{
 	} // try~catch end
 	
 	
-	private ArrayList<W_DTO> removeDuplicates(List<W_DTO> list) {
-        Set<W_DTO> set = new HashSet<>(list);
-        return new ArrayList<>(set);
-    }
-	
+
 	
 	// tag값의 정보를 가져오는 메소드
 	 public static String getTagValue(String name, Element eElement) {
