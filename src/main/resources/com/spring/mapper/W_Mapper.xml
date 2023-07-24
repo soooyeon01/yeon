@@ -63,6 +63,7 @@
 				FROM  with_pet
 				 WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
 				 AND SUBSTR(road, 1, INSTR(road, ' ') - 1) = #{region}   
+				 AND category3 = #{category3,jdbcType=VARCHAR}
 				  )
 				WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
 				]]>
@@ -71,7 +72,8 @@
 </select>
 <select id="selectCountRegionWith" parameterType="string" resultType="int">	
   		
-  			SELECT COUNT(1) FROM with_pet WHERE(SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}
+  			SELECT COUNT(1) FROM with_pet WHERE(SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region} 
+  			AND category3 = #{category3,jdbcType=VARCHAR}
   		
   	</select>
   

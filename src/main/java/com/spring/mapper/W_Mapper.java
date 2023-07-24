@@ -13,9 +13,9 @@ public interface W_Mapper {
 	List<W_DTO> selectAllBoard();
 	
 	List<W_DTO> selectAllBoardByPage(PageMaker pageMaker);
-	List<W_DTO> selectRegionWith(@Param("region") String region, @Param("pageMaker") PageMaker pageMaker);
+	List<W_DTO> selectRegionWith(@Param("region") String region,@Param("category3") String category3, @Param("pageMaker") PageMaker pageMaker);
 	public int selectCountAllBoard();
-	int selectCountRegionWith(String region);
+	int selectCountRegionWith(@Param("region") String region,@Param("category3") String category3);
 	
 	int insertWith_petData(W_DTO dto);
 	int deleteWith_petData(int with_pet_no);	

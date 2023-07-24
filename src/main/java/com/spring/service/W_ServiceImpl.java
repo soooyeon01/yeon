@@ -26,14 +26,14 @@ public class W_ServiceImpl implements W_Service {
 	}
 
 	@Override
-	public List<W_DTO> getRegionWith(String region, PageMaker pageMaker) {
+	public List<W_DTO> getRegionWith(String region, String category3, PageMaker pageMaker) {
 		
-		return mapper.selectRegionWith(region, pageMaker);
+		return mapper.selectRegionWith(region, category3, pageMaker);
 	}
 	
 	@Override
-	public int getCountRegionWith(String region) {
-		return mapper.selectCountRegionWith(region);
+	public int getCountRegionWith(String region,String category3) {
+		return mapper.selectCountRegionWith(region, category3);
 	}
 	
 	

@@ -23,9 +23,13 @@
 	          $(document).ready(function () {
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
-	                  location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region; 
+	                  const category3 = '${param.category3}';
+	                  location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&category3="+category3; 	                 
 	              })
 	          });
+	          
+	          
+	          
 	       </script>
 		<style>
 		
@@ -99,16 +103,18 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
         
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1">위드펫</h1>
-                      
+                    <div class="container-fluid px-10 pt-5 ps-4">
+                        <h1 class="mt-1"><b>${param.category3}</b></h1>
+                       </div>
+           				 <ol class="breadcrumb mb-4 pt-3">
+           				 </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
