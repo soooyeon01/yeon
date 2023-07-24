@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
 import com.spring.mapper.W_Mapper;
+import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,18 @@ public class W_ServiceImpl implements W_Service {
 	}
 
 	@Override
+	public List<W_DTO> getRegionWith(String region, PageMaker pageMaker) {
+		
+		return mapper.selectRegionWith(region, pageMaker);
+	}
+	
+	@Override
+	public int getCountRegionWith(String region) {
+		return mapper.selectCountRegionWith(region);
+	}
+	
+	
+	@Override
 	public List<W_DTO> getAllBoardByPage(PageMaker pageMaker) {
 		return mapper.selectAllBoardByPage(pageMaker);
 	}
@@ -33,7 +47,7 @@ public class W_ServiceImpl implements W_Service {
 		
 		return mapper.selectCountAllBoard();
 	}
-
+	//즐겨찾기
 	@Override
 	public int registerWithpetData(W_DTO dto) {
 		
@@ -46,25 +60,17 @@ public class W_ServiceImpl implements W_Service {
 		return mapper.deleteWith_petData(with_pet_no);
 	}
 
+	
+
+
+
+	//위드펫카테고리
 	@Override
-	public List<W_DTO> getRegionWith(String region) {
-		
-		return mapper.selectRegionWith(region);
+	public List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3) {
+		return mapper.selectCategoryWith(pageMaker,category3);
+	
 	}
 
 
-	/*
-	 * @Override public int getRegionWithCount(String region) { return
-	 * mapper.selectRegionWithCount(region); }
-	 */
-	
-	
-
-	//위드펫카테고리
-		@Override
-		public List<W_DTO> getCategoryWith(String category3) {		
-			List<W_DTO> result = mapper.selectRegionWith(category3);
-			return result;
-		}
 
 }

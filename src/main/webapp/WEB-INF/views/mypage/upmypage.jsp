@@ -75,6 +75,8 @@
   
   function pwdShow() {
 	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴
+
+	 
 	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypwd";
 	  return true;
 	} 
@@ -99,8 +101,9 @@
          color : darkgray;
          text-align : right;
       }
+      
        tr {
-          text-align : center;
+          text-align : center;         
        }
         a:hover{
                 background-color: #feeaa5;
@@ -195,40 +198,48 @@
               
                <div class="card-body">
             
-                  <table id="datatablesSimple" >
+                  <table id="datatablesSimple">
                  <c:forEach items="${membersDTO}" var="mdto">
 
-                        <tr>
-                           <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>      
+                        <tr>                       
+                           <td><br>이메일(아이디)</td>                        
+                            <td><br>${mdto.email}</td>      
                         </tr>                    
                       
                         <tr>         
-                           <td >비밀번호</td>
+                           <td>비밀번호</td>
                             <td><form action="${root }/mypage/upmypwd" method="post">
-   									<input type ="text" name ="pwd"  placeholder="${mdto.pwd}"/>
-   									<button type="submit" onclick="pwdShow();" >변경</button>
+                            		<br>
+   									<input type ="password" name ="pwd"  placeholder="현재 비밀번호 입력"/><br><br>
+   									<input type ="password" name ="newpwd"  placeholder="신규 비밀번호 입력"/><br><br>
+   									<input type ="password" name ="newcpwd"  placeholder="신규 비밀번호 입력 확인"/><br><br>
+   									<button type="submit" onclick="pwdShow();" >비밀번호 변경</button>
+   									<br>
    									<input type="hidden" name="email" value="${mdto.email}">
+   									
 								</form>			
 							</td>
                         </tr>                                         
                        
                         <tr>
-                           <td>이메일</td>                 
-                         <td>${mdto.email}</td>
+                           <td>닉네임</td>                 
+                         <td>${mdto.nickname}<br></td>
                         </tr>
                        
-                        <tr>
+                        <tr>               
                            <td>이름</td>
-                           <td>${mdto.name}</td>       
+                           <td>${mdto.name}<br></td>  
+                           <br>     
                         </tr>                       
                        
                         <tr>
                            <td>전화번호</td>
                            <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="post">
+   									<br>
    									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
-   									<button type="submit" onclick="phoneShow();">변경</button>
+   									<button type="submit" onclick="phoneShow();">전화번호 변경</button><br><br>
    									<input type="hidden" name="email" value="${mdto.email}">
+   									
 								</form>	
 							</td>    
                         </tr>

@@ -58,6 +58,10 @@
   function upmypage(){
 	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
 	  }
+  function updatecheck(){
+	  	location.href = "${pageContext.servletContext.contextPath}/mypage/updatecheck";
+	  }
+  
   function mypaper(){
 		let nickname=document.getElementsByName("nickname").value;
 		location.href = "${pageContext.servletContext.contextPath}/community/myclist";
@@ -198,7 +202,7 @@
                      <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="upmypage();">정보 수정</button>&nbsp;
+                      <button type="button" class ="btn btn-warning" onclick="updatecheck();">정보 수정</button>&nbsp;
                     </div>
                     
                      <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px;">회원 탈퇴</button>

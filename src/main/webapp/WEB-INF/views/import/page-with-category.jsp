@@ -3,13 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+	<script>
+							function next(){
+								location.href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${pageMaker.endPage + 1}";
+							}
+							function pagenum(){
+								location.href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${status.index}";
+							}
+							function prev(){
+								location.href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${pageMaker.startPage -1}";
+							}
+							
+						</script>
+
 						<div class="datatable-bottom">
 					    	<nav class="datatable-pagination">
 						    	<ul class="datatable-pagination-list">
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${pageMaker.startPage -1}" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="javascript:void(0)" onclick="prev();" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
@@ -23,20 +36,21 @@
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a 	href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${status.index}" 
-						    				class="datatable-pagination-list-item-link"
+						    			<a 	href= "javascript:void(0)" onclick="pagenum();" class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
 						    		</li>
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a href="${pageContext.servletContext.contextPath}/with/withcaselect?pageNum=${pageMaker.endPage + 1}" class="datatable-pagination-list-item-link">›</a>
+						    			<a href="javascript:void(0)" onclick="next();" class="datatable-pagination-list-item-link">›</a>
+
 						    		</c:if>
 						    		</li>
 					    		</ul>
 			    			</nav>
 						</div>
+						
 						
 						
 						

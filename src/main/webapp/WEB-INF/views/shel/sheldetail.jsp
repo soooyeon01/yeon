@@ -60,72 +60,120 @@
 				    .bgcolor{
 				   background-color: #f9f8f3;
 				    }
-
-
+					.img_fa1 {
+				    	width: 100px; 
+				    	height: 100px;
+				    	border:0;
+				    }
+				    .img_fa2{
+				    	width: 100px; 
+				    	height: 100px;
+				    	display:none;
+				    	margin: 0;
+						padding: 0;
+						border: none;
+						background: none;
+				    }
+					
 
 		</style>
 		<script>
-		function sendFavorites() {
-			  var favorites = [];
-			  $("input[name='favorite']:checked").each(function() {
-			    favorites.push($(this).val());
-			  });
+		function applyImageCheckboxStyle() {
+		    $('.img_fa1, .img_fa2').on('click', function () {
+		        var img_fa1 = $(this).closest('label').find('.img_fa1');
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
 
-			  $.ajax({
-			    url: "${pageContext.servletContext.contextPath}/shel/registershel",
-			    type: "POST",
-			    data: {
-			      shelter_no: favorites.join(","),
-			      
-			    },
-			    dataType: "json",
-			    success: function(data) {
-			      if (data.result === 1) {
-			        var msg = favorites.length + "건 등록되었습니다.";
-			        alert(msg);
-			       
-			      } 
-			    },
-			    error: function(jqXHR, textStatus, errorThrown) {
-			      console.log(jqXHR);
-			      console.log(textStatus);
-			      console.log(errorThrown);
-			      alert("오류가 발생했습니다. 다시 시도해주세요.");
-			    }
-			  });
-			}
-			  function removeFavorites() {
-				  var favorites = [];
-				  $("input[name='favorite']:checked").each(function() {
-				    favorites.push($(this).val());
-				  });
+		        img_fa1.toggle();
+		        img_fa2.toggle();
+		    });
+		}
+		$(document).ready(function () {
+		    applyImageCheckboxStyle();
+		    $(".img_fa1, .img_fa2").on("click", function () {
+		        var img_fa1 = $(this).closest('label').find('.img_fa1');
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var isChecked = img_fa2.is(':visible');
 
-				  $.ajax({
-				    url: "${pageContext.servletContext.contextPath}/shel/removeshel",
-				    type: "POST",
-				    data: {
-				      shelter_no: favorites.join(","),
-				      
-				    },
-				    dataType: "json",
-				    success: function(data) {
-				      if (data.result === 1) {
-				        var msg = favorites.length + "건 삭제되었습니다.";
-				        alert(msg);
-				        
-				      } else {
-				        alert("처리에 실패했습니다. 다시 시도해주세요.");
-				      }
-				    },
-				    error: function(jqXHR, textStatus, errorThrown) {
-				      console.log(jqXHR);
-				      console.log(textStatus);
-				      console.log(errorThrown);
-				      alert("오류가 발생했습니다. 다시 시도해주세요.");
-				    }
-				  });
-				}
+		        if (isChecked) {
+		            // 체크가 선택된 경우
+		            sendFavorites(img_fa1);
+		        } else {
+		            // 체크가 해제된 경우
+		            removeFavorites(img_fa2);
+		        }
+		    });
+		});
+		
+		function sendFavorites(img_fa1) {
+		    var favorites = img_fa1.data("value");
+
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/shel/registershel",
+		        type: "POST",
+		        data: {
+		            shelter_no: favorites
+		        },
+		        dataType: "json",
+		        success: function(data) {
+		            if (data.result === 1) {
+		                alert("등록되었습니다.");
+		            }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 다시 시도해주세요.");
+		        }
+		    });
+		}
+		function removeFavorites(img_fa2) {
+		    var favorites = img_fa2.data("value");
+
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/shel/removeshel",
+		        type: "POST",
+		        data: {
+		            shelter_no: favorites
+		        },
+		        dataType: "json",
+		        success: function(data) {
+		            if (data.result === 1) {
+		                alert("삭제되었습니다.");
+		            } else {
+		                alert("처리에 실패했습니다. 다시 시도해주세요.");
+		            }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 다시 시도해주세요.");
+		        }
+		    });
+		}
 			  </script>
+			  <script>
+			    $(document).ready(function(){
+			            /*웹페이지 열었을 때*/
+			            $("#img1").show();
+			            $("#img2").hide();
+			 
+			            /*img1을 클릭했을 때 img2를 보여줌*/
+			            $("#img1").click(function(){
+			                $("#img1").hide();
+			                $("#img2").show();
+			                //$("#fa").prop("checked",false);
+			            });
+			 
+			            /*img2를 클릭했을 때 img1을 보여줌*/
+			            $("#img2").click(function(){
+			                $("#img1").show();
+			                $("#img2").hide();
+			                //$("#fa").prop("checked",false);
+			            });
+			        });
+			</script>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
@@ -183,8 +231,8 @@
 
 	                                    <thead>
 	                                        <tr>
-	                                        	<th>check</th>
-	                                       		<th>고유번호</th>
+	                                        	<th></th>
+	                                       		
 	                                            <th>보호소 이름</th>
 	                                            <th>보호소 유형 </th>
 	                                            <th>구조대상동물</th>
@@ -208,8 +256,15 @@
 	                                    	<c:forEach var="S_DTO" items="${sheldetailList}">
 											<tr>
 												<!-- pageScope에 vo가 생성되었다.  -->
-												<td><input type="checkbox" name="favorite" style="transform:scale(1.5);" value="${S_DTO.shelter_no}" /></td>
-												<td >${S_DTO.shelter_no}</td>
+												<td>
+												<label>
+													 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${S_DTO.shelter_no}">
+													 <img class="img_fa1" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa1.png">
+													 <img class="img_fa2" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa2.png" style="display:none;">
+												</label>
+												
+												</td>
+											
 												<td >${S_DTO.careNm}</td>
 												<td >${S_DTO.divisionNm}</td>
 												<td >${S_DTO.saveTrgtAnimal}</td>
@@ -234,10 +289,7 @@
 	                                </table>
 	       
 	                           
-	                              <button type="button" class="send-favorites col p-3 btn btn-primary" 
-											onclick="sendFavorites();">전송</button>
-	    								<button type="button" class="remove-favorites col p-3 btn btn-primary" 
-											onclick="removeFavorites();">삭제</button>
+	                            
 	                              
 	                            </div>
 	                            

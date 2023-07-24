@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.io.IOException;
 
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,12 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_S_DTO;
 import com.spring.domain.S_DTO;
-import com.spring.domain.W_DTO;
 import com.spring.service.S_Service;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
@@ -43,27 +44,46 @@ public class ShelterController {
 		model.addAttribute("sheldetailList",service.getS(shelter_no));
 		return "/shel/sheldetail";
 	}
-	@GetMapping("/shelall")
-	public String getAllBoard(Criteria cri, Model model) {
-		int totalCount = service.getCountAllBoard();
-		PageMaker pageMaker = new PageMaker(cri, totalCount); 
-		model.addAttribute("shelList",service.getAllBoardByPage(pageMaker));
-		model.addAttribute("pageMaker",pageMaker);
-		return "/shel/shel";
-	}
 	
-	@RequestMapping("/shelselect")
-    @ResponseBody
-    public Map<String, List<S_DTO>> getShelListByRegion(@RequestParam("region") String region) {
-        log.info("이게 널이니?"+region);
-        List<S_DTO> shelList = service.getRegionShel(region);
-
-        Map<String, List<S_DTO>> response = new HashMap<>();
-        response.put("shelList", shelList);
-
-        return response;
+	// 지역별 조회
+	@RequestMapping("/shelall")
+	@ResponseBody
+    public ModelAndView getShelListByRegion(
+    		@RequestParam(value="region", required=false, defaultValue="") String region,
+			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
+			Model model, 
+			Criteria cri) {
+		
+		ModelAndView mav = new ModelAndView("/shel/shel");
+		
+		PageMaker pageMaker;
+	    List<S_DTO> shelList;
+	    int totalCount;
+	    cri = new Criteria(pageNum);
+	    
+		if (region.isEmpty()) {
+	        totalCount = service.getCountAllBoard();
+	        pageMaker = new PageMaker(cri, totalCount);
+	        shelList = service.getAllBoardByPage(pageMaker);
+		        
+	    } else {
+	    	totalCount = service.getCountRegionShel(region);
+	        pageMaker = new PageMaker(cri, totalCount);    
+	        shelList = service.getRegionShel(region, pageMaker);
+	    }
+		
+       
+		Map<String, Object> response = new HashMap<>();
+	    response.put("shelList", shelList);
+	    model.addAttribute("pageMaker", pageMaker);
+	    mav.addObject("response", response);
+	    return mav;
     }
+
+
 	
+	
+	//즐겨찾기
 	
 	@RequestMapping("/registershel")
 	@ResponseBody
@@ -75,7 +95,7 @@ public class ShelterController {
 	    S_DTO dto2 = new S_DTO();
 	   
 		String shelter_no = request.getParameter("shelter_no");
-		
+		log.info(shelter_no);
 		Date favorites_reg_date = new Date(System.currentTimeMillis());
         if (shelter_no == null || shelter_no.equals("")) {
             shelter_no = "-1";

@@ -48,29 +48,3 @@ public class MypageServiceImpl implements MypageService {
 
 	
 }
-//	@Override
-//	public int modifymember(MembersDTO mdto) {
-//		return dao.updatePwd(vo);
-//	}
-//
-//	@Override
-//	public MembersVO readMember(String email) {
-//		// TODO Auto-generated method stub
-//		return dao.selectMember(email);
-//	}
-//
-//	@Override
-//	public int removeId(String email) {
-//		// TODO Auto-generated method stub
-//		return dao.deleteId(email);
-//	}
-
-
-	
-//	public void execute(HttpServletRequest request, HttpServletResponse reponse) {
-//		String pwd=request.getParameter("pwd");
-//		String uppwd=request.getParameter("uppwd");
-//		MypageDAO dao=MypageDAOImpl.getInstance();
-//		dao.updatePwd();
-//	}
-	

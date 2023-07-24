@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.P_DTO;
 import com.spring.domain.S_DTO;
 import com.spring.mapper.S_Mapper;
 import com.spring.util.PageMaker;
@@ -27,6 +28,18 @@ public class S_ServiceImpl implements S_Service {
 
 
 	@Override
+	public List<S_DTO> getRegionShel(String region, PageMaker pageMaker) {
+		
+		return mapper.selectRegionShel(region, pageMaker);
+	}
+	
+	@Override
+	public int getCountRegionShel(String region) {
+		return mapper.selectCountRegionShel(region);
+	}
+	
+	
+	@Override
 	public List<S_DTO> getAllBoardByPage(PageMaker pageMaker) {
 	
 		return mapper.selectAllBoardByPage(pageMaker);
@@ -38,6 +51,8 @@ public class S_ServiceImpl implements S_Service {
 		return mapper.selectCountAllBoard();
 	}
 
+	
+	
 	@Override
 	public int registerShelterData(S_DTO dto) {
 		
@@ -50,10 +65,6 @@ public class S_ServiceImpl implements S_Service {
 		return mapper.deleteShelterData(shelter_no);
 	}
 
-	@Override
-	public List<S_DTO> getRegionShel(String region) {
-		
-		return mapper.selectRegionShel(region);
-	}
+	
 
 }

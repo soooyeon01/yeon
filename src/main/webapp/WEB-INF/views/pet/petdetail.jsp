@@ -20,67 +20,105 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 		<script>
-		function sendFavoritep() {
-			  var favoritep = [];
-			  $("input[name='favorite']:checked").each(function() {
-			    favoritep.push($(this).val());
-			  });
+		function applyImageCheckboxStyle() {
+		    $('.img_fa1, .img_fa2').on('click', function () {
+		        var img_fa1 = $(this).closest('label').find('.img_fa1');
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
 
-			  $.ajax({
-			    url: "${pageContext.servletContext.contextPath}/pet/registerpet",
-			    type: "POST",
-			    data: {
-			      pet_notice_no: favoritep.join(","),
-			      
-			    },
-			    dataType: "json",
-			    success: function(data) {
-			      if (data.result === 1) {
-			        var msg = favoritep.length + "건 등록되었습니다.";
-			        alert(msg);
-			       
-			      } 
-			    },
-			    error: function(jqXHR, textStatus, errorThrown) {
-			      console.log(jqXHR);
-			      console.log(textStatus);
-			      console.log(errorThrown);
-			      alert("오류가 발생했습니다. 다시 시도해주세요.");
-			    }
-			  });
-			}
-			  function removeFavoritep() {
-				  var favoritep = [];
-				  $("input[name='favorite']:checked").each(function() {
-				    favoritep.push($(this).val());
-				  });
+		        img_fa1.toggle();
+		        img_fa2.toggle();
+		    });
+		}
+		$(document).ready(function () {
+		    applyImageCheckboxStyle();
+		    $(".img_fa1, .img_fa2").on("click", function () {
+		        var img_fa1 = $(this).closest('label').find('.img_fa1');
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var isChecked = img_fa2.is(':visible');
 
-				  $.ajax({
-				    url: "${pageContext.servletContext.contextPath}/pet/removepet",
-				    type: "POST",
-				    data: {
-				      pet_notice_no: favoritep.join(","),
-				      
-				    },
-				    dataType: "json",
-				    success: function(data) {
-				      if (data.result === 1) {
-				        var msg = favoritep.length + "건 삭제되었습니다.";
-				        alert(msg);
-				        
-				      } else {
-				        alert("처리에 실패했습니다. 다시 시도해주세요.");
-				      }
-				    },
-				    error: function(jqXHR, textStatus, errorThrown) {
-				      console.log(jqXHR);
-				      console.log(textStatus);
-				      console.log(errorThrown);
-				      alert("오류가 발생했습니다. 다시 시도해주세요.");
-				    }
-				  });
-				}
+		        if (isChecked) {
+		            // 체크가 선택된 경우
+		            sendFavoritep(img_fa1);
+		        } else {
+		            // 체크가 해제된 경우
+		            removeFavoritep(img_fa2);
+		        }
+		    });
+		});
+		
+		function sendFavoritep(img_fa1) {
+		    var favoritep = img_fa1.data("value");
+		    console.log(favoritep);
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/pet/registerpet",
+		        type: "POST",
+		        data: {
+		           pet_notice_no: favoritep
+		        },
+		        dataType: "json",
+		        success: function(data) {
+		            if (data.result === 1) {
+		                alert("등록되었습니다.");
+		            }else{
+		            	alert("처리 실패");
+		            }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 다시 시도해주세요.");
+		        }
+		    });
+		}
+		function removeFavoritep(img_fa2) {
+		    var favoritep = img_fa2.data("value");
+
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/pet/removepet",
+		        type: "POST",
+		        data: {
+		            pet_notice_no: favoritep
+		        },
+		        dataType: "json",
+		        success: function(data) {
+		            if (data.result === 1) {
+		                alert("삭제되었습니다.");
+		            } else {
+		                alert("처리에 실패했습니다. 다시 시도해주세요.");
+		            }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 다시 시도해주세요.");
+		        }
+		    });
+		}
 			  </script>
+			  <script>
+			    $(document).ready(function(){
+			            /*웹페이지 열었을 때*/
+			            $("#img1").show();
+			            $("#img2").hide();
+			 
+			            /*img1을 클릭했을 때 img2를 보여줌*/
+			            $("#img1").click(function(){
+			                $("#img1").hide();
+			                $("#img2").show();
+			                //$("#fa").prop("checked",false);
+			            });
+			 
+			            /*img2를 클릭했을 때 img1을 보여줌*/
+			            $("#img2").click(function(){
+			                $("#img1").show();
+			                $("#img2").hide();
+			               // $("#fa").prop("checked",false);
+			            });
+			        });
+		
+			</script>
 		<style>
 		
 		  a:hover{
@@ -118,6 +156,21 @@
 				    .bgcolor{
 				   background-color: #f9f8f3;
 				    }
+				    .img_fa1 {
+				    	width: 200px; 
+				    	height: 200px;
+				    	border:0;
+				    }
+				    .img_fa2{
+				    	width: 200px; 
+				    	height: 200px;
+				    	display:none;
+				    	margin: 0;
+						padding: 0;
+						border: none;
+						background: none;
+				    }
+				    
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -169,13 +222,21 @@
                               
                             </div>
                             <div class="card-body">
-                           		
+                      			
+						
                            		  
 	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
-											
-												<!-- pageScope에 vo가 생성되었다.  -->
-												<p><input type="checkbox" name="favorite" style="transform:scale(1.5);" value="${P_DTO.pet_notice_no}" /></p>
-												<p><img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/></p>
+												<div style="float:right;">
+				                      				 <label>
+														 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
+														 <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png">
+														 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa2.png" style="display:none;">
+													</label>
+				                      			
+				                      			</div>	
+												<p>
+												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/>
+												</p>
 												<div style="font-size:15px;">접수일<p style="font-size:20px;">${P_DTO.happenDt}</p></div>
 												<div style="font-size:15px;">발견장소<p style="font-size:20px;">${P_DTO.happenPlace}</p></div>
 												<div style="font-size:15px;">품종<p style="font-size:20px;">${P_DTO.kindCd}</p></div>
@@ -183,39 +244,23 @@
 												<div style="font-size:15px;">나이<p style="font-size:20px;">${P_DTO.age}</p></div>								
 												<div style="font-size:15px;">체중<p style="font-size:20px;">${P_DTO.weight}</p></div>
 												<div style="font-size:15px;">공고번호<p style="font-size:20px;">${P_DTO.noticeNo}</p></div>
-												<div style="font-size:15px;">공고시작일<p style="font-size:20px;">${P_DTO.noticeSdt}</p></div>
-												<div style="font-size:15px;">공고종료일<p style="font-size:20px;">${P_DTO.noticeEdt}</p></div>
+												<div style="font-size:15px;">공고시작일 ~ 공고종료일<p style="font-size:20px;">${P_DTO.noticeSdt} ~ ${P_DTO.noticeEdt}</p></div>					
 												<div style="font-size:15px;">상태<p style="font-size:20px;">${P_DTO.processState}</p></div>
 												<div style="font-size:15px;">성별<p style="font-size:20px;">${P_DTO.sexCd}</p></div>
 												<div style="font-size:15px;">중성화여부<p style="font-size:20px;">${P_DTO.neuterYn}</p></div>
 												<div style="font-size:15px;">특징<p style="font-size:20px;">${P_DTO.specialMark}</p></div>
 												<div style="font-size:15px;">보호소이름<p style="font-size:20px;">${P_DTO.careNm}</p></div>
-												<div style="font-size:15px;">보호소전화번호<p style="font-size:20px;">${P_DTO.careAddr}</p></div>
-												<div style="font-size:15px;">보호장소<p style="font-size:20px;">${P_DTO.careTel}</p></div>
+												<div style="font-size:15px;">보호장소<p style="font-size:20px;">${P_DTO.careAddr}</p></div>
+												<div style="font-size:15px;">보호소전화번호<p style="font-size:20px;">${P_DTO.careTel}</p></div>
 												
 												
 											
 											</c:forEach>
-	                                
-	                                
-	                              <button type="button" class="send-favoritep col p-3 btn btn-primary" 
-											onclick="sendFavoritep();">전송</button>
-	    								<button type="button" class="remove-favoritep col p-3 btn btn-primary" 
-											onclick="removeFavoritep();">삭제</button>
-	                            </div>
-	                           
-	                          
-	                          
+	                                </div>
                         </div>
                     </div>
                 </main>
-              
             </div>
-      
-        
-        
-        
-        
     </body>
 </html>
 
