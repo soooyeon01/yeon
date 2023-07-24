@@ -40,7 +40,7 @@
 			
    			//Json으로 전달할 파라미터 변수선언
    			let c_no = ${selectone.c_no};
-   			let nickname = "${selectone.nickname}";
+   			let nickname = "${sessionScope.SESS_NICKNAME}";
    			let rcontent = $('#rcontent').val();
    		
    			if(nickname == ''){
@@ -61,21 +61,24 @@
    					}		
    				),
    				contentType: 'application/json',
+   				dataType: "json",
    				success:function(data){
-   					log.info('통신성공' + data);
-   					if(data === 'newSuccess') {
+   					//console.log('통신성공' + data);
+   					if(data.result === 'newSuccess') {
    						alert('댓글 등록이 완료되었습니다.');
-   						log.info('댓글 등록 완료');
+   						//console.log('댓글 등록 완료');
    						$('#nickname').val(nickname);
    	   					$('#rcontent').val('');
    	   					getList();
    					} else {
    						alert('로그인 이후 이용해주시기 바랍니다.');
-   						log.info('댓글 등록 실패');
+   						//console.log('댓글 등록 실패');
    					}
    				},
-   				error:function(){
-   					alert('통신실패');
+   				error:function(data,error){
+   					console.log(error);
+   					console.log(data);
+   					//alert('da');
    				}
    			});// 댓글 비동기 끝
    			
@@ -83,8 +86,50 @@
 		
 		getList();
 		
+		$(document).on("click", "#delete", function() {
+			/* const com_bno = ${board_no}; */
+			//const nickname = "${selectone.nickname}";
+   			/* const com_content =$('#com-content').text(); */
+   			const r_no = $(this).data("rno");
+   			//const r_no = "${list2.r_no}";
+   			console.log("r_no는 "+r_no);
+			const nickname = "${selectone.nickname}";
+   			/* const com_content =$('#com-content').text(); */
+   			const r_no = ${list2.r_no};
+   			console.log(r_no);
+   			
+   			//console.log("아르르ㅡㄹ엔오는 "+"Rno_"+Rno);
+   			const rcontent =$(this).data("id");
+   			//console.log(rcontent);
+			alert('댓글을 삭제하시겠습니까?');
+			console.log('댓글삭제');
+			//console.log(rcontent);
+		           $.ajax({
+		               type:'post',
+		               url:'<c:url value="/community/delR"/>',
+		               data:JSON.stringify(
+		                  {
+		                	  /* "com_bno":com_bno, */
+		                	//let nickname = "${selectone.nickname}";
+		             		//let rcontent = $('#rcontent').val();
+		             		
+		             		"r_no":r_no
+		                  }      
+		               ),
+		               contentType: 'application/json',
+		               success:function(data){
+		                  console.log('통신성공'+data);
+		                  alert('댓글이 삭제되었습니다');
+		                  getList();
+		               },
+		               error:function(){
+		                  alert('통신실패');
+		               }
+		            }); //댓글 삭제 비동기
+		     
+		});
+		
 		function getList() {
-			
 			const c_no = ${selectone.c_no};
 			const nickname = "${selectone.nickname}";
    			const rcontent = $('#rcontent').val();
@@ -100,13 +145,22 @@
 						
 						$('#count').html(data.total);
 						for(i = 0;i < list.length;i++){
-							log.info(data.total);
+							console.log(data.total);
+							console.log(list[i].r_no);
 							var rcontent = list[i].rcontent;
+							var r_no = list[i].r_no;
 							var nickname = list[i].nickname;
+							
 							reply_html += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
+							//reply_html += "<span id='Rno_"+Rno+"' >" + Rno + "</span><br>";
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
-							if(nickname === ${selectone.nickname}){
+<<<<<<< HEAD
+							if(nickname === "${sessionScope.SESS_NICKNAME}"){
+								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>";
+=======
+							if(nickname === "${selectone.nickname}"){
 								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+">[삭제]</span><br></div><hr>";
+>>>>>>> 460ca114cb3d527ae0d77b0c9e2bd1fb3e0a9dc8
 								 
 							}
 							else{
@@ -126,7 +180,7 @@
 				
 				}
 				);//getJson
-
+	
 		}
     	}) ;//jquery
 		</script>
@@ -245,25 +299,25 @@
 	<input type="hidden" name="c_no" value="${selectone.c_no}">
 	<div class="row">
         <div class="mt-3 col p-3">
-            <label for="reg_date">작성일:</label>
-            <p class="form-control" name="reg_date">${selectone.reg_date}</p>
+            <label>작성일:</label>
+            <p class="form-control" id="reg_date" name="reg_date">${selectone.reg_date}</p>
 		</div>
         <div class="mb-3 mt-3 col p-3">
-          	<label for="title">글제목:</label>
-            <p class="form-control" name="title">${selectone.title}</p>
+          	<label>글제목:</label>
+            <p class="form-control" id="title" name="title">${selectone.title}</p>
         </div>
         <div class="mb-3 mt-3 col p-3">
-            <label for="nickname">작성자:</label>
-            <p class="form-control" name="nickname">${selectone.nickname}</p>
+            <label>작성자:</label>
+            <p class="form-control" id="nickname" name="nickname">${selectone.nickname}</p>
             <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
         </div> 
          <div class="mt-3 col p-3">
-            <label for="reg_date">조회수:</label>
-            <p class="form-control" name="view_count">${selectone.view_count}</p>
+            <label>조회수:</label>
+            <p class="form-control" id="view_count" name="view_count">${selectone.view_count}</p>
 		</div>
 		<div class="mb-3 mt-3">
-        	<label for="content">글내용:</label>
-        	<p id="cont" class="form-control" name="content">${selectone.content}</p>
+        	<label>글내용:</label>
+        	<p id="cont" class="form-control" id="content" name="content">${selectone.content}</p>
      	</div>
      </div>
 	</form>
@@ -277,10 +331,17 @@
 	<%-- <%@ include file="../community/reply.jsp" %> --%>
 	<div class="reply-box">
                     <input type="hidden" id="c_no" name="c_no" value="${selectone.c_no}">
-   		                 <div class="reply-count">댓글 <span id="count">
-   		                 <c:out value="${map.total}"/></span>
+   		                 <div>
+<<<<<<< HEAD
+   		                 <span>
+   		                 <input type="hidden" id="r_no" name="r_no" value="${list2.r_no}"></span>
+=======
+   		                 <input type="hidden" id="r_no" name="r_no" value="${r_no}"></span>
+>>>>>>> 460ca114cb3d527ae0d77b0c9e2bd1fb3e0a9dc8
    		                 </div>
-							
+						 <div class="reply-count">댓글 <span id="count">
+   		                 <c:out value="${map.total}"/></span>
+   		                 </div>	
    		                 	   <!-- <span class="c-icon"><i class="fa-solid fa-user"></i>  -->
    		                 <div class="reply-name">
 	                        <span class="anonym">작성자 : 
