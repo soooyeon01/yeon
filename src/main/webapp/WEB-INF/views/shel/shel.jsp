@@ -99,7 +99,7 @@
         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
@@ -172,34 +172,13 @@
 	                                    
 	                                    <tbody>
 	                                    	<c:forEach var="S_DTO" items="${ response.shelList }" >
-											<tr>
+											<tr onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}'">
 												<!-- pageScope에 vo가 생성되었다.  -->
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.careNm}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.careAddr}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.careTel}
-												</a>
-												</td>										
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.weekOprStime}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}" >
-												${S_DTO.weekOprEtime}
-												</a>
-												</td>
-												
+												<td>${S_DTO.careNm}</td>
+												<td>${S_DTO.careAddr}</td>
+												<td>${S_DTO.careTel}</td>										
+												<td>${S_DTO.weekOprStime}</td>
+												<td>${S_DTO.weekOprEtime}</td>
 											</tr>
 											</c:forEach>
 	                                    </tbody>

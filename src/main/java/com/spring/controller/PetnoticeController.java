@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -37,170 +39,164 @@ import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+
 @Log4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/pet/*")
+
 public class PetnoticeController {
-	
+
 	private final P_Service service;
 	// localhost:8080/4jojo/pet/petdetail
-	
-//	@GetMapping("/petall")
-//	public String getPBoard(@RequestParam("region") String region, Model model, Criteria cri) {
-//		int totalCount = service.getCountAllBoard();
-//	    PageMaker pageMaker = new PageMaker(cri, totalCount);
-//		model.addAttribute("petList",service.getAllBoardByPage(pageMaker));
-//		model.addAttribute("pageMaker",pageMaker);
-//		return "/pet/pet";	
-//	}
+
 	@RequestMapping("/petall")
 	@ResponseBody
-    public ModelAndView getPetListByRegion(
-    		@RequestParam(value="region", required=false, defaultValue="") String region,
-			@RequestParam(value="pageNum", required=false, defaultValue="1") int pageNum,
-			Model model, 
+	public ModelAndView getPetListByRegion(
+			@RequestParam(value = "region", required = false, defaultValue = "") String region,
+			@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum, Model model,
 			Criteria cri) {
-		
-		ModelAndView mav = new ModelAndView("/pet/pet");
-		
-		PageMaker pageMaker;
-	    List<P_DTO> petList;
-	    int totalCount;
-	    cri = new Criteria(pageNum);
-	    
-		if (region.isEmpty()) {
-	        totalCount = service.getCountAllBoard();
-	        pageMaker = new PageMaker(cri, totalCount);
-	        petList = service.getAllBoardByPage(pageMaker);
-		        
-	    } else {
-	    	totalCount = service.getCountRegionPet(region);
-	        pageMaker = new PageMaker(cri, totalCount);    
-	        petList = service.getRegionPet(region, pageMaker);
-	    }
-		
-       
-		Map<String, Object> response = new HashMap<>();
-	    response.put("petList", petList);
-	    model.addAttribute("pageMaker", pageMaker);
-	    mav.addObject("response", response);
-	    return mav;
-    }
 
-	//상세조회
-	@GetMapping("/petdetail")
-	public String getAllBoard(HttpServletRequest request, int pet_notice_no, Model model) {
-		HttpSession session = request.getSession();
-        boolean SESS_AUTH = false;
-         
-        try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-        }catch(Exception e) {}
-         
-        if( SESS_AUTH ) {
-//          request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
-            String nickname = (String) session.getAttribute("SESS_NICKNAME");
-            model.addAttribute("petdetailList",service.getP(pet_notice_no));
-		
-		return "/pet/petdetail";
-        }else {
-        	return "redirect:/main/main";
-        }
+		ModelAndView mav = new ModelAndView("/pet/pet");
+
+		PageMaker pageMaker;
+		List<P_DTO> petList;
+		int totalCount;
+		cri = new Criteria(pageNum);
+
+		if (region.isEmpty()) {
+			totalCount = service.getCountAllBoard();
+			pageMaker = new PageMaker(cri, totalCount);
+			petList = service.getAllBoardByPage(pageMaker);
+
+		} else {
+			totalCount = service.getCountRegionPet(region);
+			pageMaker = new PageMaker(cri, totalCount);
+			petList = service.getRegionPet(region, pageMaker);
+		}
+
+		Map<String, Object> response = new HashMap<>();
+		response.put("petList", petList);
+		model.addAttribute("pageMaker", pageMaker);
+		mav.addObject("response", response);
+		return mav;
 	}
-	   
+
+	// 상세조회
+	@GetMapping("/petdetail")
+	public String getAllBoard(HttpSession session, int pet_notice_no, Model model) {
+		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
+
+		if (SESS_AUTH != null && SESS_AUTH) {
+			model.addAttribute("petdetailList", service.getP(pet_notice_no));
+
+			return "/pet/petdetail";
+		} else {
+			return "redirect:/main/main";
+		}
+	}
 
 	// 즐겨찾기 등록
-	@RequestMapping("/registerpet")
+	@PostMapping("/registerpet")
 	@ResponseBody
-	protected void  insertF_P(HttpServletRequest request, HttpServletResponse response
-	  
-	    
-	)throws ServletException, IOException {
+	public String insertF_P(
+	        @RequestParam(value = "pet_notice_no", required = false) String pet_notice_no,
+	        @RequestParam(required = false) String nickname, @RequestParam(required = false) String careNm,
+	        @RequestParam(required = false) String happendt, @RequestParam(required = false) String happenPlace,
+	        @RequestParam(required = false) String careAddr, @RequestParam(required = false) String kindCd,
+	        @RequestParam(required = false) String colorCd, @RequestParam(required = false) String age,
+	        @RequestParam(required = false) String weight, @RequestParam(required = false) String noticeNo,
+	        @RequestParam(required = false) String noticeSdt, @RequestParam(required = false) String noticeEdt,
+	        @RequestParam(required = false) String popfile, @RequestParam(required = false) String processState,
+	        @RequestParam(required = false) String sexCd, @RequestParam(required = false) String neuterYn,
+	        @RequestParam(required = false) String specialMark
+	) throws ServletException, IOException {
 	    F_P_DTO dto = new F_P_DTO();
 	    P_DTO dto2 = new P_DTO();
-	  
-		String pet_notice_no = request.getParameter("pet_notice_no");
-		 log.info(pet_notice_no);
-		Date favoritep_reg_date = new Date(System.currentTimeMillis());
-        if (pet_notice_no == null || pet_notice_no.equals("")) {
-        	pet_notice_no = "-1";
-        }
-        
-        dto.setNickname(request.getParameter("nickname"));
-        dto.setFavoritep_reg_date(favoritep_reg_date);
-        dto2.setPet_notice_no(Integer.parseInt(pet_notice_no));
-        dto2.setCareNm( request.getParameter("careNm"));
-        dto2.setHappenDt( request.getParameter("happendt"));
-        dto2.setHappenPlace( request.getParameter("happenPlace"));
-        dto2.setCareAddr( request.getParameter("careAddr"));
-        dto2.setKindCd( request.getParameter("kindCd"));
-        dto2.setColorCd( request.getParameter("colorCd"));
-        dto2.setAge( request.getParameter("age"));
-        dto2.setWeight( request.getParameter("weight"));
-        dto2.setNoticeNo( request.getParameter("noticeNo"));
-        dto2.setNoticeSdt( request.getParameter("noticeSdt"));
-        dto2.setNoticeEdt( request.getParameter("noticeEdt"));
-        dto2.setPopfile( request.getParameter("popfile"));
-        dto2.setProcessState( request.getParameter("processState"));
-        dto2.setSexCd( request.getParameter("sexCd"));
-        dto2.setNeuterYn( request.getParameter("neuterYn"));
-        dto2.setSpecialMark( request.getParameter("specialMark"));
-		
-        int result= service.registerP(dto2);
-		
-		
-		JsonObject jsonObj = new JsonObject();
-		jsonObj.addProperty("result", result);
-	
-		response.getWriter().println( new Gson().toJson(jsonObj) );
+
+	    log.info(pet_notice_no);
+	    Date favoritep_reg_date = new Date(System.currentTimeMillis());
+	    if (pet_notice_no == null || pet_notice_no.equals("")) {
+	        pet_notice_no = "-1";
+	    }
+
+	    dto.setNickname(nickname);
+	    dto.setFavoritep_reg_date(favoritep_reg_date);
+	    dto2.setPet_notice_no(Integer.parseInt(pet_notice_no));
+	    dto2.setCareNm(careNm);
+	    dto2.setHappenDt(happendt);
+	    dto2.setHappenPlace(happenPlace);
+	    dto2.setCareAddr(careAddr);
+	    dto2.setKindCd(kindCd);
+	    dto2.setColorCd(colorCd);
+	    dto2.setAge(age);
+	    dto2.setWeight(weight);
+	    dto2.setNoticeNo(noticeNo);
+	    dto2.setNoticeSdt(noticeSdt);
+	    dto2.setNoticeEdt(noticeEdt);
+	    dto2.setPopfile(popfile);
+	    dto2.setProcessState(processState);
+	    dto2.setSexCd(sexCd);
+	    dto2.setNeuterYn(neuterYn);
+	    dto2.setSpecialMark(specialMark);
+
+	    int result = service.registerP(dto2);
+
+	    JsonObject jsonObj = new JsonObject();
+	    jsonObj.addProperty("result", result);
+
+	    return jsonObj.toString();
 	}
-	
+
 	// 즐겨찾기 삭제
 	@RequestMapping("/removepet")
 	@ResponseBody
-	protected void  deleteF_P(HttpServletRequest request, HttpServletResponse response
-	  
-	    
-	)throws ServletException, IOException {
-		 F_P_DTO dto = new F_P_DTO();
-		    P_DTO dto2 = new P_DTO();
-		   
-			String pet_notice_no = request.getParameter("pet_notice_no");
-			
-			Date favoritep_reg_date = new Date(System.currentTimeMillis());
-	        if (pet_notice_no == null || pet_notice_no.equals("")) {
-	        	pet_notice_no = "-1";
-	        }
-	        
-	        dto.setNickname(request.getParameter("nickname"));
-	        dto.setFavoritep_reg_date(favoritep_reg_date);
-	        dto2.setPet_notice_no(Integer.parseInt(pet_notice_no));
-	        dto2.setCareNm( request.getParameter("careNm"));
-	        dto2.setHappenDt( request.getParameter("happendt"));
-	        dto2.setHappenPlace( request.getParameter("happenPlace"));
-	        dto2.setCareAddr( request.getParameter("careAddr"));
-	        dto2.setKindCd( request.getParameter("kindCd"));
-	        dto2.setColorCd( request.getParameter("colorCd"));
-	        dto2.setAge( request.getParameter("age"));
-	        dto2.setWeight( request.getParameter("weight"));
-	        dto2.setNoticeNo( request.getParameter("noticeNo"));
-	        dto2.setNoticeSdt( request.getParameter("noticeSdt"));
-	        dto2.setNoticeEdt( request.getParameter("noticeEdt"));
-	        dto2.setPopfile( request.getParameter("popfile"));
-	        dto2.setProcessState( request.getParameter("processState"));
-	        dto2.setSexCd( request.getParameter("sexCd"));
-	        dto2.setNeuterYn( request.getParameter("neuterYn"));
-	        dto2.setSpecialMark( request.getParameter("specialMark"));
-			
-	        int result= service.removeP(Integer.parseInt(pet_notice_no));
-			
-			
-			JsonObject jsonObj = new JsonObject();
-			jsonObj.addProperty("result", result);
-		
-			response.getWriter().println( new Gson().toJson(jsonObj) );
-		}
+	public String deleteF_P(@RequestParam(value = "pet_notice_no", required = false) String pet_notice_no,
+	        @RequestParam(required = false) String nickname, @RequestParam(required = false) String careNm,
+	        @RequestParam(required = false) String happendt, @RequestParam(required = false) String happenPlace,
+	        @RequestParam(required = false) String careAddr, @RequestParam(required = false) String kindCd,
+	        @RequestParam(required = false) String colorCd, @RequestParam(required = false) String age,
+	        @RequestParam(required = false) String weight, @RequestParam(required = false) String noticeNo,
+	        @RequestParam(required = false) String noticeSdt, @RequestParam(required = false) String noticeEdt,
+	        @RequestParam(required = false) String popfile, @RequestParam(required = false) String processState,
+	        @RequestParam(required = false) String sexCd, @RequestParam(required = false) String neuterYn,
+	        @RequestParam(required = false) String specialMark
+
+	) throws ServletException, IOException {
+		F_P_DTO dto = new F_P_DTO();
+	    P_DTO dto2 = new P_DTO();
+
+	    log.info(pet_notice_no);
+	    Date favoritep_reg_date = new Date(System.currentTimeMillis());
+	    if (pet_notice_no == null || pet_notice_no.equals("")) {
+	        pet_notice_no = "-1";
+	    }
+
+	    dto.setNickname(nickname);
+	    dto.setFavoritep_reg_date(favoritep_reg_date);
+	    dto2.setPet_notice_no(Integer.parseInt(pet_notice_no));
+	    dto2.setCareNm(careNm);
+	    dto2.setHappenDt(happendt);
+	    dto2.setHappenPlace(happenPlace);
+	    dto2.setCareAddr(careAddr);
+	    dto2.setKindCd(kindCd);
+	    dto2.setColorCd(colorCd);
+	    dto2.setAge(age);
+	    dto2.setWeight(weight);
+	    dto2.setNoticeNo(noticeNo);
+	    dto2.setNoticeSdt(noticeSdt);
+	    dto2.setNoticeEdt(noticeEdt);
+	    dto2.setPopfile(popfile);
+	    dto2.setProcessState(processState);
+	    dto2.setSexCd(sexCd);
+	    dto2.setNeuterYn(neuterYn);
+	    dto2.setSpecialMark(specialMark);
+
+		int result = service.removeP(Integer.parseInt(pet_notice_no));
+
+		JsonObject jsonObj = new JsonObject();
+	    jsonObj.addProperty("result", result);
+
+	    return jsonObj.toString();
+	}
 }

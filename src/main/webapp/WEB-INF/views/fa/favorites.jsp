@@ -138,28 +138,14 @@
 	                                    <tbody>
 								<c:forEach var="F_S_DTO" items="${favorites}"
 									varStatus="status">
-									<tr>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.favorites_no} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.nickname} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.shelter_no} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.careNm} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.careAddr} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.careTel} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.favorites_reg_date} </a></td>
+									<tr onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}'">
+										<td>${F_S_DTO.favorites_no}</td>
+										<td>${F_S_DTO.nickname}</td>
+										<td>${F_S_DTO.shelter_no}</td>
+										<td>${F_S_DTO.careNm}</td>
+										<td>${F_S_DTO.careAddr}</td>
+										<td>${F_S_DTO.careTel}</td>
+										<td>${F_S_DTO.favorites_reg_date}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -136,42 +136,14 @@
 	                                    </tfoot>
 	                                    <tbody>
 	                                    	<c:forEach var="F_W_DTO" items="${ favoritew }" >
-											<tr>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.favoritew_no}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.nickname}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.with_pet_no}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.building}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.road}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.tel}
-												</a>
-												</td>
-												<td>
-												<a href ="${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}" >
-												${F_W_DTO.favoritew_reg_date}
-												</a>
-												</td>
+											<tr onclick="location.href='${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}'">
+												<td>${F_W_DTO.favoritew_no}</td>
+												<td>${F_W_DTO.nickname}</td>
+												<td>${F_W_DTO.with_pet_no}</td>
+												<td>${F_W_DTO.building}</td>
+												<td>${F_W_DTO.road}</td>
+												<td>${F_W_DTO.tel}</td>
+												<td>${F_W_DTO.favoritew_reg_date}</td>
 											</tr>
 											</c:forEach>
 	                                    </tbody>

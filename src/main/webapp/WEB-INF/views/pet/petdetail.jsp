@@ -87,10 +87,10 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
-		                window.location = document.referrer;
+		                
 		            }else{
 		            	alert("등록되었습니다.");
-		            	window.location = document.referrer;
+		            	
 		            }
 		          
 		        },
@@ -115,10 +115,10 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
-		                window.location = document.referrer;
+		                
 		            } else {
 		                alert("삭제되었습니다.");
-		                window.location = document.referrer;
+		              
 		            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -129,8 +129,11 @@
 		        }
 		    });
 		}
-			  </script>
-			
+		function back(){
+			window.location = document.referrer;
+		}
+		</script>
+				
 		<style>
 		
 		  a:hover{
@@ -218,7 +221,7 @@
         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
@@ -245,7 +248,8 @@
 														 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa2.png" style="display:none;">
 													</label>
 				                      			
-				                      			</div>	
+				                      			</div>
+				                      			<button type="button" onclick="back();">뒤로가기</button>	
 												<p>
 												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/>
 												</p>
