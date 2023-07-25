@@ -15,16 +15,16 @@ import lombok.RequiredArgsConstructor;
 public class F_P_ServiceImpl implements F_P_Service {
 	private final F_P_Mapper mapper;
 	@Override
-	public List<F_P_DTO> getPBoard() {
+	public List<F_P_DTO> getPBoard(String nickname) {
 		
-		return mapper.selectPBoard();
+		return mapper.selectPBoard(nickname);
 	}
 
 
 	@Override
-	public List<F_P_DTO> getPBoardByPage(PageMaker pageMaker) {
+	public List<F_P_DTO> getPBoardByPage(String nickname,PageMaker pageMaker) {
 		
-		return mapper.selectPBoardByPage(pageMaker);
+		return mapper.selectPBoardByPage(nickname,pageMaker);
 	}
 
 

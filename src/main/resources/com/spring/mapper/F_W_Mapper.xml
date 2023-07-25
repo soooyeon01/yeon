@@ -5,14 +5,15 @@
   <mapper namespace="com.spring.mapper.F_W_Mapper">
   <select id="selectWBoard" resultType="com.spring.domain.F_W_DTO">
   		<![CDATA[
-  		SELECT f.favorites_no
+  		SELECT f.favoritew_no
       		     , f.favoritew_reg_date
       		     , w.with_pet_no
       		     , w.building
       		     , w.road
       		     , w.tel
       		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
-      		FROM favorites f
+      		FROM favoritew f
+      		JOIN with_pet w ON f.with_pet_no = w.with_pet_no
       		]]>
   	</select>
   	<select id="selectCountWBoard" parameterType="int" resultType="int">	
@@ -29,7 +30,7 @@
     building,
     road,
     tel,
-    (SELECT nickname FROM members WHERE nickname='aa') as nickname
+    nickname
   FROM (
     SELECT 
       ROWNUM as rn,
@@ -39,12 +40,12 @@
       w.building,
       w.road,
       w.tel,
-      (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      (SELECT nickname FROM members WHERE nickname = #{nickname,jdbcType=VARCHAR}) as nickname
     FROM favoritew f
     JOIN with_pet w ON f.with_pet_no = w.with_pet_no
-    WHERE ROWNUM <= ( #{cri.pageNum,jdbcType=INTEGER} * #{cri.amount} )
+    WHERE ROWNUM <= ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} * #{pageMaker.cri.amount} )
   )
-  WHERE rn > ( ( #{cri.pageNum,jdbcType=INTEGER} - 1 ) * #{cri.amount} )
+  WHERE rn > ( ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} - 1 ) * #{pageMaker.cri.amount} )
   ]]>
 </select>
   	</mapper>

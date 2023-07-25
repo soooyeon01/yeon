@@ -32,7 +32,7 @@
              ,careNm
               ,careAddr
              ,careTel
-             ,(SELECT nickname FROM members WHERE nickname='aa') as nickname
+             ,nickname
              FROM (
               SELECT 
               ROWNUM as rn
@@ -42,12 +42,12 @@
         		, s.careNm
         		, s.careAddr
         		, s.careTel
-        		, (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+        		, (SELECT nickname FROM members WHERE nickname = #{nickname,jdbcType=VARCHAR}) as nickname
         		FROM favorites f
         		JOIN shelter s ON f.shelter_no = s.shelter_no
-        		WHERE ROWNUM <= ( #{cri.pageNum,jdbcType=INTEGER} * #{cri.amount} )
+        		WHERE ROWNUM <= ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} * #{pageMaker.cri.amount} )
         		            )
-        		   WHERE rn > ( ( #{cri.pageNum,jdbcType=INTEGER} - 1 ) * #{cri.amount} )
+        		   WHERE rn > ( ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} - 1 ) * #{pageMaker.cri.amount} )
             ]]>
   	</select>
   	</mapper>

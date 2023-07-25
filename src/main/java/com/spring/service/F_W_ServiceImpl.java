@@ -21,9 +21,9 @@ public class F_W_ServiceImpl implements F_W_Service {
 
 
 	@Override
-	public List<F_W_DTO> getWBoardByPage(PageMaker pageMaker) {
+	public List<F_W_DTO> getWBoardByPage(String nickname,PageMaker pageMaker) {
 		
-		return mapper.selectWBoardByPage(pageMaker);
+		return mapper.selectWBoardByPage(nickname,pageMaker);
 	}
 
 

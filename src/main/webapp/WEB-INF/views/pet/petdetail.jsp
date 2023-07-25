@@ -27,10 +27,38 @@
 
 		        img_fa1.toggle();
 		        img_fa2.toggle();
+
+		        setImageDisplayStatus(img_fa1, img_fa2);
 		    });
 		}
+
+		function setImageDisplayStatus(img_fa1, img_fa2) {
+		    var key = img_fa1.data('value');
+		    var visible = img_fa2.is(':visible');
+		    localStorage.setItem(key, visible);
+		}
+
+		function getImageDisplayStatus() {
+		    $('.img_fa1').each(function () {
+		        var img_fa1 = $(this);
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var key = img_fa1.data('value');
+		        var storedStatus = localStorage.getItem(key);
+
+		        if (storedStatus === 'true') {
+		            img_fa1.hide();
+		            img_fa2.show();
+		        } else {
+		            img_fa1.show();
+		            img_fa2.hide();
+		        }
+		    });
+		}
+
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
+		    getImageDisplayStatus(); // Load stored status on page load
+
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
 		        var img_fa2 = $(this).closest('label').find('.img_fa2');
@@ -59,9 +87,12 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
+		                
 		            }else{
-		            	alert("처리 실패");
+		            	alert("등록되었습니다.");
+		            	
 		            }
+		          
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 		            console.log(jqXHR);
@@ -84,8 +115,10 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
+		                
 		            } else {
-		                alert("처리에 실패했습니다. 다시 시도해주세요.");
+		                alert("삭제되었습니다.");
+		              
 		            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -96,29 +129,11 @@
 		        }
 		    });
 		}
-			  </script>
-			  <script>
-			    $(document).ready(function(){
-			            /*웹페이지 열었을 때*/
-			            $("#img1").show();
-			            $("#img2").hide();
-			 
-			            /*img1을 클릭했을 때 img2를 보여줌*/
-			            $("#img1").click(function(){
-			                $("#img1").hide();
-			                $("#img2").show();
-			                //$("#fa").prop("checked",false);
-			            });
-			 
-			            /*img2를 클릭했을 때 img1을 보여줌*/
-			            $("#img2").click(function(){
-			                $("#img1").show();
-			                $("#img2").hide();
-			               // $("#fa").prop("checked",false);
-			            });
-			        });
-		
-			</script>
+		function back(){
+			window.location = document.referrer;
+		}
+		</script>
+				
 		<style>
 		
 		  a:hover{
@@ -183,7 +198,7 @@
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
              
             <%}  %>
                 </div>
@@ -206,7 +221,7 @@
         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
@@ -233,7 +248,8 @@
 														 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa2.png" style="display:none;">
 													</label>
 				                      			
-				                      			</div>	
+				                      			</div>
+				                      			<button type="button" onclick="back();">뒤로가기</button>	
 												<p>
 												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/>
 												</p>
