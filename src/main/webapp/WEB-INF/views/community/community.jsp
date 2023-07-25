@@ -59,7 +59,16 @@
           .bgcolor{
          background-color: #f9f8f3;
           }
-          
+          #tp5 {
+          border: 1px;
+          border-bottom: 1px;
+          }
+          .mytb {
+    		width: 50%;
+			}
+		#tptp {
+		display : flex;
+		}
         </style>
         
     </head>
@@ -98,66 +107,141 @@
         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
 	<div id="layoutSidenav_content">
-			<main>
-                    <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1" >커뮤니티 페이지</h1>
-                    
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                               
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <!-- <th>글번호</th> -->
-                                            <th>제목</th>
-                                            <th>작성일</th>
-                                            <th>작성자</th>
-                                            <th>조회수</th>
-                                        </tr>
-                                       
-                                    </thead>
-                                   
-                                    <tbody>
-                                    	<c:forEach var="communityDTO" items="${requestScope.communityList}" varStatus="status">
-                                        <tr>
-                                            <%-- <td>${communityDTO.c_no}</td> --%>
-                                            <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}</a></td>
-                                            <td>${communityDTO.reg_date}</td>
-                                            <td>${communityDTO.nickname}</td>
-                                            <td>${communityDTO.view_count}</td>
-                                        </tr>
-                                        </c:forEach>
-                                        
-                                    </tbody>
-                                </table>
-                                
-                            </div>
-                           <%--  <c:if test="${sessionScope.email!=null}"> --%>
-                            	<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newCommu'">
-                            <%-- </c:if> --%>
-                            <%-- <%@ include file="../import/page-community.jsp" %> --%>
-                           <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
+		<main>
+			<div class="container-fluid px-3 pt-3">
+				<h1 class="mt-1">커뮤니티 페이지</h1>
+			<div id="tptp">
+				<div class="card mb-4  mytb">
+					<div class="card-header">
+						<i class="fas fa-table me-1">조회수 top 5</i>
+					</div>
+					<div class="card-body">
+						<table class="datatable-table">
+							<thead>
+								<tr>
+									<!-- <th>글번호</th> -->
+									<th>제목</th>
+									<th>작성일</th>
+									<th>작성자</th>
+									<th>조회수</th>
+								</tr>
+
+							</thead>
+
+							<tbody>
+								<c:forEach var="viewCntList" items="${requestScope.viewCntList}"
+									varStatus="status">
+									<tr>
+										<%-- <td>${communityDTO.c_no}</td> --%>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${viewCntList.c_no}">${viewCntList.title} (${viewCntList.reply_cnt})</a></td>
+										<td>${viewCntList.reg_date}</td>
+										<td>${viewCntList.nickname}</td>
+										<td>${viewCntList.view_cnt}</td>
+									</tr>
+								</c:forEach>
+
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+				<div class="card mb-4  mytb">
+					<div class="card-header">
+						<i class="fas fa-table me-1">추천수 top 5</i>
+
+					</div>
+					<div class="card-body">
+						<table class="datatable-table">
+							<thead>
+								<tr>
+									<!-- <th>글번호</th> -->
+									<th>제목</th>
+									<th>작성일</th>
+									<th>작성자</th>
+									<th>추천수</th>
+								</tr>
+
+							</thead>
+
+							<tbody>
+								<c:forEach var="likeCntList" items="${requestScope.likeCntList}"
+									varStatus="status">
+									<tr>
+										<%-- <td>${communityDTO.c_no}</td> --%>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${likeCntList.c_no}">${likeCntList.title} (${likeCntList.reply_cnt})</a></td>
+										<td>${likeCntList.reg_date}</td>
+										<td>${likeCntList.nickname}</td>
+										<td>${likeCntList.like_cnt}</td>
+									</tr>
+								</c:forEach>
+
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+				<div class="card mb-4">
+					<div class="card-header">
+						<i class="fas fa-table me-1">전체 글 목록</i>
+
+					</div>
+					<div class="card-body">
+						<table id="datatablesSimple">
+							<thead>
+								<tr>
+									<!-- <th>글번호</th> -->
+									<th>제목</th>
+									<th>작성일</th>
+									<th>작성자</th>
+									<th>조회수</th>
+									<th>추천수</th>
+								</tr>
+
+							</thead>
+
+							<tbody>
+								
+								<c:forEach var="communityDTO"
+									items="${requestScope.communityList}" varStatus="status">
+									<tr>
+										<%-- <td>${communityDTO.c_no}</td> --%>
+										<td><a
+											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title} (${communityDTO.reply_cnt})</a></td>
+										<td>${communityDTO.reg_date}</td>
+										<td>${communityDTO.nickname}</td>
+										<td>${communityDTO.view_cnt}</td>
+										<td>${communityDTO.like_cnt}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<c:if test="${sessionScope.nickname==null}">
+				<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newCommu'">
+				</c:if>
+				<%-- <%@ include file="../import/page-community.jsp" %> --%>
+				<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
-                        </div>
-                    </div>
-                </main>
+
+	</div>
+		</main>
 		<footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">
 				<div class="d-flex align-items-center justify-content-between small">
-		
+
 				</div>
 			</div>
 		</footer>
 	</div>
-	</div>
-
 </body>
 </html>
