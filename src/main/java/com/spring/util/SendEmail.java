@@ -1,7 +1,7 @@
 package com.spring.util;
 
 import java.util.Properties;
-
+import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,12 +11,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class SendEmail {
 
-	public static void main(String[] args) {
-		//naverMailSend();
-
-	}
+//	public static void main(String[] args) {
+//
+//	    naverMailSend(email, tempPwd);
+//	}
+	
 	public static void naverMailSend(String email, String tempPwd) {
         String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
         String user = "2qiuo@naver.com"; // 패스워드
@@ -40,14 +43,13 @@ public class SendEmail {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress("ptiael@naver.com"));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             // 메일 제목
             message.setSubject("임시 비밀번호 발급 안내");
 
             // 메일 내용
-            String text = "회원님의 임시 비밀번호는 " + tempPwd + " 입니다.";
-            message.setText(text);
+            message.setText("송부확인");
 
             // send the message
             Transport.send(message);
@@ -56,5 +58,5 @@ public class SendEmail {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-    }
+	}
 }

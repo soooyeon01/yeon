@@ -148,7 +148,6 @@ public class UserController {
 		mdto.setEmail(email);
 		mdto.setPhone(phone);
 		
-		System.out.println("메롱 - " + name);
 		String pwd = servicep.findPwd(mdto);
 		
 		if (pwd != null) {
