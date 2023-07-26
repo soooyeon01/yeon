@@ -20,6 +20,37 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 		<script>
+		function getInitialFavoriteStatus() {
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/pet/get_initial_favorite_status",
+		        type: "GET",
+		        dataType: "json",
+		        success: function(data) {
+		            applyImageDisplayStatus(data);
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
+		function applyImageDisplayStatus(favoriteStatus) {
+		    $('.img_fa1').each(function () {
+		        var img_fa1 = $(this);
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var key = img_fa1.data('value');
+
+		        if (favoriteStatus[key]) {
+		            img_fa1.hide();
+		            img_fa2.show();
+		        } else {
+		            img_fa1.show();
+		            img_fa2.hide();
+		        }
+		    });
+		}
 		function applyImageCheckboxStyle() {
 		    $('.img_fa1, .img_fa2').on('click', function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -57,7 +88,7 @@
 
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
-		    getImageDisplayStatus(); // Load stored status on page load
+		    getInitialFavoriteStatus(); // Load stored status on page load
 
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -85,6 +116,7 @@
 		        },
 		        dataType: "json",
 		        success: function(data) {
+		        	console.log(data);
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
 		                
@@ -115,7 +147,7 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
-		                
+		                console.log(data.result);
 		            } else {
 		                alert("삭제되었습니다.");
 		              
