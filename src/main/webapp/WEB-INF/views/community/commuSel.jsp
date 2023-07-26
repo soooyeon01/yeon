@@ -134,11 +134,13 @@
 							var rcontent = list[i].rcontent;
 							var r_no = list[i].r_no;
 							var nickname = list[i].nickname;
+							var reg_date= list[i].reg_date;
 							
 							reply_html += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
 							//reply_html += "<span id='Rno_"+Rno+"' >" + Rno + "</span><br>";
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
-
+							reply_html += "<span id='reg_date' style='font-size:3px;'>" + reg_date + "</span><br>";
+							
 							if(nickname === "${sessionScope.SESS_NICKNAME}"){
 								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>"; 
 							}
@@ -165,78 +167,87 @@
     	
 		</script>
 		<script>
-		// function test(){
-		// 	console.log("clicked");
-		// 	$.ajax({
-		// 		type :'post',
-		// 		url : '<c:url value="/community/likeDown"/>',
-		// 		contentType: 'application/json',
-		// 		data : JSON.stringify(
-		// 				{
-		// 					"c_no" : c_no,
-		// 					"nickname" : nickname
-		// 				}		
-		// 			),
-		// 		success : function(data) {
-		// 			alert('추천 취소 성공');
-		// 		},
-		// 		error : function() {
-		// 			alert( "error" );
-		// 		}
-
-		// 	})// 아작스 끝
-		// }
-		$(document).ready(function() {
-		var likeval = ${ldto};
 		
-		let c_no = ${selectone.c_no};
-		let nickname = '${sessionScope.SESS_NICKNAME}';
-		if(likeval > 0){
-			console.log(likeval + "좋아요 누름");
-			$('#btnLike').html("추천하기 취소");
-			$('#btnLike').click(function() {
-				console.log("clicked");
-				$.ajax({
-					type :'post',
-					url : '<c:url value="/community/likeDown"/>',
-					contentType: 'application/json',
-					data : JSON.stringify(
-							{
+			$(document).ready(function() {
+				var likeval = ${islike};
+				let c_no = ${selectone.c_no};
+				let nickname = '${sessionScope.SESS_NICKNAME}';
+				var btnLike = $('#btnLike');
+				var likeCnt = "${getLikeCnt}";
+				console.log(likeCnt + "뿡");
+				
+				
+				function updateButton() {
+					if (likeval > 0) {
+						console.log(likeval + "좋아요 누름");
+						btnLike.html("추천하기 취소");
+					} else {
+						console.log(likeval + "좋아요 안누름");
+						console.log(nickname);
+					}
+				}
+				
+				function updateLikeCount() {
+				    $.ajax({
+				        type: 'post',
+				        url: '<c:url value="/community/getLikeCnt"/>',
+				        contentType: 'application/json',
+				        dataType: 'json',  // 응답을 JSON 형식으로 해석합니다.
+				        data: JSON.stringify({
+				            c_no: c_no,
+				            likeCnt: likeCnt
+				        }),
+				        success: function (data) {
+				            $('#like_cnt').text(data.likeCnt);  // 서버에서 반환된 좋아요 개수를 사용합니다.
+				        },
+				        error: function () {
+				            alert("error");
+				        }
+				    });
+				}
+
+				updateButton();
+				updateLikeCount();
+
+				btnLike.click(function() {
+					if (likeval > 0) { // 이미 좋아요를 누른 경우
+						$.ajax({
+							type : 'post',
+							url : '<c:url value="/community/likeDown"/>',
+							contentType : 'application/json',
+							data : JSON.stringify({
 								"c_no" : c_no,
 								"nickname" : nickname
-							}		
-						),
-					success : function(data) {
-						alert('추천 취소 성공');
-					},
-					error : function() {
-						alert( "error" );
-					}
-
-				})// 아작스 끝
-			})
-
-		}else{
-			console.log(likeval + "좋아요 안누름");
-			console.log(nickname);
-			$('#btnLike').click(function() {
-				$.ajax({
-					type :'post',
-					url : '<c:url value="/community/likeUp"/>',
-					contentType: 'application/json',
-					data : JSON.stringify(
-							{
+							}),
+							success : function(data) {
+								btnLike.html("추천하기");
+								likeval = 0;
+								alert('추천 취소 성공');
+								updateLikeCount();
+							},
+							error : function() {
+								alert("error");
+							}
+						});
+					} else { // 좋아요를 누르지 않은 경우
+						$.ajax({
+							type : 'post',
+							url : '<c:url value="/community/likeUp"/>',
+							contentType : 'application/json',
+							data : JSON.stringify({
 								"c_no" : c_no,
 								"nickname" : nickname
-							}		
-						),
-					success : function(data) {
-						alert('추천하기 성공');
+							}),
+							success : function(data) {
+								btnLike.html("추천하기 취소");
+								likeval = 1;
+								alert('추천하기 성공');
+								updateLikeCount();
+							}
+						});
 					}
-				})// 아작스 끝
+				});
 			});
-		}
-	})
 		</script>
 		<script>
 			function confirmDelete() {
@@ -374,7 +385,7 @@
      	</div>
      	<div class="mb-3 mt-3">
         	<label>추천수:</label>
-        	<p id="like_cnt" class="form-control" id="like_cnt" name="like_cnt">${selectone.like_cnt}</p>
+        	<p id="like_cnt" class="form-control" name="like_cnt"></p>
      	</div>
      </div>
 	</form>
@@ -396,7 +407,7 @@
 						<form method="post">
 							<div>
 		                        <c:if test = "${sessionScope.nickname== null and sessionScope.SESS_NICKNAME!=selectone.nickname}">
-	            					<button type ="button" class="btn btn-warning btnLike" id="btnLike">추천하기</button>    <!-- onclick="test()" -->
+	            					<button type ="button" class="btn btn-warning btnLike" id="btnLike">추천하기</button>
 	    						</c:if>
 	    					</div>		
 	                    </form>
@@ -424,6 +435,7 @@
                     	<div class="regBtn">
            					<button id="Reply_regist" class="btn btn-warning"> 댓글등록</button>
     					</div>
+    					<br>
     <div class="reply_Box" style="border:1px solid gray;"> 
     <!-- 댓글이 들어갈 박스 -->
 	</div>
