@@ -20,6 +20,37 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 		<script>
+		function getInitialFavoriteStatus() {
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/pet/get_initial_favorite_status",
+		        type: "GET",
+		        dataType: "json",
+		        success: function(data) {
+		            applyImageDisplayStatus(data);
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
+		function applyImageDisplayStatus(favoriteStatus) {
+		    $('.img_fa1').each(function () {
+		        var img_fa1 = $(this);
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var key = img_fa1.data('value');
+
+		        if (favoriteStatus[key]) {
+		            img_fa1.hide();
+		            img_fa2.show();
+		        } else {
+		            img_fa1.show();
+		            img_fa2.hide();
+		        }
+		    });
+		}
 		function applyImageCheckboxStyle() {
 		    $('.img_fa1, .img_fa2').on('click', function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -57,7 +88,7 @@
 
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
-		    getImageDisplayStatus(); // Load stored status on page load
+		    getInitialFavoriteStatus(); // Load stored status on page load
 
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -85,6 +116,7 @@
 		        },
 		        dataType: "json",
 		        success: function(data) {
+		        	console.log(data);
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
 		                
@@ -115,7 +147,7 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
-		                
+		                console.log(data.result);
 		            } else {
 		                alert("삭제되었습니다.");
 		              
@@ -326,10 +358,12 @@
 												</tr>
 												<tr>
 													<th style="font-size:15px;">보호소이름</th>
+													<c:set var="addressNm" value="${P_DTO.careNm}" />
 													<td style="font-size:20px;">${P_DTO.careNm}</td>
 												</tr>
 												<tr>
 													<th style="font-size:15px;">보호장소</th>
+													<c:set var="address" value="${P_DTO.careAddr}" />
 													<td style="font-size:20px;">${P_DTO.careAddr}</td>
 												</tr>
 												<tr>
@@ -345,6 +379,57 @@
 	                                </div>
                         </div>
                     </div>
+                             <p style="margin-top:-12px">
+		    <em class="link">
+		        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+		            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
+		        </a>
+		    </em>
+		</p>
+		<div id="map" style="width:500px;height:350px;"></div>
+		
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+		<script>
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };  
+		
+			// 지도를 생성
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			
+			// 주소로 좌표를 검색
+			geocoder.addressSearch('${address}', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
+			        });
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동
+			        map.setCenter(coords);
+			    } 
+			});   
+			
+			
+		</script>
                 </main>
             </div>
     </body>

@@ -145,6 +145,7 @@
 	                            <%@ include file="../import/page-favorites.jsp" %>
 	                          
                         </div>
+                        <button class="btn btn-warning" type="submit" onclick="location.href='${root}/fa/sends'">이메일 전송</button>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

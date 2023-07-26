@@ -16,18 +16,26 @@ public interface W_Service {
 	
 	public int getCountAllBoard();
 	List<W_DTO> getAllBoardByPage(PageMaker pageMaker);
-	List<W_DTO> getRegionWith(@Param("region") String region, @Param("category3") String category3, @Param("pageMaker") PageMaker pageMaker);
+	List<W_DTO> getRegionWith(@Param("region") String region, @Param("category3") String category3
+							, @Param("pageMaker") PageMaker pageMaker);
 	int getCountRegionWith(@Param("region") String region,@Param("category3") String category3);
 	
 	void registerWithpetData(@Param("nickname")String nickname,@Param("dto")W_DTO dto);
 	int removeWithpetData(int with_pet_no);
 	
 
-	//위드펫카테고리 추가
+//위드펫 카테고리
+	//검색창
 
-	List<W_DTO> getCategoryWith(@Param("category3") String category3, @Param("pageMaker") PageMaker pageMaker);
-	int getCountCategorywith(String category3);
+	int getCountCategorywith(@Param("type") String type
+									,@Param("keyword") String keyword
+									,@Param("region") String region
+									,@Param("category3") String category3);	
 	
-
-
+	List<W_DTO> getCategoryWith(@Param("type") String type
+										,@Param("keyword") String keyword
+										,@Param("region") String region
+										,@Param("category3") String category3
+										,@Param("pageMaker") PageMaker pageMaker);	
+	
 }

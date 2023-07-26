@@ -8,7 +8,7 @@ import com.spring.domain.F_W_DTO;
 import com.spring.util.PageMaker;
 
 public interface F_W_Mapper {
-	List<F_W_DTO> selectWBoard();
+	List<F_W_DTO> selectWBoard(String nickname);
 	int selectCountWBoard();	
 	List<F_W_DTO> selectWBoardByPage(@Param("nickname")String nickname,@Param("pageMaker")PageMaker pageMaker);
 }
