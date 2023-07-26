@@ -20,10 +20,12 @@ import org.w3c.dom.NodeList;
 import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
+@Log4j
 public class ApiWithDataController{
 	//  http://localhost:8080/4jojo/api/withdata
 	
@@ -44,7 +46,7 @@ public class ApiWithDataController{
 	public String fetchWithData() {
    // wdto 객체들을 저장할 list
 	   ArrayList<W_DTO> list = new ArrayList<>();
-	
+	   W_DTO wdto = new W_DTO();
 	   try {
 	      // parsing할 url 지정(API 키 포함해서)
 	      for (int i = 1; i < max; i++) {
@@ -71,7 +73,7 @@ public class ApiWithDataController{
 	               Element eElement = (Element) nNode;
 	
 	               // wdtotage vo를 저장할 객체
-	               W_DTO wdto = new W_DTO();
+	               
 	
 	               // 종목코드
 	               wdto.setBuilding(getTagValue("시설명", eElement)); // 지정번호
@@ -94,11 +96,13 @@ public class ApiWithDataController{
 	               // 서비스 시작!
 	               
 	               service.regitsterWithData(wdto);
-	               service.removeWithData(wdto);
+	              
 	            }
 	            System.out.println("들어가는중");
 	         }
 	      } // for end
+	      service.removeWithData(wdto);
+	      log.info("end");
 	   } catch (Exception e) {
 	      e.printStackTrace();
 	   }

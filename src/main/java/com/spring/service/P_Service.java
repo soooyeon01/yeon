@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.domain.F_P_DTO;
 import com.spring.domain.P_DTO;
 import com.spring.domain.S_DTO;
 import com.spring.util.PageMaker;
@@ -20,7 +21,7 @@ public interface P_Service {
 	
 	
 	//즐겨찾기
-	int registerP(P_DTO dto);
+	void registerP(@Param("nickname") String nickname,@Param("dto") P_DTO dto);
 	int removeP(int pet_notice_no);
 	//List<P_DTO> getRegionPet(String region);
 	

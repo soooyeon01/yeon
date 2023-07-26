@@ -128,13 +128,14 @@
                 dataType:'json',
                 async: false,
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+                	console.log("ajax cnt : "+cnt);
                     if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
                     	alert("이미 사용 중인 이메일입니다.");
                     	result = false;
                     }
                 },
                 error:function(){
-                  
+                    alert("에러입니다");
                 }
             });
             return result;
@@ -163,7 +164,7 @@
                         }
                     },
                     error:function(){
-      
+                        alert("에러입니다");
                     }
                 });
                 return result;
@@ -192,7 +193,7 @@
                             }
                         },
                         error:function(){
-                       
+                            alert("에러입니다");
                         }
                     });
                     return result;
@@ -200,6 +201,15 @@
                     function checkPhone() {
                         if (phoneCheck()) {
                             alert("사용 가능한 번호입니다.");
+                        }
+                    }
+                    
+                    function toggleBtn(btnId, inputValue) {
+                        const btn = document.getElementById(btnId);
+                        if (inputValue.trim() === '') {
+                            btn.disabled = true;
+                        } else {
+                            btn.disabled = false;
                         }
                     }
    
@@ -222,24 +232,23 @@
                                                 <label for="name">이름</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="email" id="email" type="email">                                                                                              
+                                                <input class="form-control" name="email" id="email" type="email" onkeyup="toggleBtn('emailBtn', this.value);">                                                                                              
                                                 <label for="email">이메일</label>
-                                                <button type="button" id="emailBtn" name="emailBtn" onclick="checkEmail();">중복</button>                                              
+                                                <button type="button" id="emailBtn" name="emailBtn" disabled="disabled" onclick="checkEmail();">중복</button>                                              
                                                 
                                             </div>
                                             <div class="form-floating mb-3">
-                                                 <input class="form-control" name="nickname" id="nickname" type="text" />
+                                                 <input class="form-control" name="nickname" id="nickname" type="text" onkeyup="toggleBtn('nicknameBtn', this.value);"/>
                                                 <label for="nickname">닉네임</label>
-                                                  <button type="button" id="nicknameBtn" name="nicknameBtn" onclick="checkNickname();">중복</button>
+                                                  <button type="button" id="nicknameBtn" name="nicknameBtn" disabled="disabled" onclick="checkNickname();">중복</button>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" name="phone" id="phone" type="tel" />
+                                                <input class="form-control" name="phone" id="phone" type="tel" onkeyup="toggleBtn('phoneBtn', this.value);"/>
                                                 <label for="phone">핸드폰 (-없이 숫자만 입력하세요)</label>
-                                                  <button type="button" id="phoneBtn" name="phoneBtn" onclick="checkPhone();">중복</button>
+                                                  <button type="button" id="phoneBtn" name="phoneBtn" disabled="disabled" onclick="checkPhone();">중복</button>
                                             </div>
                                             
-                                            
-                                            
+
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">

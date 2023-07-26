@@ -175,7 +175,7 @@
                <div align="center">
                			
                     
-                 <form action = "${pageContext.servletContext.contextPath }/mypage/updatecheck" id="form" method ="post">
+                 <form action = "${pageContext.servletContext.contextPath }/mypage/" id="form" method ="post">
                   
                   <div>
                    <br>
@@ -189,9 +189,7 @@
          	
                     	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp;    	 
                     	  <button type="submit" class ="btn btn-warning" onclick="location.href = '${root}/mypage/updatecheck'">확인</button>&nbsp;
-                </form> 
-                
-                       
+                </form>                                      
                       <input type="hidden" name="pwd" value="${mdto.pwd}">
                    
 

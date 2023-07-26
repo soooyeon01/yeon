@@ -155,7 +155,7 @@
 
                             
                            		<div id="shel-container">
-                           		<table class="table">
+                           		<table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                       
@@ -172,7 +172,8 @@
 	                                    
 	                                    <tbody>
 	                                    	<c:forEach var="S_DTO" items="${ response.shelList }" >
-											<tr onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}'">
+											<tr onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}'"
+											style="cursor:pointer">
 												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>${S_DTO.careNm}</td>
 												<td>${S_DTO.careAddr}</td>
