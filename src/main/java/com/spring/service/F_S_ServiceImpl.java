@@ -20,9 +20,9 @@ public class F_S_ServiceImpl implements F_S_Service {
 	}
 
 	@Override
-	public List<F_S_DTO> getSBoardByPage(PageMaker pageMaker) {
+	public List<F_S_DTO> getSBoardByPage(String nickname,PageMaker pageMaker) {
 		
-		return mapper.selectSBoardByPage(pageMaker);
+		return mapper.selectSBoardByPage(nickname,pageMaker);
 	}
 
 	@Override

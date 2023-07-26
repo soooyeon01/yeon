@@ -6,13 +6,62 @@
   <mapper namespace="com.spring.mapper.CommunityMapper">
   	<select id="selectCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
   		<![CDATA[
-  		select c_no, title, content, nickname, reg_date, view_count from community where c_no=#{c_no}
+  		SELECT c.*, COALESCE(cl.like_cnt, 0) as like_cnt
+	    FROM community c
+	    LEFT JOIN (SELECT c_no, COUNT(*) as like_cnt FROM commu_like GROUP BY c_no) cl ON c.c_no = cl.c_no
+	    WHERE c.c_no=#{c_no}
   		]]>
   	</select>
   	
-  	<select id="selectAllCommunity" resultType="com.spring.domain.CommunityDTO">
+  	<select id="selectAllCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
 	    <![CDATA[
-		 select * from community order by c_no desc
+		SELECT c.*, 
+		(SELECT COUNT(*) FROM reply r WHERE c.c_no = r.c_no) AS reply_cnt,
+        (SELECT COUNT(*) FROM commu_like l WHERE c.c_no = l.c_no) AS like_cnt
+		FROM community c
+		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt
+		ORDER BY c.c_no DESC
+		]]>
+	</select>
+	
+	<select id="viewCntCommunity" resultType="com.spring.domain.CommunityDTO">
+	    <![CDATA[
+		SELECT c.*, COUNT(r.r_no) AS reply_cnt
+		FROM (
+		  SELECT *
+		  FROM community
+		  ORDER BY view_cnt DESC
+		  FETCH FIRST 5 ROWS ONLY
+		) c
+		LEFT JOIN reply r ON c.c_no = r.c_no
+		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt
+		]]>
+	</select>
+	
+	<select id="likeCntCommunity" resultType="com.spring.domain.CommunityDTO">
+	    <![CDATA[
+		SELECT c.*, COUNT(r.r_no) AS reply_cnt, cl.like_cnt
+		FROM (
+		    SELECT *
+		    FROM community
+		    ORDER BY view_cnt DESC
+		    FETCH FIRST 5 ROWS ONLY
+		) c
+		LEFT JOIN reply r ON c.c_no = r.c_no
+		LEFT JOIN (
+		    SELECT c_no, COUNT(l_no) AS like_cnt
+		    FROM commu_like
+		    GROUP BY c_no
+		    ORDER BY like_cnt DESC
+		    FETCH FIRST 5 ROWS ONLY
+		) cl ON c.c_no = cl.c_no
+		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt, cl.like_cnt
+		]]>
+	</select>
+	
+	<select id="replyCntCommunity" resultType="int">
+	    <![CDATA[
+		 select count(r_no) from community where c_no=#{c_no}
 		]]>
 	</select>
 	
@@ -37,11 +86,12 @@
 	      UPDATE community SET title=#{title,jdbcType=VARCHAR}, content=#{content,jdbcType=VARCHAR} WHERE c_no=#{c_no}
 	</update>
 	  
-	<update id="viewCount">
-		UPDATE community SET view_count=view_count+1 WHERE c_no=${c_no}
+	<update id="viewCnt">
+		UPDATE community SET view_cnt=view_cnt+1 WHERE c_no=#{c_no}
 	</update>
 	
 	<delete id="deleteCommunity">
 	      DELETE FROM community WHERE c_no=#{c_no}
 	</delete>
   </mapper>
+	

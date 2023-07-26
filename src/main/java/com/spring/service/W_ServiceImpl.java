@@ -26,14 +26,14 @@ public class W_ServiceImpl implements W_Service {
 	}
 
 	@Override
-	public List<W_DTO> getRegionWith(String region, PageMaker pageMaker) {
+	public List<W_DTO> getRegionWith(String region, String category3, PageMaker pageMaker) {
 		
-		return mapper.selectRegionWith(region, pageMaker);
+		return mapper.selectRegionWith(region, category3, pageMaker);
 	}
 	
 	@Override
-	public int getCountRegionWith(String region) {
-		return mapper.selectCountRegionWith(region);
+	public int getCountRegionWith(String region,String category3) {
+		return mapper.selectCountRegionWith(region, category3);
 	}
 	
 	
@@ -49,9 +49,9 @@ public class W_ServiceImpl implements W_Service {
 	}
 	//즐겨찾기
 	@Override
-	public int registerWithpetData(W_DTO dto) {
+	public void registerWithpetData(String nickname, W_DTO dto) {
 		
-		return mapper.insertWith_petData(dto);
+		mapper.insertWith_petData(nickname, dto);
 	}
 
 	@Override
@@ -65,10 +65,15 @@ public class W_ServiceImpl implements W_Service {
 
 
 	//위드펫카테고리
+	/* 추가 */
 	@Override
-	public List<W_DTO> selectCategoryWith(PageMaker pageMaker, String category3) {
-		return mapper.selectCategoryWith(pageMaker,category3);
-	
+	public List<W_DTO> getCategoryWith(String category3, PageMaker pageMaker) {
+		return mapper.selectCategoryWith(category3, pageMaker);
+	}
+
+	@Override
+	public int getCountCategorywith(String category3) {
+		return mapper.selectCountCategoryWith(category3);
 	}
 
 

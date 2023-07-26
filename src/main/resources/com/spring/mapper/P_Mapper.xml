@@ -24,8 +24,9 @@
 				,neuterYn
 				,specialMark
 				,careNm
-				,careTel
 				,careAddr
+				,careTel
+				
 				FROM  pet_notice 
 				 WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
 				 AND SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1) = #{region} 
@@ -59,9 +60,10 @@
 		,neuterYn
 		,specialMark
 		,careNm
-		,careTel
 		,careAddr
-		FROM pet_notice WHERE pet_notice_no=#{pet_notice} 
+		,careTel
+		
+		FROM pet_notice WHERE pet_notice_no=#{pet_notice_no} 
 		]]>
   	</select>
   	
@@ -84,8 +86,9 @@
 		,neuterYn
 		,specialMark
 		,careNm
-		,careTel
 		,careAddr
+		,careTel
+		
 		from pet_notice
   		 WHERE ROWNUM <=(2*10)
   		 )
@@ -119,8 +122,9 @@
 				,neuterYn
 				,specialMark
 				,careNm
-				,careTel
 				,careAddr
+				,careTel
+				
 				FROM  pet_notice 
 				 WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} ) 
 				  )
@@ -129,9 +133,10 @@
 				
 				]]>
   	</select>
-  	<insert id="insertPetnoticeData">
+  	<insert id="insertPetnoticeData" parameterType="map">
   		INSERT INTO favoritep( 
 						favoritep_no
+						,nickname
 						,favoritep_reg_date
 						,pet_notice_no  
 						,happenDt  
@@ -151,28 +156,31 @@
 						,careNm
 						,careAddr
 						,careTel
+						
 						)
 						values(
 						seq_favoritep_no.nextval
+						,#{nickname}
 						,sysdate
-						,(SELECT pet_notice_no from pet_notice where pet_notice_no=#{pet_notice_no})
-						,(SELECT happenDt FROM pet_notice WHERE happenDt = #{happenDt,jdbcType=VARCHAR})
-						,(SELECT happenPlace FROM pet_notice WHERE happenPlace = #{happenPlace,jdbcType=VARCHAR})
-						,(SELECT kindCd FROM pet_notice WHERE kindCd = #{kindCd,jdbcType=VARCHAR})
-						,(SELECT colorCd FROM pet_notice WHERE colorCd = #{colorCd,jdbcType=VARCHAR})
-						,(SELECT age FROM pet_notice WHERE age = #{age,jdbcType=VARCHAR})
-						,(SELECT weight FROM pet_notice WHERE weight = #{weight,jdbcType=VARCHAR})
-						,(SELECT noticeNo FROM pet_notice WHERE noticeNo = #{noticeNo,jdbcType=VARCHAR})
-						,(SELECT noticeSdt FROM pet_notice WHERE noticeSdt = #{noticeSdt,jdbcType=VARCHAR})
-						,(SELECT noticeEdt FROM pet_notice WHERE noticeEdt = #{noticeEdt,jdbcType=VARCHAR})
-						,(SELECT popfile FROM pet_notice WHERE popfile = #{popfile,jdbcType=VARCHAR})
-						,(SELECT processState FROM pet_notice WHERE processState = #{processState,jdbcType=VARCHAR})
-						,(SELECT sexCd FROM pet_notice WHERE sexCd = #{sexCd,jdbcType=VARCHAR})
-						,(SELECT neuterYn FROM pet_notice WHERE neuterYn = #{neuterYn,jdbcType=VARCHAR})
-						,(SELECT specialMark FROM pet_notice WHERE specialMark = #{specialMark,jdbcType=VARCHAR})
-						,(SELECT careNm FROM pet_notice WHERE careNm = #{careNm,jdbcType=VARCHAR})
-						,(SELECT careAddr FROM pet_notice WHERE careAddr = #{careAddr,jdbcType=VARCHAR})
-						,(SELECT careTel FROM pet_notice WHERE careTel = #{careTel,jdbcType=VARCHAR})
+						,(SELECT pet_notice_no from pet_notice where pet_notice_no=#{dto.pet_notice_no})
+						,(SELECT happenDt FROM pet_notice WHERE happenDt = #{dto.happenDt,jdbcType=VARCHAR})
+						,(SELECT happenPlace FROM pet_notice WHERE happenPlace = #{dto.happenPlace,jdbcType=VARCHAR})
+						,(SELECT kindCd FROM pet_notice WHERE kindCd = #{dto.kindCd,jdbcType=VARCHAR})
+						,(SELECT colorCd FROM pet_notice WHERE colorCd = #{dto.colorCd,jdbcType=VARCHAR})
+						,(SELECT age FROM pet_notice WHERE age = #{dto.age,jdbcType=VARCHAR})
+						,(SELECT weight FROM pet_notice WHERE weight = #{dto.weight,jdbcType=VARCHAR})
+						,(SELECT noticeNo FROM pet_notice WHERE noticeNo = #{dto.noticeNo,jdbcType=VARCHAR})
+						,(SELECT noticeSdt FROM pet_notice WHERE noticeSdt = #{dto.noticeSdt,jdbcType=VARCHAR})
+						,(SELECT noticeEdt FROM pet_notice WHERE noticeEdt = #{dto.noticeEdt,jdbcType=VARCHAR})
+						,(SELECT popfile FROM pet_notice WHERE popfile = #{dto.popfile,jdbcType=VARCHAR})
+						,(SELECT processState FROM pet_notice WHERE processState = #{dto.processState,jdbcType=VARCHAR})
+						,(SELECT sexCd FROM pet_notice WHERE sexCd = #{dto.sexCd,jdbcType=VARCHAR})
+						,(SELECT neuterYn FROM pet_notice WHERE neuterYn = #{dto.neuterYn,jdbcType=VARCHAR})
+						,(SELECT specialMark FROM pet_notice WHERE specialMark = #{dto.specialMark,jdbcType=VARCHAR})
+						,(SELECT careNm FROM pet_notice WHERE careNm = #{dto.careNm,jdbcType=VARCHAR})
+						,(SELECT careAddr FROM pet_notice WHERE careAddr = #{dto.careAddr,jdbcType=VARCHAR})
+						,(SELECT careTel FROM pet_notice WHERE careTel = #{dto.careTel,jdbcType=VARCHAR})
+						
 						)
   	</insert>
   	<delete id="deletePetnoticeData">

@@ -27,10 +27,9 @@
 
 	<script>
 	function submitForm(category3) {
-        document.getElementById('hiddenInput').value = category3;
+        document.getElementById('category3').value = category3;
         document.getElementById('myForm').submit();
-       console.log(category3);
-    }
+    }	
     </script>
   <script>
   <!-- 최상단 -->
@@ -67,9 +66,6 @@
 	  }
   function mypaper(){
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
-	  }
-  function withcaselect(){
-	  	location.href = "${pageContext.servletContext.contextPath}/with/withcaselect";
 	  }
   
   
@@ -172,7 +168,7 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
      		 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
    
@@ -185,17 +181,14 @@
             </div>
             <ol class="breadcrumb mb-4 pt-3">
             </ol>
-
-               <div class="card-header">
-                
-               </div>
-              
+               <div class="card-header">             
+               </div>             
                <div class="card-body">
                <div align="center">
 
 				
-				  <form id="myForm" action="${root}/with/withcaselect" method="post">
-		        <input type="hidden" id="hiddenInput" name="hiddenInput">
+				  <form id="myForm" action="${root}/with/withall" method="get">
+		        <input type="hidden" id="category3" name="category3">
 		        <h3>카페,식당</h3>
 		        <button class ="btn btn-warning" type="submit" value="카페" onclick="submitForm(this.value)">카페</button>
 		        <button class ="btn btn-warning" type="submit" value="식당" onclick="submitForm(this.value)">식당</button>

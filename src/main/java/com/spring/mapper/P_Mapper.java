@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.spring.domain.F_P_DTO;
 import com.spring.domain.P_DTO;
 import com.spring.util.PageMaker;
 
@@ -18,7 +19,7 @@ public interface P_Mapper {
 	int selectCountAllBoard();
 	int selectCountRegionPet(String region);
 	//즐겨찾기
-	int insertPetnoticeData(P_DTO dto);
+	void insertPetnoticeData(@Param("nickname") String nickname,@Param("dto") P_DTO dto);
 	int deletePetnoticeData(int pet_notice_no);
 	// List<P_DTO> selectRegionPet(String region);
 	

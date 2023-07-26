@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.MypageService;
@@ -36,21 +37,13 @@ public class MypageController {
    private MypageService service;
 
    @RequestMapping("/mypage")
-   public String showMypage(HttpServletRequest request, Model model) {
+   public String showMypage(HttpSession session, Model model) {
                 
-           HttpSession session = request.getSession();
-         boolean SESS_AUTH = false;
-         
-         try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-         }catch(Exception e) {}
-         
-         if( SESS_AUTH ) {
+	   Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+
+         if(SESS_AUTH != null && SESS_AUTH) {
            
-//            request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
-//            session.setAttribute("id", email);
+          String email = (String) session.getAttribute("SESS_EMAIL");
            
           List<MembersDTO> mdto = service.getMypage(email);
           model.addAttribute("membersDTO", mdto);
@@ -64,28 +57,17 @@ public class MypageController {
    
  //pwd
    @PostMapping("/upmypwd")
-   public String upmypwd(HttpServletRequest request, Model model, MembersDTO dto) {
-                
-         HttpSession session = request.getSession();
-         boolean SESS_AUTH = false;
-         String pwd = request.getParameter("pwd"); //입력값 가져오기
-         String newpwd = request.getParameter("newpwd");
-         String newcpwd = request.getParameter("newcpwd");
-         
-         request.setAttribute("SESS_AUTH", false); 
-         String email = (String) session.getAttribute("SESS_EMAIL");
- 	     List<MembersDTO> mdto = service.getMypage(email);
- 	     model.addAttribute("membersDTO", mdto);
+   public String upmypwd(HttpSession session, Model model, MembersDTO dto,@RequestParam("pwd")String pwd
+		   , @RequestParam("newpwd")String newpwd,@RequestParam("newcpwd")String newcpwd) {
+ 
+	   Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+       String email = (String) session.getAttribute("SESS_EMAIL");
+ 	   List<MembersDTO> mdto = service.getMypage(email);
+ 	   model.addAttribute("membersDTO", mdto);
  	     
- 	    String nowpwd = service.getPwd(email); //현재비밀번호
-	     log.info("현재비번" + nowpwd);
-	     log.info("새 비밀번호 : "+newpwd);
-         
-         try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-         }catch(Exception e) {}       	      	      
-    
-         if( SESS_AUTH ) {     
+ 	   String nowpwd = service.getPwd(email); //현재비밀번호
+
+         if( SESS_AUTH != null && SESS_AUTH ) {     
  
       	   if(pwd==null || pwd == "" || newpwd==null ||newpwd == "" || newcpwd==null || newcpwd == "") {           
 		   	   model.addAttribute("msg", "입력이 완료되지 않았습니다."); 
@@ -118,21 +100,14 @@ public class MypageController {
    
  //phone
    @PostMapping("/upmyphone")
-   public String upmyphone(HttpServletRequest request, Model model, MembersDTO dto) {
-      HttpSession session = request.getSession();
-      boolean SESS_AUTH = false;
+   public String upmyphone(HttpSession session, Model model, MembersDTO dto,@RequestParam("phone")String phone) {
+     
 
-      try {
-         SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
-      } catch (Exception e) {
-      }
-
-      if (SESS_AUTH) {
-         String phone = request.getParameter("phone");
+	   Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+      if (SESS_AUTH != null && SESS_AUTH) {
 
          if (phone == null || phone.isEmpty()) {
-            log.info("여기2" + phone);
-            request.setAttribute("SESS_AUTH", false);
+        	 
             String email = (String) session.getAttribute("SESS_EMAIL");
 
             List<MembersDTO> mdto = service.getMypage(email);
@@ -165,18 +140,11 @@ public class MypageController {
 
          //페이지연결
          @RequestMapping("/upmypage")
-         public String upmypage(HttpServletRequest request, Model model, MembersDTO dto) {
-                      
-               HttpSession session = request.getSession();
-               boolean SESS_AUTH = false;
-               
-               try {
-                  SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-               }catch(Exception e) {}
-               
-               if( SESS_AUTH ) {        
-
-                  request.setAttribute("SESS_AUTH", false);
+         public String upmypage(HttpSession session, Model model, MembersDTO dto) {
+              
+               Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+               if( SESS_AUTH != null && SESS_AUTH ) {        
+                 
                   String email = (String) session.getAttribute("SESS_EMAIL");
 
 	   	       List<MembersDTO> mdto = service.getMypage(email);
@@ -197,28 +165,21 @@ public class MypageController {
 	      }	      	   
 	  	
 	      @RequestMapping(value = "/remMC", method = RequestMethod.POST)
-	      public String removeC(MembersDTO dto, HttpServletResponse response, HttpServletRequest request, Model model) throws IOException {
-	          HttpSession session = request.getSession(false);
+	      public String removeC(MembersDTO dto, HttpServletResponse response, HttpSession session, Model model
+	    		  				,@RequestParam("inputpwd")String inputpwd) throws IOException {
+	    	 
+	    	  Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
 	          String email = (String) session.getAttribute("SESS_EMAIL");
 
 	          // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴
-	          String pwd = service.getPwd(email);
-	          
-	          //입력값 가져오기
-	          String inputpwd = request.getParameter("inputpwd");	          
+	          String pwd = service.getPwd(email);         
 
 	          PrintWriter out = response.getWriter();
 	          response.setCharacterEncoding("utf-8");
-	          boolean SESS_AUTH = false;
 	          response.setContentType("text/html; charset=utf-8");
 
-	          try {
-	              SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
-	          } catch (Exception e) {
-	          }
 
-	          if (SESS_AUTH) {
-	              request.setAttribute("SESS_AUTH", false);
+	          if (SESS_AUTH != null && SESS_AUTH) {
 
 		              if (pwd.equals(inputpwd)) {
 		                  service.removeMember(email);
@@ -248,26 +209,19 @@ public class MypageController {
 	      
 	      //회원정보확인 input 처리
 	      @RequestMapping(value = "/updatecheck", method = RequestMethod.POST)
-	      public String updatecheck(HttpServletResponse response, HttpServletRequest request, Model model) {
-	          HttpSession session = request.getSession(false);
+	      public String updatecheck(HttpServletResponse response,HttpSession session, Model model
+	    		  					,@RequestParam("inputpwd")String inputpwd) {
+	    	  
+	    	  Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
 	          String email = (String) session.getAttribute("SESS_EMAIL");
 
 	          // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴
 	          String pwd = service.getPwd(email);
 	          
-	          //입력값 가져오기
-	          String inputpwd = request.getParameter("inputpwd");	          
 	          response.setCharacterEncoding("utf-8");
-	          boolean SESS_AUTH = false;
-	          response.setContentType("text/html; charset=utf-8");
+	          response.setContentType("text/html; charset=utf-8");	      
 
-	          try {
-	              SESS_AUTH = (boolean) session.getAttribute("SESS_AUTH");
-	          } catch (Exception e) {
-	          }
-
-	          if (SESS_AUTH) {
-	              request.setAttribute("SESS_AUTH", false);
+	          if (SESS_AUTH != null && SESS_AUTH) {	           
 
 		              if (pwd.equals(inputpwd)) {
 		            	List<MembersDTO> mdto = service.getMypage(email);

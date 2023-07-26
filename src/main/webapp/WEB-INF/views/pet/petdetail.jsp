@@ -27,10 +27,38 @@
 
 		        img_fa1.toggle();
 		        img_fa2.toggle();
+
+		        setImageDisplayStatus(img_fa1, img_fa2);
 		    });
 		}
+
+		function setImageDisplayStatus(img_fa1, img_fa2) {
+		    var key = img_fa1.data('value');
+		    var visible = img_fa2.is(':visible');
+		    localStorage.setItem(key, visible);
+		}
+
+		function getImageDisplayStatus() {
+		    $('.img_fa1').each(function () {
+		        var img_fa1 = $(this);
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var key = img_fa1.data('value');
+		        var storedStatus = localStorage.getItem(key);
+
+		        if (storedStatus === 'true') {
+		            img_fa1.hide();
+		            img_fa2.show();
+		        } else {
+		            img_fa1.show();
+		            img_fa2.hide();
+		        }
+		    });
+		}
+
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
+		    getImageDisplayStatus(); // Load stored status on page load
+
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
 		        var img_fa2 = $(this).closest('label').find('.img_fa2');
@@ -48,18 +76,23 @@
 		
 		function sendFavoritep(img_fa1) {
 		    var favoritep = img_fa1.data("value");
-
+		    console.log(favoritep);
 		    $.ajax({
 		        url: "${pageContext.servletContext.contextPath}/pet/registerpet",
 		        type: "POST",
 		        data: {
-		            pet_notice_no: favoritep
+		           pet_notice_no: favoritep
 		        },
 		        dataType: "json",
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
+		                
+		            }else{
+		            	alert("등록되었습니다.");
+		            	
 		            }
+		          
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 		            console.log(jqXHR);
@@ -82,8 +115,10 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
+		                
 		            } else {
-		                alert("처리에 실패했습니다. 다시 시도해주세요.");
+		                alert("삭제되었습니다.");
+		              
 		            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -94,29 +129,11 @@
 		        }
 		    });
 		}
-			  </script>
-			  <script>
-			    $(document).ready(function(){
-			            /*웹페이지 열었을 때*/
-			            $("#img1").show();
-			            $("#img2").hide();
-			 
-			            /*img1을 클릭했을 때 img2를 보여줌*/
-			            $("#img1").click(function(){
-			                $("#img1").hide();
-			                $("#img2").show();
-			                //$("#fa").prop("checked",false);
-			            });
-			 
-			            /*img2를 클릭했을 때 img1을 보여줌*/
-			            $("#img2").click(function(){
-			                $("#img1").show();
-			                $("#img2").hide();
-			               // $("#fa").prop("checked",false);
-			            });
-			        });
-		});
-			</script>
+		function back(){
+			window.location = document.referrer;
+		}
+		</script>
+				
 		<style>
 		
 		  a:hover{
@@ -168,7 +185,23 @@
 						border: none;
 						background: none;
 				    }
-				    
+				    table.table.table-bordered {
+					    width: 40%;
+					    margin-top:50px;
+					   	margin-left:350px;
+					    
+					  }
+				    #image-container {
+					  
+					  text-align:center;
+					 
+					  
+					}
+					.img{
+						
+						display:inline;
+						
+					}
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -181,7 +214,7 @@
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
              
             <%}  %>
                 </div>
@@ -204,7 +237,7 @@
         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
@@ -220,37 +253,92 @@
                               
                             </div>
                             <div class="card-body">
-                      			<div style="float:right;">
-                      				 <label>
-										 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
-										 <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png">
-										 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa2.png" style="display:none;">
-									</label>
                       			
-                      			</div>
 						
                            		  
 	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
-											
-												<p>
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:300px"/>
-												</p>
-												<div style="font-size:15px;">접수일<p style="font-size:20px;">${P_DTO.happenDt}</p></div>
-												<div style="font-size:15px;">발견장소<p style="font-size:20px;">${P_DTO.happenPlace}</p></div>
-												<div style="font-size:15px;">품종<p style="font-size:20px;">${P_DTO.kindCd}</p></div>
-												<div style="font-size:15px;">색상<p style="font-size:20px;">${P_DTO.colorCd}</p></div>
-												<div style="font-size:15px;">나이<p style="font-size:20px;">${P_DTO.age}</p></div>								
-												<div style="font-size:15px;">체중<p style="font-size:20px;">${P_DTO.weight}</p></div>
-												<div style="font-size:15px;">공고번호<p style="font-size:20px;">${P_DTO.noticeNo}</p></div>
-												<div style="font-size:15px;">공고시작일 ~ 공고종료일<p style="font-size:20px;">${P_DTO.noticeSdt} ~ ${P_DTO.noticeEdt}</p></div>					
-												<div style="font-size:15px;">상태<p style="font-size:20px;">${P_DTO.processState}</p></div>
-												<div style="font-size:15px;">성별<p style="font-size:20px;">${P_DTO.sexCd}</p></div>
-												<div style="font-size:15px;">중성화여부<p style="font-size:20px;">${P_DTO.neuterYn}</p></div>
-												<div style="font-size:15px;">특징<p style="font-size:20px;">${P_DTO.specialMark}</p></div>
-												<div style="font-size:15px;">보호소이름<p style="font-size:20px;">${P_DTO.careNm}</p></div>
-												<div style="font-size:15px;">보호장소<p style="font-size:20px;">${P_DTO.careAddr}</p></div>
-												<div style="font-size:15px;">보호소전화번호<p style="font-size:20px;">${P_DTO.careTel}</p></div>
+												<div style="float:right;">
+				                      				 <label>
+														 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
+														 <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png">
+														 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa3.gif" style="display:none;">
+													</label>
+				                      			
+				                      			</div>
+				                      			<p><button type="button" class="btn btn-warning" onclick="back();">목록</button></p>	
+				                      			<div id="image-container">
+				                      				<img class="img" src="${P_DTO.popfile}" alt="펫이미지" style="width:500px;height:500px;"/>
+												</div>
+												<table class="table table-bordered" >
+												<tr >
+													<th style="font-size:15px; ">접수일</th>
+													<td style="font-size:20px; ">${P_DTO.happenDt}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px; ">발견장소</th>
+													<td style="font-size:20px; ">${P_DTO.happenPlace}</td>
+													
+												</tr>
+												<tr>
+													<th style="font-size:15px; ">공고번호</th>
+													<td style="font-size:20px; ">${P_DTO.noticeNo}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">공고시작일</th>		
+													<td style="font-size:20px;">${P_DTO.noticeSdt}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">공고종료일</th>		
+													<td style="font-size:20px;">${P_DTO.noticeEdt}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">품종</th>
+													<td style="font-size:20px;">${P_DTO.kindCd}</td>
+												</tr>
+												<tr>
 												
+													<th style="font-size:15px;">상태</th>
+													<td style="font-size:20px;">${P_DTO.processState}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">색상</th>
+													<td style="font-size:20px;">${P_DTO.colorCd}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">성별</th>
+													<td style="font-size:20px;">${P_DTO.sexCd} </td>
+												</tr>	
+												<tr>
+													<th style="font-size:15px;">중성화여부</th>
+													<td style="font-size:20px;">${P_DTO.neuterYn}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">나이</th>		
+													<td style="font-size:20px;">${P_DTO.age}</td>
+												</tr>
+												<tr>	
+													<th style="font-size:15px;">특징</th>
+													<td style="font-size:20px;">${P_DTO.specialMark}</td>
+												</tr>
+												<tr>			
+													<th style="font-size:15px;">체중</th>
+													<td style="font-size:20px;">${P_DTO.weight}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">보호소이름</th>
+													<td style="font-size:20px;">${P_DTO.careNm}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">보호장소</th>
+													<td style="font-size:20px;">${P_DTO.careAddr}</td>
+												</tr>
+												<tr>
+													<th style="font-size:15px;">보호소 전화번호</th>
+													<td style="font-size:20px;">${P_DTO.careTel}</td>
+												</tr>
+												
+												
+												</table>
 												
 											
 											</c:forEach>

@@ -22,7 +22,8 @@ import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
@@ -48,7 +49,7 @@ public class ApiShelDataController {
 
       // sdto 객체들을 저장할 list
       ArrayList<S_DTO> list = new ArrayList<>();
-      
+      S_DTO sdto =  new S_DTO();
       try {
             // parsing할 url 지정(API 키 포함해서)
             for(int i=1; i<max; i++) {
@@ -72,13 +73,13 @@ public class ApiShelDataController {
 	            System.out.println("파싱할 리스트 수 : " + nList.getLength());
 	            System.out.println("여기1");
 	        
-	            list = removeDuplicates(list);
+	        
 	            for (int temp = 0; temp < nList.getLength(); temp++) {
 	               Node nNode = nList.item(temp);
 	               if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 	
 	                  Element eElement = (Element) nNode;
-	                  S_DTO sdto =  new S_DTO();
+	                  
 	                  // sdtotage vo를 저장할 객체
 	                 
 	                  sdto.setCareNm(getTagValue("careNm", eElement));
@@ -102,12 +103,13 @@ public class ApiShelDataController {
 	                 
 	
 	                 service.regitsterShelData(sdto);
-	                 service.removeShelData(sdto);
+	                 
 	               }
 	               System.out.println("들어가는중");
                }
             } // if end
-            
+            service.removeShelData(sdto);
+            log.info("end");
 
             
             
@@ -118,10 +120,7 @@ public class ApiShelDataController {
 
 } // try~catch end
 	
-	private ArrayList<S_DTO> removeDuplicates(ArrayList<S_DTO> list) {
-	    Set<S_DTO> set = new HashSet<>(list);
-	    return new ArrayList<>(set);
-	}
+	
 	
 	public static String getTagValue(String tag, Element eElement) {
 		   Node nlList = eElement.getElementsByTagName(tag).item(0);

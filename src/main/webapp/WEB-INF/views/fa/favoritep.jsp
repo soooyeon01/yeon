@@ -66,9 +66,9 @@
               <%System.out.println(email);%>
             <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage'" style="font-size: 14px;">마이페이지</button>                  
+                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/login'" style="font-size: 14px;">로그인</button>                 
+                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
              
             <%}  %>
                 </div>
@@ -77,7 +77,7 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+            	 location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -91,9 +91,9 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice"><b>공지사항</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
    
             </nav>
         
@@ -110,12 +110,11 @@
                             <div class="card-body">
                            		
                            		
-	                                <table id="datatablesSimple">
+	                                <table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                            <th>즐겨찾기번호</th>
 	                                            <th>닉네임</th>
-	                                            <th>공고 번호</th>
 	                                            <th>이미지</th>
 	                                            <th>보호소 이름</th>
 	                                            <th>보호소 주소</th>
@@ -124,67 +123,39 @@
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                           	<th>즐겨찾기번호</th>
-	                                            <th>닉네임</th>
-	                                            <th>보호소 번호</th>
-	                                            <th>이미지</th>
-	                                            <th>보호소 이름</th>
-	                                            <th>보호소 주소</th>
-	                                            <th>보호소 전화번호</th>
-	                                            <th>즐겨찾기 등록일</th>
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </tfoot>
+	                                    
 	                                    <tbody>
 								<c:forEach var="F_P_DTO" items="${favoritep}"
 									varStatus="status">
-									<tr>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.favoritep_no} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.nickname} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.pet_notice_no} </a></td>
-										<td><a href ="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${F_P_DTO.pet_notice_no}" >
-												<img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/>
-												</a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.careNm} </a></td>
-								
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.careAddr} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.careTel} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}">
-												${F_P_DTO.favoritep_reg_date} </a></td>
+									<tr onclick="location.href='${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}'"
+									style="cursor:pointer">
+										<td>${F_P_DTO.favoritep_no}</td>
+										<td>${F_P_DTO.nickname}</td>
+										<td><img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/></td>
+										<td>${F_P_DTO.careNm}</td>
+										<td>${F_P_DTO.careAddr}</td>
+										<td>${F_P_DTO.careTel}</td>
+										<td>${F_P_DTO.favoritep_reg_date}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 	                                </table>
 	                              
 	                            </div>
+	                            
 	                            <%@ include file="../import/page-favoritep.jsp" %>
 	                          
                         </div>
+                    
+                        <button class="btn btn-warning" type="submit" onclick="location.href='${root}/fa/sendp'">이메일 전송</button>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                
                             </div>
                         </div>
                     </div>

@@ -112,8 +112,9 @@
                                                 <%-- <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/view/login.jsp">전송</a> --%>
                                                 <input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
                                                 </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small"><a href="${root}/user/join">회원가입</a></div>
@@ -121,8 +122,9 @@
                                 </div>
                             </div>
                         </div>
+                     </main>
                     </div>
-                </main>
+               
             </div>
             <div id="layoutAuthentication_footer">
                

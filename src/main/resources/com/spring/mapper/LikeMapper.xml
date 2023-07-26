@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.spring.mapper.LikeMapper">
+  	<insert id="likeUp">
+		INSERT INTO commu_like (l_no, c_no, nickname, like_cnt)
+		values (seq_l_no.nextval,#{c_no},#{nickname,jdbcType=VARCHAR},1)
+	</insert>
+	
+	<delete id="likeDown">
+	  	delete from commu_like where c_no = #{c_no} and nickname = #{nickname,jdbcType=VARCHAR} 
+	</delete>
+	
+	<!-- 좋아요 눌럿는지 안눌럿는지 -->
+	<select id="findLike" resultType="int">
+		select count(*) from commu_like where c_no = #{c_no} and nickname = #{nickname,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 좋아요 총 갯수 -->
+	<select id="getLikeCnt" resultType="int">
+		select count(l_no) from commu_like where c_no=#{c_no}
+	</select>
+  </mapper>

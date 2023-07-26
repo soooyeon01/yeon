@@ -20,10 +20,12 @@ import org.w3c.dom.NodeList;
 import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
+@Log4j
 public class ApiWithDataController{
 	//  http://localhost:8080/4jojo/api/withdata
 	
@@ -44,13 +46,8 @@ public class ApiWithDataController{
 	public String fetchWithData() {
    // wdto 객체들을 저장할 list
 	   ArrayList<W_DTO> list = new ArrayList<>();
-	
+	   W_DTO wdto = new W_DTO();
 	   try {
-		   
-		   
-		   
-		   
-		   
 	      // parsing할 url 지정(API 키 포함해서)
 	      for (int i = 1; i < max; i++) {
 	     	 String url = "https://api.odcloud.kr/api/15111389/v1/uddi:41944402-8249-4e45-9e9d-a52d0a7db1cc"
@@ -68,7 +65,7 @@ public class ApiWithDataController{
 	         NodeList nList = doc.getElementsByTagName("item");
 	         System.out.println("파싱할 리스트 수: " + nList.getLength());
 	         System.out.println("여기1");
-	         list = removeDuplicates(list);
+	        
 	         for (int temp = 0; temp < nList.getLength(); temp++) {
 	            Node nNode = nList.item(temp);
 	            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -76,7 +73,7 @@ public class ApiWithDataController{
 	               Element eElement = (Element) nNode;
 	
 	               // wdtotage vo를 저장할 객체
-	               W_DTO wdto = new W_DTO();
+	               
 	
 	               // 종목코드
 	               wdto.setBuilding(getTagValue("시설명", eElement)); // 지정번호
@@ -99,11 +96,13 @@ public class ApiWithDataController{
 	               // 서비스 시작!
 	               
 	               service.regitsterWithData(wdto);
-	               service.removeWithData(wdto);
+	              
 	            }
 	            System.out.println("들어가는중");
 	         }
 	      } // for end
+	      service.removeWithData(wdto);
+	      log.info("end");
 	   } catch (Exception e) {
 	      e.printStackTrace();
 	   }
@@ -111,11 +110,7 @@ public class ApiWithDataController{
 	} // try~catch end
 	
 	
-	private ArrayList<W_DTO> removeDuplicates(List<W_DTO> list) {
-        Set<W_DTO> set = new HashSet<>(list);
-        return new ArrayList<>(set);
-    }
-	
+
 	
 	// tag값의 정보를 가져오는 메소드
 	 public static String getTagValue(String name, Element eElement) {
