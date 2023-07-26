@@ -26,36 +26,24 @@
 	
 	<select id="viewCntCommunity" resultType="com.spring.domain.CommunityDTO">
 	    <![CDATA[
-		SELECT c.*, COUNT(r.r_no) AS reply_cnt
-		FROM (
-		  SELECT *
-		  FROM community
-		  ORDER BY view_cnt DESC
-		  FETCH FIRST 5 ROWS ONLY
-		) c
-		LEFT JOIN reply r ON c.c_no = r.c_no
+		SELECT c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt, COUNT(r.r_no) AS reply_cnt
+		FROM community c
+		LEFT OUTER JOIN reply r
+		ON c.c_no = r.c_no
 		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt
+		ORDER BY c.view_cnt DESC
+		FETCH FIRST 5 ROWS ONLY
 		]]>
 	</select>
 	
 	<select id="likeCntCommunity" resultType="com.spring.domain.CommunityDTO">
 	    <![CDATA[
-		SELECT c.*, COUNT(r.r_no) AS reply_cnt, cl.like_cnt
-		FROM (
-		    SELECT *
-		    FROM community
-		    ORDER BY view_cnt DESC
-		    FETCH FIRST 5 ROWS ONLY
-		) c
-		LEFT JOIN reply r ON c.c_no = r.c_no
-		LEFT JOIN (
-		    SELECT c_no, COUNT(l_no) AS like_cnt
-		    FROM commu_like
-		    GROUP BY c_no
-		    ORDER BY like_cnt DESC
-		    FETCH FIRST 5 ROWS ONLY
-		) cl ON c.c_no = cl.c_no
-		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt, cl.like_cnt
+		SELECT c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt, COUNT(r.r_no) AS reply_cnt, COALESCE((SELECT COUNT(*) FROM commu_like cl WHERE c.c_no = cl.c_no),0) AS like_cnt
+		FROM community c
+		LEFT JOIN reply r ON c.c_no = r.c_no 
+		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt
+		ORDER BY like_cnt DESC
+		FETCH FIRST 5 ROWS ONLY
 		]]>
 	</select>
 	

@@ -20,16 +20,36 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 		<script>
+			//지역+카테고리
 	          $(document).ready(function () {
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
 	                  const category3 = '${param.category3}';
-	                  location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&category3="+category3; 	                 
+	                  const type = '${param.type}';
+	                  const keyword = '${param.keyword}';
+	                  location.href="${root}/with/withall?region=" + region + "&category3="+category3 + "&type="+type+"&keyword="+keyword; 	                 
 	              })
-	          });
-	          
-	          
-	          
+	          });  	          
+	        		
+	        		  <!-- type, keyword값 보내기 -->
+	        		  function getSearchList() {
+	        			   var data = $("form[name=search-form]").serialize(); 
+	        			   $.ajax({
+	        			      url: "${root}/mypage/withall",
+	        			      data: "data", 
+	        			      type: "get",
+	        			      
+	        			      success: function(data, textStatus) {
+	        			         console.log(data);
+	        			         
+	        			      },
+	        			      error: function(jqXHR, textStatus, errorThrown) {
+	        			         console.log(jqXHR);
+	        			         console.log(textStatus);
+	        			         console.log(errorThrown);
+	        			      }
+	        			   });
+	        			}       	
 	       </script>
 		<style>
 		
@@ -121,7 +141,7 @@
                               
                             </div>
                             <div class="card-body">
-                            <select id="region-select">
+                            <select id="region-select" name = "region-select">
 							<option value="">지역 선택</option>
 							<option value="서울특별시"
 								<c:if test='${ param.region eq "서울특별시" }'>selected="selected"</c:if>>서울특별시</option>
@@ -163,10 +183,9 @@
                             
                             
                            	<div id="with-container">
-                           		 <table class="table table-bordered">
+                           		 <table class="table" id ="table">
 	                                    <thead>
-	                                        <tr>
-	                                            
+	                                        <tr>	                                            
 	                                            <th>문화시설 이름</th>
 	                                            <th>도로명 주소</th>
 	                                            <th>전화번호 </th>
@@ -180,8 +199,7 @@
 	                                   
 	                                    <tbody>
 	                                    	<c:forEach var="W_DTO" items="${response.withList}" >
-											<tr onclick="location.href='${pageContext.servletContext.contextPath}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'"
-											style="cursor:pointer">
+											<tr onclick="location.href='${root}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'">
 												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>${W_DTO.building}</td>
 												<td>${W_DTO.road}</td>
@@ -193,8 +211,29 @@
 											</c:forEach>
 	                                    </tbody>
 	                                </table>
-	                              </div>
-	                              
+	                                
+	                                <div class="container">
+										<div class="row">
+											<form method="get" name="search-form" action="${root}/with/withall" autocomplete = "off">
+												<table class="pull-right">
+													<tr>
+														<td>
+														<select id="form-control" class="form-control" name="type">
+																<option selected value="">선택</option>
+																<option value="building">건물명</option>
+																<option value="road">주소</option>
+														</select></td>
+														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="" ></td>
+														<td><button type="submit" onclick = "getSearchList();" class="btn btn-success">검색</button></td>														
+													</tr>								
+												</table>
+												
+												<input type="hidden" name="category3" value="${param.category3}">
+											</form>
+										</div>
+									</div>
+	                               
+	                              </div>	                              
 	                            </div>
 	                            
 						<%@ include file="../import/page-with_pet.jsp" %>
