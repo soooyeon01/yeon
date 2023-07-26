@@ -171,7 +171,7 @@
   <div class="container marketing">
 
     <!-- Three columns of text below the carousel -->
-     <div class="row">
+    <!--  <div class="row">
       <div class="col-lg-4">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>인기글</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
         <h2 class="fw-normal">인기글</h2>
@@ -192,7 +192,7 @@
         <p>And lastly this, the third column.</p>
         <p><a class="btn btn-secondary" href="#">View details »</a></p>
       </div>
-    </div>
+    </div> -->
 
 
     <!-- START THE FEATURETTES -->
@@ -249,10 +249,7 @@
     <p>© 2017–2023 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
   </footer>
 </main>
-            
-                
-                
-                
+     
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

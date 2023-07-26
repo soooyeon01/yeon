@@ -21,7 +21,9 @@ import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j;
+@Log4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
@@ -46,7 +48,7 @@ public class ApiPetDataController {
     	
         // pdto 객체들을 저장할 list
         ArrayList<P_DTO> list = new ArrayList<>();
-      
+        P_DTO pdto = new P_DTO();
         try {
             // parsing할 url 지정(API 키 포함해서)
             for (int i = 1; i < max; i++) {
@@ -75,7 +77,7 @@ public class ApiPetDataController {
                         Element eElement = (Element) nNode;
       
                         // pdtotage vo를 저장할 객체
-                        P_DTO pdto = new P_DTO();
+                        
       
                         pdto.setHappenDt(getTagValue("happenDt", eElement)); // 종목코드
                         pdto.setHappenPlace(getTagValue("happenPlace", eElement)); // 지정번호
@@ -100,8 +102,7 @@ public class ApiPetDataController {
                         
       
                        service.regitsterPetData(pdto);
-                       service.removePetData(pdto);
-             		 service.removePetEnd(pdto);	
+                       
                    	   
                      }
                      System.out.println("들어가는중");
@@ -109,7 +110,9 @@ public class ApiPetDataController {
                   }
                   
                } // if end
-            	
+            service.removePetData(pdto);
+    		 service.removePetEnd(pdto);
+    		 log.info("end");
             // for end
         } catch (Exception e) {
             e.printStackTrace();

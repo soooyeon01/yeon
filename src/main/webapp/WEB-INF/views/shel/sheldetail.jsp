@@ -145,10 +145,10 @@
 		        success: function(data) {
 		        	 if (data.result === 1) {
 			                alert("등록되었습니다.");
-			                window.location = document.referrer;
+			            
 			            }else{
 			            	alert("등록되었습니다.");
-			            	window.location = document.referrer;
+			            	
 			            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -172,10 +172,10 @@
 		        success: function(data) {
 		        	if (data.result === 1) {
 		                alert("삭제되었습니다.");
-		                window.location = document.referrer;
+		                
 		            } else {
 		                alert("삭제되었습니다.");
-		                window.location = document.referrer;
+		                
 		            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -185,6 +185,9 @@
 		            alert("오류가 발생했습니다. 다시 시도해주세요.");
 		        }
 		    });
+		}
+		function back(){
+			window.location = document.referrer;
 		}
 			  </script>
 			  
@@ -222,7 +225,7 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
@@ -240,8 +243,8 @@
                             
                             
                             <div class="card-body">
-                           		
-                           		 <table class="table">
+                           		<button type="button" onclick="back();">뒤로가기</button>
+                           		 <table class="table table-bordered">
 
 	                                    <thead>
 	                                        <tr>
@@ -274,7 +277,7 @@
 												<label>
 													 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${S_DTO.shelter_no}">
 													 <img class="img_fa1" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa1.png">
-													 <img class="img_fa2" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa2.png" style="display:none;">
+													 <img class="img_fa2" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa3.gif" style="display:none;">
 												</label>
 												
 												</td>

@@ -40,10 +40,11 @@
       w.building,
       w.road,
       w.tel,
-      (SELECT nickname FROM members WHERE nickname = #{nickname,jdbcType=VARCHAR}) as nickname
+      f.nickname
     FROM favoritew f
     JOIN with_pet w ON f.with_pet_no = w.with_pet_no
     WHERE ROWNUM <= ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} * #{pageMaker.cri.amount} )
+    AND f.nickname = #{nickname}
   )
   WHERE rn > ( ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} - 1 ) * #{pageMaker.cri.amount} )
   ]]>

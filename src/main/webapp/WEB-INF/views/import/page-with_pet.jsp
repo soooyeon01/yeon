@@ -9,21 +9,21 @@
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}');" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}','${param.category3}');" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
 						    		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" varStatus="status">
 					    			<c:choose>
 					    				<c:when test="${ status.index == pageMaker.cri.pageNum }">
-					    					<c:set scope="page" var="selectedBgColor" value="style='background-color:tomato;'"></c:set>
+					    					<c:set scope="page" var="selectedBgColor" value="style='background-color:#FFD700;'"></c:set>
 					    				</c:when>
 					    				<c:otherwise>
 					    					<c:set scope="page" var="selectedBgColor" value=""></c:set>
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}');"
+						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}','${param.category3}');"
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,7 +31,7 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}');"  class="datatable-pagination-list-item-link">›</a>
+						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}','${param.category3}');"  class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>
@@ -39,22 +39,28 @@
 						</div>
 	<script>
 	
-	function prev(prevPage){
-		var selectElement = document.getElementById("region-select");
+	function prev(prevPage,category3){
+		var selectElement = document.getElementById("region-select");		
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&pageNum=" + prevPage; 
+		
+		
+		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region +"&category3="+ category3 + "&pageNum=" + prevPage; 
 	}
 
-	function pageNum(page){
+	function pageNum(page,category3){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&pageNum=" + page; 
+		
+		
+		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&category3="+ category3 + "&pageNum=" + page; 
 	}
 	
-	function next(nextPage){
+	function next(nextPage,category3){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&pageNum=" + nextPage; 
+	
+		
+		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&category3="+ category3 + "&pageNum=" + nextPage; 
 	}
 	
 </script>

@@ -41,6 +41,12 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 	
 	@Override
+	public List<CommunityDTO> getViewCntCommunity() {
+		// TODO Auto-generated method stub
+		return mapper.viewCntCommunity();
+	}
+	
+	@Override
 	public int registerCommunity(CommunityDTO dto) {
 		
 		return mapper.insertCommunity(dto);
@@ -59,10 +65,21 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public int viewCount(int c_no) {
+	public int viewCnt(int c_no) {
 		// TODO Auto-generated method stub
-		return mapper.viewCount(c_no);
+		return mapper.viewCnt(c_no);
 	}
 
+	@Override
+	public int getReplyCntCommunity(int c_no) {
+		// TODO Auto-generated method stub
+		return mapper.replyCntCommunity(c_no);
+	}
+
+	@Override
+	public List<CommunityDTO> getLikeCntCommunity() {
+		// TODO Auto-generated method stub
+		return mapper.likeCntCommunity();
+	}
 	
 }

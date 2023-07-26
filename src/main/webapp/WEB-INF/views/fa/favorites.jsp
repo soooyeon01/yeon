@@ -77,7 +77,7 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+            	 location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -91,7 +91,7 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
    
@@ -110,7 +110,7 @@
                             <div class="card-body">
                            		
                            		
-	                                <table id="datatablesSimple">
+	                                <table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                            <th>즐겨찾기번호</th>
@@ -123,43 +123,19 @@
 	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
-	                                    <tfoot>
-	                                        <tr>
-	                                           	<th>즐겨찾기번호</th>
-	                                            <th>닉네임</th>
-	                                            <th>보호소 번호</th>
-	                                            <th>보호소 이름</th>
-	                                            <th>보호소 주소</th>
-	                                            <th>보호소 전화번호</th>
-	                                            <th>즐겨찾기 등록일</th>
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </tfoot>
+	                                   
 	                                    <tbody>
 								<c:forEach var="F_S_DTO" items="${favorites}"
 									varStatus="status">
-									<tr>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.favorites_no} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.nickname} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.shelter_no} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.careNm} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.careAddr} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.careTel} </a></td>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}">
-												${F_S_DTO.favorites_reg_date} </a></td>
+									<tr onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}'"
+									style="cursor:pointer">
+										<td>${F_S_DTO.favorites_no}</td>
+										<td>${F_S_DTO.nickname}</td>
+										<td>${F_S_DTO.shelter_no}</td>
+										<td>${F_S_DTO.careNm}</td>
+										<td>${F_S_DTO.careAddr}</td>
+										<td>${F_S_DTO.careTel}</td>
+										<td>${F_S_DTO.favorites_reg_date}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.domain.F_P_DTO;
 import com.spring.domain.P_DTO;
 import com.spring.mapper.P_Mapper;
 import com.spring.util.PageMaker;
@@ -47,9 +48,9 @@ public class P_ServiceImpl implements P_Service {
 	}
 // 즐겨찾기	
 	@Override
-	public int registerP(P_DTO dto) {
+	public void registerP(String nickname, P_DTO dto) {
 		
-		return mapper.insertPetnoticeData(dto);
+		mapper.insertPetnoticeData(nickname, dto);
 	}
 
 	@Override
