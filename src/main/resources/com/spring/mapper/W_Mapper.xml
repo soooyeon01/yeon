@@ -147,6 +147,7 @@
   
   		INSERT INTO favoritew (
 				   favoritew_no,
+				   nickname,
 				    favoritew_reg_date,
 				   with_pet_no,
 				    building,
@@ -167,6 +168,7 @@
 				)
 				VALUES (
 				    seq_favoritew_no.nextval,
+				    #{nickname},
 				    sysdate,
 				    (SELECT with_pet_no FROM with_pet WHERE with_pet_no = #{with_pet_no}),
 				    (SELECT building FROM with_pet WHERE building = #{building,jdbcType=VARCHAR}),
