@@ -17,7 +17,7 @@ public interface S_Mapper {
 	int selectCountAllBoard();
 	int selectCountRegionShel(String region);
 	
-	int insertShelterData(S_DTO dto);
+	void insertShelterData(@Param("nickname")String nickname,@Param("dto") S_DTO dto);
 	int deleteShelterData(int shelter_no);
 	
 }

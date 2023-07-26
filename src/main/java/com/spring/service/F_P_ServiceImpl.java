@@ -17,6 +17,7 @@ public class F_P_ServiceImpl implements F_P_Service {
 	@Override
 	public List<F_P_DTO> getPBoard(String nickname) {
 		
+		
 		return mapper.selectPBoard(nickname);
 	}
 

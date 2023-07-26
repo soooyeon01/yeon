@@ -25,9 +25,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.domain.CommunityDTO;
+import com.spring.domain.LikeDTO;
 import com.spring.domain.MembersDTO;
 import com.spring.domain.ReplyDTO;
 import com.spring.service.CommunityService;
+import com.spring.service.LikeService;
 import com.spring.service.LoginService;
 import com.spring.service.ReplyService;
 import com.spring.util.Criteria;
@@ -45,6 +47,7 @@ public class CommunityController {
 	private final CommunityService service;
 	private final LoginService logservice;
 	private final ReplyService rservice;
+	private final LikeService lservice;
 	/*
 	 * @RequestMapping("/clist") 
 	 * public String CommunityList(Model model,Criteria
@@ -55,18 +58,15 @@ public class CommunityController {
 	
 	@PostMapping("/newR")
 	@ResponseBody		
-	public Map<String, String> newR(@RequestBody ReplyDTO rdto, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-        boolean SESS_AUTH = false;
+	public Map<String, String> newR(@RequestBody ReplyDTO rdto, HttpSession session) {
+
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
         System.out.println("댓글 등록 통신 성공");
         
-        try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-        }catch(Exception e) {}
         Map<String, String> map = new HashMap<>(); 
-        if( SESS_AUTH ) {
+        if(SESS_AUTH != null && SESS_AUTH) {
 //          request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
+
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
             
@@ -85,18 +85,13 @@ public class CommunityController {
 	
 	@PostMapping("/delR")
 	@ResponseBody		
-	public Map<String, String> DeleteR(@RequestBody ReplyDTO rdto, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-        boolean SESS_AUTH = false;
+	public Map<String, String> DeleteR(@RequestBody ReplyDTO rdto, HttpSession session) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
         System.out.println("댓글 삭제 통신 성공");
         
-        try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-        }catch(Exception e) {}
         Map<String, String> map = new HashMap<>(); 
-        if( SESS_AUTH ) {
+        if(SESS_AUTH != null && SESS_AUTH) {
 //          request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
             
@@ -112,6 +107,7 @@ public class CommunityController {
 		}
         return map;
 	}
+
 	
 	// localhost:8080/4jojo/community/replyList/{c_no}
 	@GetMapping("/reply/{c_no}")
@@ -136,24 +132,32 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/clist")
-	public String CommunityList(Model model) {
-		
-		model.addAttribute("communityList",service.getAllCommunity());
-		return "community/community";
+	public String CommunityList(HttpSession session, Model model, LikeDTO ldto) {
+
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+         
+        if(SESS_AUTH != null && SESS_AUTH) {
+//          request.setCharacterEncoding("utf-8");
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            model.addAttribute("viewCntList", service.getViewCntCommunity());
+            model.addAttribute("communityList",service.getAllCommunity());
+            model.addAttribute("likeCntList", service.getLikeCntCommunity());
+            
+            //model.addAttribute("likeCnt", lservice.getLikeCnt(ldto));
+            return "community/community";
+        }else {
+			return "redirect:/main/main";
+        }
+        
 	}
 	
 	@RequestMapping("/myclist")
-	public String MyCommunList(HttpServletRequest request, Model model, String nickname) {
-		HttpSession session = request.getSession();
-        boolean SESS_AUTH = false;
-         
-        try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-        }catch(Exception e) {}
-         
-        if( SESS_AUTH ) {
+	public String MyCommunList(HttpSession session, Model model, String nickname) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+		
+        if(SESS_AUTH != null && SESS_AUTH) {
 //          request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
             nickname = (String) session.getAttribute("SESS_NICKNAME");
 //          session.setAttribute("id", email);
@@ -170,18 +174,13 @@ public class CommunityController {
 	}
 	
 	@RequestMapping("/newCommu")
-	public String CommunityRegi(HttpServletRequest request, CommunityDTO commu, MembersDTO mdto) {
-		HttpSession session = request.getSession();
-        boolean SESS_AUTH = false;
-         
-        try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-        }catch(Exception e) {}
-         
-        if( SESS_AUTH ) {
+	public String CommunityRegi(HttpSession session, CommunityDTO commu, MembersDTO mdto) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+		
+        if(SESS_AUTH != null && SESS_AUTH) {
 //          request.setCharacterEncoding("utf-8");
-            request.setAttribute("SESS_AUTH", false);
-            String email = (String) session.getAttribute("SESS_EMAIL");
+
+        	String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
 //          session.setAttribute("id", email);
             
@@ -197,27 +196,49 @@ public class CommunityController {
     }
 	
 	@GetMapping("/commuSel")
-	public String CommuSel(HttpServletRequest request, Model model, int c_no, String nickname) {
-		HttpSession session = request.getSession();
-        boolean SESS_AUTH = false;
+	public String CommuSel(HttpSession session, Model model, int c_no, LikeDTO ldto) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
          
-        try {
-            SESS_AUTH = (boolean)session.getAttribute("SESS_AUTH");
-        }catch(Exception e) {}
-         
-        if( SESS_AUTH ) {
-           
+        if(SESS_AUTH != null && SESS_AUTH) {
 	//      request.setCharacterEncoding("utf-8");
-	        request.setAttribute("SESS_AUTH", false);
+
 	        String email = (String) session.getAttribute("SESS_EMAIL");
+	        String nickname = (String) session.getAttribute("SESS_NICKNAME");
 	//      session.setAttribute("id", email);
 			CommunityDTO selectone=service.getCommunity(c_no);
 			model.addAttribute("selectone", selectone);
-			service.viewCount(c_no);	
+			service.viewCnt(c_no);
+			
+			ldto=new LikeDTO();
+			ldto.setC_no(c_no);
+			ldto.setNickname(nickname);
+			log.info("여기1 " + lservice.getLikeCnt(ldto));
+			model.addAttribute("ldto", lservice.findLike(ldto));
+			model.addAttribute("getLikeCnt", lservice.getLikeCnt(ldto));
+			log.info("여기2 " + lservice.getLikeCnt(ldto));
+			
 			return "community/commuSel";
         }else {
         	return "redirect:/main/main";
         }	
+	}
+	
+	@PostMapping("/likeUp")
+	@ResponseBody 
+	public void likeup(@RequestBody LikeDTO ldto) {
+		log.info("좋아요 컨트롤러 연결 성공");
+		log.info(ldto.getC_no());
+		log.info(ldto.getNickname());
+		lservice.likeUp(ldto);
+	
+	}
+	
+	@PostMapping("/likeDown")
+	@ResponseBody
+	public void likeDown(@RequestBody LikeDTO ldto) {
+		log.info("좋아요 싫어요!");
+		
+		lservice.likeDown(ldto);
 	}
 	
 	@RequestMapping("/commuUp1")

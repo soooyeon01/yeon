@@ -42,10 +42,11 @@
         		, s.careNm
         		, s.careAddr
         		, s.careTel
-        		, (SELECT nickname FROM members WHERE nickname = #{nickname,jdbcType=VARCHAR}) as nickname
+        		, f.nickname
         		FROM favorites f
         		JOIN shelter s ON f.shelter_no = s.shelter_no
         		WHERE ROWNUM <= ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} * #{pageMaker.cri.amount} )
+        		AND f.nickname=#{nickname}
         		            )
         		   WHERE rn > ( ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} - 1 ) * #{pageMaker.cri.amount} )
             ]]>

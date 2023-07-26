@@ -17,7 +17,7 @@ public interface S_Service {
 	int getCountRegionShel(String region);
 	int getCountAllBoard();
 	
-	int registerShelterData(S_DTO dto);
+	void registerShelterData(@Param("nickname")String nickname,@Param("dto") S_DTO dto);
 	int removeShelterData(int shelter_no);
 	
 	

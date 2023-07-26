@@ -96,8 +96,9 @@
   	<insert id="insertShelterData">
   		INSERT INTO favorites( 
 						favorites_no
+						,nickname 
 						,favorites_reg_date
-						,shelter_no  
+						,shelter_no 
 						,careNm  
 						,divisionNm 
 						,saveTrgtAnimal 
@@ -115,22 +116,23 @@
 						)
 						values(
 						seq_favorites_no.nextval
+						,#{nickname}
 						,sysdate
-						,(SELECT shelter_no from shelter where shelter_no=#{shelter_no})
-						,(SELECT careNm FROM shelter WHERE careNm = #{careNm,jdbcType=VARCHAR})
-						,(SELECT divisionNm FROM shelter WHERE divisionNm = #{divisionNm,jdbcType=VARCHAR})
-						,(SELECT saveTrgtAnimal FROM shelter WHERE saveTrgtAnimal = #{saveTrgtAnimal,jdbcType=VARCHAR})
-						,(SELECT careAddr FROM shelter WHERE careAddr = #{careAddr,jdbcType=VARCHAR})
-						,(SELECT weekOprStime FROM shelter WHERE weekOprStime = #{weekOprStime,jdbcType=VARCHAR})
-						,(SELECT weekOprEtime FROM shelter WHERE weekOprEtime = #{weekOprEtime,jdbcType=VARCHAR})
-						,(SELECT weekCellStime FROM shelter WHERE weekCellStime = #{weekCellStime,jdbcType=VARCHAR})
-						,(SELECT weekCellEtime FROM shelter WHERE weekCellEtime = #{weekCellEtime,jdbcType=VARCHAR})
-						,(SELECT weekendOprStime FROM shelter WHERE weekendOprStime = #{weekendOprStime,jdbcType=VARCHAR})
-						,(SELECT weekendOprEtime FROM shelter WHERE weekendOprEtime = #{weekendOprEtime,jdbcType=VARCHAR})
-						,(SELECT weekendCellStime FROM shelter WHERE weekendCellStime = #{weekendCellStime,jdbcType=VARCHAR})
-						,(SELECT weekendCellEtime FROM shelter WHERE weekendCellEtime = #{weekendCellEtime,jdbcType=VARCHAR})
-						,(SELECT closeDay FROM shelter WHERE closeDay = #{closeDay,jdbcType=VARCHAR})
-						,(SELECT careTel FROM shelter WHERE careTel = #{careTel,jdbcType=VARCHAR})
+						,(SELECT shelter_no from shelter where shelter_no=#{dto.shelter_no})
+						,(SELECT careNm FROM shelter WHERE careNm = #{dto.careNm,jdbcType=VARCHAR})
+						,(SELECT divisionNm FROM shelter WHERE divisionNm = #{dto.divisionNm,jdbcType=VARCHAR})
+						,(SELECT saveTrgtAnimal FROM shelter WHERE saveTrgtAnimal = #{dto.saveTrgtAnimal,jdbcType=VARCHAR})
+						,(SELECT careAddr FROM shelter WHERE careAddr = #{dto.careAddr,jdbcType=VARCHAR})
+						,(SELECT weekOprStime FROM shelter WHERE weekOprStime = #{dto.weekOprStime,jdbcType=VARCHAR})
+						,(SELECT weekOprEtime FROM shelter WHERE weekOprEtime = #{dto.weekOprEtime,jdbcType=VARCHAR})
+						,(SELECT weekCellStime FROM shelter WHERE weekCellStime = #{dto.weekCellStime,jdbcType=VARCHAR})
+						,(SELECT weekCellEtime FROM shelter WHERE weekCellEtime = #{dto.weekCellEtime,jdbcType=VARCHAR})
+						,(SELECT weekendOprStime FROM shelter WHERE weekendOprStime = #{dto.weekendOprStime,jdbcType=VARCHAR})
+						,(SELECT weekendOprEtime FROM shelter WHERE weekendOprEtime = #{dto.weekendOprEtime,jdbcType=VARCHAR})
+						,(SELECT weekendCellStime FROM shelter WHERE weekendCellStime = #{dto.weekendCellStime,jdbcType=VARCHAR})
+						,(SELECT weekendCellEtime FROM shelter WHERE weekendCellEtime = #{dto.weekendCellEtime,jdbcType=VARCHAR})
+						,(SELECT closeDay FROM shelter WHERE closeDay = #{dto.closeDay,jdbcType=VARCHAR})
+						,(SELECT careTel FROM shelter WHERE careTel = #{dto.careTel,jdbcType=VARCHAR})
 						)
   	</insert>
   	<delete id="deleteShelterData">

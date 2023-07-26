@@ -77,7 +77,7 @@
             <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/main/main";
+            	 location.href = "${root}/user/logout";
                 }
          }
             </script>
@@ -91,7 +91,7 @@
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withall"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
    
@@ -110,7 +110,7 @@
                             <div class="card-body">
                            		
                            		
-	                                <table class="table">
+	                                <table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                            <th>즐겨찾기번호</th>
@@ -127,7 +127,8 @@
 	                                    <tbody>
 								<c:forEach var="F_P_DTO" items="${favoritep}"
 									varStatus="status">
-									<tr onclick="location.href='${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}'">
+									<tr onclick="location.href='${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}'"
+									style="cursor:pointer">
 										<td>${F_P_DTO.favoritep_no}</td>
 										<td>${F_P_DTO.nickname}</td>
 										<td><img src="${F_P_DTO.popfile}" alt="펫이미지" style="height:100px"/></td>
@@ -141,19 +142,20 @@
 	                                </table>
 	                              
 	                            </div>
+	                            
 	                            <%@ include file="../import/page-favoritep.jsp" %>
 	                          
                         </div>
+                    
+                        <button class="btn btn-warning" type="submit" onclick="location.href='${root}/fa/sendp'">이메일 전송</button>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                
                             </div>
                         </div>
                     </div>

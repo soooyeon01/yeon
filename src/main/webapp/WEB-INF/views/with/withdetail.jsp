@@ -239,7 +239,7 @@
                             <div class="card-body">
                            		
                            		<button type="button" onclick="back();">뒤로가기</button>
-                           		 <table class="table">
+                           		 <table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                        	<th></th>
@@ -269,13 +269,15 @@
 												<label>
 													 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${W_DTO.with_pet_no}">
 													 <img class="img_fa1" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa1.png">
-													 <img class="img_fa2" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa2.png" style="display:none;">
+													 <img class="img_fa2" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa3.gif" style="display:none;">
 												</label>
 												
 												</td>
 												
+												<c:set var="addressNm" value="${W_DTO.building}" />
 												<td>${W_DTO.building}</td>
 												<td>${W_DTO.category3}</td>
+												<c:set var="address" value="${W_DTO.road}" />
 												<td>${W_DTO.road}</td>
 												<td>${W_DTO.homepage}</td>										
 												<td>${W_DTO.day_off}</td>
@@ -299,6 +301,57 @@
 	                           
                         </div>
                     </div>
+                             <p style="margin-top:-12px">
+		    <em class="link">
+		        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+		            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
+		        </a>
+		    </em>
+		</p>
+		<div id="map" style="width:500px;height:350px;"></div>
+		
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+		<script>
+			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+			    mapOption = {
+			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			        level: 3 // 지도의 확대 레벨
+			    };  
+		
+			// 지도를 생성
+			var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			// 주소-좌표 변환 객체를 생성
+			var geocoder = new kakao.maps.services.Geocoder();
+			
+			
+			// 주소로 좌표를 검색
+			geocoder.addressSearch('${address}', function(result, status) {
+			
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
+			
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			        // 결과값으로 받은 위치를 마커로 표시
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
+			
+			        // 인포윈도우로 장소에 대한 설명을 표시
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
+			        });
+			        infowindow.open(map, marker);
+			
+			        // 지도의 중심을 결과값으로 받은 위치로 이동
+			        map.setCenter(coords);
+			    } 
+			});   
+			
+			
+		</script>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                    

@@ -1,13 +1,9 @@
 package com.spring.service;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
+import com.spring.util.SendEmail;
 import com.spring.domain.MembersDTO;
 import com.spring.mapper.FindPwdMapper;
 
@@ -29,5 +25,15 @@ public class FindPwdServiceImpl implements FindPwdService {
 	    public int updatePwd(MembersDTO mdto) {
 	        return mapper.updatePwd(mdto);
 	    }
+	 
+	 @Override
+	 public void sendTempPwd(MembersDTO mdto) {
+	     String email = mdto.getEmail();
+	     String tempPwd = generateTempPwd();
+	     mdto.setTempPwd(tempPwd);
+	     mapper.updateTempPwd(mdto);
+
+	     SendEmail.naverMailSend(email, tempPwd);
+	 }
 	 
 }

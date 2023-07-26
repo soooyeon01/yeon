@@ -10,4 +10,5 @@ public interface FindPwdService {
 
 	public String findPwd(MembersDTO mdto);
 	public int updatePwd(MembersDTO mdto);
+	void sendTempPwd(MembersDTO mdto);
 }
