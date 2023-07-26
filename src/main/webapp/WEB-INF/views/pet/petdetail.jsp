@@ -22,8 +22,9 @@
 		<script>
 		function getInitialFavoriteStatus() {
 		    $.ajax({
-		        url: "${pageContext.servletContext.contextPath}/pet/get_initial_favorite_status",
-		        type: "GET",
+		        url: "${pageContext.servletContext.contextPath}/pet/favoritep",
+		        async:false,
+		        type: "POST",
 		        dataType: "json",
 		        success: function(data) {
 		            applyImageDisplayStatus(data);

@@ -87,10 +87,7 @@
                                                 <input class="form-control" id="email" name="email" type="email"  />
                                                 <label for="email">이메일</label>
                                             </div>
-                                            <div class="form-floating mb-3">
-                                                <input class="form-control" id="pwd" name="pwd" type="password"  />
-                                                <label for="pwd">비밀번호</label>
-                                            </div>
+                                        
                                             
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

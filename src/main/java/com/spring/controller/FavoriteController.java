@@ -45,7 +45,7 @@ public class FavoriteController {
 	private final F_W_Service servicew;
 	private final F_P_Service servicep;
 
-	@GetMapping("/favorites")
+	@RequestMapping("/favorites")
 	public String getSBoard(HttpSession session, Model model,
 			Criteria cri, String nickname) {
 
@@ -64,7 +64,7 @@ public class FavoriteController {
 		}
 	}
 
-	@GetMapping("/favoritew")
+	@RequestMapping("/favoritew")
 	public String getWBoard(HttpSession session, String nickname, Model model, Criteria cri) {
 		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
 		
@@ -114,11 +114,11 @@ public class FavoriteController {
 	
 	
 	@RequestMapping("/sendfap")
-	public String naverMailSendP(HttpSession session2, String nickname, @RequestParam("email")String email, @RequestParam("pwd")String pwd
+	public String naverMailSendP(HttpSession session2, String nickname, @RequestParam("email")String email
 			,Model model) {
-        String host = "smtp.naver.com";
-        String user = email;
-        String password = pwd;       
+		 String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
+	        String user = "2qiuo@naver.com"; // 패스워드
+	        String password = "Yesol1101@";         
 
         // SMTP 서버 정보를 설정한다.
         Properties props = new Properties();
@@ -176,11 +176,11 @@ public class FavoriteController {
 	
 	// 보호소 이메일 전송
 	@RequestMapping("/sendfas")
-	public String naverMailSendW(HttpSession session2, String nickname, @RequestParam("email")String email, @RequestParam("pwd")String pwd
+	public String naverMailSendW(HttpSession session2, String nickname, @RequestParam("email")String email
 			,Model model) {
-        String host = "smtp.naver.com";
-        String user = email;
-        String password = pwd;       
+		 String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
+	        String user = "2qiuo@naver.com"; // 패스워드
+	        String password = "Yesol1101@";     
 
         // SMTP 서버 정보를 설정한다.
         Properties props = new Properties();
@@ -236,11 +236,11 @@ public class FavoriteController {
 	}
 	
 	@RequestMapping("/sendfaw")
-	public String naverMailSend(HttpSession session2, String nickname, @RequestParam("email")String email, @RequestParam("pwd")String pwd
+	public String naverMailSend(HttpSession session2, String nickname, @RequestParam("email")String email
 			,Model model) {
-        String host = "smtp.naver.com";
-        String user = email;
-        String password = pwd;       
+		 String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
+	        String user = "2qiuo@naver.com"; // 패스워드
+	        String password = "Yesol1101@";        
 
         // SMTP 서버 정보를 설정한다.
         Properties props = new Properties();
