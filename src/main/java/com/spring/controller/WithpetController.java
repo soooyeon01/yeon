@@ -42,13 +42,15 @@ import lombok.extern.log4j.Log4j;
 public class WithpetController {
 	private final W_Service service;
 
-	// 지역별 조회
+	//카테고리별 선택 > 지역별 조회
 	@RequestMapping("/withall")
 	@ResponseBody
 	public ModelAndView getWithListByRegion(
 			@RequestParam(value = "region", required = false, defaultValue = "") String region,
 			@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
-			@RequestParam(value = "category3", required = false) String category3, // 추가
+			@RequestParam(value = "category3", required = false) String category3,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "keyword", required = false) String keyword,
 			Model model, Criteria cri) {
 
 		ModelAndView mav = new ModelAndView("/with/with");
@@ -58,17 +60,30 @@ public class WithpetController {
 		int totalCount;
 		cri = new Criteria(pageNum);
 
+		// 검색 조건 확인: type과 keyword 모두 null이 아닌 경우로 검색 수행 조건으로 설정
+	    boolean searchCondition = type != null && keyword != null;
+		
 		if (region.isEmpty()) {
-			totalCount = service.getCountCategorywith(category3);
+			if(searchCondition) { //카테고리O + 검색어O + 지역검색 x
+				totalCount = service.getCountCategorywith(type,keyword,region,category3);
+				pageMaker = new PageMaker(cri,totalCount);
+				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
+			}else {  //카테고리O + 검색어x + 지역검색 x
+			totalCount = service.getCountCategorywith(type,keyword,region,category3);
 			pageMaker = new PageMaker(cri, totalCount);
-			withList = service.getCategoryWith(category3, pageMaker);
-
-		} else {
-			totalCount = service.getCountRegionWith(region, category3);
+			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
+			}
+		} else { //카테고리 + 검색어 O + 지역검색 x			
+			if(searchCondition) {
+				totalCount = service.getCountCategorywith(type,keyword,region,category3);
+				pageMaker = new PageMaker(cri, totalCount);
+				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
+			}else { //카테고리 + 검색어 O + 지역검색 O	
+			totalCount = service.getCountCategorywith(type,keyword,region,category3);
 			pageMaker = new PageMaker(cri, totalCount);
-			withList = service.getRegionWith(region, category3, pageMaker);
+			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
+			}
 		}
-
 		Map<String, Object> response = new HashMap<>();
 		response.put("withList", withList);
 		model.addAttribute("pageMaker", pageMaker);
@@ -87,6 +102,8 @@ public class WithpetController {
 			return "redirect:/main/main";
 		}
 	}
+	
+	
 
 	// 즐겨찾기
 	@RequestMapping("/registerwith")
@@ -196,5 +213,18 @@ public class WithpetController {
 	public String selectCa() {
 		return "/with/withca";
 	}
+	
+//	//검색창
+//	@GetMapping("/getSearchList")
+//	@ResponseBody
+//	private List<W_DTO> getSearchList(@RequestParam("type")String type
+//									,@RequestParam("keyword")String keyword,Model model
+//									,@RequestParam(value = "category3", required = false) String category3)throws Exception{
+//		
+//		W_DTO wdto = new W_DTO();
+//		wdto.setType(type);
+//		wdto.setKeyword(keyword);
+//		return service.getSearchList(wdto);
+//	}
 
 }

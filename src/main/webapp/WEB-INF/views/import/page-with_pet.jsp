@@ -9,7 +9,7 @@
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}','${param.category3}');" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}','${param.category3}','${param.type}','${param.keyword}','${param.region}');" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
@@ -23,7 +23,7 @@
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}','${param.category3}');"
+						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}','${param.category3}','${param.type}','${param.keyword}','${param.region}');"
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,7 +31,7 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}','${param.category3}');"  class="datatable-pagination-list-item-link">›</a>
+						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}','${param.category3}','${param.type}','${param.keyword}','${param.region}');"  class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>
@@ -39,28 +39,31 @@
 						</div>
 	<script>
 	
-	function prev(prevPage,category3){
+	function prev(prevPage,category3,type,keyword,region){
 		var selectElement = document.getElementById("region-select");		
 		var region = selectElement.options[selectElement.selectedIndex].value;
+		var selectElement2 = document.getElementById("form-control");		
 		
-		
-		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region +"&category3="+ category3 + "&pageNum=" + prevPage; 
+		location.href="${pageContext.servletContext.contextPath}/with/withall?category3="
+			+category3 +"&region=" + region + "&type="+ type + "&keyword=" + keyword + "&pageNum=" + prevPage ; 
 	}
 
-	function pageNum(page,category3){
+	function pageNum(page,category3,type,keyword,region){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
+		var selectElement2 = document.getElementById("form-control");
 		
-		
-		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&category3="+ category3 + "&pageNum=" + page; 
+		location.href="${pageContext.servletContext.contextPath}/with/withall?category3="
+		+category3 +"&region="	+ region + "&type="+ type + "&keyword=" + keyword + "&pageNum=" + page; 
 	}
 	
-	function next(nextPage,category3){
+	function next(nextPage,category3,type,keyword,region){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
-	
+		var selectElement2 = document.getElementById("form-control");
 		
-		location.href="${pageContext.servletContext.contextPath}/with/withall?region=" + region + "&category3="+ category3 + "&pageNum=" + nextPage; 
+		location.href="${pageContext.servletContext.contextPath}/with/withall?category3=" 
+			+category3 + "&region=" + region + "&type="+ type + "&keyword=" + keyword + "&pageNum=" + nextPage; 
 	}
 	
 </script>

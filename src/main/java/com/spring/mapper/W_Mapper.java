@@ -19,12 +19,18 @@ public interface W_Mapper {
 	
 	int insertWith_petData(W_DTO dto);
 	int deleteWith_petData(int with_pet_no);	
-
 	
+	//위드펫카테고리
+	List<W_DTO> selectCategories(@Param("type") String type
+									,@Param("keyword") String keyword
+									,@Param("region") String region
+									,@Param("category3") String category3
+									,@Param("pageMaker") PageMaker pageMaker);
 
-
+	int selectCountCategorywith(@Param("type") String type
+								,@Param("keyword") String keyword
+								,@Param("region") String region
+								,@Param("category3") String category3);
 	
-//	위드펫카테고리 추가
-	List<W_DTO> selectCategoryWith(@Param("category3") String category3, @Param("pageMaker") PageMaker pageMaker);
-	int selectCountCategoryWith(String category3);
+	
 }

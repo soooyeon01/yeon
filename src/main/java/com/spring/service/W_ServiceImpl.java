@@ -60,22 +60,21 @@ public class W_ServiceImpl implements W_Service {
 		return mapper.deleteWith_petData(with_pet_no);
 	}
 
-	
-
-
-
 	//위드펫카테고리
-	/* 추가 */
-	@Override
-	public List<W_DTO> getCategoryWith(String category3, PageMaker pageMaker) {
-		return mapper.selectCategoryWith(category3, pageMaker);
-	}
 
 	@Override
-	public int getCountCategorywith(String category3) {
-		return mapper.selectCountCategoryWith(category3);
+	public int getCountCategorywith(String type, String keyword, String region, String category3) {		
+		return mapper.selectCountCategorywith(type,keyword,region,category3);
 	}
 
+
+	@Override
+	public List<W_DTO> getCategoryWith(String type, String keyword, String region, String category3,
+			PageMaker pageMaker) {
+
+		return mapper.selectCategories(type,keyword,region,category3,pageMaker);
+	}
 
 
 }
+

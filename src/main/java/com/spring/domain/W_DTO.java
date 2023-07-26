@@ -25,4 +25,8 @@ public class W_DTO {
 	private String outside; 
 	private String extra;
 	private String region;
+	
+	//검색필터
+	private String type;
+	private String keyword;
 }
