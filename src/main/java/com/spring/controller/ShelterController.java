@@ -91,7 +91,8 @@ public class ShelterController {
 
 	@RequestMapping("/registershel")
 	@ResponseBody
-	public String insertF_S(@RequestParam(value = "shelter_no", required = false) String shelter_no,
+	public String insertF_S(HttpSession session,
+			@RequestParam(value = "shelter_no", required = false) String shelter_no,
 	        @RequestParam(required = false) String nickname,
 	        @RequestParam(required = false) String careNm,
 	        @RequestParam(required = false) String divisionNm,
@@ -114,7 +115,7 @@ public class ShelterController {
 		if (shelter_no == null || shelter_no.equals("")) {
 			shelter_no = "-1";
 		}
-
+			nickname=(String) session.getAttribute("SESS_NICKNAME");
 		 	dto.setNickname(nickname);
 		    dto.setFavorites_reg_date(favorites_reg_date);
 		    dto2.setShelter_no(Integer.parseInt(shelter_no));
@@ -133,10 +134,10 @@ public class ShelterController {
 		    dto2.setCloseDay(closeDay);
 		    dto2.setCareTel(careTel);
 
-		int result = service.registerShelterData(dto2);
+		service.registerShelterData(nickname, dto2);
 
 		JsonObject jsonObj = new JsonObject();
-	    jsonObj.addProperty("result", result);
+	    jsonObj.addProperty("success", true);
 
 	    return jsonObj.toString();
 	}

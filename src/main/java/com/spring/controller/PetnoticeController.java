@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_P_DTO;
+import com.spring.domain.MembersDTO;
 import com.spring.domain.P_DTO;
 
 import com.spring.service.P_Service;
@@ -99,7 +100,7 @@ public class PetnoticeController {
 	// 즐겨찾기 등록
 	@PostMapping("/registerpet")
 	@ResponseBody
-	public String insertF_P(
+	public String insertF_P(HttpSession session,
 	        @RequestParam(value = "pet_notice_no", required = false) String pet_notice_no,
 	        @RequestParam(required = false) String nickname, @RequestParam(required = false) String careNm,
 	        @RequestParam(required = false) String happendt, @RequestParam(required = false) String happenPlace,
@@ -113,13 +114,13 @@ public class PetnoticeController {
 	) throws ServletException, IOException {
 	    F_P_DTO dto = new F_P_DTO();
 	    P_DTO dto2 = new P_DTO();
-
+	    
 	    log.info(pet_notice_no);
 	    Date favoritep_reg_date = new Date(System.currentTimeMillis());
 	    if (pet_notice_no == null || pet_notice_no.equals("")) {
 	        pet_notice_no = "-1";
 	    }
-
+	    nickname=(String) session.getAttribute("SESS_NICKNAME");
 	    dto.setNickname(nickname);
 	    dto.setFavoritep_reg_date(favoritep_reg_date);
 	    dto2.setPet_notice_no(Integer.parseInt(pet_notice_no));
@@ -140,10 +141,10 @@ public class PetnoticeController {
 	    dto2.setNeuterYn(neuterYn);
 	    dto2.setSpecialMark(specialMark);
 
-	    int result = service.registerP(dto2);
+	    service.registerP(nickname,dto2);
 
 	    JsonObject jsonObj = new JsonObject();
-	    jsonObj.addProperty("result", result);
+	    jsonObj.addProperty("success", true);
 
 	    return jsonObj.toString();
 	}

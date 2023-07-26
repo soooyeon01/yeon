@@ -91,7 +91,8 @@ public class WithpetController {
 	// 즐겨찾기
 	@RequestMapping("/registerwith")
 	@ResponseBody
-	public String insertF_W(@RequestParam(required = false) String with_pet_no,
+	public String insertF_W(HttpSession session,
+			@RequestParam(required = false) String with_pet_no,
             @RequestParam(required = false) String nickname,
             @RequestParam(required = false) String building,
             @RequestParam(required = false) String category3,
@@ -113,7 +114,7 @@ public class WithpetController {
 		if (with_pet_no == null || with_pet_no.equals("")) {
 			with_pet_no = "-1";
 		}
-
+			nickname=(String) session.getAttribute("SESS_NICKNAME");
 		 	dto.setNickname(nickname);
 		    dto.setFavoritew_reg_date(favoritew_reg_date);
 		    dto2.setWith_pet_no(Integer.parseInt(with_pet_no));
@@ -131,11 +132,11 @@ public class WithpetController {
 		    dto2.setOutside(outside);
 		    dto2.setExtra(extra);
 
-		int result = service.registerWithpetData(dto2);
+		 service.registerWithpetData(nickname, dto2);
 		// { result : 11}
 
 		JsonObject jsonObj = new JsonObject();
-	    jsonObj.addProperty("result", result);
+	    jsonObj.addProperty("success", true);
 
 	    return jsonObj.toString();
 	}

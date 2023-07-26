@@ -54,9 +54,9 @@ public class S_ServiceImpl implements S_Service {
 	
 	
 	@Override
-	public int registerShelterData(S_DTO dto) {
+	public void registerShelterData(String nickname,S_DTO dto) {
 		
-		return mapper.insertShelterData(dto);
+		 mapper.insertShelterData(nickname,dto);
 	}
 
 	@Override

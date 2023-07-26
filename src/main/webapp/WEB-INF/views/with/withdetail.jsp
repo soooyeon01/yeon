@@ -239,7 +239,7 @@
                             <div class="card-body">
                            		
                            		<button type="button" onclick="back();">뒤로가기</button>
-                           		 <table class="table">
+                           		 <table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                        	<th></th>
@@ -269,7 +269,7 @@
 												<label>
 													 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${W_DTO.with_pet_no}">
 													 <img class="img_fa1" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa1.png">
-													 <img class="img_fa2" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa2.png" style="display:none;">
+													 <img class="img_fa2" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa3.gif" style="display:none;">
 												</label>
 												
 												</td>

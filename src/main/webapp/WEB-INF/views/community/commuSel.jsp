@@ -154,13 +154,13 @@
 							reply_html += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
 							//reply_html += "<span id='Rno_"+Rno+"' >" + Rno + "</span><br>";
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
-<<<<<<< HEAD
+
 							if(nickname === "${sessionScope.SESS_NICKNAME}"){
 								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>";
-=======
+
 							if(nickname === "${selectone.nickname}"){
 								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+">[삭제]</span><br></div><hr>";
->>>>>>> 460ca114cb3d527ae0d77b0c9e2bd1fb3e0a9dc8
+
 								 
 							}
 							else{

@@ -19,7 +19,7 @@ public interface W_Service {
 	List<W_DTO> getRegionWith(@Param("region") String region, @Param("category3") String category3, @Param("pageMaker") PageMaker pageMaker);
 	int getCountRegionWith(@Param("region") String region,@Param("category3") String category3);
 	
-	int registerWithpetData(W_DTO dto);
+	void registerWithpetData(@Param("nickname")String nickname,@Param("dto")W_DTO dto);
 	int removeWithpetData(int with_pet_no);
 	
 

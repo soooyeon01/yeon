@@ -11,4 +11,6 @@ public interface F_P_Mapper {
 	List<F_P_DTO> selectPBoard(String nickname);
 	int selectCountPBoard();
 	List<F_P_DTO> selectPBoardByPage(@Param("nickname")String nickname,@Param("pageMaker")PageMaker pageMaker);
+	
+	
 }

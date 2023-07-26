@@ -17,7 +17,7 @@ public interface W_Mapper {
 	public int selectCountAllBoard();
 	int selectCountRegionWith(@Param("region") String region,@Param("category3") String category3);
 	
-	int insertWith_petData(W_DTO dto);
+	void insertWith_petData(@Param("nickname")String nickname,@Param("dto")W_DTO dto);
 	int deleteWith_petData(int with_pet_no);	
 
 	

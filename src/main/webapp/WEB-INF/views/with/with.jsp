@@ -163,7 +163,7 @@
                             
                             
                            	<div id="with-container">
-                           		 <table class="table">
+                           		 <table class="table table-bordered">
 	                                    <thead>
 	                                        <tr>
 	                                            
@@ -180,7 +180,8 @@
 	                                   
 	                                    <tbody>
 	                                    	<c:forEach var="W_DTO" items="${response.withList}" >
-											<tr onclick="location.href='${pageContext.servletContext.contextPath}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'">
+											<tr onclick="location.href='${pageContext.servletContext.contextPath}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'"
+											style="cursor:pointer">
 												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>${W_DTO.building}</td>
 												<td>${W_DTO.road}</td>

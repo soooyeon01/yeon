@@ -49,9 +49,9 @@ public class W_ServiceImpl implements W_Service {
 	}
 	//즐겨찾기
 	@Override
-	public int registerWithpetData(W_DTO dto) {
+	public void registerWithpetData(String nickname, W_DTO dto) {
 		
-		return mapper.insertWith_petData(dto);
+		mapper.insertWith_petData(nickname, dto);
 	}
 
 	@Override
