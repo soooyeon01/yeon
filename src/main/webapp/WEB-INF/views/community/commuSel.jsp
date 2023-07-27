@@ -34,7 +34,10 @@
 	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
 	       	}
 	       	
-    	</script>  
+    	</script> 
+    	<script>
+	    	
+    	</script>
     	<script>
     	$(document).ready(function() {
     	$('#Reply_regist').click(function() {
@@ -86,6 +89,55 @@
 		});// 댓글등록 이벤트 끝
 		
 		getList();
+    	
+		function updateReply (r_no, rcontent, nickname){
+    		console.log("수정시작");
+    		var nickname = "${sessionScope.SESS_NICKNAME}";
+    		var rcontent = $('#rcontent').val();
+    		var reUp = "";
+    		reUp+="<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
+    		reUp+="<textarea id='uprcontent' value='"+rcontent+"'></textarea><br>";
+    		reUp+="<button type='button' class='btn btn-warning' id='updating'";
+    		reUp+="<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>";
+    		reUp+="댓글 수정</button>";
+    		reUp+="<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
+    		reUp+="</div><hr>";
+
+    		$(".reply_Box").html(reUp);
+    		$("#cancelReply").click(cancelReply);
+
+    	};
+    	
+    	function cancelReply() {
+    	    getList();
+    	}
+		
+		$(document).on("click", "#updating", function() {
+			const r_no = $(this).data("rno");
+			const uprcontent = $('#uprcontent').val();
+		    console.log("up내용 "+uprcontent);   
+		    
+		        $.ajax({
+		            type:'post',
+		            url:'<c:url value="/community/upR"/>',
+		            data:JSON.stringify({
+		                "r_no":r_no,
+		                "rcontent": uprcontent
+		            }),
+		   
+		            contentType: 'application/json',
+		            
+		            success:function(data){
+		                console.log('통신성공'+data);
+		                alert('댓글이 수정되었습니다');
+		                getList();
+		            },
+		            error:function(){
+		                alert('통신실패');
+		            }
+		        }); //댓글 수정 비동기
+		});
+		
 		
 		$(document).on("click", "#delete", function() {
 			const r_no = $(this).data("rno");
@@ -120,7 +172,6 @@
    			/* const com_no = ${com}; */
 			$.getJSON(
 					"<c:url value='/community/reply/'/>" + c_no,
-					/* "/community/replyList/" + c_no, */
 				function(data) {
 					if(data.total > 0){
 						var list = data.list;
@@ -129,8 +180,8 @@
 						
 						$('#count').html(data.total);
 						for(i = 0;i < list.length;i++){
-							console.log(data.total);
-							console.log(list[i].r_no);
+							console.log("댓글 총 갯수 : "+data.total);
+							console.log("r_no : "+list[i].r_no);
 							var rcontent = list[i].rcontent;
 							var r_no = list[i].r_no;
 							var nickname = list[i].nickname;
@@ -143,8 +194,8 @@
 							
 							if(nickname === "${sessionScope.SESS_NICKNAME}"){
 
-								reply_html += "<span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>"; 
-
+								reply_html += "<span id='updateReply' class='updateBtn' style='cursor:pointer;' data-rno="+r_no+" data-rcontent='" + rcontent + "' data-nickname='" + nickname + "'>[수정]</span><span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>";
+							
 							}
 							else{
 								reply_html += "</div><hr>";
@@ -153,6 +204,13 @@
 						
 						$(".reply_Box").html(reply_html);
 						
+						$(".updateBtn").click(function() {
+						    const r_no = $(this).data("rno");
+						    const rcontent = $(this).data("rcontent");
+						    const nickname = $(this).data("nickname");
+
+						    updateReply(r_no, rcontent, nickname);
+						});
 						
 					}
 					else{
