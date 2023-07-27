@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 public class F_W_ServiceImpl implements F_W_Service {
 	private final F_W_Mapper mapper;
 	@Override
-	public List<F_W_DTO> getWBoard() {
+	public List<F_W_DTO> getWBoard(String nickname) {
 		
-		return mapper.selectWBoard();
+		return mapper.selectWBoard(nickname);
 	}
 
 

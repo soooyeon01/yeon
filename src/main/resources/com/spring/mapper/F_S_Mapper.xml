@@ -11,9 +11,10 @@
       		     , s.careNm
       		     , s.careAddr
       		     , s.careTel
-      		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      		     , f.nickname
       		FROM favorites f
       		JOIN shelter s ON f.shelter_no = s.shelter_no
+      		WHERE f.nickname=#{nickname, jdbcType=VARCHAR}
       		]]>
   	</select>
   	<select id="selectCountSBoard" parameterType="int" resultType="int">	
