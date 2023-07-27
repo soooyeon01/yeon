@@ -90,23 +90,19 @@
 		
 		getList();
     	
-		function updateReply (r_no, rcontent, nickname){
-    		console.log("수정시작");
-    		var nickname = "${sessionScope.SESS_NICKNAME}";
-    		var rcontent = $('#rcontent').val();
-    		var reUp = "";
-    		reUp+="<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
-    		reUp+="<textarea id='uprcontent' value='"+rcontent+"'></textarea><br>";
-    		reUp+="<button type='button' class='btn btn-warning' id='updating'";
-    		reUp+="<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>";
-    		reUp+="댓글 수정</button>";
-    		reUp+="<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
-    		reUp+="</div><hr>";
+		function updateReply(r_no, rcontent, nickname, replyElement) {
+		    console.log("수정시작");
+		    var nickname = "${sessionScope.SESS_NICKNAME}";
+		    var reUp = "";
+		    reUp += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
+		    reUp += "<textarea id='uprcontent'>" + rcontent + "</textarea><br>";
+		    reUp += "<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>댓글 수정</button>";
+		    reUp += "<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
+		    reUp += "</div><hr>";
 
-    		$(".reply_Box").html(reUp);
-    		$("#cancelReply").click(cancelReply);
-
-    	};
+		    $(replyElement).closest('.reply_item').html(reUp);
+		    $("#cancelReply").click(cancelReply);
+		}
     	
     	function cancelReply() {
     	    getList();
