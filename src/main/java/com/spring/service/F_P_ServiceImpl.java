@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.F_P_DTO;
+import com.spring.domain.P_DTO;
 import com.spring.mapper.F_P_Mapper;
 import com.spring.util.PageMaker;
 
@@ -33,6 +34,16 @@ public class F_P_ServiceImpl implements F_P_Service {
 	public int getCountAllBoard() {
 		
 		return mapper.selectCountPBoard();
+	}
+
+
+	
+
+
+	@Override
+	public List<F_P_DTO> getLikedPostIdsByUser(String nickname) {
+		
+		return mapper.selectLikedPostIdsByUser(nickname);
 	}
 
 }

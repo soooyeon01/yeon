@@ -30,5 +30,10 @@ public class F_S_ServiceImpl implements F_S_Service {
 		
 		return mapper.selectCountSBoard();
 	}
+	@Override
+	public List<F_S_DTO> getLikedPostIdsByUser(String nickname) {
+		
+		return mapper.selectLikedPostIdsByUser(nickname);
+	}
 
 }

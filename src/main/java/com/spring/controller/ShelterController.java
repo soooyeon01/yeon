@@ -27,7 +27,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_S_DTO;
+import com.spring.domain.P_DTO;
 import com.spring.domain.S_DTO;
+import com.spring.service.F_S_Service;
 import com.spring.service.S_Service;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
@@ -42,15 +44,24 @@ import lombok.extern.log4j.Log4j;
 
 public class ShelterController {
 	private final S_Service service;
-
-	@GetMapping("/sheldetail")
-	public String getS(HttpSession session, int shelter_no, Model model) {
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+	private final F_S_Service fsservice;
+	
+	
+	@RequestMapping("/sheldetail")
+	public ModelAndView getAllBoard(HttpSession session, int shelter_no, Model model, String nickname) {
+		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
+		nickname=(String) session.getAttribute("SESS_NICKNAME");
+		List<S_DTO> sheldetailList = service.getS(shelter_no);
+		List<F_S_DTO> fasList = fsservice.getLikedPostIdsByUser(nickname);
 		if (SESS_AUTH != null && SESS_AUTH) {
-			model.addAttribute("sheldetailList", service.getS(shelter_no));
-			return "/shel/sheldetail";
+			
+			 	ModelAndView mav = new ModelAndView("/shel/sheldetail");
+		        mav.addObject("sheldetailList", sheldetailList); 
+		        mav.addObject("fasList", fasList); 
+		        return mav;
 		} else {
-			return "redirect:/main/main";
+			ModelAndView mav2 = new ModelAndView("/main/main");
+			return mav2;
 		}
 	}
 

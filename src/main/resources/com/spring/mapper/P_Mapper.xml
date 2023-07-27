@@ -44,28 +44,11 @@
   
   <select id="selectP" resultType="com.spring.domain.P_DTO">
   		<![CDATA[
-  		SELECT pet_notice_no
-		 ,happenDt
-		,happenPlace
-		 ,kindCd
-		 ,colorCd
-		,age
-		,weight
-		,noticeNo 
-		,noticeSdt 
-		,noticeEdt  
-		,popfile  
-		,processState 
-		,sexCd
-		,neuterYn
-		,specialMark
-		,careNm
-		,careAddr
-		,careTel
-		
-		FROM pet_notice WHERE pet_notice_no=#{pet_notice_no} 
+  		SELECT*FROM pet_notice WHERE pet_notice_no=#{pet_notice_no} 
 		]]>
-  	</select>
+  </select>
+  	
+  	
   	
   	 <select id="selectAllBoard" resultType="com.spring.domain.P_DTO">
   		<![CDATA[

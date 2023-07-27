@@ -28,9 +28,13 @@ public class F_W_ServiceImpl implements F_W_Service {
 
 
 	@Override
-	public int getCountAllBoard() {
+	public int getCountAllBoard(String nickname) {
 		
-		return mapper.selectCountWBoard();
+		return mapper.selectCountWBoard(nickname);
 	}
-
+	@Override
+	public List<F_W_DTO> getLikedPostIdsByUser(String nickname) {
+		
+		return mapper.selectLikedPostIdsByUser(nickname);
+	}
 }

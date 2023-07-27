@@ -70,7 +70,7 @@ public class FavoriteController {
 		
 		if (SESS_AUTH != null && SESS_AUTH) {
 			nickname=(String) session.getAttribute("SESS_NICKNAME");
-			int totalCount = servicew.getCountAllBoard();
+			int totalCount = servicew.getCountAllBoard(nickname);
 			PageMaker pageMaker = new PageMaker(cri, totalCount);
 			model.addAttribute("favoritew", servicew.getWBoardByPage(nickname, pageMaker));
 			model.addAttribute("pageMaker", pageMaker);

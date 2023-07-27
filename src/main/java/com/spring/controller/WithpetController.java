@@ -26,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_W_DTO;
+import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
+import com.spring.service.F_W_Service;
 import com.spring.service.W_Service;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
@@ -41,6 +43,7 @@ import lombok.extern.log4j.Log4j;
 
 public class WithpetController {
 	private final W_Service service;
+	private final F_W_Service fwservice;
 
 	//카테고리별 선택 > 지역별 조회
 	@RequestMapping("/withall")
@@ -91,15 +94,21 @@ public class WithpetController {
 		return mav;
 	}
 
-	@GetMapping("/withdetail")
-	public String getW(HttpSession session, int with_pet_no, Model model) {
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+	@RequestMapping("/withdetail")
+	public ModelAndView getAllBoard(HttpSession session, int with_pet_no, Model model, String nickname) {
+		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
+		nickname=(String) session.getAttribute("SESS_NICKNAME");
+		List<W_DTO> withdetailList = service.getW(with_pet_no);
+		List<F_W_DTO> fawList = fwservice.getLikedPostIdsByUser(nickname);
 		if (SESS_AUTH != null && SESS_AUTH) {
 			
-			model.addAttribute("withdetailList", service.getW(with_pet_no));
-			return "/with/withdetail";
+			 	ModelAndView mav = new ModelAndView("/with/withdetail");
+		        mav.addObject("withdetailList", withdetailList); 
+		        mav.addObject("fawList", fawList); 
+		        return mav;
 		} else {
-			return "redirect:/main/main";
+			ModelAndView mav2 = new ModelAndView("/main/main");
+			return mav2;
 		}
 	}
 	
