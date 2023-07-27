@@ -83,6 +83,31 @@ public class CommunityController {
         return map;
 	}
 	
+	@PostMapping("/upR")
+	@ResponseBody		
+	public Map<String, String> UpdateR(@RequestBody ReplyDTO rdto, HttpSession session) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+        System.out.println("댓글 수정 통신 성공");
+        
+        Map<String, String> map = new HashMap<>(); 
+        if(SESS_AUTH != null && SESS_AUTH) {
+//          request.setCharacterEncoding("utf-8");
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            
+            log.info("로그인 유지중...");
+			
+			rservice.modifyReply(rdto);
+			log.info("댓글 수정 서비스 성공");
+			
+			map.put("result", "upSuccess");
+			
+        } else {
+        	map.put("result", "fail");
+		}
+        return map;
+	}
+	
 	@PostMapping("/delR")
 	@ResponseBody		
 	public Map<String, String> DeleteR(@RequestBody ReplyDTO rdto, HttpSession session) {
