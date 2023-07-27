@@ -90,19 +90,24 @@
 		
 		getList();
     	
-		function updateReply(r_no, rcontent, nickname, replyElement) {
+		function updateReply(r_no, nickname, replyElement) {
 		    console.log("수정시작");
 		    var nickname = "${sessionScope.SESS_NICKNAME}";
+		    // 기존의 rcontent 값 초기화를 삭제하고 아래와 같이 해당 요소에서 댓글 내용을 가져옵니다.
+		    var rcontent = $(replyElement).siblings("#rcontent").text(); 
+    		
 		    var reUp = "";
-		    reUp += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
-		    reUp += "<textarea id='uprcontent'>" + rcontent + "</textarea><br>";
-		    reUp += "<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>댓글 수정</button>";
-		    reUp += "<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
-		    reUp += "</div><hr>";
+    		reUp+="<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
+    		reUp+="<textarea id='uprcontent' >"+rcontent+"</textarea><br>";
+    		reUp+="<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>";
+    		reUp+="댓글 수정</button>";
+    		reUp+="<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
+    		reUp+="</div><hr>";
 
-		    $(replyElement).closest('.reply_item').html(reUp);
-		    $("#cancelReply").click(cancelReply);
-		}
+    		$(replyElement).parent().html(reUp);
+    		$("#cancelReply").click(cancelReply);
+
+    	};
     	
     	function cancelReply() {
     	    getList();
@@ -202,10 +207,9 @@
 						
 						$(".updateBtn").click(function() {
 						    const r_no = $(this).data("rno");
-						    const rcontent = $(this).data("rcontent");
 						    const nickname = $(this).data("nickname");
 
-						    updateReply(r_no, rcontent, nickname);
+						    updateReply(r_no, nickname, this);
 						});
 						
 					}
