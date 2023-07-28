@@ -152,6 +152,22 @@
 		function back(){
 			window.location = document.referrer;
 		}
+		
+	    window.onload = function() {
+	    	 
+	        function onClick() {
+	            document.querySelector('.modal_wrap').style.display ='block';
+	            document.querySelector('.black_bg').style.display ='block';
+	        }   
+	        function offClick() {
+	            document.querySelector('.modal_wrap').style.display ='none';
+	            document.querySelector('.black_bg').style.display ='none';
+	        }
+	     
+	        document.getElementById('modal_btn').addEventListener('click', onClick);
+	        document.querySelector('.modal_close').addEventListener('click', offClick);
+	     
+	    };
 		</script>
 				
 		<style>
@@ -222,6 +238,45 @@
 						display:inline;
 						
 					}
+					
+					/* 모달 스타일 */
+					.modal_wrap{
+			        display: none;
+			        width: 500px;
+			        height: 500px;
+			        position: absolute;
+			        top:50%;
+			        left: 50%;
+			        margin: -250px 0 0 -250px;
+			        background:#eee;
+			        z-index: 2;
+			    }
+			    .black_bg{
+			        display: none;
+			        position: absolute;
+			        content: "";
+			        width: 100%;
+			        height: 100%;
+			        background-color:rgba(0, 0,0, 0.5);
+			        top:0;
+			        left: 0;
+			        z-index: 1;
+			    }
+			    .modal_close{
+			        width: 26px;
+			        height: 26px;
+			        position: absolute;
+			        top: -30px;
+			        right: 0;
+			    }
+			    .modal_close> a{
+			        display: block;
+			        width: 100%;
+			        height: 100%;
+			        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+			        text-indent: -9999px;
+			    }
+					
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -359,8 +414,20 @@
 												<tr>
 													<th style="font-size:15px;">보호장소</th>
 													<c:set var="address" value="${P_DTO.careAddr}" />
-													<td style="font-size:20px;">${P_DTO.careAddr}</td>
+													<td style="font-size:20px;">${P_DTO.careAddr}
+													
+													<button type="button" id="modal_btn">모달창아 나와랏</button>
+														<div class="black_bg" onclick="onClick()"></div>
+														<div class="modal_wrap">
+														    <div class="modal_close"><a href="#" onclick="onClick()">close</a></div>
+															    <div>
+															       <div id="map" style="width:500px;height:350px;"></div>
+															    </div>
+														</div>
+													</td>
 												</tr>
+
+												
 												<tr>
 													<th style="font-size:15px;">보호소 전화번호</th>
 													<td style="font-size:20px;">${P_DTO.careTel}</td>
@@ -374,57 +441,56 @@
 	                                </div>
                         </div>
                     </div>
-                             <p style="margin-top:-12px">
-		    <em class="link">
-		        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-		            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-		        </a>
-		    </em>
-		</p>
-		<div id="map" style="width:500px;height:350px;"></div>
-		
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
-		<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			    mapOption = {
-			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    };  
-		
-			// 지도를 생성
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-			// 주소-좌표 변환 객체를 생성
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			
-			// 주소로 좌표를 검색
-			geocoder.addressSearch('${address}', function(result, status) {
-			
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동
-			        map.setCenter(coords);
-			    } 
-			});   
-			
-			
-		</script>
+                    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+                    
+						<script>
+								function onClick() {
+						    document.querySelector('.modal_wrap').style.display ='block';
+						    document.querySelector('.black_bg').style.display ='block';
+						    
+						    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						    mapOption = {
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 3 // 지도의 확대 레벨
+						    };  
+					
+						// 지도를 생성
+						var map = new kakao.maps.Map(mapContainer, mapOption); 
+						
+						// 주소-좌표 변환 객체를 생성
+						var geocoder = new kakao.maps.services.Geocoder();
+						var address = '${P_DTO.careAddr}';
+						
+						
+						// 주소로 좌표를 검색
+						geocoder.addressSearch(address, function(result, status) {
+						
+						    // 정상적으로 검색이 완료됐으면 
+						     if (status === kakao.maps.services.Status.OK) {
+						
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						
+						        // 결과값으로 받은 위치를 마커로 표시
+						        var marker = new kakao.maps.Marker({
+						            map: map,
+						            position: coords
+						        });
+						
+						         // 인포윈도우로 장소에 대한 설명을 표시
+						        var infowindow = new kakao.maps.InfoWindow({
+						            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
+						        });
+						        infowindow.open(map, marker); 
+						
+						        // 지도의 중심을 결과값으로 받은 위치로 이동
+						        map.setCenter(coords);
+						    } 
+						});   
+						}
+						
+						document.getElementById('modal_btn').addEventListener('click', onClick);
+						</script>
+
                 </main>
             </div>
     </body>
