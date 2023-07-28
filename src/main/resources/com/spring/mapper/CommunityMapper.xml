@@ -15,12 +15,12 @@
      
      <select id="selectAllCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
        <![CDATA[
-      SELECT c.*, 
-      (SELECT COUNT(*) FROM reply r WHERE c.c_no = r.c_no) AS reply_cnt,
-        (SELECT COUNT(*) FROM commu_like l WHERE c.c_no = l.c_no) AS like_cnt
-      FROM community c
-      GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt
-      ORDER BY c.c_no DESC
+      	 SELECT c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt,
+		(SELECT COUNT(*) FROM reply r WHERE c.c_no = r.c_no) AS reply_cnt,
+		(SELECT COUNT(*) FROM commu_like l WHERE c.c_no = l.c_no) AS like_cnt
+		FROM community c
+		GROUP BY c.c_no, c.nickname, c.title, c.content, c.reg_date, c.view_cnt
+		ORDER BY c.c_no DESC
       ]]>
    </select>
    
