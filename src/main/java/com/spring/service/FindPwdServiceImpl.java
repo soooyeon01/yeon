@@ -18,17 +18,10 @@ public class FindPwdServiceImpl implements FindPwdService {
 	private final FindPwdMapper mapper;
 
 	@Override
-    public String findPwd(MembersDTO mdto) {
-        String tempPwd = generateTempPwd();
-        mdto.setTempPwd(tempPwd);
-
-        if (mapper.updatePwd(mdto) > 0) {
-            SendEmail.naverMailSend(mdto.getEmail(), tempPwd);
-            return "이메일로 임시 비밀번호를 발송하였습니다.";
-        } else {
-            return "없는 정보입니다";
-        }
-    }
+	public int findPwd(MembersDTO mdto) {
+	    return mapper.findPwd(mdto);
+	}
+	
 	 @Override
 	    public int updatePwd(MembersDTO mdto) {
 	        return mapper.updatePwd(mdto);
