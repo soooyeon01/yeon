@@ -202,7 +202,12 @@
 						border: none;
 						background: none;
 				    }
-				    
+				    table.table.table-bordered {
+					    width: 50%;
+					    margin-top:50px;
+					   	margin-left:350px;
+					    
+					  }
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -256,28 +261,6 @@
                            		
                            		<button type="button" onclick="back();">뒤로가기</button>
                            		 <table class="table table-bordered">
-	                                    <thead>
-	                                        <tr>
-	                                        	<th></th>
-	                                            
-	                                            <th>문화시설 이름</th>
-	                                            <th>문화시설 유형 </th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>홈페이지</th>
-	                                            <th>휴무일 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>주차가능여부 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            <th>입장 가능 동물 크기 </th>
-	                                            <th>장소(실내)여부 </th>
-	                                            <th>장소(실외)여부 </th>
-	                                            <th>애견동반추가요금 </th>
-	                                        </tr>
-	                                    </thead>
-	                                    
-	                                    <tbody>
 	                                    	<c:forEach var="W_DTO" items="${ withdetailList }">
 												<div style="float:right;">
 											        <c:set var="isLiked" value="false" />
@@ -286,7 +269,6 @@
 											                <c:set var="isLiked" value="true" />
 											            </c:if>
 													</c:forEach>
-									
 											        <label>
 											            <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${W_DTO.with_pet_no}">
 											            <img class="img_fa1" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa1.png" style="${isLiked ? 'display:none;' : ''}">
@@ -294,31 +276,70 @@
 											        </label>
 												</div>
 											<tr>
+												<th>문화시설 이름</th>
 												<c:set var="addressNm" value="${W_DTO.building}" />
 												<td>${W_DTO.building}</td>
+											</tr>
+											<tr>
+												<th>문화시설 유형 </th>
 												<td>${W_DTO.category3}</td>
+											</tr>
+											<tr>
+												<th>도로명 주소</th>
 												<c:set var="address" value="${W_DTO.road}" />
 												<td>${W_DTO.road}</td>
-												<td>${W_DTO.homepage}</td>										
+											</tr>
+											<tr>
+												<th>전화번호 </th>
+												<td>${W_DTO.tel}</td>
+											</tr>
+											<tr>
+												<th>홈페이지</th>
+												<td>${W_DTO.homepage}</td>
+											</tr>
+											<tr>
+												<th>휴무일 </th>						
 												<td>${W_DTO.day_off}</td>
+											</tr>
+											<tr>
+												<th>운영시간 </th>
 												<td>${W_DTO.hour}</td>
+											</tr>
+											<tr>
+												<th>주차가능여부 </th>
 												<td>${W_DTO.parking}</td>
+											</tr>
+											<tr>
+											 	<th>반려동물 동반 가능정보 </th>
 												<td>${W_DTO.with_pet_info}</td>
+											</tr>
+											<tr>
+											 	<th>반려동물 전용 정보 </th>
 												<td>${W_DTO.only_pet_info}</td>
+											</tr>
+											<tr>
+												<th>입장 가능 동물 크기 </th>
 												<td>${W_DTO.pet_size}</td>
+											</tr>
+											<tr>
+												<th>반려동물 제한사항</th>
 												<td>${W_DTO.pet_limit}</td>
+											</tr>
+											<tr>
+												<th>장소(실내)여부 </th>
 												<td>${W_DTO.inside}</td>
+											</tr>
+											<tr>
+												<th>장소(실외)여부 </th>
 												<td>${W_DTO.outside}</td>
+											</tr>
+											<tr>
+												<th>애견동반추가요금 </th>
 												<td>${W_DTO.extra}</td>
-												
-										
 											</tr>
 											</c:forEach>
-	                                    </tbody>
 	                                </table>
-	                             
 	                            </div>
-	                           
                         </div>
                     </div>
                              <p style="margin-top:-12px">
