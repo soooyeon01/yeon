@@ -132,12 +132,6 @@ public class UserController {
 	public String findPwdget(MembersDTO mdto) {
 		return "user/findPwd";
 	}
-//	
-//	@PostMapping ("/findPwd")
-//	public String findPwd(MembersDTO mdto) {
-//		servicep.findPwd(mdto);
-//		return "user/findPwd";
-//	}
 	
 	
 	@PostMapping ("/findPwd") 
@@ -148,17 +142,20 @@ public class UserController {
 		mdto.setEmail(email);
 		mdto.setPhone(phone);
 		
-		String pwd = servicep.findPwd(mdto);
+	    int count = servicep.findPwd(mdto);
 		
-		if (pwd != null) {
-			model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다."); 
-			 return "alert";
-			
-		} else {
-			model.addAttribute("msg", "없는 정보입니다");	
-			 return "alert";
-		}
-	}	
+		if (count > 0) {
+	        String tempPwd = servicep.generateTempPwd();
+	        mdto.setTempPwd(tempPwd);
+	        servicep.updatePwd(mdto);
+	        servicep.sendTempPwd(email, tempPwd);
+	        model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다.");
+	        return "alert";
+	    } else {
+	        model.addAttribute("msg", "없는 정보입니다");
+	        return "alert";
+	    }
+	}
 	
 	
 	

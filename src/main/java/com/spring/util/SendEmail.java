@@ -49,7 +49,7 @@ public class SendEmail {
             message.setSubject("임시 비밀번호 발급 안내");
 
             // 메일 내용
-            message.setText("송부확인");
+            message.setText("고객님의 임시비밀번호는 " + tempPwd + "입니다.");
 
             // send the message
             Transport.send(message);
