@@ -416,6 +416,63 @@
 													<c:set var="address" value="${P_DTO.careAddr}" />
 													<td style="font-size:20px;">${P_DTO.careAddr}
 													
+<<<<<<< HEAD
+													<button type="button" id="modal_btn">지도보기</button>
+														<div class="black_bg"></div>
+														<div class="modal_wrap">
+														    <div class="modal_close"><a href="#">close</a></div>
+														    <div>
+														       <div id="map" style="width:500px;height:350px;"></div>
+		
+															<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+															<script>
+																var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+																    mapOption = {
+																        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+																        level: 3 // 지도의 확대 레벨
+																    };  
+															
+																// 지도를 생성
+																var map = new kakao.maps.Map(mapContainer, mapOption); 
+																
+																setTimeout(function() {
+																	console.log('Works!');
+																	map.relayout();
+																}, 4000);
+																
+																// 주소-좌표 변환 객체를 생성
+																var geocoder = new kakao.maps.services.Geocoder();
+																
+																
+																// 주소로 좌표를 검색
+																geocoder.addressSearch('${address}', function(result, status) {
+																
+																    // 정상적으로 검색이 완료됐으면 
+																     if (status === kakao.maps.services.Status.OK) {
+																
+																        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+																
+																        // 결과값으로 받은 위치를 마커로 표시
+																        var marker = new kakao.maps.Marker({
+																            map: map,
+																            position: coords
+																        });
+																
+																        // 인포윈도우로 장소에 대한 설명을 표시
+																        var infowindow = new kakao.maps.InfoWindow({
+																            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
+																        });
+																        infowindow.open(map, marker);
+																
+																        // 지도의 중심을 결과값으로 받은 위치로 이동
+																        map.setCenter(coords);
+																    } 
+																});   
+																
+																
+															</script>
+														    </div>
+=======
 													<button type="button" id="modal_btn">모달창아 나와랏</button>
 														<div class="black_bg" onclick="onClick()"></div>
 														<div class="modal_wrap">
@@ -423,6 +480,7 @@
 															    <div>
 															       <div id="map" style="width:500px;height:350px;"></div>
 															    </div>
+>>>>>>> c458e92fce47ff8afebd38c5df1b704aa0bf46de
 														</div>
 													</td>
 												</tr>
@@ -441,6 +499,10 @@
 	                                </div>
                         </div>
                     </div>
+<<<<<<< HEAD
+
+		
+=======
                     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
                     
 						<script>
@@ -491,6 +553,7 @@
 						document.getElementById('modal_btn').addEventListener('click', onClick);
 						</script>
 
+>>>>>>> c458e92fce47ff8afebd38c5df1b704aa0bf46de
                 </main>
             </div>
     </body>
