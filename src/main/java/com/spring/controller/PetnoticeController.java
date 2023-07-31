@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
 import com.spring.domain.F_P_DTO;
 import com.spring.domain.MembersDTO;
 import com.spring.domain.P_DTO;
-import com.spring.service.F_P_Service;
+
 import com.spring.service.P_Service;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
@@ -47,7 +47,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/pet/*")
 
 public class PetnoticeController {
-	private final F_P_Service fpservice; 
+
 	private final P_Service service;
 	// localhost:8080/4jojo/pet/petdetail
 
@@ -100,23 +100,16 @@ public class PetnoticeController {
 	}
 
 	// 상세조회
-	@RequestMapping("/petdetail")
-	public ModelAndView getAllBoard(HttpSession session, int pet_notice_no, Model model, String nickname) {
+	@GetMapping("/petdetail")
+	public String getAllBoard(HttpSession session, int pet_notice_no, Model model) {
 		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
-		nickname=(String) session.getAttribute("SESS_NICKNAME");
-		List<P_DTO> petdetailList = service.getP(pet_notice_no);
-		List<F_P_DTO> fapList = fpservice.getLikedPostIdsByUser(nickname);
-		log.info("yy"+fapList);
+
 		if (SESS_AUTH != null && SESS_AUTH) {
-			
-			 	ModelAndView mav = new ModelAndView("/pet/petdetail");
-		        mav.addObject("petdetailList", petdetailList); // JSP에서는 ${allPosts}와 같이 사용 가능
-		        mav.addObject("fapList", fapList); // 위와 마찬가지로, ${likedPostIds} 형태로 사용 가능
-		        log.info("zz"+mav);
-		        return mav;
+			model.addAttribute("petdetailList", service.getP(pet_notice_no));
+
+			return "/pet/petdetail";
 		} else {
-			ModelAndView mav2 = new ModelAndView("/main/main");
-			return mav2;
+			return "redirect:/main/main";
 		}
 	}
 

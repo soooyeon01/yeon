@@ -30,13 +30,14 @@
 			<script src="https://code.jquery.com/jquery-3.7.0.js"
 				integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 				crossorigin="anonymous"></script>
+			
 			<script>
 			  $(document).ready(function () {
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
 	                  const type = '${param.type}';
 	                  const keyword = '${param.keyword}';
-	                  location.href="${root}/with/petall?region=" + region + "&type="+type + "&keyword="+keyword; 	                 
+	                  location.href="${root}/pet/petall?region=" + region + "&type="+type + "&keyword="+keyword; 	                 
 	              })
 	          }); 
 	       </script>
@@ -232,38 +233,39 @@ a:hover {
 
 
 						<div id="animals-container">
-							<div class="container">
-								<c:forEach var="P_DTO" items="${response.petList}">
-									<c:if test="${not empty P_DTO}">
-										<div class="data">
-											<a
-												href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:200px; height:300px;" />
-											</a>
+                     <div class="container">
+                        <c:forEach var="P_DTO" items="${response.petList}">
+                           <c:if test="${not empty P_DTO}">
+                              <div class="data">
+                                 <a
+                                    href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
+                                    <img src="${P_DTO.popfile}" alt="펫이미지" style="width:200px; height:300px;" />
+                                 </a>
 
-											<div>
-												<br>
-												<p style="display: block;">품종 : ${P_DTO.kindCd}</p>
-												<br>
-												<p style="display: block;">나이 : ${P_DTO.age}</p>
-												<br>
-												<p style="display: block;">무게 : ${P_DTO.weight}</p>
-												<br>
-												<p style="display: block;">성별 : ${P_DTO.sexCd}</p>
-												<br>
-												<p style="display: block;">특징 : ${P_DTO.specialMark}</p>
-												<br>
+                                 <div>
+                                    <br>
+                                    <p style="display: block;">품종 : ${P_DTO.kindCd}</p>
+                                    <br>
+                                    <p style="display: block;">나이 : ${P_DTO.age}</p>
+                                    <br>
+                                    <p style="display: block;">무게 : ${P_DTO.weight}</p>
+                                    <br>
+                                    <p style="display: block;">성별 : ${P_DTO.sexCd}</p>
+                                    <br>
+                                    <p style="display: block;">특징 : ${P_DTO.specialMark}</p>
+                                    <br>
 
-											</div>
+                                 </div>
 
-										</div>
-									</c:if>
-								</c:forEach>
-							</div>
-							
+                              </div>
+                           </c:if>
+                        </c:forEach>
+                     </div>
+                  </div>
+				</div>	
 							<div class="container">
 										<div class="row">
-											<form method="get" name="search-form" action="${root}/with/petall" autocomplete = "off">
+											<form method="get" name="search-form" action="${root}/pet/petall" autocomplete = "off">
 												<table class="pull-right">
 													<tr>
 														<td>
@@ -280,7 +282,7 @@ a:hover {
 										</div>
 									</div>
 							
-						</div>
+						
 					</div>
 					<%@ include file="../import/page-pet_notice.jsp"%>
 

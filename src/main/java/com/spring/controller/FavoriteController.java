@@ -36,6 +36,12 @@ import com.spring.util.PageMaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+/**
+ * 각 메뉴의 즐겨찾기 리스트를 저장한 페이지와 이메일 전송을 처리하는 컨트롤러이다.
+ * 
+ * @author 김민주
+ *
+ */
 @Controller
 @RequestMapping("/fa/*")
 @RequiredArgsConstructor
@@ -44,7 +50,32 @@ public class FavoriteController {
 	private final F_S_Service services;
 	private final F_W_Service servicew;
 	private final F_P_Service servicep;
-
+	
+	/**
+	 * 유기동물 공고 즐겨찾기 리스트를 페이징 처리하여 
+	 * 
+	 * @param session 
+	 * @param nickname 
+	 * @param model 
+	 * @param cri 
+	 * @return 로그인 정보가 null이 아니거나 로그인 되어있으면 유기동물 공고 jsp페이지, 그렇지 않으면 메인 jsp 페이지로 반환합니다.
+	 */
+	@RequestMapping("/favoritep")
+	public String getPBoard(HttpSession session, String nickname, Model model, Criteria cri) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+		
+		if (SESS_AUTH != null && SESS_AUTH) {
+			nickname=(String) session.getAttribute("SESS_NICKNAME");
+			int totalCount = servicep.getCountAllBoard(nickname);
+			PageMaker pageMaker = new PageMaker(cri, totalCount);
+			model.addAttribute("favoritep", servicep.getPBoardByPage(nickname, pageMaker));
+			model.addAttribute("pageMaker", pageMaker);
+			return "/fa/favoritep";
+		} else {
+			return "redirect:/main/main";
+		}
+	}
+	
 	@RequestMapping("/favorites")
 	public String getSBoard(HttpSession session, Model model,
 			Criteria cri, String nickname) {
@@ -52,9 +83,8 @@ public class FavoriteController {
 		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
 		
 		if (SESS_AUTH != null && SESS_AUTH) {
-//          request.setCharacterEncoding("utf-8");
 			nickname=(String) session.getAttribute("SESS_NICKNAME");
-			int totalCount = services.getCountAllBoard();
+			int totalCount = services.getCountAllBoard(nickname);
 			PageMaker pageMaker = new PageMaker(cri, totalCount);
 			model.addAttribute("favorites", services.getSBoardByPage(nickname, pageMaker));
 			model.addAttribute("pageMaker", pageMaker);
@@ -80,21 +110,7 @@ public class FavoriteController {
 		}
 	}
 
-	@RequestMapping("/favoritep")
-	public String getPBoard(HttpSession session, String nickname, Model model, Criteria cri) {
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
-		
-		if (SESS_AUTH != null && SESS_AUTH) {
-			nickname=(String) session.getAttribute("SESS_NICKNAME");
-			int totalCount = servicep.getCountAllBoard();
-			PageMaker pageMaker = new PageMaker(cri, totalCount);
-			model.addAttribute("favoritep", servicep.getPBoardByPage(nickname, pageMaker));
-			model.addAttribute("pageMaker", pageMaker);
-			return "/fa/favoritep";
-		} else {
-			return "redirect:/main/main";
-		}
-	}
+
 	
 	
 	
