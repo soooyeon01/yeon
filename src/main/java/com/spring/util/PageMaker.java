@@ -1,5 +1,7 @@
 package com.spring.util;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 // 페이지 계산
 
@@ -25,7 +27,8 @@ public class PageMaker {
    // case 2 startPage 11, endPage 20 : 101~200
    // case 3 startPage 21, endPage 30 : 201~300
    // case 4 startPage 31, endPage 34 : 301~339
-
+  
+   
    public PageMaker(Criteria cri, int totalCount) {
       this.cri = cri;
       this.totalCount = totalCount;
