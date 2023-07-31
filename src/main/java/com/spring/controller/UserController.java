@@ -119,6 +119,7 @@ public class UserController {
 		
 		if (email != null) {
 			model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
+			model.addAttribute("url", "login"); 
 			 return "alert";
 			
 		} else {
@@ -150,6 +151,7 @@ public class UserController {
 	        servicep.updatePwd(mdto);
 	        servicep.sendTempPwd(email, tempPwd);
 	        model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다.");
+			model.addAttribute("url", "login"); 
 	        return "alert";
 	    } else {
 	        model.addAttribute("msg", "없는 정보입니다");
