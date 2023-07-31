@@ -31,9 +31,9 @@ public class F_P_ServiceImpl implements F_P_Service {
 
 
 	@Override
-	public int getCountAllBoard() {
+	public int getCountAllBoard(String nickname) {
 		
-		return mapper.selectCountPBoard();
+		return mapper.selectCountPBoard(nickname);
 	}
 
 
