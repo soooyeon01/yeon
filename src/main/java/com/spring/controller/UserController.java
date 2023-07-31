@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +28,7 @@ import com.spring.service.FindPwdService;
 import com.spring.service.JoinService;
 import com.spring.service.LoginService;
 import com.spring.service.MembersService;
-
+import com.spring.util.SendEmail; 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -90,7 +92,7 @@ public class UserController {
 		} else {
 			model.addAttribute("msg", "회원가입 실패"); 
 			return "alert";
-		} //회원가입 실패 안 됨 중복 들어가서 안 되는 듯 중복 확인 ㄱㄱ 
+		} 
 	}
 	
 	@ResponseBody
@@ -114,6 +116,31 @@ public class UserController {
 		return cnt;
 	}
 
+	@ResponseBody
+	@PostMapping("/sendAuthNum")
+	public String sendAuthNum(@RequestParam("email") String email, HttpSession session, Model model) {
+	    String authNum = servicep.makeTempPwd();  // 임시 인증번호 생성
+	    session.setAttribute("authNum", authNum);  // 세션에 인증번호 저장
+
+	    String subject = "옥독캣 이메일 인증번호 발송";
+	    String text = "안녕하세요. 회원님의 이메일 인증번호는 " + authNum + " 입니다.";
+	    SendEmail.naverMailSend(email, subject, text);
+
+	    return "이메일로 인증번호를 발송하였습니다.";
+	}
+
+	@PostMapping("/checkAuthNum")
+	public String checkAuthNum(@RequestParam("inputNum") String inputNum, HttpSession session, Model model) {
+	    String sessionAuthNum = (String) session.getAttribute("authNum");
+	    if (sessionAuthNum != null && inputNum.equals(sessionAuthNum)) {
+	        session.removeAttribute("authNum");  // 인증 완료 시 세션에서 인증번호 정보 삭제
+	        model.addAttribute("authResult", true); // 모델 객체에 인증 결과 저장
+	    } else {
+	        model.addAttribute("authResult", false); // 모델 객체에 인증 결과 저장
+	    }
+	    return "resultView"; // 모델 객체를 처리할 View의 이름 반환
+	}
+	
 	@GetMapping("/findEmail")
 	public String findEmailget(MembersDTO mdto) {
 		return "user/findEmail";
@@ -130,6 +157,7 @@ public class UserController {
 		
 		if (email != null) {
 			model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
+			model.addAttribute("url", "login"); 
 			 return "alert";
 			
 		} else {
@@ -143,12 +171,6 @@ public class UserController {
 	public String findPwdget(MembersDTO mdto) {
 		return "user/findPwd";
 	}
-//	
-//	@PostMapping ("/findPwd")
-//	public String findPwd(MembersDTO mdto) {
-//		servicep.findPwd(mdto);
-//		return "user/findPwd";
-//	}
 	
 	
 	@PostMapping ("/findPwd") 
@@ -159,17 +181,25 @@ public class UserController {
 		mdto.setEmail(email);
 		mdto.setPhone(phone);
 		
-		String pwd = servicep.findPwd(mdto);
+	    int count = servicep.findPwd(mdto);
 		
-		if (pwd != null) {
-			model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다."); 
-			 return "alert";
-			
-		} else {
-			model.addAttribute("msg", "없는 정보입니다");	
-			 return "alert";
-		}
-	}	
+		if (count > 0) {
+	        String tempPwd = servicep.makeTempPwd();
+	        mdto.setTempPwd(tempPwd);
+	        servicep.updatePwd(mdto);
+	        
+	        String subject = "임시 비밀번호 발급 안내";
+	        String text = "안녕하세요. 회원님의 임시 비밀번호는 " + tempPwd + " 입니다. 로그인 후 반드시 비밀번호를 변경해주세요.";
+	        SendEmail.naverMailSend(email, subject, text);
+	        
+	        model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다.");
+			model.addAttribute("url", "login"); 
+	        return "alert";
+	    } else {
+	        model.addAttribute("msg", "없는 정보입니다");
+	        return "alert";
+	    }
+	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

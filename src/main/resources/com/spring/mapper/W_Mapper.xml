@@ -34,6 +34,24 @@
 	 <if test = "type == null or type == ''">
 	 		 <![CDATA[AND 1=1]]>
 	 </if>
+	  <if test = "type == 'all'">
+        <![CDATA[AND building LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR category3 LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR road LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR homepage LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR day_off LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR hour LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR parking LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR with_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR only_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_size LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_limit LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'        		 
+        		 ]]>
+    </if>
 	 <if test = "type == 'building'">
 	 		 <![CDATA[AND BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
 	 </if>
@@ -51,6 +69,24 @@
         SELECT COUNT(1) FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR} ]]>
     <if test = "region != null and region != ''">
         <![CDATA[AND (SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}]]>
+    </if>
+    <if test = "type == 'all'">
+        <![CDATA[AND building LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR category3 LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR road LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR homepage LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR day_off LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR hour LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR parking LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR with_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR only_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_size LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_limit LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'        		 
+        		 ]]>
     </if>
     <if test = "type == 'building'">
         <![CDATA[AND BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
@@ -146,47 +182,47 @@
   	<insert id="insertWith_petData">
   
   		INSERT INTO favoritew (
-				   favoritew_no,
-				   nickname,
-				    favoritew_reg_date,
-				   with_pet_no,
-				    building,
-				    category3,
-				    road,
-				    tel,
-				    homepage,
-				    day_off,
-				    hour,
-				    parking,
-				    with_pet_info,
-				    only_pet_info,
-				    pet_size,
-				    pet_limit,
-				    inside,
-				    outside,
-				    extra
-				)
-				VALUES (
-				    seq_favoritew_no.nextval,
-				    #{nickname},
-				    sysdate,
-				    (SELECT with_pet_no FROM with_pet WHERE with_pet_no = #{dto.with_pet_no}),
-				    (SELECT building FROM with_pet WHERE building = #{dto.building,jdbcType=VARCHAR}),
-				    (SELECT category3 FROM with_pet WHERE category3 = #{dto.category3,jdbcType=VARCHAR}),
-				    (SELECT road FROM with_pet WHERE road = #{dto.road,jdbcType=VARCHAR}),
-				    (SELECT tel FROM with_pet WHERE tel = #{dto.tel,jdbcType=VARCHAR}),
-				    (SELECT homepage FROM with_pet WHERE homepage = #{dto.homepage,jdbcType=VARCHAR}),
-				    (SELECT day_off FROM with_pet WHERE day_off = #{dto.day_off,jdbcType=VARCHAR}),
-				    (SELECT hour FROM with_pet WHERE hour = #{dto.hour,jdbcType=VARCHAR}),
-				    (SELECT parking FROM with_pet WHERE parking = #{dto.parking,jdbcType=VARCHAR}),
-				    (SELECT with_pet_info FROM with_pet WHERE with_pet_info = #{dto.with_pet_info,jdbcType=VARCHAR}),
-				    (SELECT only_pet_info FROM with_pet WHERE only_pet_info = #{dto.only_pet_info,jdbcType=VARCHAR}),
-				    (SELECT pet_size FROM with_pet WHERE pet_size = #{dto.pet_size,jdbcType=VARCHAR}),
-				    (SELECT pet_limit FROM with_pet WHERE pet_limit = #{dto.pet_limit,jdbcType=VARCHAR}),
-				    (SELECT inside FROM with_pet WHERE inside = #{dto.inside,jdbcType=VARCHAR}),
-				    (SELECT outside FROM with_pet WHERE outside = #{dto.outside,jdbcType=VARCHAR}),
-				    (SELECT extra FROM with_pet WHERE extra = #{dto.extra,jdbcType=VARCHAR})
-				)
+               favoritew_no,
+               nickname,
+                favoritew_reg_date,
+               with_pet_no,
+                building,
+                category3,
+                road,
+                tel,
+                homepage,
+                day_off,
+                hour,
+                parking,
+                with_pet_info,
+                only_pet_info,
+                pet_size,
+                pet_limit,
+                inside,
+                outside,
+                extra
+            )
+            VALUES (
+                seq_favoritew_no.nextval,
+                #{nickname},
+                sysdate,
+                (SELECT with_pet_no FROM with_pet WHERE with_pet_no = #{dto.with_pet_no}),
+                (SELECT building FROM with_pet WHERE building = #{dto.building,jdbcType=VARCHAR}),
+                (SELECT category3 FROM with_pet WHERE category3 = #{dto.category3,jdbcType=VARCHAR}),
+                (SELECT road FROM with_pet WHERE road = #{dto.road,jdbcType=VARCHAR}),
+                (SELECT tel FROM with_pet WHERE tel = #{dto.tel,jdbcType=VARCHAR}),
+                (SELECT homepage FROM with_pet WHERE homepage = #{dto.homepage,jdbcType=VARCHAR}),
+                (SELECT day_off FROM with_pet WHERE day_off = #{dto.day_off,jdbcType=VARCHAR}),
+                (SELECT hour FROM with_pet WHERE hour = #{dto.hour,jdbcType=VARCHAR}),
+                (SELECT parking FROM with_pet WHERE parking = #{dto.parking,jdbcType=VARCHAR}),
+                (SELECT with_pet_info FROM with_pet WHERE with_pet_info = #{dto.with_pet_info,jdbcType=VARCHAR}),
+                (SELECT only_pet_info FROM with_pet WHERE only_pet_info = #{dto.only_pet_info,jdbcType=VARCHAR}),
+                (SELECT pet_size FROM with_pet WHERE pet_size = #{dto.pet_size,jdbcType=VARCHAR}),
+                (SELECT pet_limit FROM with_pet WHERE pet_limit = #{dto.pet_limit,jdbcType=VARCHAR}),
+                (SELECT inside FROM with_pet WHERE inside = #{dto.inside,jdbcType=VARCHAR}),
+                (SELECT outside FROM with_pet WHERE outside = #{dto.outside,jdbcType=VARCHAR}),
+                (SELECT extra FROM with_pet WHERE extra = #{dto.extra,jdbcType=VARCHAR})
+            )				
   	</insert>
   	<delete id="deleteWith_petData">
   		DELETE FROM favoritew WHERE with_pet_no=#{with_pet_no}

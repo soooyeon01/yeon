@@ -57,7 +57,7 @@
   function remM() {
 	   var data = $("form").serialize(); // form 데이터 직렬화
 	   $.ajax({
-	      url: "${root}/mypage/updatecneck",
+	      url: "${root}/mypage/upmypage",
 	      data: "data", // 수정: 직렬화된 form 데이터 전달
 	      type: "post",
 	      
@@ -175,7 +175,7 @@
                <div align="center">
                			
                     
-                 <form action = "${pageContext.servletContext.contextPath }/mypage/" id="form" method ="post">
+                 <form action = "${root}/mypage/updatecheck" id="form" method ="post">
                   
                   <div>
                    <br>
@@ -188,7 +188,7 @@
                 <br>
          	
                     	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp;    	 
-                    	  <button type="submit" class ="btn btn-warning" onclick="location.href = '${root}/mypage/updatecheck'">확인</button>&nbsp;
+                    	  <button type="submit" class ="btn btn-warning" onclick="location.href = '${root}/mypage/upmypage'">확인</button>&nbsp;
                 </form>                                      
                       <input type="hidden" name="pwd" value="${mdto.pwd}">
                    

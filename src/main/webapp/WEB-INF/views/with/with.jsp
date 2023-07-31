@@ -31,27 +31,20 @@
 	              })
 	          });  	          
 	        		
-	        		  <!-- type, keyword값 보내기 -->
-	        		  function getSearchList() {
-	        			   var data = $("form[name=search-form]").serialize(); 
-	        			   $.ajax({
-	        			      url: "${root}/mypage/withall",
-	        			      data: "data", 
-	        			      type: "get",
-	        			      
-	        			      success: function(data, textStatus) {
-	        			         console.log(data);
-	        			         
-	        			      },
-	        			      error: function(jqXHR, textStatus, errorThrown) {
-	        			         console.log(jqXHR);
-	        			         console.log(textStatus);
-	        			         console.log(errorThrown);
-	        			      }
-	        			   });
-	        			}       	
+	          function getSearchList() {
+	        	const keyword = $("input[name='keyword']").val(); //keyword 값 호출
+	        	   if (keyword == null || keyword.trim().length == 0) { //keyword 값 유무확인
+	        	        alert("검색어를 입력하세요.");
+	        	        return false; // 함수를 종료하여 폼 제출 방지(새로고침 x)
+	        	    }
+	        	    document.forms["search-form"].submit(); //keyword 값 있을 시 폼 제출
+	       	}
 	       </script>
 		<style>
+		a {
+ 			 text-decoration-line: none;
+ 			 color: inherit;
+			}
 		
 		  a:hover{
 		                background-color: #feeaa5;
@@ -131,7 +124,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-10 pt-5 ps-4">
-                        <h1 class="mt-1"><b>${param.category3}</b></h1>
+                        <h1 class="mt-1"><b><a href="" onclick="location.reload();">${param.category3}</a></b></h1>
                        </div>
            				 <ol class="breadcrumb mb-4 pt-3">
            				 </ol>
@@ -181,9 +174,9 @@
 
                             
                             
-                            
+                            <div><br></div>
                            	<div id="with-container">
-                           		 <table class="table" id ="table">
+                           		 <table class="datatable-table" id ="table">
 	                                    <thead>
 	                                        <tr>	                                            
 	                                            <th>문화시설 이름</th>
@@ -192,8 +185,6 @@
 	                                            <th>운영시간 </th>
 	                                            <th>반려동물 동반 가능정보 </th>
 	                                            <th>반려동물 전용 정보 </th>
-	                                            
-	                                            <!-- <th>조회수</th> -->
 	                                        </tr>
 	                                    </thead>
 	                                   
@@ -219,12 +210,16 @@
 													<tr>
 														<td>
 														<select id="form-control" class="form-control" name="type">
-																<option selected value="">선택</option>
+																<option selected value="all" <c:out value="${SearchCriteria.type eq 'all' ? 'selected' : ''}"/>>전체검색</option>
 																<option value="building">건물명</option>
 																<option value="road">주소</option>
-														</select></td>
-														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="" ></td>
-														<td><button type="submit" onclick = "getSearchList();" class="btn btn-success">검색</button></td>														
+														</select>
+														
+														</td>
+														
+														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="${SearchCriteria.keyword}" ></td>
+														
+														<td><button type="submit" onclick = "return getSearchList();" class="btn btn-success">검색</button></td>														
 													</tr>								
 												</table>
 												
@@ -232,23 +227,14 @@
 											</form>
 										</div>
 									</div>
-	                               
+			                           
 	                              </div>	                              
 	                            </div>
 	                            
 						<%@ include file="../import/page-with_pet.jsp" %>
                         </div>
+                        </main>
                     </div>
-                </main>
-		
-
-
-					
-				</div>
-			
-		
-
-	
 
 </body>
 </html>

@@ -74,7 +74,12 @@
 						border: none;
 						background: none;
 				    }
-					
+					 table.table.table-bordered {
+					    width: 50%;
+					    margin-top:50px;
+					   	margin-left:350px;
+					    
+					  }
 
 		</style>
 		<script>
@@ -267,30 +272,11 @@
                            		<button type="button" onclick="back();">뒤로가기</button>
                            		 <table class="table table-bordered">
 
-	                                    <thead>
-	                                        <tr>
-	                                        	<th></th>
-	                                       		
-	                                            <th>보호소 이름</th>
-	                                            <th>보호소 유형 </th>
-	                                            <th>구조대상동물</th>
-	                                            <th>보호소 주소 </th>
-	                                            <th>보호소 전화번호</th>
-	                                            <th>평일운영시작시간 </th>
-	                                            <th>평일운영종료시간 </th>
-	                                            <th>평일분양시작시간 </th>
-	                                            <th>평일분양종료시간 </th>
-	                                            <th>주말운영시작시간 </th>
-	                                            <th>주말운영종료시간 </th>
-	                                            <th>주말분양시작시간 </th>
-	                                            <th>주말분양종료시간 </th>
-	                                            <th>휴무일 </th>
-	                                        </tr>
-	                                    </thead>
+	                                    
 	                                   
 	                                    
 	                                    
-	                                    <tbody>
+	                                    
 	                                    	<c:forEach var="S_DTO" items="${sheldetailList}">
 											
 												<div style="float:right;">
@@ -309,29 +295,65 @@
 												</div>
 												
 											<tr>
+												<th>보호소 이름</th>
 												<c:set var="addressNm" value="${S_DTO.careNm}" />
 												<td >${S_DTO.careNm}</td>
+											</tr>
+											<tr>
+												<th>보호소 유형 </th>
 												<td >${S_DTO.divisionNm}</td>
-												<td >${S_DTO.saveTrgtAnimal}</td>
+											</tr>
+											<tr>
+												<th>구조대상동물</th>
+												<td>${S_DTO.saveTrgtAnimal}</td>
+											</tr>
+											<tr>
+												<th>보호소 주소 </th>
 												<c:set var="address" value="${S_DTO.careAddr}" />
 												<td >${S_DTO.careAddr}</td>
-												<td >${S_DTO.careTel}</td>										
+											</tr>
+											<tr>
+												<th>보호소 전화번호</th>
+												<td >${S_DTO.careTel}</td>	
+											</tr>
+											<tr>		
+												<th>평일운영시작시간 </th>							
 												<td >${S_DTO.weekOprStime}</td>
+											</tr>
+											<tr>
+												 <th>평일운영종료시간 </th>
 												<td >${S_DTO.weekOprEtime}</td>
+											</tr>
+											<tr>
+												<th>평일분양시작시간 </th>
 												<td >${S_DTO.weekCellStime}</td>
+											</tr>
+											<tr>
+												<th>평일분양종료시간 </th>
 												<td >${S_DTO.weekCellEtime}</td>
+											</tr>
+											<tr>
+												<th>주말운영시작시간 </th>
 												<td >${S_DTO.weekendOprStime}</td>
+											</tr>
+											<tr>
+												<th>주말운영종료시간 </th>
 												<td >${S_DTO.weekendOprEtime}</td>
+											</tr>
+											<tr>
+												<th>주말분양시작시간 </th>
 												<td >${S_DTO.weekendCellStime}</td>
+											</tr>
+											<tr>
+												<th>주말분양종료시간 </th>
 												<td >${S_DTO.weekendCellEtime}</td>
+											</tr>
+											<tr>
+												<th>휴무일 </th>
 												<td >${S_DTO.closeDay}</td>
 											</tr>
 											</c:forEach>
 											
-											
-											
-			                               </tbody>
-	                                    
 	                                </table>
 	       
 	                           

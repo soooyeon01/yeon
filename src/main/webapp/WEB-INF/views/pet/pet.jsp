@@ -16,8 +16,7 @@
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
 	rel="stylesheet" />
-			<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-				crossorigin="anonymous"></script>
+			<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"	crossorigin="anonymous"></script>
 			<script
 				src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
 				crossorigin="anonymous"></script>
@@ -31,13 +30,37 @@
 			<script src="https://code.jquery.com/jquery-3.7.0.js"
 				integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
 				crossorigin="anonymous"></script>
+			
 			<script>
-	          $(document).ready(function () {
+			  $(document).ready(function () {
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
-	                  location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region; 
+	                  const type = '${param.type}';
+	                  const keyword = '${param.keyword}';
+	                  location.href="${root}/pet/petall?region=" + region + "&type="+type + "&keyword="+keyword; 	                 
 	              })
-	          });
+	          }); 
+	       </script>
+	       <script>
+	       <!-- type, keyword값 보내기 -->
+ 		/*   function getSearchList() {
+ 			   var data = $("form[name=search-form]").serialize(); 
+ 			   $.ajax({
+ 			      url: "${root}/pet/petall",
+ 			      data: "data", 
+ 			      type: "get",
+ 			      
+ 			      success: function(data, textStatus) {
+ 			         console.log(data);
+ 			         
+ 			      },
+ 			      error: function(jqXHR, textStatus, errorThrown) {
+ 			         console.log(jqXHR);
+ 			         console.log(textStatus);
+ 			         console.log(errorThrown);
+ 			      }
+ 			   });
+ 			}       	 */
 	       </script>
 <style>
 a:hover {
@@ -210,35 +233,55 @@ a:hover {
 
 
 						<div id="animals-container">
+                     <div class="container">
+                        <c:forEach var="P_DTO" items="${response.petList}">
+                           <c:if test="${not empty P_DTO}">
+                              <div class="data">
+                                 <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
+                                 <img src="${P_DTO.popfile}" alt="펫이미지" style="width:250px; height:300px;" />                               
+                                 </a>
+
+                                 <div>
+                                    <br>
+                                    <p style="display: block;">품종 : ${P_DTO.kindCd}</p>
+                                    <br>
+                                    <p style="display: block;">나이 : ${P_DTO.age}</p>
+                                    <br>
+                                    <p style="display: block;">무게 : ${P_DTO.weight}</p>
+                                    <br>
+                                    <p style="display: block;">성별 : ${P_DTO.sexCd}</p>
+                                    <br>
+                                    <p style="display: block;">특징 : ${P_DTO.specialMark}</p>
+                                    <br>
+
+                                 </div>
+
+                              </div>
+                           </c:if>
+                        </c:forEach>
+                     </div>
+                  </div>
+				</div>	
 							<div class="container">
-								<c:forEach var="P_DTO" items="${response.petList}">
-									<c:if test="${not empty P_DTO}">
-										<div class="data">
-											<a
-												href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
-												<img src="${P_DTO.popfile}" alt="펫이미지" style="width:200px; height:300px;" />
-											</a>
-
-											<div>
-												<br>
-												<p style="display: block;">품종 : ${P_DTO.kindCd}</p>
-												<br>
-												<p style="display: block;">나이 : ${P_DTO.age}</p>
-												<br>
-												<p style="display: block;">무게 : ${P_DTO.weight}</p>
-												<br>
-												<p style="display: block;">성별 : ${P_DTO.sexCd}</p>
-												<br>
-												<p style="display: block;">특징 : ${P_DTO.specialMark}</p>
-												<br>
-
-											</div>
-
+										<div class="row">
+											<form method="get" name="search-form" action="${root}/pet/petall" autocomplete = "off">
+												<table class="pull-right">
+													<tr>
+														<td>
+														<select id="form-control" class="form-control" name="type">															
+																<option value="kindCd">품종</option>
+														</select></td>
+														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="" ></td>
+														<td><button type="submit" onclick = "getSearchList();" class="btn btn-success">검색</button></td>														
+													</tr>								
+												</table>
+												
+											
+											</form>
 										</div>
-									</c:if>
-								</c:forEach>
-							</div>
-						</div>
+									</div>
+							
+						
 					</div>
 					<%@ include file="../import/page-pet_notice.jsp"%>
 

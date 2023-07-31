@@ -25,9 +25,9 @@
       		WHERE f.nickname=#{nickname, jdbcType=VARCHAR}
       		]]>
   	</select>
-  	<select id="selectCountPBoard" parameterType="int" resultType="int">	
+  	<select id="selectCountPBoard" parameterType="String" resultType="int">	
   		
-  			SELECT COUNT(1)FROM favoritep
+  			SELECT COUNT(1)FROM favoritep WHERE nickname=#{nickname,jdbcType=VARCHAR}
   		
   		</select>
   	

@@ -33,7 +33,7 @@ import com.google.gson.JsonObject;
 import com.spring.domain.F_P_DTO;
 import com.spring.domain.MembersDTO;
 import com.spring.domain.P_DTO;
-import com.spring.service.F_P_Service;
+
 import com.spring.service.P_Service;
 import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
@@ -47,7 +47,7 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/pet/*")
 
 public class PetnoticeController {
-	private final F_P_Service fpservice; 
+
 	private final P_Service service;
 	// localhost:8080/4jojo/pet/petdetail
 
@@ -55,7 +55,10 @@ public class PetnoticeController {
 	@ResponseBody
 	public ModelAndView getPetListByRegion(
 			@RequestParam(value = "region", required = false, defaultValue = "") String region,
-			@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum, Model model,
+			@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			Model model,
 			Criteria cri) {
 
 		ModelAndView mav = new ModelAndView("/pet/pet");
@@ -64,17 +67,30 @@ public class PetnoticeController {
 		List<P_DTO> petList;
 		int totalCount;
 		cri = new Criteria(pageNum);
-
-		if (region.isEmpty()) {
-			totalCount = service.getCountAllBoard();
-			pageMaker = new PageMaker(cri, totalCount);
-			petList = service.getAllBoardByPage(pageMaker);
-
-		} else {
-			totalCount = service.getCountRegionPet(region);
-			pageMaker = new PageMaker(cri, totalCount);
-			petList = service.getRegionPet(region, pageMaker);
-		}
+		
+		// 검색 조건 확인: type과 keyword 모두 null이 아닌 경우로 검색 수행 조건으로 설정
+//	    boolean searchCondition = type != null && keyword != null;
+//
+//		if (region.isEmpty()) {
+//			if(searchCondition) { //검색어O + 지역검색 x
+//				totalCount = service.getCountPetNotice(type,keyword,region);
+//				pageMaker = new PageMaker(cri, totalCount);
+//				petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				
+//			}else{ //검색어x +지역검색x
+//				totalCount = service.getCountPetNotice(type,keyword,region);
+//				pageMaker = new PageMaker(cri, totalCount);
+//				petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				}
+//		} else {
+//			if(searchCondition) {//검색어O 지역검색O
+//			totalCount = service.getCountPetNotice(type,keyword,region);
+//			pageMaker = new PageMaker(cri, totalCount);
+//			petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				}
+//
+//		}
+		//추가
+		totalCount = service.getCountPetNotice(type,keyword,region);
+		pageMaker = new PageMaker(cri, totalCount);
+		petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);	
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("petList", petList);
@@ -84,23 +100,16 @@ public class PetnoticeController {
 	}
 
 	// 상세조회
-	@RequestMapping("/petdetail")
-	public ModelAndView getAllBoard(HttpSession session, int pet_notice_no, Model model, String nickname) {
+	@GetMapping("/petdetail")
+	public String getAllBoard(HttpSession session, int pet_notice_no, Model model) {
 		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
-		nickname=(String) session.getAttribute("SESS_NICKNAME");
-		List<P_DTO> petdetailList = service.getP(pet_notice_no);
-		List<F_P_DTO> fapList = fpservice.getLikedPostIdsByUser(nickname);
-		log.info("yy"+fapList);
+
 		if (SESS_AUTH != null && SESS_AUTH) {
-			
-			 	ModelAndView mav = new ModelAndView("/pet/petdetail");
-		        mav.addObject("petdetailList", petdetailList); // JSP에서는 ${allPosts}와 같이 사용 가능
-		        mav.addObject("fapList", fapList); // 위와 마찬가지로, ${likedPostIds} 형태로 사용 가능
-		        log.info("zz"+mav);
-		        return mav;
+			model.addAttribute("petdetailList", service.getP(pet_notice_no));
+
+			return "/pet/petdetail";
 		} else {
-			ModelAndView mav2 = new ModelAndView("/main/main");
-			return mav2;
+			return "redirect:/main/main";
 		}
 	}
 

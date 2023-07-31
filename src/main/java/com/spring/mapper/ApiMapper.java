@@ -11,8 +11,9 @@ public interface ApiMapper {
 	int insertWithData(W_DTO wdto);
 	
 	int deletePetData(P_DTO pdto);
+	int deletePetEnd(P_DTO pdto);
 	int deleteShelData(S_DTO sdto);
 	int deleteWithData(W_DTO wdto);
 	
-	int deletePetEnd(P_DTO pdto);
+	
 }

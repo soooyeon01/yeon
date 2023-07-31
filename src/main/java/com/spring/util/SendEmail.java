@@ -15,12 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class SendEmail {
 
-//	public static void main(String[] args) {
-//
-//	    naverMailSend(email, tempPwd);
-//	}
 	
-	public static void naverMailSend(String email, String tempPwd) {
+	public static void naverMailSend(String email, String subject, String text) {
         String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
         String user = "2qiuo@naver.com"; // 패스워드
         String password = "Yesol1101@";       
@@ -46,10 +42,10 @@ public class SendEmail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             // 메일 제목
-            message.setSubject("임시 비밀번호 발급 안내");
+            message.setSubject(subject);
 
             // 메일 내용
-            message.setText("송부확인");
+            message.setText(text);
 
             // send the message
             Transport.send(message);
