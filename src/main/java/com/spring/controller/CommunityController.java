@@ -83,6 +83,31 @@ public class CommunityController {
         return map;
 	}
 	
+	@PostMapping("/upR")
+	@ResponseBody		
+	public Map<String, String> UpdateR(@RequestBody ReplyDTO rdto, HttpSession session) {
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+        System.out.println("댓글 수정 통신 성공");
+        
+        Map<String, String> map = new HashMap<>(); 
+        if(SESS_AUTH != null && SESS_AUTH) {
+//          request.setCharacterEncoding("utf-8");
+            String email = (String) session.getAttribute("SESS_EMAIL");
+            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+            
+            log.info("로그인 유지중...");
+			
+			rservice.modifyReply(rdto);
+			log.info("댓글 수정 서비스 성공");
+			
+			map.put("result", "upSuccess");
+			
+        } else {
+        	map.put("result", "fail");
+		}
+        return map;
+	}
+	
 	@PostMapping("/delR")
 	@ResponseBody		
 	public Map<String, String> DeleteR(@RequestBody ReplyDTO rdto, HttpSession session) {
@@ -209,11 +234,11 @@ public class CommunityController {
 			model.addAttribute("selectone", selectone);
 			service.viewCnt(c_no);
 			
-			ldto=new LikeDTO();
-			ldto.setC_no(c_no);
-			ldto.setNickname(nickname);
+			LikeDTO islike=new LikeDTO();
+			islike.setC_no(c_no);
+			islike.setNickname(nickname);
 			log.info("여기1 " + lservice.getLikeCnt(ldto));
-			model.addAttribute("ldto", lservice.findLike(ldto));
+			model.addAttribute("islike", lservice.findLike(islike));
 			model.addAttribute("getLikeCnt", lservice.getLikeCnt(ldto));
 			log.info("여기2 " + lservice.getLikeCnt(ldto));
 			
@@ -225,21 +250,32 @@ public class CommunityController {
 	
 	@PostMapping("/likeUp")
 	@ResponseBody 
-	public void likeup(@RequestBody LikeDTO ldto) {
+	public int likeup(@RequestBody LikeDTO islike) {
 		log.info("좋아요 컨트롤러 연결 성공");
-		log.info(ldto.getC_no());
-		log.info(ldto.getNickname());
-		lservice.likeUp(ldto);
+		log.info(islike.getC_no());
+		log.info(islike.getNickname());
+		return lservice.likeUp(islike);
 	
 	}
 	
 	@PostMapping("/likeDown")
 	@ResponseBody
-	public void likeDown(@RequestBody LikeDTO ldto) {
+	public int likeDown(@RequestBody LikeDTO islike) {
 		log.info("좋아요 싫어요!");
-		
-		lservice.likeDown(ldto);
+		return lservice.likeDown(islike);
 	}
+	
+	@PostMapping("/getLikeCnt")
+	@ResponseBody
+	public ResponseEntity<Map<String, Integer>> getLikeCnt(@RequestBody LikeDTO total) {
+	    log.info("총 추천 갯수는? " + total);
+
+	    int likeCnt = lservice.getLikeCnt(total);
+	    Map<String, Integer> response = new HashMap<>();
+	    response.put("likeCnt", likeCnt);
+	    return ResponseEntity.ok(response); // 좋아요 개수가 포함된 JSON 객체로 반환합니다.
+	}
+	
 	
 	@RequestMapping("/commuUp1")
 	public String CommunityUdt(Model model, int c_no, String nickname) {

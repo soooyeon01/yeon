@@ -22,6 +22,41 @@
     integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" 
     crossorigin="anonymous"></script>
 		<script>
+		function getInitialFavoriteStatus() {
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/fa/favoritew",
+		       
+		        type: "POST",
+		        success: function(data) {
+		        	
+		            applyImageDisplayStatus(data);
+		           
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
+		  function applyImageDisplayStatus(favoriteStatus) {
+		        $('.img_fa1, .img_fa2').each(function () {
+		            var img_fa1 = $(this).closest('label').find('.img_fa1');
+		            var img_fa2 = $(this).closest('label').find('.img_fa2');
+		            var key = parseInt($(this).closest('label').find('.img_fa1').attr('data-value'));
+		            
+		            if (favoriteStatus.indexOf(key) >= 0) { // 좋아요 정보가 있는 경우
+		                // 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
+		                img_fa1.hide();
+		                img_fa2.show();
+		            } else { // 좋아요 정보가 없는 경우
+		                // 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
+		                img_fa1.show();
+		                img_fa2.hide();
+		            }
+		        });
+		    }
 		function applyImageCheckboxStyle() {
 		    $('.img_fa1, .img_fa2').on('click', function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -39,27 +74,9 @@
 		    var visible = img_fa2.is(':visible');
 		    localStorage.setItem(key, visible);
 		}
-
-		function getImageDisplayStatus() {
-		    $('.img_fa1').each(function () {
-		        var img_fa1 = $(this);
-		        var img_fa2 = $(this).closest('label').find('.img_fa2');
-		        var key = img_fa1.data('value');
-		        var storedStatus = localStorage.getItem(key);
-
-		        if (storedStatus === 'true') {
-		            img_fa1.hide();
-		            img_fa2.show();
-		        } else {
-		            img_fa1.show();
-		            img_fa2.hide();
-		        }
-		    });
-		}
-
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
-		    getImageDisplayStatus(); // Load stored status on page load
+		    getInitialFavoriteStatus();
 
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -75,7 +92,6 @@
 		        }
 		    });
 		});
-		
 		function sendFavoritew(img_fa1) {
 		    var favoritew = img_fa1.data("value");
 
@@ -186,7 +202,12 @@
 						border: none;
 						background: none;
 				    }
-				    
+				    table.table.table-bordered {
+					    width: 50%;
+					    margin-top:50px;
+					   	margin-left:350px;
+					    
+					  }
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -240,65 +261,85 @@
                            		
                            		<button type="button" onclick="back();">뒤로가기</button>
                            		 <table class="table table-bordered">
-	                                    <thead>
-	                                        <tr>
-	                                        	<th></th>
-	                                            
-	                                            <th>문화시설 이름</th>
-	                                            <th>문화시설 유형 </th>
-	                                            <th>도로명 주소</th>
-	                                            <th>전화번호 </th>
-	                                            <th>홈페이지</th>
-	                                            <th>휴무일 </th>
-	                                            <th>운영시간 </th>
-	                                            <th>주차가능여부 </th>
-	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            <th>입장 가능 동물 크기 </th>
-	                                            <th>장소(실내)여부 </th>
-	                                            <th>장소(실외)여부 </th>
-	                                            <th>애견동반추가요금 </th>
-	                                        </tr>
-	                                    </thead>
-	                                    
-	                                    <tbody>
 	                                    	<c:forEach var="W_DTO" items="${ withdetailList }">
+												<div style="float:right;">
+											        <c:set var="isLiked" value="false" />
+											        <c:forEach var="likedId" items="${fawList}">
+											            <c:if test="${!isLiked and likedId.with_pet_no == W_DTO.with_pet_no}">
+											                <c:set var="isLiked" value="true" />
+											            </c:if>
+													</c:forEach>
+											        <label>
+											            <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${W_DTO.with_pet_no}">
+											            <img class="img_fa1" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa1.png" style="${isLiked ? 'display:none;' : ''}">
+											            <img class="img_fa2" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa3.gif" style="${!isLiked ? 'display:none;' : ''}">
+											        </label>
+												</div>
 											<tr>
-												<!-- pageScope에 vo가 생성되었다.  -->
-												<td>
-												<label>
-													 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${W_DTO.with_pet_no}">
-													 <img class="img_fa1" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa1.png">
-													 <img class="img_fa2" name="favorite" data-value="${W_DTO.with_pet_no}" src="../resources/image/fa3.gif" style="display:none;">
-												</label>
-												
-												</td>
-												
+												<th>문화시설 이름</th>
 												<c:set var="addressNm" value="${W_DTO.building}" />
 												<td>${W_DTO.building}</td>
+											</tr>
+											<tr>
+												<th>문화시설 유형 </th>
 												<td>${W_DTO.category3}</td>
+											</tr>
+											<tr>
+												<th>도로명 주소</th>
 												<c:set var="address" value="${W_DTO.road}" />
 												<td>${W_DTO.road}</td>
-												<td>${W_DTO.homepage}</td>										
+											</tr>
+											<tr>
+												<th>전화번호 </th>
+												<td>${W_DTO.tel}</td>
+											</tr>
+											<tr>
+												<th>홈페이지</th>
+												<td>${W_DTO.homepage}</td>
+											</tr>
+											<tr>
+												<th>휴무일 </th>						
 												<td>${W_DTO.day_off}</td>
+											</tr>
+											<tr>
+												<th>운영시간 </th>
 												<td>${W_DTO.hour}</td>
+											</tr>
+											<tr>
+												<th>주차가능여부 </th>
 												<td>${W_DTO.parking}</td>
+											</tr>
+											<tr>
+											 	<th>반려동물 동반 가능정보 </th>
 												<td>${W_DTO.with_pet_info}</td>
+											</tr>
+											<tr>
+											 	<th>반려동물 전용 정보 </th>
 												<td>${W_DTO.only_pet_info}</td>
+											</tr>
+											<tr>
+												<th>입장 가능 동물 크기 </th>
 												<td>${W_DTO.pet_size}</td>
+											</tr>
+											<tr>
+												<th>반려동물 제한사항</th>
 												<td>${W_DTO.pet_limit}</td>
+											</tr>
+											<tr>
+												<th>장소(실내)여부 </th>
 												<td>${W_DTO.inside}</td>
+											</tr>
+											<tr>
+												<th>장소(실외)여부 </th>
 												<td>${W_DTO.outside}</td>
+											</tr>
+											<tr>
+												<th>애견동반추가요금 </th>
 												<td>${W_DTO.extra}</td>
-												
-										
 											</tr>
 											</c:forEach>
-	                                    </tbody>
 	                                </table>
-	                             
 	                            </div>
-	                           
                         </div>
                     </div>
                              <p style="margin-top:-12px">

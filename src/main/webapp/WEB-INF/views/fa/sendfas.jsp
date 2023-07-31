@@ -68,7 +68,7 @@
             return result;
         }
         
-        
+       
     </script>
     </head>
     <body class="bg-primary">
@@ -82,16 +82,16 @@
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">이메일 전송</h3></div>
                                     <div class="card-body">
                                         <div class="small mb-3 text-muted">정보를 입력해 주세요</div>
-                                        <form name="form" id="form" action="${root}/fa/sendfap" method="post">
+                                        <form action="${root}/fa/sendfas" method="post">
                                         	<div class="form-floating mb-3">
                                                 <input class="form-control" id="email" name="email" type="email"  />
                                                 <label for="email">이메일</label>
                                             </div>
-                                            
+                                           
                                             
                                             
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <div class="small"><a href="${root}/fa/favoritep">뒤로가기</a></div>
+                                                <div class="small"><a href="${root}/fa/favorites">뒤로가기</a></div>
                                                 
                                                 <input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
                                                 </div>

@@ -3,6 +3,13 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.F_S_Mapper">
+  
+	<select id="selectLikedPostIdsByUser" resultType="com.spring.domain.F_S_DTO">
+	  SELECT shelter_no
+	  FROM favorites
+	  WHERE nickname=#{nickname,jdbcType=VARCHAR}
+	 
+	</select>
   <select id="selectSBoard" resultType="com.spring.domain.F_S_DTO">
   		<![CDATA[
   		SELECT f.favorites_no
@@ -11,9 +18,10 @@
       		     , s.careNm
       		     , s.careAddr
       		     , s.careTel
-      		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      		     , f.nickname
       		FROM favorites f
       		JOIN shelter s ON f.shelter_no = s.shelter_no
+      		WHERE f.nickname=#{nickname, jdbcType=VARCHAR}
       		]]>
   	</select>
   	<select id="selectCountSBoard" parameterType="int" resultType="int">	

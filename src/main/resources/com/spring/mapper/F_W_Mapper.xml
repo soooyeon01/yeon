@@ -3,7 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.F_W_Mapper">
-  <select id="selectWBoard" resultType="com.spring.domain.F_W_DTO">
+  
+  <select id="selectLikedPostIdsByUser" resultType="com.spring.domain.F_W_DTO">
+	  SELECT with_pet_no
+	  FROM favoritew
+	  WHERE nickname=#{nickname,jdbcType=VARCHAR}
+	 
+	</select>
+	<select id="selectWBoard" resultType="com.spring.domain.F_W_DTO">
   		<![CDATA[
   		SELECT f.favoritew_no
       		     , f.favoritew_reg_date
@@ -11,14 +18,15 @@
       		     , w.building
       		     , w.road
       		     , w.tel
-      		     , (SELECT nickname FROM members WHERE nickname = f.nickname) as nickname
+      		     , f.nickname
       		FROM favoritew f
       		JOIN with_pet w ON f.with_pet_no = w.with_pet_no
+      		WHERE f.nickname=#{nickname, jdbcType=VARCHAR}
       		]]>
   	</select>
-  	<select id="selectCountWBoard" parameterType="int" resultType="int">	
+  	<select id="selectCountWBoard" parameterType="String" resultType="int">	
   		
-  			SELECT COUNT(1)FROM favoritew
+  			SELECT COUNT(1)FROM favoritew WHERE nickname=#{nickname, jdbcType=VARCHAR}
   		
   		</select>
   	 <select id="selectWBoardByPage" resultType="com.spring.domain.F_W_DTO">

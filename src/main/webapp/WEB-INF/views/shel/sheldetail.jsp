@@ -74,10 +74,49 @@
 						border: none;
 						background: none;
 				    }
-					
+					 table.table.table-bordered {
+					    width: 50%;
+					    margin-top:50px;
+					   	margin-left:350px;
+					    
+					  }
 
 		</style>
 		<script>
+		function getInitialFavoriteStatus() {
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/fa/favorites",
+		        async:false,
+		        type: "POST",
+		        success: function(data) {
+		            applyImageDisplayStatus(data);
+		            
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
+		  function applyImageDisplayStatus(favoriteStatus) {
+		        $('.img_fa1, .img_fa2').each(function () {
+		            var img_fa1 = $(this).closest('label').find('.img_fa1');
+		            var img_fa2 = $(this).closest('label').find('.img_fa2');
+		            var key = parseInt($(this).closest('label').find('.img_fa1').attr('data-value'));
+		            
+		            if (favoriteStatus.indexOf(key) >= 1) { // 좋아요 정보가 있는 경우
+		                // 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
+		                img_fa1.hide();
+		                img_fa2.show();
+		            } else { // 좋아요 정보가 없는 경우
+		                // 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
+		                img_fa1.show();
+		                img_fa2.hide();
+		            }
+		        });
+		    }
 		function applyImageCheckboxStyle() {
 		    $('.img_fa1, .img_fa2').on('click', function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -96,26 +135,11 @@
 		    localStorage.setItem(key, visible);
 		}
 
-		function getImageDisplayStatus() {
-		    $('.img_fa1').each(function () {
-		        var img_fa1 = $(this);
-		        var img_fa2 = $(this).closest('label').find('.img_fa2');
-		        var key = img_fa1.data('value');
-		        var storedStatus = localStorage.getItem(key);
-
-		        if (storedStatus === 'true') {
-		            img_fa1.hide();
-		            img_fa2.show();
-		        } else {
-		            img_fa1.show();
-		            img_fa2.hide();
-		        }
-		    });
-		}
+		
 
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
-		    getImageDisplayStatus(); // Load stored status on page load
+		    getInitialFavoriteStatus(); // Load stored status on page load
 
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -134,22 +158,24 @@
 		
 		function sendFavorites(img_fa1) {
 		    var favorites = img_fa1.data("value");
-
+		    console.log(favorites);
 		    $.ajax({
 		        url: "${pageContext.servletContext.contextPath}/shel/registershel",
 		        type: "POST",
 		        data: {
-		            shelter_no: favorites
+		           shelter_no: favorites
 		        },
 		        dataType: "json",
 		        success: function(data) {
-		        	 if (data.result === 1) {
-			                alert("등록되었습니다.");
-			            
-			            }else{
-			            	alert("등록되었습니다.");
-			            	
-			            }
+		        	console.log(data);
+		            if (data.result === 1) {
+		                alert("등록되었습니다.");
+		                
+		            }else{
+		            	alert("등록되었습니다.");
+		            	
+		            }
+		          
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
 		            console.log(jqXHR);
@@ -170,12 +196,12 @@
 		        },
 		        dataType: "json",
 		        success: function(data) {
-		        	if (data.result === 1) {
+		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
-		                
+		                console.log(data.result);
 		            } else {
 		                alert("삭제되었습니다.");
-		                
+		              
 		            }
 		        },
 		        error: function(jqXHR, textStatus, errorThrown) {
@@ -246,65 +272,88 @@
                            		<button type="button" onclick="back();">뒤로가기</button>
                            		 <table class="table table-bordered">
 
-	                                    <thead>
-	                                        <tr>
-	                                        	<th></th>
-	                                       		
-	                                            <th>보호소 이름</th>
-	                                            <th>보호소 유형 </th>
-	                                            <th>구조대상동물</th>
-	                                            <th>보호소 주소 </th>
-	                                            <th>보호소 전화번호</th>
-	                                            <th>평일운영시작시간 </th>
-	                                            <th>평일운영종료시간 </th>
-	                                            <th>평일분양시작시간 </th>
-	                                            <th>평일분양종료시간 </th>
-	                                            <th>주말운영시작시간 </th>
-	                                            <th>주말운영종료시간 </th>
-	                                            <th>주말분양시작시간 </th>
-	                                            <th>주말분양종료시간 </th>
-	                                            <th>휴무일 </th>
-	                                        </tr>
-	                                    </thead>
+	                                    
 	                                   
 	                                    
 	                                    
-	                                    <tbody>
+	                                    
 	                                    	<c:forEach var="S_DTO" items="${sheldetailList}">
-											<tr>
-												<!-- pageScope에 vo가 생성되었다.  -->
-												<td>
-												<label>
-													 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${S_DTO.shelter_no}">
-													 <img class="img_fa1" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa1.png">
-													 <img class="img_fa2" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa3.gif" style="display:none;">
-												</label>
-												
-												</td>
 											
+												<div style="float:right;">
+											        <c:set var="isLiked" value="false" />
+											        <c:forEach var="likedId" items="${fasList}">
+											            <c:if test="${!isLiked and likedId.shelter_no == S_DTO.shelter_no}">
+											                <c:set var="isLiked" value="true" />
+											            </c:if>
+													</c:forEach>
+									
+											        <label>
+											            <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${S_DTO.shelter_no}">
+											            <img class="img_fa1" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa1.png" style="${isLiked ? 'display:none;' : ''}">
+											            <img class="img_fa2" name="favorite" data-value="${S_DTO.shelter_no}" src="../resources/image/fa3.gif" style="${!isLiked ? 'display:none;' : ''}">
+											        </label>
+												</div>
+												
+											<tr>
+												<th>보호소 이름</th>
 												<c:set var="addressNm" value="${S_DTO.careNm}" />
 												<td >${S_DTO.careNm}</td>
+											</tr>
+											<tr>
+												<th>보호소 유형 </th>
 												<td >${S_DTO.divisionNm}</td>
-												<td >${S_DTO.saveTrgtAnimal}</td>
+											</tr>
+											<tr>
+												<th>구조대상동물</th>
+												<td>${S_DTO.saveTrgtAnimal}</td>
+											</tr>
+											<tr>
+												<th>보호소 주소 </th>
 												<c:set var="address" value="${S_DTO.careAddr}" />
 												<td >${S_DTO.careAddr}</td>
-												<td >${S_DTO.careTel}</td>										
+											</tr>
+											<tr>
+												<th>보호소 전화번호</th>
+												<td >${S_DTO.careTel}</td>	
+											</tr>
+											<tr>		
+												<th>평일운영시작시간 </th>							
 												<td >${S_DTO.weekOprStime}</td>
+											</tr>
+											<tr>
+												 <th>평일운영종료시간 </th>
 												<td >${S_DTO.weekOprEtime}</td>
+											</tr>
+											<tr>
+												<th>평일분양시작시간 </th>
 												<td >${S_DTO.weekCellStime}</td>
+											</tr>
+											<tr>
+												<th>평일분양종료시간 </th>
 												<td >${S_DTO.weekCellEtime}</td>
+											</tr>
+											<tr>
+												<th>주말운영시작시간 </th>
 												<td >${S_DTO.weekendOprStime}</td>
+											</tr>
+											<tr>
+												<th>주말운영종료시간 </th>
 												<td >${S_DTO.weekendOprEtime}</td>
+											</tr>
+											<tr>
+												<th>주말분양시작시간 </th>
 												<td >${S_DTO.weekendCellStime}</td>
+											</tr>
+											<tr>
+												<th>주말분양종료시간 </th>
 												<td >${S_DTO.weekendCellEtime}</td>
+											</tr>
+											<tr>
+												<th>휴무일 </th>
 												<td >${S_DTO.closeDay}</td>
 											</tr>
 											</c:forEach>
 											
-											
-											
-			                               </tbody>
-	                                    
 	                                </table>
 	       
 	                           

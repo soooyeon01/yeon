@@ -20,6 +20,40 @@
 		<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
 		<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 		<script>
+		function getInitialFavoriteStatus() {
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/fa/favoritep",
+		        async:false,
+		        type: "POST",
+		        success: function(data) {
+		            applyImageDisplayStatus(data);
+		            
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
+		  function applyImageDisplayStatus(favoriteStatus) {
+		        $('.img_fa1, .img_fa2').each(function () {
+		            var img_fa1 = $(this).closest('label').find('.img_fa1');
+		            var img_fa2 = $(this).closest('label').find('.img_fa2');
+		            var key = parseInt($(this).closest('label').find('.img_fa1').attr('data-value'));
+		            
+		            if (favoriteStatus.indexOf(key) >= 0) { // 좋아요 정보가 있는 경우
+		                // 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
+		                img_fa1.hide();
+		                img_fa2.show();
+		            } else { // 좋아요 정보가 없는 경우
+		                // 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
+		                img_fa1.show();
+		                img_fa2.hide();
+		            }
+		        });
+		    }
 		function applyImageCheckboxStyle() {
 		    $('.img_fa1, .img_fa2').on('click', function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -38,26 +72,11 @@
 		    localStorage.setItem(key, visible);
 		}
 
-		function getImageDisplayStatus() {
-		    $('.img_fa1').each(function () {
-		        var img_fa1 = $(this);
-		        var img_fa2 = $(this).closest('label').find('.img_fa2');
-		        var key = img_fa1.data('value');
-		        var storedStatus = localStorage.getItem(key);
-
-		        if (storedStatus === 'true') {
-		            img_fa1.hide();
-		            img_fa2.show();
-		        } else {
-		            img_fa1.show();
-		            img_fa2.hide();
-		        }
-		    });
-		}
+		
 
 		$(document).ready(function () {
 		    applyImageCheckboxStyle();
-		    getImageDisplayStatus(); // Load stored status on page load
+		    getInitialFavoriteStatus(); // Load stored status on page load
 
 		    $(".img_fa1, .img_fa2").on("click", function () {
 		        var img_fa1 = $(this).closest('label').find('.img_fa1');
@@ -85,6 +104,7 @@
 		        },
 		        dataType: "json",
 		        success: function(data) {
+		        	console.log(data);
 		            if (data.result === 1) {
 		                alert("등록되었습니다.");
 		                
@@ -115,7 +135,7 @@
 		        success: function(data) {
 		            if (data.result === 1) {
 		                alert("삭제되었습니다.");
-		                
+		                console.log(data.result);
 		            } else {
 		                alert("삭제되었습니다.");
 		              
@@ -132,6 +152,22 @@
 		function back(){
 			window.location = document.referrer;
 		}
+		
+	    window.onload = function() {
+	    	 
+	        function onClick() {
+	            document.querySelector('.modal_wrap').style.display ='block';
+	            document.querySelector('.black_bg').style.display ='block';
+	        }   
+	        function offClick() {
+	            document.querySelector('.modal_wrap').style.display ='none';
+	            document.querySelector('.black_bg').style.display ='none';
+	        }
+	     
+	        document.getElementById('modal_btn').addEventListener('click', onClick);
+	        document.querySelector('.modal_close').addEventListener('click', offClick);
+	     
+	    };
 		</script>
 				
 		<style>
@@ -202,6 +238,45 @@
 						display:inline;
 						
 					}
+					
+					/* 모달 스타일 */
+					.modal_wrap{
+			        display: none;
+			        width: 500px;
+			        height: 500px;
+			        position: absolute;
+			        top:50%;
+			        left: 50%;
+			        margin: -250px 0 0 -250px;
+			        background:#eee;
+			        z-index: 2;
+			    }
+			    .black_bg{
+			        display: none;
+			        position: absolute;
+			        content: "";
+			        width: 100%;
+			        height: 100%;
+			        background-color:rgba(0, 0,0, 0.5);
+			        top:0;
+			        left: 0;
+			        z-index: 1;
+			    }
+			    .modal_close{
+			        width: 26px;
+			        height: 26px;
+			        position: absolute;
+			        top: -30px;
+			        right: 0;
+			    }
+			    .modal_close> a{
+			        display: block;
+			        width: 100%;
+			        height: 100%;
+			        background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+			        text-indent: -9999px;
+			    }
+					
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -256,13 +331,20 @@
                       			
 						
                            		  
-	                                    	<c:forEach var="P_DTO" items="${ petdetailList }">
-												<div style="float:right;">
-				                      				 <label>
-														 <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
-														 <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png">
-														 <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa3.gif" style="display:none;">
-													</label>
+	                                    	<c:forEach var="P_DTO" items="${petdetailList}">
+											    <div style="float:right;">
+											        <c:set var="isLiked" value="false" />
+											        <c:forEach var="likedId" items="${fapList}">
+											            <c:if test="${!isLiked and likedId.pet_notice_no == P_DTO.pet_notice_no}">
+											                <c:set var="isLiked" value="true" />
+											            </c:if>
+													</c:forEach>
+									
+										        <label>
+										            <input type="checkbox" class="image-checkbox" id="fa" name="favorite" style="transform:scale(4); margin:5px; display:none;" value="${P_DTO.pet_notice_no}">
+										            <img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png" style="${isLiked ? 'display:none;' : ''}">
+										            <img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa3.gif" style="${!isLiked ? 'display:none;' : ''}">
+										        </label>
 				                      			
 				                      			</div>
 				                      			<p><button type="button" class="btn btn-warning" onclick="back();">목록</button></p>	
@@ -332,8 +414,20 @@
 												<tr>
 													<th style="font-size:15px;">보호장소</th>
 													<c:set var="address" value="${P_DTO.careAddr}" />
-													<td style="font-size:20px;">${P_DTO.careAddr}</td>
+													<td style="font-size:20px;">${P_DTO.careAddr}
+													
+													<button type="button" id="modal_btn">모달창아 나와랏</button>
+														<div class="black_bg" onclick="onClick()"></div>
+														<div class="modal_wrap">
+														    <div class="modal_close"><a href="#" onclick="onClick()">close</a></div>
+															    <div>
+															       <div id="map" style="width:500px;height:350px;"></div>
+															    </div>
+														</div>
+													</td>
 												</tr>
+
+												
 												<tr>
 													<th style="font-size:15px;">보호소 전화번호</th>
 													<td style="font-size:20px;">${P_DTO.careTel}</td>
@@ -347,57 +441,56 @@
 	                                </div>
                         </div>
                     </div>
-                             <p style="margin-top:-12px">
-		    <em class="link">
-		        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-		            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-		        </a>
-		    </em>
-		</p>
-		<div id="map" style="width:500px;height:350px;"></div>
-		
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
-		<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			    mapOption = {
-			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    };  
-		
-			// 지도를 생성
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-			// 주소-좌표 변환 객체를 생성
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			
-			// 주소로 좌표를 검색
-			geocoder.addressSearch('${address}', function(result, status) {
-			
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동
-			        map.setCenter(coords);
-			    } 
-			});   
-			
-			
-		</script>
+                    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+                    
+						<script>
+								function onClick() {
+						    document.querySelector('.modal_wrap').style.display ='block';
+						    document.querySelector('.black_bg').style.display ='block';
+						    
+						    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						    mapOption = {
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 3 // 지도의 확대 레벨
+						    };  
+					
+						// 지도를 생성
+						var map = new kakao.maps.Map(mapContainer, mapOption); 
+						
+						// 주소-좌표 변환 객체를 생성
+						var geocoder = new kakao.maps.services.Geocoder();
+						var address = '${P_DTO.careAddr}';
+						
+						
+						// 주소로 좌표를 검색
+						geocoder.addressSearch(address, function(result, status) {
+						
+						    // 정상적으로 검색이 완료됐으면 
+						     if (status === kakao.maps.services.Status.OK) {
+						
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						
+						        // 결과값으로 받은 위치를 마커로 표시
+						        var marker = new kakao.maps.Marker({
+						            map: map,
+						            position: coords
+						        });
+						
+						         // 인포윈도우로 장소에 대한 설명을 표시
+						        var infowindow = new kakao.maps.InfoWindow({
+						            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
+						        });
+						        infowindow.open(map, marker); 
+						
+						        // 지도의 중심을 결과값으로 받은 위치로 이동
+						        map.setCenter(coords);
+						    } 
+						});   
+						}
+						
+						document.getElementById('modal_btn').addEventListener('click', onClick);
+						</script>
+
                 </main>
             </div>
     </body>
