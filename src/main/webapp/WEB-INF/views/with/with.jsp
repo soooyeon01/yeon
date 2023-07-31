@@ -31,11 +31,11 @@
 	              })
 	          });  	          
 	        		
-	        		  <!-- type, keyword값 보내기 -->
+	        		 /*  <!-- type, keyword값 보내기 -->
 	        		  function getSearchList() {
 	        			   var data = $("form[name=search-form]").serialize(); 
 	        			   $.ajax({
-	        			      url: "${root}/mypage/withall",
+	        			      url: "${root}/with/withall",
 	        			      data: "data", 
 	        			      type: "get",
 	        			      
@@ -49,7 +49,7 @@
 	        			         console.log(errorThrown);
 	        			      }
 	        			   });
-	        			}       	
+	        			}        */	
 	       </script>
 		<style>
 		
@@ -181,9 +181,9 @@
 
                             
                             
-                            
+                            <div><br></div>
                            	<div id="with-container">
-                           		 <table class="table" id ="table">
+                           		 <table class="datatable-table" id ="table">
 	                                    <thead>
 	                                        <tr>	                                            
 	                                            <th>문화시설 이름</th>
@@ -238,17 +238,8 @@
 	                            
 						<%@ include file="../import/page-with_pet.jsp" %>
                         </div>
+                        </main>
                     </div>
-                </main>
-		
-
-
-					
-				</div>
-			
-		
-
-	
 
 </body>
 </html>

@@ -20,11 +20,11 @@ public class P_ServiceImpl implements P_Service {
 		return mapper.selectP(pet_notice_no);
 	}
 
-	@Override
-	public List<P_DTO> getAllBoard() {
-		
-		return mapper.selectAllBoard();
-	}
+//	@Override
+//	public List<P_DTO> getAllBoard() {
+//		
+//		return mapper.selectAllBoard();
+//	}
 
 //지역별 조회
 	@Override
@@ -57,6 +57,16 @@ public class P_ServiceImpl implements P_Service {
 	public int removeP(int pet_notice_no) {
 		
 		return mapper.deletePetnoticeData(pet_notice_no);
+	}
+
+	@Override
+	public int getCountPetNotice(String type, String keyword, String region) {
+		return mapper.selectCountPetNotice(type,keyword,region);
+	}
+
+	@Override
+	public List<P_DTO> getPetNoticeByPage(String type, String keyword, String region, PageMaker pageMaker) {
+		return mapper.selectPetNoticeByPage(type,keyword,region,pageMaker);
 	}
 
 //	public List<P_DTO> getRegionPet(String region) {

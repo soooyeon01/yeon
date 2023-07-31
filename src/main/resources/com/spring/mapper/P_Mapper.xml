@@ -3,43 +3,62 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.P_Mapper">
-  <select id="selectRegionPet" resultType="com.spring.domain.P_DTO">
+<select id="selectPetNoticeByPage" resultType="com.spring.domain.P_DTO">
    <![CDATA[
-  		SELECT * FROM (
-				SELECT
-				ROWNUM as rn
-				,pet_notice_no
-				,happenDt
-				,happenPlace
-				,kindCd
-				,colorCd
-				,age
-				,weight
-				,noticeNo 
-				,noticeSdt 
-				,noticeEdt  
-				,popfile  
-				,processState  
-				,sexCd
-				,neuterYn
-				,specialMark
-				,careNm
-				,careAddr
-				,careTel
-				
-				FROM  pet_notice 
-				 WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
-				 AND SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1) = #{region} 
-				  )
-				WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
-				]]>
+   SELECT * FROM (
+        SELECT
+        pet_notice_no
+        ,happenDt
+        ,happenPlace
+        ,kindCd
+        ,colorCd
+        ,age
+        ,weight
+        ,noticeNo
+        ,noticeSdt
+        ,noticeEdt
+        ,popfile
+        ,processState
+        ,sexCd
+        ,neuterYn
+        ,specialMark
+        ,careNm
+        ,careAddr
+        ,careTel,
+        ROW_NUMBER() OVER (ORDER BY pet_notice_no ASC) as rn
+        FROM pet_notice
+         WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
+        ]]>         
+      
+            <if test="region != null and region != ''">
+                <![CDATA[AND (SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1)) = #{region}]]>
+            </if>
+            <if test="type == null or type == ''">
+                <![CDATA[AND 1=1]]>
+            </if>                
+            <if test="type == 'kindCd'">
+                <![CDATA[AND kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
+            </if>
 
+	 <![CDATA[
+			 ) WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
+	 ]]>
 </select>
-   <select id="selectCountRegionPet" parameterType="string" resultType="int">	
-  		
-  			SELECT COUNT(1) FROM pet_notice WHERE(SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1)) = #{region}
-  		
-  	</select>
+
+  <select id="selectCountPetNotice" parameterType="string" resultType="int">
+    SELECT COUNT(1) FROM pet_notice
+    <where>
+        <if test="region != null and region != ''">
+            AND SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1) = #{region}
+        </if>
+        <if test="type == 'kindCd'">
+            AND kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        </if>
+        <if test="type == null or type ==''">
+            AND 1=1
+        </if>
+    </where>
+</select>			
   
   
   <select id="selectP" resultType="com.spring.domain.P_DTO">
