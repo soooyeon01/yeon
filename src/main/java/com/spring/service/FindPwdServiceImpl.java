@@ -28,11 +28,11 @@ public class FindPwdServiceImpl implements FindPwdService {
 	    }
 	 
 	 @Override
-	    public void sendTempPwd(String email, String tempPwd) {
-	        SendEmail.naverMailSend(email, tempPwd);
+	    public void sendTempPwd(String email, String subject, String text) {
+	        SendEmail.naverMailSend(email, subject, text);
 	    }
 	
-	 public String generateTempPwd() {
+	 public String makeTempPwd() {
 		    int passwordLength = 8; // 비밀번호 길이
 		    char[] password = new char[passwordLength];
 
