@@ -213,6 +213,44 @@
                         }
                     }
    
+                 // 이메일 인증번호 발송
+
+                    function sendAuthNum() {
+                        var email = $("#email").val();
+                        $.ajax({
+                            url: "./sendAuthNum",
+                            type: "post",
+                            data: { email: email },
+                            dataType: "text",
+                            success: function (msg) {
+                                alert("메일이 발송되었습니다.");
+                            },
+                            error: function () {
+                                alert("에러입니다");
+                            }
+                        });
+                    }
+
+                    // 이메일 인증번호 확인
+                    function checkAuthNum() {
+                        var inputNum = $("#emailAuth").val();
+                        $.ajax({
+                            url: "./checkAuthNum",
+                            type: "post",
+                            data: { inputNum: inputNum },
+                            dataType: "json",
+                            success: function (isAuthenticated) {
+                                if (isAuthenticated) {
+                                    alert("인증번호가 일치합니다.");
+                                } else {
+                                    alert("인증번호가 일치하지 않습니다.");
+                                }
+                            },
+                            error: function () {
+                                alert("에러입니다");
+                            }
+                        });
+                    }
 
     </script>
     </head>
@@ -234,9 +272,21 @@
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" name="email" id="email" type="email" onkeyup="toggleBtn('emailBtn', this.value);">                                                                                              
                                                 <label for="email">이메일</label>
-                                                <button type="button" id="emailBtn" name="emailBtn" disabled="disabled" onclick="checkEmail();">중복</button>                                              
+                                                <button type="button" id="emailBtn" name="emailBtn" disabled="disabled" onclick="checkEmail();">중복</button>
+                                                <button type="button" id="emailNum" name="emailNum" onclick="sendAuthNum();">인증 번호 받기</button>                                              
                                                 
                                             </div>
+                                            
+                                            
+                                            <div class="form-floating mb-3">
+											    <input class="form-control" name="emailAuth" id="emailAuth" type="text"/>
+											    <label for="emailAuth">이메일 인증번호</label>
+											    <button type="button" id="emailAuth" name="emailAuth" onclick="checkAuthNum();">인증번호 확인</button>
+											</div>
+											
+											
+											
+											
                                             <div class="form-floating mb-3">
                                                  <input class="form-control" name="nickname" id="nickname" type="text" onkeyup="toggleBtn('nicknameBtn', this.value);"/>
                                                 <label for="nickname">닉네임</label>
