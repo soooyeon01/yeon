@@ -55,7 +55,10 @@ public class PetnoticeController {
 	@ResponseBody
 	public ModelAndView getPetListByRegion(
 			@RequestParam(value = "region", required = false, defaultValue = "") String region,
-			@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum, Model model,
+			@RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+			@RequestParam(value = "type", required = false) String type,
+			@RequestParam(value = "keyword", required = false) String keyword,
+			Model model,
 			Criteria cri) {
 
 		ModelAndView mav = new ModelAndView("/pet/pet");
@@ -64,17 +67,30 @@ public class PetnoticeController {
 		List<P_DTO> petList;
 		int totalCount;
 		cri = new Criteria(pageNum);
-
-		if (region.isEmpty()) {
-			totalCount = service.getCountAllBoard();
-			pageMaker = new PageMaker(cri, totalCount);
-			petList = service.getAllBoardByPage(pageMaker);
-
-		} else {
-			totalCount = service.getCountRegionPet(region);
-			pageMaker = new PageMaker(cri, totalCount);
-			petList = service.getRegionPet(region, pageMaker);
-		}
+		
+		// 검색 조건 확인: type과 keyword 모두 null이 아닌 경우로 검색 수행 조건으로 설정
+//	    boolean searchCondition = type != null && keyword != null;
+//
+//		if (region.isEmpty()) {
+//			if(searchCondition) { //검색어O + 지역검색 x
+//				totalCount = service.getCountPetNotice(type,keyword,region);
+//				pageMaker = new PageMaker(cri, totalCount);
+//				petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				
+//			}else{ //검색어x +지역검색x
+//				totalCount = service.getCountPetNotice(type,keyword,region);
+//				pageMaker = new PageMaker(cri, totalCount);
+//				petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				}
+//		} else {
+//			if(searchCondition) {//검색어O 지역검색O
+//			totalCount = service.getCountPetNotice(type,keyword,region);
+//			pageMaker = new PageMaker(cri, totalCount);
+//			petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				}
+//
+//		}
+		//추가
+		totalCount = service.getCountPetNotice(type,keyword,region);
+		pageMaker = new PageMaker(cri, totalCount);
+		petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);	
 
 		Map<String, Object> response = new HashMap<>();
 		response.put("petList", petList);

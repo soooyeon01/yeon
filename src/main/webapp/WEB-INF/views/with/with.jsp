@@ -31,11 +31,11 @@
 	              })
 	          });  	          
 	        		
-	        		  <!-- type, keyword값 보내기 -->
+	        		 /*  <!-- type, keyword값 보내기 -->
 	        		  function getSearchList() {
 	        			   var data = $("form[name=search-form]").serialize(); 
 	        			   $.ajax({
-	        			      url: "${root}/mypage/withall",
+	        			      url: "${root}/with/withall",
 	        			      data: "data", 
 	        			      type: "get",
 	        			      
@@ -49,7 +49,7 @@
 	        			         console.log(errorThrown);
 	        			      }
 	        			   });
-	        			}       	
+	        			}        */	
 	       </script>
 		<style>
 		

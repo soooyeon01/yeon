@@ -61,29 +61,35 @@ public class WithpetController {
 		cri = new Criteria(pageNum);
 
 		// 검색 조건 확인: type과 keyword 모두 null이 아닌 경우로 검색 수행 조건으로 설정
-	    boolean searchCondition = type != null && keyword != null;
+//	    boolean searchCondition = type != null && keyword != null;
 		
-		if (region.isEmpty()) {
-			if(searchCondition) { //카테고리O + 검색어O + 지역검색 x
-				totalCount = service.getCountCategorywith(type,keyword,region,category3);
-				pageMaker = new PageMaker(cri,totalCount);
-				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
-			}else {  //카테고리O + 검색어x + 지역검색 x
-			totalCount = service.getCountCategorywith(type,keyword,region,category3);
-			pageMaker = new PageMaker(cri, totalCount);
-			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
-			}
-		} else { //카테고리 + 검색어 O + 지역검색 x			
-			if(searchCondition) {
-				totalCount = service.getCountCategorywith(type,keyword,region,category3);
-				pageMaker = new PageMaker(cri, totalCount);
-				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
-			}else { //카테고리 + 검색어 O + 지역검색 O	
-			totalCount = service.getCountCategorywith(type,keyword,region,category3);
-			pageMaker = new PageMaker(cri, totalCount);
-			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
-			}
-		}
+//		if (region.isEmpty()) {
+//			if(searchCondition) { //카테고리O + 검색어O + 지역검색 x
+//				totalCount = service.getCountCategorywith(type,keyword,region,category3);
+//				pageMaker = new PageMaker(cri,totalCount);
+//				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
+//			}else {  //카테고리O + 검색어x + 지역검색 x
+//			totalCount = service.getCountCategorywith(type,keyword,region,category3);
+//			pageMaker = new PageMaker(cri, totalCount);
+//			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
+//			}
+//		} else { //카테고리O + 검색어 O + 지역검색 O			
+//			if(searchCondition) {
+//				totalCount = service.getCountCategorywith(type,keyword,region,category3);
+//				pageMaker = new PageMaker(cri, totalCount);
+//				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
+//			}else { //카테고리O + 검색어 x + 지역검색 O	
+//			totalCount = service.getCountCategorywith(type,keyword,region,category3);
+//			pageMaker = new PageMaker(cri, totalCount);
+//			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
+//			}
+//		}
+	    
+	    totalCount = service.getCountCategorywith(type,keyword,region,category3);
+		pageMaker = new PageMaker(cri, totalCount);
+		withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
+			    
+	    
 		Map<String, Object> response = new HashMap<>();
 		response.put("withList", withList);
 		model.addAttribute("pageMaker", pageMaker);

@@ -23,4 +23,15 @@ public interface P_Mapper {
 	int deletePetnoticeData(int pet_notice_no);
 	// List<P_DTO> selectRegionPet(String region);
 	
+	
+
+	//추가
+	int selectCountPetNotice(@Param("type") String type
+							,@Param("keyword") String keyword
+							,@Param("region") String region);
+
+	List<P_DTO> selectPetNoticeByPage(@Param("type") String type
+									, @Param("keyword") String keyword
+									, @Param("region") String region
+									, @Param("pageMaker") PageMaker pageMaker);
 }
