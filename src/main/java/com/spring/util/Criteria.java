@@ -3,6 +3,7 @@ package com.spring.util;
 
 
 public class Criteria {
+	
    private int pageNum;    // 현재 내가 클릭한 페이지 넘버
    private int amount;    // 페이지당 몇개씩 읽어올까?
    
@@ -34,6 +35,8 @@ public class Criteria {
    public void setAmount(int amount) {
       this.amount = amount;
    }
+   
+   
    
 }
 

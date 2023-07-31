@@ -237,9 +237,8 @@ a:hover {
                         <c:forEach var="P_DTO" items="${response.petList}">
                            <c:if test="${not empty P_DTO}">
                               <div class="data">
-                                 <a
-                                    href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
-                                    <img src="${P_DTO.popfile}" alt="펫이미지" style="width:200px; height:300px;" />
+                                 <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
+                                 <img src="${P_DTO.popfile}" alt="펫이미지" style="width:250px; height:300px;" />                               
                                  </a>
 
                                  <div>

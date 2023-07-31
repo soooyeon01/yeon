@@ -34,6 +34,24 @@
 	 <if test = "type == null or type == ''">
 	 		 <![CDATA[AND 1=1]]>
 	 </if>
+	  <if test = "type == 'all'">
+        <![CDATA[AND building LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR category3 LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR road LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR homepage LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR day_off LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR hour LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR parking LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR with_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR only_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_size LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_limit LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'        		 
+        		 ]]>
+    </if>
 	 <if test = "type == 'building'">
 	 		 <![CDATA[AND BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
 	 </if>
@@ -51,6 +69,24 @@
         SELECT COUNT(1) FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR} ]]>
     <if test = "region != null and region != ''">
         <![CDATA[AND (SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}]]>
+    </if>
+    <if test = "type == 'all'">
+        <![CDATA[AND building LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR category3 LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR road LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR homepage LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR day_off LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR hour LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR parking LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR with_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR only_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_size LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_limit LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'        		 
+        		 ]]>
     </if>
     <if test = "type == 'building'">
         <![CDATA[AND BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>

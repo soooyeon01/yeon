@@ -64,7 +64,7 @@
   
   function mypaper(){
 		let nickname=document.getElementsByName("nickname").value;
-		location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+		location.href = "${root}/community/myclist";
 		  return true;
 	  
 	  }
