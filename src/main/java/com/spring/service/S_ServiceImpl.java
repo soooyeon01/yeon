@@ -2,9 +2,9 @@ package com.spring.service;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
-import com.spring.domain.P_DTO;
 import com.spring.domain.S_DTO;
 import com.spring.mapper.S_Mapper;
 import com.spring.util.PageMaker;
