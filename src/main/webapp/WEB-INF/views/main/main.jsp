@@ -39,6 +39,14 @@
 	      function main(){
 	    		location.href = "${pageContext.servletContext.contextPath}/main/main";
 	   	 }
+	      function logplz() {
+	    	  var uid ='<%=(String)session.getAttribute("SESS_EMAIL")%>';
+	   
+	   			console.log(uid+"뿡");
+	    	  if(uid==null){
+	    	  alert("로그인해라 조은말로할때...");
+	    	  }
+	      }
 	      
      	</script>
         <style> 
@@ -88,7 +96,9 @@
                  <div class="input-group">
                 <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(id);%>
+              
         <%  if( id != null) { %>
+        <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
                    
@@ -108,16 +118,13 @@
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav> 
-        
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist" onclick="logplz();"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
-
-            </nav>
-           
+            </nav> 
            <!-- 메인 이미지 -->
       <!--  <div id="photomain">             
            		 <img class = "mainbanner" src="../resources/image/mainimg.png" style="width: 1427px;"/>

@@ -23,7 +23,7 @@
      	
      	</script>
         <style> 
-
+		.link:hover {cursor: url(https://cur.cursors-4u.net/nature/nat-2/nat186.cur), auto !important;}
        a:hover{
                 background-color: #feeaa5;
             }
@@ -80,7 +80,9 @@
                 <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
               <%System.out.println(nickname);%>
+              
          <%  if( email != null) { %>
+         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>

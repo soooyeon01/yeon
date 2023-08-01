@@ -61,20 +61,15 @@ public class P_ServiceImpl implements P_Service {
 
 	@Override
 	public int getCountPetNotice(String type, String keyword, String region) {
-		return mapper.selectCountPetNotice(type,keyword,region);
+		return mapper.CountPetNotice(type,keyword,region);
 	}
 
 	@Override
 	public List<P_DTO> getPetNoticeByPage(String type, String keyword, String region, PageMaker pageMaker) {
-		return mapper.selectPetNoticeByPage(type,keyword,region,pageMaker);
+		return mapper.PetNoticeByPage(type,keyword,region,pageMaker);
 	}
 
-//	public List<P_DTO> getRegionPet(String region) {
-//	    List<P_DTO> petList = mapper.selectRegionPet(region);
-//
-//	    
-//	    return petList;
-//	}
+
 
 	
 		

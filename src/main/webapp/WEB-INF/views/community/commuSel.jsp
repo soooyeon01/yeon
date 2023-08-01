@@ -217,11 +217,8 @@
 						var reply_html = "<div>등록된 댓글이 없습니다.</div>";
 						$(".reply_Box").html(reply_html);
 					}
-			
-				
 				}
 				);//getJson
-	
 		}
     	}) ;//jquery
     	
@@ -385,7 +382,9 @@
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(email);%>
+              
          <%  if( email != null) { %>
+         		<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -480,16 +479,8 @@
 	                        <input type="text" class="form-control" id="nickname" name ="nickname" value='${sessionScope.SESS_NICKNAME}' readonly  style="width: 100px; border:none;">
 	                        </span>
 	                      </div>   
-	                   
-	                        <!-- </span> -->
-                     <!--<img src="/익명.jpg" width ="50px" alt="My Image"><!-->
                     <div class="reply-sbox">
                         <textarea class="reply-input" id="rcontent" cols="80" rows="2" name="rcontent" ></textarea>
-                        <!-- <span class="com-function-btn" type="hidden">
-                            
-                            <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="#"><i class="fa-solid fa-trash-can"></i></a>
-                         </span> -->
                     </div>
                     	<div class="regBtn">
            					<button id="Reply_regist" class="btn btn-warning"> 댓글등록</button>

@@ -42,18 +42,24 @@
 	function prev(prevPage){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + prevPage; 
 	}
 
 	function pageNum(page){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + page; 
 	}
 	
 	function next(nextPage){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + nextPage; 
 	}
 	
