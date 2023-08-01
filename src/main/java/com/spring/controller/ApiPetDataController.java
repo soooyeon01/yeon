@@ -1,8 +1,6 @@
 package com.spring.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,18 +14,14 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.spring.domain.P_DTO;
-import com.spring.domain.S_DTO;
-import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j;
 
 /**
  * 
- * @author 김민주 
- * 유기동물 공고 API 데이터를 처리하는데 사용되는 스프링 컨트롤러 입니다.
+ * @author 김민주 유기동물 공고 API 데이터를 처리하는데 사용되는 컨트롤러 클래스 입니다.
  * 
  */
 @Log4j
@@ -35,10 +29,10 @@ import lombok.extern.log4j.Log4j;
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
 public class ApiPetDataController {
-	//주소 - http://localhost:8080/4jojo/api/petdata
+	// 주소 - http://localhost:8080/4jojo/api/petdata
 
 	/**
-	 * cron 기능을 사용하여 6시간마다 메소드를 호출합니다.
+	 * 6시간마다 실행되는 스케줄러입니다. apiPetData() 메서드를 호출합니다.
 	 * 
 	 * @see com.spring.controller.ApiPetDataController#apiPetData()
 	 */
@@ -57,29 +51,38 @@ public class ApiPetDataController {
 	 * @return API 처리 결과를 나타내는 jsp 페이지
 	 */
 	private final ApiService service;
-	private static final int max = 20;
 	private static String serviceKey = "8mI5YJHYDClBCO0nVGTefXN%2FNRNDL4R68OP9EmufvlXPqdTKQSDm%2BsFUOYWKMuHHs%2Bi%2B1wxPQXr5HDnyjtr%2B8A%3D%3D";
+
 	@RequestMapping("/petdata")
 	public String apiPetData() {
 		ArrayList<P_DTO> list = new ArrayList<>();
 		P_DTO pdto = new P_DTO();
+		int max = 0;
+
 		try {
-			for (int i = 1; i < max; i++) {
-				String url = "https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?" + "pageNo=" + i
+			String url = "https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?" + "pageNo=1&"
+					+ "numOfRows=1000&" + "serviceKey=" + serviceKey;
+
+			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+			Document doc = dBuilder.parse(url);
+			doc.getDocumentElement().normalize();
+
+			NodeList totalNode = doc.getElementsByTagName("totalCount");
+			Element totalElement = (Element) totalNode.item(0);
+			int totalCount = Integer.parseInt(totalElement.getTextContent());
+
+			int numOfRows = 1000;
+			max = (int) Math.ceil((double) totalCount / numOfRows);
+
+			// 바깥 for문을 추가하여 각 페이지의 데이터를 가져옵니다.
+			for (int page = 1; page <= max; page++) {
+				url = "https://apis.data.go.kr/1543061/abandonmentPublicSrvc/abandonmentPublic?" + "pageNo=" + page
 						+ "&" + "numOfRows=1000&" + "serviceKey=" + serviceKey;
-
-				DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
-				DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
-				Document doc = dBuilder.parse(url);
-
-				// root tag
+				doc = dBuilder.parse(url);
 				doc.getDocumentElement().normalize();
-				System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
 
-				// 파싱할 tag
 				NodeList nList = doc.getElementsByTagName("item");
-				System.out.println("파싱할 리스트 수 : " + nList.getLength());
-				System.out.println("여기1");
 
 				for (int temp = 0; temp < nList.getLength(); temp++) {
 					Node nNode = nList.item(temp);
@@ -104,19 +107,14 @@ public class ApiPetDataController {
 						pdto.setCareAddr(getTagValue("careAddr", eElement));
 						pdto.setCareTel(getTagValue("careTel", eElement));
 						list.add(pdto);
-
 						service.regitsterPetData(pdto);
-
-					}// if end
-					System.out.println("들어가는중");
-
+					}
 				}
-
-			} // for end
+			}
 			service.removePetData(pdto);
 			service.removePetEnd(pdto);
 			log.info("end");
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

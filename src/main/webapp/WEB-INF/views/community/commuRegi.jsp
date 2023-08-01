@@ -230,7 +230,7 @@
           
         </style> 
 </head>
-<body class="sb-nav-fixed"> 
+<body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -238,7 +238,9 @@
                 <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
               <%System.out.println("닉네임은? : "+nickname);%>
+              
          <%  if( email != null) { %>
+         			<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -286,8 +288,9 @@
        	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
        	<div class="col p-3"></div>
        	<button type="submit" class="register col p-3 btn btn-warning" onclick="addCommu();">전송</button>
-    </div>
+    	</div>
 	<input type="hidden" name="nickname" value="${commu.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.commu.nickname}"> 
+	</div>
 	</form>
   	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
 </div>

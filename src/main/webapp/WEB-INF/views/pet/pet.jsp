@@ -132,9 +132,11 @@ a:hover {
 				<%
 				System.out.println(email);
 				%>
+				
 				<%
 				if (email != null) {
 				%>
+				<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
 					style="font-size: 14px;">로그아웃</button>
 				<button type="button" class="btn"
@@ -237,9 +239,8 @@ a:hover {
                         <c:forEach var="P_DTO" items="${response.petList}">
                            <c:if test="${not empty P_DTO}">
                               <div class="data">
-                                 <a
-                                    href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
-                                    <img src="${P_DTO.popfile}" alt="펫이미지" style="width:200px; height:300px;" />
+                                 <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
+                                 <img src="${P_DTO.popfile}" alt="펫이미지" style="width:250px; height:300px;" />                               
                                  </a>
 
                                  <div>

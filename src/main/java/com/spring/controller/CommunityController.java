@@ -172,7 +172,9 @@ public class CommunityController {
             //model.addAttribute("likeCnt", lservice.getLikeCnt(ldto));
             return "community/community";
         }else {
-			return "redirect:/main/main";
+        	model.addAttribute("msg", "로그인 후 이용하실 수 있습니다.^~^"); 
+			model.addAttribute("url", "/4jojo/main/main"); 
+			return "alert";
         }
         
 	}
@@ -189,7 +191,7 @@ public class CommunityController {
             model.addAttribute("myCommuList",service.getMyCommunity(nickname));
             return "community/mycommunity";
         }else {
-        	return "redirect:/main/main";
+        	return "main/main";
         }
 	}
 	
@@ -216,7 +218,7 @@ public class CommunityController {
 				return "redirect:/community/commuRegi";
 			}
         }else {
-        	return "redirect:/main/main";
+        	return "main/main";
         }
     }
 	
@@ -244,7 +246,7 @@ public class CommunityController {
 			
 			return "community/commuSel";
         }else {
-        	return "redirect:/main/main";
+        	return "main/main";
         }	
 	}
 	

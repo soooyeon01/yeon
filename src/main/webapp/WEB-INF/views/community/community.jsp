@@ -23,7 +23,7 @@
      	
      	</script>
         <style> 
-
+		.link:hover {cursor: url(https://cur.cursors-4u.net/nature/nat-2/nat186.cur), auto !important;}
        a:hover{
                 background-color: #feeaa5;
             }
@@ -72,7 +72,7 @@
         </style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -80,7 +80,9 @@
                 <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
               <%System.out.println(nickname);%>
+              
          <%  if( email != null) { %>
+         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -226,7 +228,7 @@
 					</div>
 				</div>
 				
-				<c:if test="${sessionScope.nickname==null}">
+				<c:if test="${sessionScope.SESS_NICKNAME!=null}">
 				<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newCommu'">
 				</c:if>
 				<%-- <%@ include file="../import/page-community.jsp" %> --%>

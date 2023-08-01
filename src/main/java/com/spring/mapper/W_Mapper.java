@@ -21,13 +21,15 @@ public interface W_Mapper {
 	int deleteWith_petData(int with_pet_no);	
 	
 	//위드펫카테고리
-	List<W_DTO> selectCategories(@Param("type") String type
+
+	//검색창
+	List<W_DTO> categorySearchList(@Param("type") String type
 									,@Param("keyword") String keyword
 									,@Param("region") String region
 									,@Param("category3") String category3
 									,@Param("pageMaker") PageMaker pageMaker);
-
-	int selectCountCategorywith(@Param("type") String type
+	
+	int countCategoryWithSearch(@Param("type") String type
 								,@Param("keyword") String keyword
 								,@Param("region") String region
 								,@Param("category3") String category3);

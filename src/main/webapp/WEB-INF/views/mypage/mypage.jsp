@@ -64,9 +64,12 @@
   
   function mypaper(){
 		let nickname=document.getElementsByName("nickname").value;
-		location.href = "${pageContext.servletContext.contextPath}/community/myclist";
+		location.href = "${root}/community/myclist";
 		  return true;
 	  
+	  }
+  function kick(){
+	  	location.href = "${pageContext.servletContext.contextPath}/user/userlist";
 	  }
 
   </script>
@@ -113,6 +116,56 @@
           .bgcolor {
          background-color: #f9f8f3;
           }
+         /* ------------ */
+          .btn-3d {
+			  position: relative;
+			  display: inline-block;
+			  font-size: 22px;
+			  padding: 20px 60px;
+			  color: white;
+			  margin: 20px 10px 10px;
+			  border-radius: 6px;
+			  text-align: center;
+			  transition: top .01s linear;
+			  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+			}
+		.btn-3d.red {
+		  background-color: #e74c3c;
+		  box-shadow: 0 0 0 1px #c63702 inset,
+		        0 0 0 2px rgba(255,255,255,0.15) inset,
+		        0 8px 0 0 #C24032,
+		        0 8px 0 1px rgba(0,0,0,0.4),
+		        0 8px 8px 1px rgba(0,0,0,0.5);
+		}	
+		.btn-3d.red:active {
+		  box-shadow: 0 0 0 1px #c63702 inset,
+		        0 0 0 2px rgba(255,255,255,0.15) inset,
+		        0 0 0 1px rgba(0,0,0,0.4);
+		}
+		.btn-gradient {
+			  text-decoration: none;
+			  color: white;
+			  padding: 10px 30px;
+			  display: inline-block;
+			  position: relative;
+			  border: 1px solid rgba(0,0,0,0.21);
+			  border-bottom: 4px solid rgba(0,0,0,0.21);
+			  border-radius: 4px;
+			  text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+			}
+			
+			.btn-gradient.red{ 
+			  background: rgba(250,90,90,1);
+			  background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(250,90,90,1)), to(rgba(232,81,81,1)));
+			  background: -webkit-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+			  background: -moz-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+			  background: -o-linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+			  background: linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
+			  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fa5a5a', endColorstr='#e85151', GradientType=0 );
+			}
+			
+		/* ------------ */
+			
           
 </style>
 </head>
@@ -121,8 +174,9 @@
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
               <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-
+			
            	 <% if( id != null) { %>
+           	 <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>
@@ -203,6 +257,9 @@
                       <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
                       <button type="button" class ="btn btn-warning" onclick="updatecheck();">정보 수정</button>&nbsp;
+                      <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
+                      <button type="button" class ="btn-3d red" onclick="kick();">누르지마시오</button>&nbsp;
+                      </c:if>
                     </div>
                     
                      <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px;">회원 탈퇴</button>

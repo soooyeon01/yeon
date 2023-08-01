@@ -25,33 +25,27 @@
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
 	                  const category3 = '${param.category3}';
-	                  const type = '${param.type}';
+	                  const typeSelect = document.getElementById("form-control"); 
+	                  const type = typeSelect.options[typeSelect.selectedIndex].value; 
 	                  const keyword = '${param.keyword}';
 	                  location.href="${root}/with/withall?region=" + region + "&category3="+category3 + "&type="+type+"&keyword="+keyword; 	                 
 	              })
 	          });  	          
 	        		
-	        		 /*  <!-- type, keyword값 보내기 -->
-	        		  function getSearchList() {
-	        			   var data = $("form[name=search-form]").serialize(); 
-	        			   $.ajax({
-	        			      url: "${root}/with/withall",
-	        			      data: "data", 
-	        			      type: "get",
-	        			      
-	        			      success: function(data, textStatus) {
-	        			         console.log(data);
-	        			         
-	        			      },
-	        			      error: function(jqXHR, textStatus, errorThrown) {
-	        			         console.log(jqXHR);
-	        			         console.log(textStatus);
-	        			         console.log(errorThrown);
-	        			      }
-	        			   });
-	        			}        */	
+	          function getSearchList() {
+	        	const keyword = $("input[name='keyword']").val(); //keyword 값 호출
+	        	   if (keyword == null || keyword.trim().length == 0) { //keyword 값 유무확인
+	        	        alert("검색어를 입력하세요.");
+	        	        return false; // 함수를 종료하여 폼 제출 방지(새로고침 x)
+	        	    }
+	        	    document.forms["search-form"].submit(); //keyword 값 있을 시 폼 제출
+	       		}
 	       </script>
 		<style>
+		a {
+ 			 text-decoration-line: none;
+ 			 color: inherit;
+			}
 		
 		  a:hover{
 		                background-color: #feeaa5;
@@ -96,7 +90,9 @@
               <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(email);%>
+              
             <%  if( email != null) { %>
+            <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -131,7 +127,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-10 pt-5 ps-4">
-                        <h1 class="mt-1"><b>${param.category3}</b></h1>
+                        <h1 class="mt-1"><b><a href="${root}/with/withall?category3=${param.category3}">${param.category3}</a></b></h1>
                        </div>
            				 <ol class="breadcrumb mb-4 pt-3">
            				 </ol>
@@ -178,12 +174,13 @@
 							<option value="제주특별자치도"
 								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
 						</select>
-
-                            
-                            
+                              
+                           
                             <div><br></div>
+                            
                            	<div id="with-container">
-                           		 <table class="datatable-table" id ="table">
+                           		 <table class="datatable-table" id ="table">    
+                           		 	                      		
 	                                    <thead>
 	                                        <tr>	                                            
 	                                            <th>문화시설 이름</th>
@@ -191,25 +188,29 @@
 	                                            <th>전화번호 </th>
 	                                            <th>운영시간 </th>
 	                                            <th>반려동물 동반 가능정보 </th>
-	                                            <th>반려동물 전용 정보 </th>
-	                                            
-	                                            <!-- <th>조회수</th> -->
-	                                        </tr>
-	                                    </thead>
-	                                   
+	                                            <th>반려동물 전용 정보 </th>	                                            
+	                                        </tr>	                                       
+	                                    </thead>	                                   
 	                                    <tbody>
+	                                    
 	                                    	<c:forEach var="W_DTO" items="${response.withList}" >
 											<tr onclick="location.href='${root}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'">
 												<!-- pageScope에 vo가 생성되었다.  -->
+												
 												<td>${W_DTO.building}</td>
 												<td>${W_DTO.road}</td>
 												<td>${W_DTO.tel}</td>
 												<td>${W_DTO.hour}</td>
 												<td>${W_DTO.with_pet_info}</td>
-												<td>${W_DTO.only_pet_info}</td>
-											</tr>
+												<td>${W_DTO.only_pet_info}</td>											
+											</tr>											
 											</c:forEach>
-	                                    </tbody>
+											 <c:if test="${empty response.withList}">
+										        <tr>
+										            <td colspan="6" style="text-align:center;">검색된 결과가 없습니다.</td>
+										        </tr>
+										    </c:if>											
+	                                    </tbody>		                                                                     
 	                                </table>
 	                                
 	                                <div class="container">
@@ -219,12 +220,19 @@
 													<tr>
 														<td>
 														<select id="form-control" class="form-control" name="type">
-																<option selected value="">선택</option>
-																<option value="building">건물명</option>
-																<option value="road">주소</option>
-														</select></td>
-														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="" ></td>
-														<td><button type="submit" onclick = "getSearchList();" class="btn btn-success">검색</button></td>														
+																<option value="allsearch"
+																	<c:if test='${ param.type eq "allsearch" }'>selected="selected"</c:if>>전체검색</option>
+																<option value="building"
+																	<c:if test='${ param.type eq "building" }'>selected="selected"</c:if>>건물명</option>
+																<option value="road"
+																<c:if test='${ param.type eq "road" }'>selected="selected"</c:if>>주소</option>
+														</select>
+														
+														</td>
+														
+														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="${SearchCriteria.keyword}" ></td>
+														
+														<td><button type="submit" onclick = "return getSearchList();" class="btn btn-success">검색</button></td>														
 													</tr>								
 												</table>
 												
@@ -232,7 +240,7 @@
 											</form>
 										</div>
 									</div>
-	                               
+			                           
 	                              </div>	                              
 	                            </div>
 	                            
