@@ -72,7 +72,7 @@
         </style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -226,7 +226,7 @@
 					</div>
 				</div>
 				
-				<c:if test="${sessionScope.nickname==null}">
+				<c:if test="${sessionScope.SESS_NICKNAME!=null}">
 				<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newCommu'">
 				</c:if>
 				<%-- <%@ include file="../import/page-community.jsp" %> --%>

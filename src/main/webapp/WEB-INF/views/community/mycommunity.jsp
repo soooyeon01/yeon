@@ -64,7 +64,7 @@
         </style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -102,7 +102,7 @@
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
 	<div id="layoutSidenav_content">
 			<main>
@@ -134,7 +134,7 @@
                                             <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${myCommu.c_no}">${myCommu.title}</a></td>
                                             <td>${myCommu.reg_date}</td>
                                             <td>${myCommu.nickname}</td>
-                                            <td>${myCommu.view_count}</td>
+                                            <td>${myCommu.view_cnt}</td>
                                         </tr>
                                         </c:forEach>
                                         

@@ -9,10 +9,11 @@ import com.spring.util.PageMaker;
 
 public interface F_P_Service {
 	
+	List<F_P_DTO> getPBoardByPage(String nickname,PageMaker pageMaker);
 	
+	public int getCountAllBoard(String nickname);
 	
 	List<F_P_DTO> getPBoard(String nickname);
-	List<F_P_DTO> getPBoardByPage(String nickname,PageMaker pageMaker);
-	public int getCountAllBoard(String nickname);
+	
 	List<F_P_DTO> getLikedPostIdsByUser(String nickname);
 }

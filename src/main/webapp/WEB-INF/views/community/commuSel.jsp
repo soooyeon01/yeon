@@ -98,7 +98,7 @@
     		
 		    var reUp = "";
     		reUp+="<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
-    		reUp+="<textarea id='uprcontent' >"+rcontent+"</textarea><br>";
+    		reUp+="<textarea id='uprcontent' rows='5'>"+rcontent+"</textarea><br>";
     		reUp+="<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>";
     		reUp+="댓글 수정</button>";
     		reUp+="<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
@@ -193,7 +193,7 @@
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
 							reply_html += "<span id='reg_date' style='font-size:3px;'>" + reg_date + "</span><br>";
 							
-							if(nickname === "${sessionScope.SESS_NICKNAME}"){
+							if(nickname === "${sessionScope.SESS_NICKNAME}" || "${sessionScope.SESS_NICKNAME}" === "관리자"){
 
 								reply_html += "<span id='updateReply' class='updateBtn' style='cursor:pointer;' data-rno="+r_no+" data-rcontent='" + rcontent + "' data-nickname='" + nickname + "'>[수정]</span><span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>";
 							
@@ -379,7 +379,7 @@
         </style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -450,7 +450,7 @@
 	</form>
 	<div class="container bt">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
-	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname}">
+	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname || sessionScope.SESS_NICKNAME=='관리자'}">
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>
@@ -465,7 +465,7 @@
 						<br>
 						<form method="post">
 							<div>
-		                        <c:if test = "${sessionScope.nickname== null and sessionScope.SESS_NICKNAME!=selectone.nickname}">
+		                        <c:if test = "${sessionScope.SESS_NICKNAME!= null and sessionScope.SESS_NICKNAME!=selectone.nickname}">
 	            					<button type ="button" class="btn btn-warning btnLike" id="btnLike" >추천하기</button>
 	    						</c:if>
 	    					</div>		
