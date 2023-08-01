@@ -42,7 +42,8 @@
 	function prev(prevPage,category3,type,keyword,region){
 		var selectElement = document.getElementById("region-select");		
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		var selectElement2 = document.getElementById("form-control");		
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		
 		location.href="${pageContext.servletContext.contextPath}/with/withall?category3="
 			+category3 +"&region=" + region + "&type="+ type + "&keyword=" + keyword + "&pageNum=" + prevPage ; 
@@ -52,15 +53,19 @@
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		
 		location.href="${pageContext.servletContext.contextPath}/with/withall?category3="
 		+category3 +"&region="	+ region + "&type="+ type + "&keyword=" + keyword + "&pageNum=" + page; 
+
 	}
 	
 	function next(nextPage,category3,type,keyword,region){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
+		
 		
 		location.href="${pageContext.servletContext.contextPath}/with/withall?category3=" 
 			+category3 + "&region=" + region + "&type="+ type + "&keyword=" + keyword + "&pageNum=" + nextPage; 

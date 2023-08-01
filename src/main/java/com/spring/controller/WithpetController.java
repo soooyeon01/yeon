@@ -60,20 +60,21 @@ public class WithpetController {
 
 		PageMaker pageMaker;
 		List<W_DTO> withList;
-		int totalCount;
+		int totalCount = 0;
 		cri = new Criteria(pageNum);	    
-		Map<String, Object> response = new HashMap<>();
-	
-	    totalCount = service.getCountCategorywith(type,keyword,region,category3);
+		Map<String, Object> response = new HashMap<>();				
+		
+	    totalCount = service.getCountCategoryWithSearch(type,keyword,region,category3);
 		pageMaker = new PageMaker(cri, totalCount);
-		withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				    
-	    
+		withList = service.getCategorySearchList(type,keyword,region,category3,pageMaker);				    
 		
 		response.put("withList", withList);
 		model.addAttribute("pageMaker", pageMaker);
 		mav.addObject("response", response);
 		return mav;
-		}
+	
+	}
+
 
 	@RequestMapping("/withdetail")
 	public ModelAndView getAllBoard(HttpSession session, int with_pet_no, Model model, String nickname) {

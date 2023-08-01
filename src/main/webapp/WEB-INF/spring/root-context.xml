@@ -14,10 +14,7 @@
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.168.0.69:1521:xe"></property>
 
 		<property name="username" value ="c##abd"></property>
-
-		<property name="password" value ="abd"></property>
-		
-		
+		<property name="password" value ="abd"></property>	
 		
 		</bean>
 		<!-- hikariCP DataSource -->
