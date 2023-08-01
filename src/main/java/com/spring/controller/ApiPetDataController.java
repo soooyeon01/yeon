@@ -20,9 +20,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 /**
+ * 유기동물 공고 API 데이터를 처리하는데 사용되는 컨트롤러 클래스 입니다.
  * 
- * @author 김민주 유기동물 공고 API 데이터를 처리하는데 사용되는 컨트롤러 클래스 입니다.
- * 
+ * @author 김민주 
  */
 @Log4j
 @Controller

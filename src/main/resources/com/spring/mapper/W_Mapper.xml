@@ -26,6 +26,44 @@
 			, inside
 			, outside
 			, extra
+<<<<<<< HEAD
+			FROM  with_pet
+			 WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
+			 AND category3 = #{category3,jdbcType=VARCHAR}  ]]>
+	 <if test = "region != null and region != ''">
+	 		 <![CDATA[AND (SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}]]>
+	 </if>
+	
+	  <if test = "type == 'all'">
+        <![CDATA[AND category3 LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR homepage LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR day_off LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR hour LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR parking LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR with_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR only_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_size LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_limit LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' 
+        		 OR BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR ROAD LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'      		 
+        		 ]]>
+        		 
+    </if>
+	 <if test = "type == 'building'">
+	 		 <![CDATA[AND BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
+	 </if>
+	 <if test = "type == 'road'">
+	 		 <![CDATA[AND ROAD LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
+	 </if>
+	 <![CDATA[
+			 )
+			WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
+	 ]]>
+=======
 			FROM with_pet
 			WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
 			AND category3 = #{category3,jdbcType=VARCHAR} ]]>
@@ -58,12 +96,14 @@
 	 	</if>
 	 	) 
 	 		WHERE rn > ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} 
+>>>>>>> 787ff2a2be3e0161949309aa5b0130fd4f6e814a
 </select>
 
 
 <select id="countCategoryWithSearch" parameterType="string" resultType="int">
     <![CDATA[
-        SELECT COUNT(1) FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR}
+        SELECT COUNT(1) FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR}]]>
+       <if test = "type == 'allsearch'">	
         AND (building LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR road LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
@@ -78,9 +118,40 @@
          OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
-         ) ]]>
-        
+         ) 
+       </if> 
     <if test = "region != null and region != ''">
+<<<<<<< HEAD
+        <![CDATA[AND (SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}]]>
+    </if>
+    <if test = "type == 'all'">
+        <![CDATA[AND category3 LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR homepage LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR day_off LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR hour LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR parking LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR with_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR only_pet_info LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_size LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR pet_limit LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+        		 OR ROAD LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'       		 
+        		 ]]>
+        		
+        		  
+    </if>
+    <if test = "type == 'building'">
+        <![CDATA[AND BUILDING LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
+    </if>
+    <if test = "type == 'road'">
+        <![CDATA[AND ROAD LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
+    </if>
+    
+=======
         AND (SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}
     </if>   
     <if test="type == 'building'">
@@ -89,6 +160,7 @@
 	 	<if test="type == 'road'">
 	 		AND ROAD LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
 	 	</if>   
+>>>>>>> 787ff2a2be3e0161949309aa5b0130fd4f6e814a
 </select>
   
   <select id="selectW" resultType="com.spring.domain.W_DTO">

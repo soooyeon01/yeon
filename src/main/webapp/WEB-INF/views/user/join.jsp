@@ -229,6 +229,7 @@
                             },
                             error: function () {
                                 alert("에러입니다");
+                                startTimer();
                             }
                         });
                     }
