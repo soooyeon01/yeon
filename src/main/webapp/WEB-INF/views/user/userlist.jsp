@@ -24,14 +24,13 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
-$(document).ready(function() {
-    console.log("리스트를 불러옵니다.");
-    getList();
-
-    $(document).on("click", ".kickBtn", function() {
+	function poobkick(){
+	    console.log("리스트를 불러옵니다.");
+	    var checkedEmails = [];
+  
         if (confirm("회원을 삭제하시겠습니까?")) {
             console.log("회원 삭제");
-            var checkedEmails = [];
+        
             $("input[name='byebye']:checked").each(function() {
             	
             	var userEmail = $(this).val();
@@ -41,16 +40,21 @@ $(document).ready(function() {
 
             $.ajax({
                 type: "post",
+                dataType : "json",
                 url: "<c:url value='/user/kick'/>",
                 //data: checkedEmails,
                 
-                contentType: "application/json",
-                data: JSON.stringify({ 
-                	userEmail: checkedEmails.join(",") }),
+                data:{ 
+                	userEmail: checkedEmails.join(",") },
                 success: function(data) {
-                    console.log("통신성공" + data);
-                    alert("회원이 삭제되었습니다");
-                    getList();
+                    if(data.result===1){
+                    	console.log("통신성공" + data);
+                        alert("회원이 삭제되었습니다");
+                        location.href = "${root}/user/userlist";
+                    }else {
+                    	alert("삭제할 회원을 선택하세요.");
+                    }
+                
                 },
                 error: function(jqHXR, textStatus, errorThrown) {
                 	console.log(jqHXR);
@@ -62,44 +66,7 @@ $(document).ready(function() {
         } else {
             return false;
         }
-    });
-
-	   
-	    function getList() {
-	        $.getJSON("<c:url value='/user/userlist'/>", 
-	        	function(data) {
-	            	if (data.mtotal > 0) {
-	                var mlist = data.mlist;
-	                console.log("회원? : " + data.mlist);
-	
-	                var member_html = "<table class='table'><thead><tr><th>Check</th><th>Nickname</th><th>Email</th><th>Name</th><th>Phone</th><th>Actions</th></tr></thead><tbody>";
-	
-	                for (var i = 0; i < mlist.length; i++) {
-	                    console.log("회원수?");
-	                    var nickname = mlist[i].nickname;
-	                    var email = mlist[i].email;
-	                    var name = mlist[i].name;
-	                    var phone = mlist[i].phone;
-	
-	                    member_html += "<tr>";
-	                    member_html += "<td><input type='checkbox' name='byebye' id='byebye'></td>";
-	                    member_html += "<td id='nickname'>" + nickname + "</td>";
-	                    member_html += "<td id='email'>" + email + "</td>";
-	                    member_html += "<td id='name'>" + name + "</td>";
-	                    member_html += "<td id='phone'>" + phone + "</td>";
-	                    member_html += "<td><button type='submit' class='kickBtn' data-id =" + email + "> 회원 삭제</button></td>";
-	                    member_html += "</tr>";
-	                }
-	
-	                member_html += "</tbody></table>";
-	                $(".list_Box").html(member_html);
-	            } else {
-	                var member_html = "<div>회원이 없습니다.</div>";
-	                $(".list_Box").html(member_html);
-	            }
-	        }); // getJson
-	    }
-	}); // jquery
+    }
 </script> 
 <style>
 .deleteMember {
@@ -161,6 +128,7 @@ a:hover {
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(email);%>
+              <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
          <%  if( email != null) { %>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
@@ -214,7 +182,7 @@ a:hover {
 							<tbody>
 								<c:forEach items="${userList}" var="userList">
 									<tr>
-										<td><input type="checkbox" class="userCheckbox" name="byebye"></td>
+										<td><input type="checkbox" class="userCheckbox" name="byebye" value="${userList.email}"></td>
 										<td>${userList.nickname}</td>
 										<td id="userEmail">${userList.email}</td>
 										<td>${userList.name}</td>
@@ -224,17 +192,11 @@ a:hover {
 								</c:forEach>
 							</tbody>
 						</table>
-						<button class="kickBtn" id="kickBtn">회원 삭제</button>
+						<button class="btn btn-warning kickBtn" id="kickBtn" onclick="poobkick();">회원 삭제</button>
 					</div>
 				</div>
 				
 			</div>
-			<!-- <div class="member-count">회원수<span id="mcount">
-   		                 <c:out value="${mtotal}"/></span>
-   		    </div>
-			<div class="list_Box" style="border:1px solid gray;">
-			회원목록이 들어갈 박스
-			</div> -->
 		</main>
 		<footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">
