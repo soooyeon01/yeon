@@ -24,33 +24,34 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
-$(document).ready(function() {
+function kick(){
+	var checkedEmails = [];
     console.log("리스트를 불러옵니다.");
-    getList();
+    //getList();
 
-    $(document).on("click", ".kickBtn", function() {
         if (confirm("회원을 삭제하시겠습니까?")) {
             console.log("회원 삭제");
-            var checkedEmails = [];
+            
             $("input[name='byebye']:checked").each(function() {
-            	
-            	var userEmail = $(this).val();
-                checkedEmails.push(userEmail);
+                checkedEmails.push($(this).val());
                 console.log("체크이메일 " + checkedEmails.length);
+                console.log("배열 내용: ", checkedEmails); 
             });
 
             $.ajax({
                 type: "post",
-                url: "<c:url value='/user/kick'/>",
+                url: "${pageContext.servletContext.contextPath}/user/kick",
                 //data: checkedEmails,
-                
-                contentType: "application/json",
-                data: JSON.stringify({ 
-                	userEmail: checkedEmails.join(",") }),
+                data: { userEmail: checkedEmails.join(",") } ,
+                dataType:"json",
+               
                 success: function(data) {
+                	if(data.result===1){
+                	
                     console.log("통신성공" + data);
                     alert("회원이 삭제되었습니다");
-                    getList();
+                    location.href="${pageContext.servletContext.contextPath}/user/userlist";
+                	}
                 },
                 error: function(jqHXR, textStatus, errorThrown) {
                 	console.log(jqHXR);
@@ -62,10 +63,10 @@ $(document).ready(function() {
         } else {
             return false;
         }
-    });
+}
 
 	   
-	    function getList() {
+	    /* function getList() {
 	        $.getJSON("<c:url value='/user/userlist'/>", 
 	        	function(data) {
 	            	if (data.mtotal > 0) {
@@ -98,8 +99,8 @@ $(document).ready(function() {
 	                $(".list_Box").html(member_html);
 	            }
 	        }); // getJson
-	    }
-	}); // jquery
+	    } */
+	
 </script> 
 <style>
 .deleteMember {
@@ -214,7 +215,7 @@ a:hover {
 							<tbody>
 								<c:forEach items="${userList}" var="userList">
 									<tr>
-										<td><input type="checkbox" class="userCheckbox" name="byebye"></td>
+										<td><input type="checkbox" class="userCheckbox" name="byebye"  value="${userList.email}"></td>
 										<td>${userList.nickname}</td>
 										<td id="userEmail">${userList.email}</td>
 										<td>${userList.name}</td>
@@ -224,7 +225,7 @@ a:hover {
 								</c:forEach>
 							</tbody>
 						</table>
-						<button class="kickBtn" id="kickBtn">회원 삭제</button>
+						<button type="button" class="kickBtn" id="kickBtn" onclick="kick();">회원 삭제</button>
 					</div>
 				</div>
 				

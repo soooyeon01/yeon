@@ -1,10 +1,12 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
@@ -20,9 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonObject;
+import com.spring.domain.F_W_DTO;
 import com.spring.domain.LikeDTO;
 import com.spring.domain.MembersDTO;
 import com.spring.domain.ReplyDTO;
+import com.spring.domain.W_DTO;
 import com.spring.service.FindEmailService;
 import com.spring.service.FindPwdService;
 import com.spring.service.JoinService;
@@ -129,7 +134,7 @@ public class UserController {
 	    return "이메일로 인증번호를 발송하였습니다.";
 	}
 
-	@PostMapping("/checkAuthNum")
+	@RequestMapping("/checkAuthNum")
 	public String checkAuthNum(@RequestParam("inputNum") String inputNum, HttpSession session, Model model) {
 	    String sessionAuthNum = (String) session.getAttribute("authNum");
 	    if (sessionAuthNum != null && inputNum.equals(sessionAuthNum)) {
@@ -210,29 +215,29 @@ public class UserController {
 	//-------------------------------
 	
 	//@RequestMapping("/userlist")
-	@RequestMapping(value = "/userlist", produces = "application/json")
-	@ResponseBody
-	public Map<String, Object> MemberList(HttpSession session, Model model) {
-
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
-		List<MembersDTO> mlist=mservice.getMemberList();
-		int mtotal=mservice.memberCnt();
-		Map<String, Object> map = new HashMap<>();
-        
-        if(SESS_AUTH != null && SESS_AUTH) {
-//          request.setCharacterEncoding("utf-8");
-            String email = (String) session.getAttribute("SESS_EMAIL");
-            String nickname = (String) session.getAttribute("SESS_NICKNAME");
-            model.addAttribute("userList", mservice.getMemberList());
-            log.info("회원리스트는 "+mlist);
-            map.put("mlist", mlist);
-            map.put("mtotal", mtotal);
-            return map;
-        }else {
-			return map;
-        }
-
-	}
+//	@RequestMapping(value = "/userlist", produces = "application/json")
+//	@ResponseBody
+//	public Map<String, Object> MemberList(HttpSession session, Model model) {
+//
+//		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+//		List<MembersDTO> mlist=mservice.getMemberList();
+//		int mtotal=mservice.memberCnt();
+//		Map<String, Object> map = new HashMap<>();
+//        
+//        if(SESS_AUTH != null && SESS_AUTH) {
+////          request.setCharacterEncoding("utf-8");
+//            String email = (String) session.getAttribute("SESS_EMAIL");
+//            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+//            model.addAttribute("userList", mservice.getMemberList());
+//            log.info("회원리스트는 "+mlist);
+//            map.put("mlist", mlist);
+//            map.put("mtotal", mtotal);
+//            return map;
+//        }else {
+//			return map;
+//        }
+//
+//	}
 	
 	@RequestMapping("/userlist")
 	public String CommunityList(HttpSession session, Model model, MembersDTO mdto) {
@@ -253,33 +258,54 @@ public class UserController {
         
 	}
 	
+//	@PostMapping("/kick")
+//	@ResponseBody		
+//	public Map<String, String> DeleteU(@RequestBody MembersDTO mdto, HttpSession session, @RequestParam("userEmail") String userEmail) {
+//		log.info("픽 "+userEmail);
+//		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+//        System.out.println("회원 삭제 통신 성공");
+// 
+//        Map<String, String> map = new HashMap<>(); 
+//        if(SESS_AUTH != null && SESS_AUTH) {
+////          request.setCharacterEncoding("utf-8");
+//            String Logemail = (String) session.getAttribute("SESS_EMAIL");
+//            String nickname = (String) session.getAttribute("SESS_NICKNAME");
+//            
+//            log.info("로그인 유지중...");
+//			mservice.kick(userEmail);
+//			
+//			log.info("회원 삭제 서비스 성공");
+//			
+//			map.put("result", "kickSuccess");
+//			
+//        } else {
+//        	map.put("result", "fail");
+//		}
+//        return map;
+//	}
 	@PostMapping("/kick")
-	@ResponseBody		
-	public Map<String, String> DeleteU(@RequestBody MembersDTO mdto, HttpSession session, @RequestParam("userEmail") String userEmail) {
-
+	@ResponseBody
+	public String delete_W(HttpSession session, @RequestParam("userEmail") String userEmail)throws ServletException, IOException {
+		log.info("df"+userEmail);
 		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
-        System.out.println("회원 삭제 통신 성공");
- 
-        Map<String, String> map = new HashMap<>(); 
-        if(SESS_AUTH != null && SESS_AUTH) {
-//          request.setCharacterEncoding("utf-8");
-            String Logemail = (String) session.getAttribute("SESS_EMAIL");
-            String nickname = (String) session.getAttribute("SESS_NICKNAME");
-            
-            log.info("로그인 유지중...");
-			mservice.kick(userEmail);
-			log.info("픽 "+userEmail);
-			log.info("회원 삭제 서비스 성공");
-			
-			map.put("result", "kickSuccess");
-			
-        } else {
-        	map.put("result", "fail");
-		}
-        return map;
-	}
+		MembersDTO dto = new MembersDTO();
 	
-	
+		dto.setEmail(userEmail);
+	    
+	   
+	    if(SESS_AUTH != null && SESS_AUTH) {
+		int result = mservice.kick(userEmail);
+		// { result : 1}
+
+		JsonObject jsonObj = new JsonObject();
+	    jsonObj.addProperty("result", result);
+
+	    return jsonObj.toString();
+	    }else {
+		return "redirect:main/main";
+	    }
+	 }
+	    
 	
 }
 
