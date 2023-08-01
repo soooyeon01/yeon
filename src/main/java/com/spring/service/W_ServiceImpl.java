@@ -62,17 +62,16 @@ public class W_ServiceImpl implements W_Service {
 
 	//위드펫카테고리
 
+	
+	//검색창
 	@Override
-	public int getCountCategorywith(String type, String keyword, String region, String category3) {		
-		return mapper.selectCountCategorywith(type,keyword,region,category3);
+	public List<W_DTO> getCategorySearchList(String type, String keyword, String region, String category3,PageMaker pageMaker) {
+		return mapper.categorySearchList(type,keyword,region,category3,pageMaker);
 	}
 
-
 	@Override
-	public List<W_DTO> getCategoryWith(String type, String keyword, String region, String category3,
-			PageMaker pageMaker) {
-
-		return mapper.selectCategories(type,keyword,region,category3,pageMaker);
+	public int getCountCategoryWithSearch(String type, String keyword, String region, String category3) {
+		 return mapper.countCategoryWithSearch(type,keyword,region,category3);
 	}
 
 

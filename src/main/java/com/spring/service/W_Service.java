@@ -25,17 +25,16 @@ public interface W_Service {
 	
 
 //위드펫 카테고리
-	//검색창
-
-	int getCountCategorywith(@Param("type") String type
+	//검색창	
+	List<W_DTO> getCategorySearchList(@Param("type") String type
+									,@Param("keyword") String keyword
+									,@Param("region") String region
+									,@Param("category3") String category3
+									,@Param("pageMaker") PageMaker pageMaker);
+	
+	int getCountCategoryWithSearch(@Param("type") String type
 									,@Param("keyword") String keyword
 									,@Param("region") String region
 									,@Param("category3") String category3);	
-	
-	List<W_DTO> getCategoryWith(@Param("type") String type
-										,@Param("keyword") String keyword
-										,@Param("region") String region
-										,@Param("category3") String category3
-										,@Param("pageMaker") PageMaker pageMaker);	
 	
 }

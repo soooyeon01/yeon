@@ -148,7 +148,7 @@
 	                          
                         </div>
                     
-                        <button class="btn btn-warning" type="submit" onclick="location.href='${root}/fa/sendp'">이메일 전송</button>
+                        <button class="btn btn-warning" type="submit" onclick="location.href='${root}/fa/sendfap'">이메일 전송</button>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
