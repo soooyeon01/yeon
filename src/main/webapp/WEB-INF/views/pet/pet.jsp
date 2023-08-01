@@ -122,9 +122,11 @@ a:hover {
 				<%
 				System.out.println(email);
 				%>
+				
 				<%
 				if (email != null) {
 				%>
+				<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
 					style="font-size: 14px;">로그아웃</button>
 				<button type="button" class="btn"

@@ -135,7 +135,9 @@
               <div class="input-group">
               <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(id);%>
+              
             <%  if( id != null) { %>
+            <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>

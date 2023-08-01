@@ -264,7 +264,9 @@
 <body class="bgcolor sb-nav-fixed"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+                
                 <div class="input-group">
+                <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                 	<button type="button" class="btn" onclick="location='login.jsp'" style="font-size: 14px;">로그아웃</button>					
 					<button type="button" class="btn" onclick="location='mypage.jsp'" style="font-size: 14px;">마이페이지</button>
                 </div>
@@ -322,7 +324,7 @@
 							</td>
 							<a href="#">회원탈퇴</a>
 				</div>
-				
+			</div>
 		</main>
 		<footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">
