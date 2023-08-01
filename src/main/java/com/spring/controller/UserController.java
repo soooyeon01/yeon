@@ -1,11 +1,13 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,31 +107,39 @@ public class UserController {
 		int cnt = servicej.phoneCheck(phone);
 		return cnt;
 	}
-
+	
 	@ResponseBody
 	@PostMapping("/sendAuthNum")
-	public String sendAuthNum(@RequestParam("email") String email, HttpSession session, Model model) {
-	    String authNum = servicep.makeTempPwd();  // 임시 인증번호 생성
-	    session.setAttribute("authNum", authNum);  // 세션에 인증번호 저장
+	public String sendAuthNum(@RequestParam("email") String email, HttpSession session) {		
+	  String authNum = getRandomAuthNum(); // 인증코드 생성
+	  session.setAttribute("authNum", authNum); // 세션에 인증 코드 저장
 
-	    String subject = "옥독캣 이메일 인증번호 발송";
-	    String text = "안녕하세요. 회원님의 이메일 인증번호는 " + authNum + " 입니다.";
-	    SendEmail.naverMailSend(email, subject, text);
-
-	    return "이메일로 인증번호를 발송하였습니다.";
+	  String subject = "옥독캣 회원가입 이메일 인증번호입니다.";
+	  String text = "회원가입 인증번호는 " + authNum + " 입니다.";
+	  
+	  SendEmail.naverMailSend(email, subject, text); // 이메일 발송
+	  
+	  return "success";
 	}
-
+	
+	@ResponseBody
 	@PostMapping("/checkAuthNum")
-	public String checkAuthNum(@RequestParam("inputNum") String inputNum, HttpSession session, Model model) {
-	    String sessionAuthNum = (String) session.getAttribute("authNum");
-	    if (sessionAuthNum != null && inputNum.equals(sessionAuthNum)) {
-	        session.removeAttribute("authNum");  // 인증 완료 시 세션에서 인증번호 정보 삭제
-	        model.addAttribute("authResult", true); // 모델 객체에 인증 결과 저장
-	    } else {
-	        model.addAttribute("authResult", false); // 모델 객체에 인증 결과 저장
-	    }
-	    return "resultView"; // 모델 객체를 처리할 View의 이름 반환
+	public boolean checkAuthNum(@RequestParam("inputNum") String inputNum, HttpSession session) {
+	  String authNum = (String)session.getAttribute("authNum"); // 세션에서 인증 코드 가져오기
+	  
+	  if (inputNum.equals(authNum)) { // 입력한 코드와 저장된 코드 비교
+	      return true; // 일치한다면 인증 성공
+	  } else {
+	      return false; // 일치하지 않는다면 인증 실패
+	  }
 	}
+	
+	private String getRandomAuthNum() {
+		  Random random = new Random();
+		  int authNum = random.nextInt(899999) + 100000; // 100000 ~ 999999 사이의 랜덤한 수 생성
+		  return String.valueOf(authNum);
+		}
+
 	
 	@GetMapping("/findEmail")
 	public String findEmailget(MembersDTO mdto) {
