@@ -63,7 +63,8 @@
 
 <select id="countCategoryWithSearch" parameterType="string" resultType="int">
     <![CDATA[
-        SELECT COUNT(1) FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR}
+        SELECT COUNT(1) FROM with_pet WHERE category3 = #{category3,jdbcType=VARCHAR}]]>
+       <if test = "type == 'allsearch'">	
         AND (building LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR road LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR tel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
@@ -78,8 +79,8 @@
          OR inside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR outside LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
          OR extra LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
-         ) ]]>
-        
+         ) 
+       </if> 
     <if test = "region != null and region != ''">
         AND (SUBSTR(road, 1, INSTR(road, ' ') - 1)) = #{region}
     </if>   

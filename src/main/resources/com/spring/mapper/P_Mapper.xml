@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.spring.mapper.P_Mapper">
-<select id="selectPetNoticeByPage" resultType="com.spring.domain.P_DTO">
+<select id="PetNoticeByPage" resultType="com.spring.domain.P_DTO">
    <![CDATA[
    SELECT * FROM (
         SELECT
@@ -27,37 +27,82 @@
         ,careTel,
         ROW_NUMBER() OVER (ORDER BY pet_notice_no ASC) as rn
         FROM pet_notice
-         WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} ) 
-        ]]>         
-      
+         WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} )  ]]> 
+         <if test = "type == 'allsearch'">		 		
+	        AND (
+	         happenDt LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR happenPlace LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR colorCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR age LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR weight LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR noticeNo LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR noticeSdt LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR noticeEdt LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR popfile LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR processState LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR sexCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR neuterYn LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR specialMark LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR careNm LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR careAddr LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR careTel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         )
+	         </if>
             <if test="region != null and region != ''">
-                <![CDATA[AND (SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1)) = #{region}]]>
+           	  AND (SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1)) = #{region}
+            </if>               
+            <if test="type == 'careNm'">
+               AND careNm LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
             </if>
-            <if test="type == null or type == ''">
-                <![CDATA[AND 1=1]]>
-            </if>                
+             <if test="type == 'careAddr'">
+               AND careAddr LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+            </if>
             <if test="type == 'kindCd'">
-                <![CDATA[AND kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%' ]]>
-            </if>
+               AND kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+            </if>	
+			 ) 
+			 	WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
 
-	 <![CDATA[
-			 ) WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
-	 ]]>
 </select>
 
-  <select id="selectCountPetNotice" parameterType="string" resultType="int">
-    SELECT COUNT(1) FROM pet_notice
-    <where>
-        <if test="region != null and region != ''">
-            AND SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1) = #{region}
-        </if>
-        <if test="type == 'kindCd'">
-            AND kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
-        </if>
-        <if test="type == null or type ==''">
-            AND 1=1
-        </if>
-    </where>
+  <select id="CountPetNotice" parameterType="string" resultType="int">
+   
+   <![CDATA[
+    SELECT COUNT(1) FROM pet_notice WHERE pet_notice_no >= 0]]>
+   
+     <if test="type == 'allsearch'">
+     AND (happenDt LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR happenPlace LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR colorCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR age LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR weight LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR noticeNo LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR noticeSdt LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR noticeEdt LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR popfile LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR processState LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR sexCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR neuterYn LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR specialMark LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR careNm LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR careAddr LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+	         OR careTel LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+         )
+    	</if>
+       <if test="region != null and region != ''">
+           	  AND (SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1)) = #{region}
+           </if>               
+            <if test="type == 'careNm'">
+               AND careNm LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+            </if>
+             <if test="type == 'careAddr'">
+               AND careAddr LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="type == 'kindCd'">
+               AND kindCd LIKE '%'|| #{keyword,jdbcType=VARCHAR} || '%'
+            </if>	       
 </select>			
   
   
