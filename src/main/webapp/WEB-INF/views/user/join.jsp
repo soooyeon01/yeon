@@ -145,7 +145,7 @@
             function checkEmail() {
                 if (emailCheck()) {
                     alert("사용 가능한 이메일입니다.");
-                    $("#emailNum").prop("disabled", false);h
+                    $("#emailNum").prop("disabled", false);
                 }
             }
             
@@ -215,7 +215,41 @@
                             btn.disabled = false;
                         }
                     }
+                    
+                    
+                    
+                    var timer; // 타이머 변수 초기화
+                    var timeLeft = 60; // 남은 시간 (초)
+                    
+                    var authNumValid = false;
    
+                    function startTimer() {
+                        var display = document.querySelector('#time');
+                        var minutes;
+                        var seconds;
+
+                        clearInterval(timer); // 이전 타이머 종료
+                        timer = setInterval(function () {
+                            minutes = parseInt(timeLeft / 60, 10);
+                            seconds = parseInt(timeLeft % 60, 10);
+
+                            minutes = minutes < 10 ? "0" + minutes : minutes;
+                            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                            display.textContent = minutes + ":" + seconds;
+
+                            if (--timeLeft < 0) {
+                                // 인증시간 초과 시 타이머 종료 및 경고창 띄우기
+                                clearInterval(timer);
+                                timer = null;
+                                timeLeft = 0;
+                                authNumValid = false;
+                                alert("인증시간이 지났습니다. 다시 인증번호를 받아주세요.");
+                                display.textContent = "";
+                            }
+                        }, 1000);
+                    }
+                    
                  // 이메일 인증번호 발송
                     function sendAuthNum() {
                         var email = $("#email").val();
@@ -226,17 +260,24 @@
                             dataType: "text",
                             success: function (msg) {
                                 alert("메일이 발송되었습니다.");
+                                authNumValid = true;
+                                startTimer();
+                                $("#emailAuthBtn").prop("disabled", false);
+                                
                             },
                             error: function () {
                                 alert("에러입니다");
-                                startTimer();
                             }
                         });
                     }
 
-                 
                     // 이메일 인증번호 확인
                     function checkAuthNum() {
+                        if (!authNumValid) { // 인증 시간이 초과됐을 경우 더이상 인증번호를 확인하지 않음
+                            alert("인증시간이 지났습니다. 다시 인증번호를 받아주세요.");
+                            return;
+                        }
+                        
                         var inputNum = $("#emailAuth").val();
                         $.ajax({
                             url: "./checkAuthNum",
@@ -246,6 +287,11 @@
                             success: function (isAuthenticated) {
                                 if (isAuthenticated) {
                                     alert("인증번호가 일치합니다.");
+                                    clearInterval(timer);
+                                    timer = null;
+                                    timeLeft = 0;
+                                    $("#time").text(""); 
+                                    
                                 } else {
                                     alert("인증번호가 일치하지 않습니다.");
                                 }
@@ -291,7 +337,8 @@
 											<input class="form-control" name="emailAuth" id="emailAuth"
 												type="text" /> <label for="emailAuth">이메일 인증번호</label>
 											<button type="button" id="emailAuthBtn" name="emailAuthBtn"
-												onclick="checkAuthNum();">인증번호 확인</button>
+												disabled="disabled" onclick="checkAuthNum();">인증번호 확인</button>
+												<span id="time" style="padding-left: 10px;"></span>
 										</div>
 
 
