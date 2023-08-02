@@ -74,13 +74,13 @@ public class PetnoticeController {
 	@GetMapping("/petdetail")
 	public String getAllBoard(HttpSession session, int pet_notice_no, Model model) {
 		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
-
+		String email = (String) session.getAttribute("SESS_EMAIL");
 		if (SESS_AUTH != null && SESS_AUTH) {
 			model.addAttribute("petdetailList", service.getP(pet_notice_no));
 
 			return "/pet/petdetail";
 		} else {
-			return "redirect:/main/main";
+			return "main/main";
 		}
 	}
 

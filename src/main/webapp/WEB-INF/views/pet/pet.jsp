@@ -50,6 +50,18 @@
 		        	    }
 		        	    document.forms["search-form"].submit(); //keyword 값 있을 시 폼 제출
 		       		}
+			  function checkLoginAndRedirect(pet_notice_no) {
+			        var email = '${ sessionScope.SESS_EMAIL }';
+
+			        if (email != null && email != "") {
+			            window.location.href = "${pageContext.servletContext.contextPath }/pet/petdetail?method=get&pet_notice_no=" + pet_notice_no;
+			        } else {
+			            alert("로그인 후 이용해주세요");
+			            window.location.href = "${pageContext.servletContext.contextPath }/main/main";
+			        }
+			    }
+			 
+			  
 	       </script>
 	    
 <style>
@@ -221,18 +233,19 @@ a:hover {
 							<option value="제주특별자치도"
 								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
 						</select>
-						
+							
 
 
 						<div id="animals-container">
                      <div class="container">
                         <c:forEach var="P_DTO" items="${response.petList}">
+                        	
                            <c:if test="${not empty P_DTO}">
                               <div class="data">
-                                 <a href="${pageContext.servletContext.contextPath}/pet/petdetail?method=get&pet_notice_no=${P_DTO.pet_notice_no}">
+                                <a href="javascript:void(0);" onclick="checkLoginAndRedirect(${P_DTO.pet_notice_no});">
                                  <img src="${P_DTO.popfile}" alt="펫이미지" style="width:250px; height:300px;" />                               
                                  </a>
-
+							
                                  <div>
                                     <br>
                                     <p style="display: block;">품종 : ${P_DTO.kindCd}</p>
