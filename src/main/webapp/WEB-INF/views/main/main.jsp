@@ -83,7 +83,7 @@
           display: block;
           width: 250px; height: 90px;
           }
-          .bgcolor{
+          .mainpage{
          background-color: #f9f8f3;
           }
           
@@ -131,7 +131,7 @@
             </div> -->
                
                 
-               <main>
+    <main class = "mainpage">
 
   <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
     <div class="carousel-indicators">
@@ -141,22 +141,18 @@
     </div>
     <div class="carousel-inner" >
       <div class="carousel-item" >
-      <img class = "mainbanner" src="../resources/image/main5.jpg" style="width: 1427px; height:600px;"/>
-       <svg class="bd-placeholder-img" width="100%" height="100%" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-      <!-- <rect width="100%" height="100%" fill="var(--bs-secondary-color)" ></rect> --></svg>
+      <img class = "mainbanner" src="../resources/image/mainbanner8.png" style="width: 2000px; height:500px;"/>
+     
         <div class="container">        
           <div class="carousel-caption text-start">                                  
           </div>
         </div>
       </div>
       <div class="carousel-item active">
-       <img class = "mainbanner" src="../resources/image/main4.jpg" style="width: 1427px; height:600px;"/>
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false">
-        <!-- <rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect> --></svg>
+       <img class = "mainbanner" src="../resources/image/mainbanner1.png" style="width: auto; height:500px;"/>
       </div>
       <div class="carousel-item">
-      <img class = "mainbanner" src="../resources/image/main7.jpg" style="width: 1427px; height:600px;"/>
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"></svg>
+      <img class = "mainbanner" src="../resources/image/mainbanner7.png" style="width: auto; height:500px;"/>
         <div class="container">
         </div>
       </div>
@@ -168,6 +164,7 @@
     <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
+      </button>
   </div>
 
 
@@ -212,7 +209,7 @@
         <p class="lead">안타깝게도 이 중 절반에 가까운 동물들은 다시 가족을 만나지 못하고 안락사되거나 자연사하고 있습니다.</p>
       </div>
       <div class="col-md-5">
-      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/pet1.JPG" style="width: 600px; height:500px;"/>      
+      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5001.png" style="width: 100%; height:100%;"/>      
 <!--         <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500px" height="500px" src="../resources/image/dog1.png" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
  -->      </div>
     </div>
@@ -225,7 +222,7 @@
         <p class="lead">전국 유기동물 보호소에 구조된 유기동물 알림 서비스를 통해 입양을 돕고 있습니다.</p>
       </div>
       <div class="col-md-5 order-md-1">
-      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/pet5.JPG" style="width: 600px; height:500px;"/>            
+      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5002.png" style="width: 100%; height:100%;"/>            
 <!--         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
  -->      </div>
     </div>
@@ -238,7 +235,7 @@
         <p class="lead"> 유기동물 입양 후 건강하고 행복한 생활을 위해 다양한 혜택을 지원하고 있습니다.</p>
       </div>
       <div class="col-md-5">
-            <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/pet2.JPG" style="width: 600px; height:500px;"/>               
+            <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5003.png" style="width: 100%; height:100%;"/>               
 <!--         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
  -->      </div>
     </div>
