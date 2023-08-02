@@ -74,6 +74,10 @@
             if( !number (element,msg) ){
                 return false;
             } 
+            if (!auth) {
+                alert("이메일 인증번호가 일치하지 않습니다.");
+                return false;
+            }
             return true;
             
      
@@ -181,6 +185,11 @@
                 function phoneCheck(){
                     var phone = $('#phone').val();
                     var result = true;
+                    if (!(/^\d+$/.test(phone))) {
+                        alert("숫자로만 핸드폰 번호를 입력하세요.");
+                        result = false;
+                        return result;
+                      }
                     
                     $.ajax({
                         url:'./phoneCheck', //Controller에서 요청 받을 주소
@@ -189,7 +198,6 @@
                         dataType:'json',
                         async: false,
                         success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
-                        	console.log("ajax cnt : "+cnt);
                             if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
                             	alert("이미 사용 중인 번호입니다.");
                             	result = false;
@@ -216,40 +224,8 @@
                         }
                     }
                     
-                    
-                    
-                    var timer; // 타이머 변수 초기화
-                    var timeLeft = 60; // 남은 시간 (초)
-                    
-                    var authNumValid = false;
-   
-                    function startTimer() {
-                        var display = document.querySelector('#time');
-                        var minutes;
-                        var seconds;
+                    var auth = false;
 
-                        clearInterval(timer); // 이전 타이머 종료
-                        timer = setInterval(function () {
-                            minutes = parseInt(timeLeft / 60, 10);
-                            seconds = parseInt(timeLeft % 60, 10);
-
-                            minutes = minutes < 10 ? "0" + minutes : minutes;
-                            seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                            display.textContent = minutes + ":" + seconds;
-
-                            if (--timeLeft < 0) {
-                                // 인증시간 초과 시 타이머 종료 및 경고창 띄우기
-                                clearInterval(timer);
-                                timer = null;
-                                timeLeft = 0;
-                                authNumValid = false;
-                                alert("인증시간이 지났습니다. 다시 인증번호를 받아주세요.");
-                                display.textContent = "";
-                            }
-                        }, 1000);
-                    }
-                    
                  // 이메일 인증번호 발송
                     function sendAuthNum() {
                         var email = $("#email").val();
@@ -261,7 +237,6 @@
                             success: function (msg) {
                                 alert("메일이 발송되었습니다.");
                                 authNumValid = true;
-                                startTimer();
                                 $("#emailAuthBtn").prop("disabled", false);
                                 
                             },
@@ -272,28 +247,22 @@
                     }
 
                     // 이메일 인증번호 확인
-                    function checkAuthNum() {
-                        if (!authNumValid) { // 인증 시간이 초과됐을 경우 더이상 인증번호를 확인하지 않음
-                            alert("인증시간이 지났습니다. 다시 인증번호를 받아주세요.");
-                            return;
-                        }
-                        
+                    function checkAuthNum() {                        
                         var inputNum = $("#emailAuth").val();
                         $.ajax({
                             url: "./checkAuthNum",
                             type: "post",
                             data: { inputNum: inputNum },
                             dataType: "json",
-                            success: function (isAuthenticated) {
-                                if (isAuthenticated) {
+                            success: function (authStatus) {
+                                if (authStatus) {
                                     alert("인증번호가 일치합니다.");
-                                    clearInterval(timer);
-                                    timer = null;
-                                    timeLeft = 0;
-                                    $("#time").text(""); 
+                                    auth = true;
+
                                     
                                 } else {
                                     alert("인증번호가 일치하지 않습니다.");
+                                    auth = false;
                                 }
                             },
                             error: function () {

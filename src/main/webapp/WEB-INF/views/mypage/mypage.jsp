@@ -28,57 +28,64 @@
   <!-- 최상단 -->
 
  	function login(){
-		location.href = "${pageContext.servletContext.contextPath}/user/login";
+		location.href = "${root}/user/login";
 	  }
   	function mypage(){
-  		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+  		location.href = "${root}/mypage/mypage";
  	 }
   
  	function main(){
-  		location.href = "${pageContext.servletContext.contextPath}/main/main";
+  		location.href = "${root}/main/main";
  	 }
 
    	function logout() {
 		if (confirm("로그아웃 하시겠습니까?")) {
-		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+		location.href = "${root}/user/logout";
 	 	}
 	}
-  
-  <!-- 마이페이지 -->
-  
+  <!-- 마이페이지 --> 
   function favoritep(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
+	  	location.href = "${root}/fa/favoritep";
 	  }
   function favorites(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
+	  	location.href = "${root}/fa/favorites";
 	  }
   function favoritew(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
+	  	location.href = "${root}/fa/favoritew";
 	  }
   function upmypage(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+	  	location.href = "${root}/mypage/upmypage";
 	  }
   function updatecheck(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/updatecheck";
+	  	location.href = "${root}/mypage/updatecheck";
 	  }
   
   function mypaper(){
 		let nickname=document.getElementsByName("nickname").value;
 		location.href = "${root}/community/myclist";
-		  return true;
-	  
+		  return true;	  
 	  }
   function kick(){
-	  	location.href = "${pageContext.servletContext.contextPath}/user/userlist";
+	  	location.href = "${root}/user/userlist";
 	  }
 
   </script>
+  
 <style>
+		.table tr th {
+		width : 300px;
+		height : 80px;
+		background-color : #fff6c2;
+		text-align : center;
+		}
       .deleteMember{
-         color : darkgray;
+         color : black;
          text-align : right;
       }
        tr {
+          text-align : center;
+       }
+       td {
           text-align : center;
        }
         a:hover{
@@ -194,62 +201,59 @@
         </nav>
         
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
             </nav>
    <div id="layoutSidenav_content">
    
       <main>
-         <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>마이페이지</b></h1>
+         <div class="container-fluid px-10 pt-5 ps-4" >
+            <h2 class="mt-1 mb-3" style ="margin-left:77px; font"><b>마이페이지</b></h2>
             </div>
-            <ol class="breadcrumb mb-4 pt-3">
+      
 
-            </ol>
-
-            <div class="card mb-4">
+            <div class="card mb-4" style="margin-left:100px; margin-right:100px;">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 개인정보조회
+                   개인정보조회
                </div>
               
-               <div class="card-body">
+               <div class="card-body" style="padding: 50px">
             
-                  <table id="datatablesSimple" >
+                  <table class = "table">
                  <c:forEach items="${membersDTO}" var="mdto">
-
+						
                         <tr>
-                           <td>닉네임</td>                        
-                            <td>${mdto.nickname}</td>
-                                
+                           <th>닉네임</th>                        
+                           <td>${mdto.nickname}</td>                               
                         </tr>                    
                       
                         <tr>         
-                           <td >비밀번호</td>
-                            <td >*******</td>                         
+                          <th>비밀번호</th>
+                          <td >*******</td>                         
                         </tr>                                         
                        
                         <tr>
-                           <td>이메일</td>                 
+                         <th>이메일</th>                 
                          <td>${mdto.email}</td>
                         </tr>
                      
                         <tr>
-                           <td>이름</td>
-                           <td>${mdto.name}</td>       
+                          <th>이름</th>
+                          <td>${mdto.name}</td>       
                         </tr>                       
                        
                         <tr>
-                           <td>전화번호</td>
+                           <th>전화번호</th>
                            <td>${mdto.phone}</td>    
                         </tr>
                 </c:forEach>
                </table>
             
                <div align="center"> 
-              		 <form action="${pageContext.servletContext.contextPath}/community/myclist" method="post">            
+              		 <form action="${root}/community/myclist" method="post">            
                      <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
                       <input type="hidden" name="nickname" value="${mdto.nickname}"> 
                      </form>
