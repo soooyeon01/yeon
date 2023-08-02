@@ -2,11 +2,10 @@ package com.spring.service;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Param;
 
-import com.spring.domain.F_P_DTO;
 import com.spring.domain.P_DTO;
-import com.spring.domain.S_DTO;
 import com.spring.util.PageMaker;
 
 public interface P_Service {
