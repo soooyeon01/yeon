@@ -56,7 +56,10 @@
 a:hover {
 	background-color: #feeaa5;
 }
-
+a {
+ 	 text-decoration-line: none;
+ 	 color: inherit;
+}
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -176,7 +179,7 @@ a:hover {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-3 pt-3">
-				<h1 class="mt-1">유기동물 공고</h1>
+				<h2 class="mt-1"><b><a href="${root}/pet/petall">유기동물 공고</a></b></h2>
 
 				<div class="card mb-4">
 					<div class="card-header">
