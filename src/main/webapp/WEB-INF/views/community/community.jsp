@@ -115,8 +115,8 @@
         </nav>
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-3 pt-3">
-				<h1 class="mt-1">커뮤니티 페이지</h1>
+			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
+				<h1 class="mt-1 mb-3">커뮤니티 페이지</h1>
 			<div id="tptp">
 				<div class="card mb-4  mytb">
 					<div class="card-header">
@@ -229,7 +229,7 @@
 				</div>
 				
 				<c:if test="${sessionScope.SESS_NICKNAME!=null}">
-				<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newCommu'">
+				<input type="button" class="btn btn-warning" style="float:right" value="글쓰기" onclick="location.href='newCommu'">
 				</c:if>
 				<%-- <%@ include file="../import/page-community.jsp" %> --%>
 				<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 

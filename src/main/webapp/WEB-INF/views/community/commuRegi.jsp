@@ -274,7 +274,7 @@
 <div class="container mt-3">
   <h2 style="text-align: center;">게시글 작성</h2>  
   <form action="${pageContext.servletContext.contextPath}/community/newCommu" method="post">
-    <div class="row">
+    <div>
         <div class="mb-3 mt-3 col p-3">
         제목 : <input class="form-control" type="text" placeholder="Enter Title" name="title">
         </div>
@@ -282,17 +282,27 @@
         닉네임 : <div class="form-control" id="nickname" name="nickname" value="${sessionScope.SESS_NICKNAME}">${sessionScope.SESS_NICKNAME}</div>
         </div> 
     	<div class="mb-3 mt-3 col p-3">
-        내용 : <textarea class="form-control" rows="5" name="content"></textarea>
+        내용 : <textarea class="form-control" cols="100" rows="30" name="content"></textarea>
      	</div>
+     	<div>
+     	<form action="${pageContext.servletContext.contextPath }/upload/uploadFormAction" method="post" enctype="multipart/form-data">
+      	<input type="file" name="uploadFile" accept="image/*" /> <!-- multiple="multiple" -->
+      	<input type="submit" ></input>
+   		</form> 
+   		</div>
+   		<br>
+   		<br>
     	<div class="row">
        	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
        	<div class="col p-3"></div>
        	<button type="submit" class="register col p-3 btn btn-warning" onclick="addCommu();">전송</button>
     	</div>
 	<input type="hidden" name="nickname" value="${commu.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.commu.nickname}"> 
+	
 	</div>
+	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
 	</form>
-  	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
+  	
 </div>
 
 </body>
