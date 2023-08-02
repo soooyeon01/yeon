@@ -246,6 +246,33 @@
                         }
                     }
                     
+                    
+                    
+                 // 인증번호 유효여부 체크 변수
+                    var authNumValid = false;
+
+                    // 타이머 관련 변수
+                    var timer;
+                    var remainingTime = 0;
+
+                    // 타이머 시작 함수
+                    function startTimer() {
+                        remainingTime = 60; // 3분 (3분 * 60초)
+                        timer = setInterval(function() {
+                            remainingTime--;
+                            var minutes = Math.floor(remainingTime / 60);
+                            var seconds = remainingTime % 60;
+                            document.getElementById("time").innerHTML = minutes + "분 " + seconds + "초";
+                            if (remainingTime <= 0) {
+                                clearInterval(timer);
+                                document.getElementById("time").innerHTML = "";
+                                alert("인증 시간이 지났습니다. 다시 인증 번호를 받아주세요.");
+                                authNumValid = false;
+                                document.getElementById("emailAuth").value = "";
+                            }
+                        }, 1000);
+                    }
+                    
                     var auth = false;
 
                  // 이메일 인증번호 발송
@@ -261,6 +288,8 @@
                                 authNumValid = true;
                                 $("#emailAuthBtn").prop("disabled", false);
                                 
+                                startTimer();
+                                
                             },
                             error: function () {
                                 alert("에러입니다");
@@ -269,7 +298,12 @@
                     }
 
                     // 이메일 인증번호 확인
-                    function checkAuthNum() {                        
+                    function checkAuthNum() {     
+                        if (!authNumValid) {
+                            alert("인증번호 유효 시간이 경과했습니다. 인증 번호를 다시 받아주세요.");
+                            return;
+                        }
+                        
                         var inputNum = $("#emailAuth").val();
                         $.ajax({
                             url: "./checkAuthNum",
@@ -280,6 +314,9 @@
                                 if (authStatus) {
                                     alert("인증번호가 일치합니다.");
                                     auth = true;
+                                    
+                                    clearInterval(timer);
+                                    document.getElementById("time").innerHTML = "";
 
                                     
                                 } else {
