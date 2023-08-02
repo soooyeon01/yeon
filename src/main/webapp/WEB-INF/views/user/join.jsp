@@ -21,6 +21,13 @@
 	crossorigin="anonymous"></script>
 
 <script>
+
+
+			let emailCheckDone = false;
+			let nicknameCheckDone = false;
+			let phoneCheckDone = false;
+
+
         function verifyField(){
             let element = document.getElementById("name");
             let msg = "이름을 입력하세요";
@@ -76,6 +83,18 @@
             } 
             if (!auth) {
                 alert("이메일 인증번호가 일치하지 않습니다.");
+                return false;
+            }
+            if (!emailCheckDone) {
+                alert('이메일 중복체크를 해주세요.');
+                return false;
+            }
+            if (!nicknameCheckDone) {
+                alert('닉네임 중복체크를 해주세요.');
+                return false;
+            }
+            if (!phoneCheckDone) {
+                alert('핸드폰 번호 중복체크를 해주세요.');
                 return false;
             }
             return true;
@@ -138,7 +157,7 @@
                     if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
                     	alert("이미 사용 중인 이메일입니다.");
                     	result = false;
-                    }
+                    } 
                 },
                 error:function(){
                     alert("에러입니다");
@@ -149,6 +168,7 @@
             function checkEmail() {
                 if (emailCheck()) {
                     alert("사용 가능한 이메일입니다.");
+                    emailCheckDone = true;
                     $("#emailNum").prop("disabled", false);
                 }
             }
@@ -179,6 +199,7 @@
                 function checkNickname() {
                     if (nicknameCheck()) {
                         alert("사용 가능한 닉네임입니다.");
+                        nicknameCheckDone = true;
                     }
                 }
                 
@@ -212,6 +233,7 @@
                     function checkPhone() {
                         if (phoneCheck()) {
                             alert("사용 가능한 번호입니다.");
+                            phoneCheckDone = true;
                         }
                     }
                     
@@ -222,6 +244,33 @@
                         } else {
                             btn.disabled = false;
                         }
+                    }
+                    
+                    
+                    
+                 // 인증번호 유효여부 체크 변수
+                    var authNumValid = false;
+
+                    // 타이머 관련 변수
+                    var timer;
+                    var remainingTime = 0;
+
+                    // 타이머 시작 함수
+                    function startTimer() {
+                        remainingTime = 60; // 3분 (3분 * 60초)
+                        timer = setInterval(function() {
+                            remainingTime--;
+                            var minutes = Math.floor(remainingTime / 60);
+                            var seconds = remainingTime % 60;
+                            document.getElementById("time").innerHTML = minutes + "분 " + seconds + "초";
+                            if (remainingTime <= 0) {
+                                clearInterval(timer);
+                                document.getElementById("time").innerHTML = "";
+                                alert("인증 시간이 지났습니다. 다시 인증 번호를 받아주세요.");
+                                authNumValid = false;
+                                document.getElementById("emailAuth").value = "";
+                            }
+                        }, 1000);
                     }
                     
                     var auth = false;
@@ -239,6 +288,8 @@
                                 authNumValid = true;
                                 $("#emailAuthBtn").prop("disabled", false);
                                 
+                                startTimer();
+                                
                             },
                             error: function () {
                                 alert("에러입니다");
@@ -247,7 +298,12 @@
                     }
 
                     // 이메일 인증번호 확인
-                    function checkAuthNum() {                        
+                    function checkAuthNum() {     
+                        if (!authNumValid) {
+                            alert("인증번호 유효 시간이 경과했습니다. 인증 번호를 다시 받아주세요.");
+                            return;
+                        }
+                        
                         var inputNum = $("#emailAuth").val();
                         $.ajax({
                             url: "./checkAuthNum",
@@ -258,6 +314,9 @@
                                 if (authStatus) {
                                     alert("인증번호가 일치합니다.");
                                     auth = true;
+                                    
+                                    clearInterval(timer);
+                                    document.getElementById("time").innerHTML = "";
 
                                     
                                 } else {
