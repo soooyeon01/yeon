@@ -40,6 +40,16 @@
 	        	    }
 	        	    document.forms["search-form"].submit(); //keyword 값 있을 시 폼 제출
 	       		}
+	          function checkLoginAndRedirect(with_pet_no) {
+			        var email = '${ sessionScope.SESS_EMAIL }';
+
+			        if (email != null && email != "") {
+			            window.location.href ="${root}/with/withdetail?with_pet_no="+with_pet_no;
+			        } else {
+			            alert("로그인 후 이용해주세요");
+			            window.location.href = "${pageContext.servletContext.contextPath }/main/main";
+			        }
+			    }
 	       </script>
 		<style>
 		a {
@@ -194,7 +204,7 @@
 	                                    <tbody>
 	                                    
 	                                    	<c:forEach var="W_DTO" items="${response.withList}" >
-											<tr onclick="location.href='${root}/with/withdetail?with_pet_no=${W_DTO.with_pet_no}'">
+											<tr onclick="checkLoginAndRedirect(${W_DTO.with_pet_no});">
 												<!-- pageScope에 vo가 생성되었다.  -->
 												
 												<td>${W_DTO.building}</td>

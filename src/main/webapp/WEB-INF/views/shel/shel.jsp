@@ -26,6 +26,17 @@
 	                  location.href="${pageContext.servletContext.contextPath}/shel/shelall?region=" + region; 
 	              })
 	          });
+	          function checkLoginAndRedirect(shelter_no) {
+			        var email = '${ sessionScope.SESS_EMAIL }';
+
+			        if (email != null && email != "") {
+			            window.location.href ="${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no="+shelter_no;
+			        } else {
+			            alert("로그인 후 이용해주세요");
+			            window.location.href = "${pageContext.servletContext.contextPath }/main/main";
+			        }
+			    }
+	          
 	       </script>
 		<style>
 		
@@ -174,7 +185,7 @@
 	                                    
 	                                    <tbody>
 	                                    	<c:forEach var="S_DTO" items="${ response.shelList }" >
-											<tr onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&shelter_no=${S_DTO.shelter_no}'"
+											<tr onclick="checkLoginAndRedirect(${S_DTO.shelter_no});"
 											style="cursor:pointer">
 												<!-- pageScope에 vo가 생성되었다.  -->
 												<td>${S_DTO.careNm}</td>
