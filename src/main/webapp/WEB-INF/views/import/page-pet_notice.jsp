@@ -9,7 +9,7 @@
 						    		
 						    		<li class="datatable-pagination-list-item" >
 					    			<c:if test="${pageMaker.prev }">
-					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}');" class="datatable-pagination-list-item-link">‹</a>
+					    				<a href="javascript:void(0);" onclick="prev('${pageMaker.startPage -1}','${param.type}');" class="datatable-pagination-list-item-link">‹</a>
 					    			</c:if>
 						    		</li>
 						    		
@@ -23,7 +23,7 @@
 					    				</c:otherwise>
 					    			</c:choose>
 						    		<li class="datatable-pagination-list-item" >
-						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}');"
+						    			<a 	href="javascript:void(0);" onclick=" pageNum('${status.index}','${param.type}');"
 						    				class="datatable-pagination-list-item-link"
 						    				<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>
 						    				>${ status.index }</a>
@@ -31,7 +31,7 @@
 						    		</c:forEach>
 						    		<li class="datatable-pagination-list-item">
 						    		<c:if test="${pageMaker.next }">
-						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}');"  class="datatable-pagination-list-item-link">›</a>
+						    			<a href="javascript:void(0);" onclick="next('${pageMaker.endPage + 1}','${param.type}');"  class="datatable-pagination-list-item-link">›</a>
 						    		</c:if>
 						    		</li>
 					    		</ul>
@@ -42,19 +42,25 @@
 	function prev(prevPage){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + prevPage; 
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
+		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&type="+ type + "&pageNum=" + prevPage; 
 	}
 
 	function pageNum(page){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + page; 
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
+		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&type="+ type + "&pageNum=" + page; 
 	}
 	
 	function next(nextPage){
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
-		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&pageNum=" + nextPage; 
+		var selectElement2 = document.getElementById("form-control");
+		var type = selectElement2.options[selectElement2.selectedIndex].value;
+		location.href="${pageContext.servletContext.contextPath}/pet/petall?region=" + region + "&type="+ type + "&pageNum=" + nextPage; 
 	}
 	
 </script>

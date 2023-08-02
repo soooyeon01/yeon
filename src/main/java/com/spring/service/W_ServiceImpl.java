@@ -2,12 +2,11 @@ package com.spring.service;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
-import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
 import com.spring.mapper.W_Mapper;
-import com.spring.util.Criteria;
 import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;

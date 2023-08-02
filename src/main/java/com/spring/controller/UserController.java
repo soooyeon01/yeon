@@ -1,6 +1,7 @@
 package com.spring.controller;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,144 +78,152 @@ public class UserController {
          return "alert";
        }
    }
-		
+      
    @GetMapping("/join")
-	public String joinget(MembersDTO mdto) {
-		return "user/join";
-	}
-	
-	@PostMapping("/join")
-	public String joinpost(MembersDTO mdto, Model model) {
-		int isOk = 1;
-		if( servicej.registerMembers(mdto) == isOk) {
-			model.addAttribute("msg", "회원가입 완료"); 
-			model.addAttribute("url", "login"); 
-			return "alert";
-			
-		} else {
-			model.addAttribute("msg", "회원가입 실패"); 
-			return "alert";
-		} 
-	}
-	
-	@ResponseBody
-	@PostMapping("/emailCheck")
-	public int emailCheck(@RequestParam("email") String email) {
-		int cnt = servicej.emailCheck(email);
-		return cnt;
-	}
-	
-	@ResponseBody
-	@PostMapping("/nicknameCheck")
-	public int nicknameCheck(@RequestParam("nickname") String nickname) {
-		int cnt = servicej.nicknameCheck(nickname);
-		return cnt;
-	}
-	
-	@ResponseBody
-	@PostMapping("/phoneCheck")
-	public int phoneCheck(@RequestParam("phone") int phone) {
-		int cnt = servicej.phoneCheck(phone);
-		return cnt;
-	}
+   public String joinget(MembersDTO mdto) {
+      return "user/join";
+   }
+   
+   @PostMapping("/join")
+   public String joinpost(MembersDTO mdto, Model model) {
+      int isOk = 1;
+      if( servicej.registerMembers(mdto) == isOk) {
+         model.addAttribute("msg", "회원가입 완료"); 
+         model.addAttribute("url", "login"); 
+         return "alert";
+         
+      } else {
+         model.addAttribute("msg", "회원가입 실패"); 
+         return "alert";
+      } 
+   }
+   
+   @ResponseBody
+   @PostMapping("/emailCheck")
+   public int emailCheck(@RequestParam("email") String email) {
+      int cnt = servicej.emailCheck(email);
+      return cnt;
+   }
+   
+   @ResponseBody
+   @PostMapping("/nicknameCheck")
+   public int nicknameCheck(@RequestParam("nickname") String nickname) {
+      int cnt = servicej.nicknameCheck(nickname);
+      return cnt;
+   }
+   
+   @ResponseBody
+   @PostMapping("/phoneCheck")
+   public int phoneCheck(@RequestParam("phone") int phone) {
+      int cnt = servicej.phoneCheck(phone);
+      return cnt;
+   }
+   
+   @ResponseBody
+   @PostMapping("/sendAuthNum")
+   public String sendAuthNum(@RequestParam("email") String email, HttpSession session) {      
+     String authNum = getRandomAuthNum(); // 인증코드 생성
+     session.setAttribute("authNum", authNum); // 세션에 인증 코드 저장
 
-	@ResponseBody
-	@PostMapping("/sendAuthNum")
-	public String sendAuthNum(@RequestParam("email") String email, HttpSession session, Model model) {
-	    String authNum = servicep.makeTempPwd();  // 임시 인증번호 생성
-	    session.setAttribute("authNum", authNum);  // 세션에 인증번호 저장
+     String subject = "옥독캣 회원가입 이메일 인증번호입니다.";
+     String text = "회원가입 인증번호는 " + authNum + " 입니다.";
+     
+     SendEmail.naverMailSend(email, subject, text); // 이메일 발송
+     
+     return "success";
+   }
+   
+   @ResponseBody
+   @PostMapping("/checkAuthNum")
+   public boolean checkAuthNum(@RequestParam("inputNum") String inputNum, HttpSession session) {
+     String authNum = (String)session.getAttribute("authNum"); // 세션에서 인증 코드 가져오기
+     
+     if (inputNum.equals(authNum)) { // 입력한 코드와 저장된 코드 비교
+         return true; // 일치한다면 인증 성공
+     } else {
+         return false; // 일치하지 않는다면 인증 실패
+     }
+   }
+   
+   private String getRandomAuthNum() {
+        Random random = new Random();
+        int authNum = random.nextInt(899999) + 100000; // 100000 ~ 999999 사이의 랜덤한 수 생성
+        return String.valueOf(authNum);
+      }
 
-	    String subject = "옥독캣 이메일 인증번호 발송";
-	    String text = "안녕하세요. 회원님의 이메일 인증번호는 " + authNum + " 입니다.";
-	    SendEmail.naverMailSend(email, subject, text);
+   
+   @GetMapping("/findEmail")
+   public String findEmailget(MembersDTO mdto) {
+      return "user/findEmail";
+   }
+   
+   @PostMapping("/findEmail")
+   public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
+       MembersDTO mdto = new MembersDTO();
+      
+      mdto.setName(name);
+      mdto.setPhone(phone);
+      
+      String email = servicee.findEmail(mdto);
+      
+      if (email != null) {
+         model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
+         model.addAttribute("url", "login"); 
+          return "alert";
+         
+      } else {
+         model.addAttribute("msg", "없는 정보입니다");   
+          return "alert";
+      }
+   }
+   
+   
+   @GetMapping("/findPwd")
+   public String findPwdget(MembersDTO mdto) {
+      return "user/findPwd";
+   }
+   
+   
+   @PostMapping ("/findPwd") 
+   public String findPwd(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("phone") int phone, Model model) throws IOException{
+      MembersDTO mdto = new MembersDTO();
+      
+      mdto.setName(name);
+      mdto.setEmail(email);
+      mdto.setPhone(phone);
+      
+       int count = servicep.findPwd(mdto);
+      
+      if (count > 0) {
+           String tempPwd = servicep.makeTempPwd();
+           mdto.setTempPwd(tempPwd);
+           servicep.updatePwd(mdto);
+           
+           String subject = "임시 비밀번호 발급 안내";
+           String text = "안녕하세요. 회원님의 임시 비밀번호는 " + tempPwd + " 입니다. 로그인 후 반드시 비밀번호를 변경해주세요.";
+           SendEmail.naverMailSend(email, subject, text);
+           
+           model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다.");
+         model.addAttribute("url", "login"); 
+           return "alert";
+       } else {
+           model.addAttribute("msg", "없는 정보입니다");
+           return "alert";
+       }
+   }
+   
+   @GetMapping("/logout")
+   public String logout(HttpSession session) {
+      session.invalidate();
+      return "redirect:/main/main";
+   }
+   
+   //--------------- 관리자 회원 추방 ----------------
+   
+   @RequestMapping("/userlist")
+   public String CommunityList(HttpSession session, Model model, MembersDTO mdto) {
 
-	    return "이메일로 인증번호를 발송하였습니다.";
-	}
-
-	@PostMapping("/checkAuthNum")
-	public String checkAuthNum(@RequestParam("inputNum") String inputNum, HttpSession session, Model model) {
-	    String sessionAuthNum = (String) session.getAttribute("authNum");
-	    if (sessionAuthNum != null && inputNum.equals(sessionAuthNum)) {
-	        session.removeAttribute("authNum");  // 인증 완료 시 세션에서 인증번호 정보 삭제
-	        model.addAttribute("authResult", true); // 모델 객체에 인증 결과 저장
-	    } else {
-	        model.addAttribute("authResult", false); // 모델 객체에 인증 결과 저장
-	    }
-	    return "resultView"; // 모델 객체를 처리할 View의 이름 반환
-	}
-	
-	@GetMapping("/findEmail")
-	public String findEmailget(MembersDTO mdto) {
-		return "user/findEmail";
-	}
-	
-	@PostMapping("/findEmail")
-	public String findEmail(@RequestParam("name") String name, @RequestParam("phone") int phone, Model model) throws IOException{
-    	MembersDTO mdto = new MembersDTO();
-		
-		mdto.setName(name);
-		mdto.setPhone(phone);
-		
-		String email = servicee.findEmail(mdto);
-		
-		if (email != null) {
-			model.addAttribute("msg", "회원님의 이메일은 " + email + " 입니다"); 
-			model.addAttribute("url", "login"); 
-			 return "alert";
-			
-		} else {
-			model.addAttribute("msg", "없는 정보입니다");	
-			 return "alert";
-		}
-	}
-	
-	
-	@GetMapping("/findPwd")
-	public String findPwdget(MembersDTO mdto) {
-		return "user/findPwd";
-	}
-	
-	
-	@PostMapping ("/findPwd") 
-	public String findPwd(@RequestParam("name") String name, @RequestParam("email") String email, @RequestParam("phone") int phone, Model model) throws IOException{
-		MembersDTO mdto = new MembersDTO();
-		
-		mdto.setName(name);
-		mdto.setEmail(email);
-		mdto.setPhone(phone);
-		
-	    int count = servicep.findPwd(mdto);
-		
-		if (count > 0) {
-	        String tempPwd = servicep.makeTempPwd();
-	        mdto.setTempPwd(tempPwd);
-	        servicep.updatePwd(mdto);
-	        
-	        String subject = "임시 비밀번호 발급 안내";
-	        String text = "안녕하세요. 회원님의 임시 비밀번호는 " + tempPwd + " 입니다. 로그인 후 반드시 비밀번호를 변경해주세요.";
-	        SendEmail.naverMailSend(email, subject, text);
-	        
-	        model.addAttribute("msg", "이메일로 임시 비밀번호를 발송하였습니다.");
-			model.addAttribute("url", "login"); 
-	        return "alert";
-	    } else {
-	        model.addAttribute("msg", "없는 정보입니다");
-	        return "alert";
-	    }
-	}
-	
-	@GetMapping("/logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/main/main";
-	}
-	
-	//--------------- 관리자 회원 추방 ----------------
-	
-	@RequestMapping("/userlist")
-	public String CommunityList(HttpSession session, Model model, MembersDTO mdto) {
-
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+      Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
          
         if(SESS_AUTH != null && SESS_AUTH) {
 //          request.setCharacterEncoding("utf-8");
@@ -224,16 +234,16 @@ public class UserController {
             //model.addAttribute("likeCnt", lservice.getLikeCnt(ldto));
             return "user/userlist";
         }else {
-			return "redirect:/main/main";
+         return "redirect:/main/main";
         }
         
-	}
-	
-	@PostMapping("/kick")
-	@ResponseBody		
-	public String DeleteU(HttpSession session, MembersDTO mdto, @RequestParam("userEmail") String userEmail) {
+   }
+   
+   @PostMapping("/kick")
+   @ResponseBody      
+   public String DeleteU(HttpSession session, MembersDTO mdto, @RequestParam("userEmail") String userEmail) {
 
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+      Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
         System.out.println("회원 삭제 통신 성공");
 
         if(SESS_AUTH != null && SESS_AUTH) {
@@ -242,21 +252,20 @@ public class UserController {
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
             
             log.info("로그인 유지중...");
-			int result=mservice.kick(userEmail);
-			log.info("픽 "+userEmail);
-			log.info("회원 삭제 서비스 성공");
-			
-			JsonObject jsonObj = new JsonObject();
-		    jsonObj.addProperty("result", result);
-		    return jsonObj.toString();
-			
+         int result=mservice.kick(userEmail);
+         log.info("픽 "+userEmail);
+         log.info("회원 삭제 서비스 성공");
+         
+         JsonObject jsonObj = new JsonObject();
+          jsonObj.addProperty("result", result);
+          return jsonObj.toString();
+         
         } else {
-        	return "redirect:/main/main";
-		}
+           return "redirect:/main/main";
+      }
         
-	}
-	
-	
-	
+   }
+   
+   
+   
 }
-

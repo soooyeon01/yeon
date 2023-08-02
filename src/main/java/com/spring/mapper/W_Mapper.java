@@ -2,9 +2,9 @@ package com.spring.mapper;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Param;
 
-import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
 import com.spring.util.PageMaker;
 

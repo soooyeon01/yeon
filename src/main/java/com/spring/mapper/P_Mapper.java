@@ -2,9 +2,9 @@ package com.spring.mapper;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Param;
 
-import com.spring.domain.F_P_DTO;
 import com.spring.domain.P_DTO;
 import com.spring.util.PageMaker;
 
@@ -26,11 +26,11 @@ public interface P_Mapper {
 	
 
 	//추가
-	int selectCountPetNotice(@Param("type") String type
+	int CountPetNotice(@Param("type") String type
 							,@Param("keyword") String keyword
 							,@Param("region") String region);
 
-	List<P_DTO> selectPetNoticeByPage(@Param("type") String type
+	List<P_DTO> PetNoticeByPage(@Param("type") String type
 									, @Param("keyword") String keyword
 									, @Param("region") String region
 									, @Param("pageMaker") PageMaker pageMaker);

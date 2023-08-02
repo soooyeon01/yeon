@@ -2,36 +2,25 @@ package com.spring.controller;
 
 import java.io.IOException;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_P_DTO;
-import com.spring.domain.MembersDTO;
 import com.spring.domain.P_DTO;
 
 import com.spring.service.P_Service;
@@ -66,33 +55,15 @@ public class PetnoticeController {
 		PageMaker pageMaker;
 		List<P_DTO> petList;
 		int totalCount;
-		cri = new Criteria(pageNum);
+		cri = new Criteria(pageNum);		
+		Map<String, Object> response = new HashMap<>();
 		
-		// 검색 조건 확인: type과 keyword 모두 null이 아닌 경우로 검색 수행 조건으로 설정
-//	    boolean searchCondition = type != null && keyword != null;
-//
-//		if (region.isEmpty()) {
-//			if(searchCondition) { //검색어O + 지역검색 x
-//				totalCount = service.getCountPetNotice(type,keyword,region);
-//				pageMaker = new PageMaker(cri, totalCount);
-//				petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				
-//			}else{ //검색어x +지역검색x
-//				totalCount = service.getCountPetNotice(type,keyword,region);
-//				pageMaker = new PageMaker(cri, totalCount);
-//				petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				}
-//		} else {
-//			if(searchCondition) {//검색어O 지역검색O
-//			totalCount = service.getCountPetNotice(type,keyword,region);
-//			pageMaker = new PageMaker(cri, totalCount);
-//			petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);				}
-//
-//		}
 		//추가
 		totalCount = service.getCountPetNotice(type,keyword,region);
 		pageMaker = new PageMaker(cri, totalCount);
 		petList = service.getPetNoticeByPage(type,keyword,region,pageMaker);	
 
-		Map<String, Object> response = new HashMap<>();
+		
 		response.put("petList", petList);
 		model.addAttribute("pageMaker", pageMaker);
 		mav.addObject("response", response);
@@ -103,13 +74,13 @@ public class PetnoticeController {
 	@GetMapping("/petdetail")
 	public String getAllBoard(HttpSession session, int pet_notice_no, Model model) {
 		Boolean SESS_AUTH=(Boolean) session.getAttribute("SESS_AUTH");
-
+		String email = (String) session.getAttribute("SESS_EMAIL");
 		if (SESS_AUTH != null && SESS_AUTH) {
 			model.addAttribute("petdetailList", service.getP(pet_notice_no));
 
 			return "/pet/petdetail";
 		} else {
-			return "redirect:/main/main";
+			return "main/main";
 		}
 	}
 

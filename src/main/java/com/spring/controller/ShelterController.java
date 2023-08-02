@@ -3,6 +3,7 @@ package com.spring.controller;
 import java.io.IOException;
 
 
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -92,9 +93,10 @@ public class ShelterController {
 	 * @return ModelAndView 객체를 반환합니다.
 	 */
 	@RequestMapping("/sheldetail")
-	public ModelAndView getAllBoard(HttpSession session, int shelter_no, Model model, String nickname) {
+	public ModelAndView getAllBoard(HttpSession session, int shelter_no, Model model, String nickname, String email) {
 		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
 		nickname = (String) session.getAttribute("SESS_NICKNAME");
+		email = (String) session.getAttribute("SESS_EMAIL");
 		List<S_DTO> sheldetailList = service.getS(shelter_no);
 		List<F_S_DTO> fasList = fsservice.getLikedPostIdsByUser(nickname);
 		if (SESS_AUTH != null && SESS_AUTH) {
