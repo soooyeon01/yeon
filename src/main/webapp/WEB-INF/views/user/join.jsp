@@ -21,6 +21,13 @@
 	crossorigin="anonymous"></script>
 
 <script>
+
+
+			let emailCheckDone = false;
+			let nicknameCheckDone = false;
+			let phoneCheckDone = false;
+
+
         function verifyField(){
             let element = document.getElementById("name");
             let msg = "이름을 입력하세요";
@@ -76,6 +83,18 @@
             } 
             if (!auth) {
                 alert("이메일 인증번호가 일치하지 않습니다.");
+                return false;
+            }
+            if (!emailCheckDone) {
+                alert('이메일 중복체크를 해주세요.');
+                return false;
+            }
+            if (!nicknameCheckDone) {
+                alert('닉네임 중복체크를 해주세요.');
+                return false;
+            }
+            if (!phoneCheckDone) {
+                alert('핸드폰 번호 중복체크를 해주세요.');
                 return false;
             }
             return true;
@@ -138,7 +157,7 @@
                     if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
                     	alert("이미 사용 중인 이메일입니다.");
                     	result = false;
-                    }
+                    } 
                 },
                 error:function(){
                     alert("에러입니다");
@@ -149,6 +168,7 @@
             function checkEmail() {
                 if (emailCheck()) {
                     alert("사용 가능한 이메일입니다.");
+                    emailCheckDone = true;
                     $("#emailNum").prop("disabled", false);
                 }
             }
@@ -179,6 +199,7 @@
                 function checkNickname() {
                     if (nicknameCheck()) {
                         alert("사용 가능한 닉네임입니다.");
+                        nicknameCheckDone = true;
                     }
                 }
                 
@@ -212,6 +233,7 @@
                     function checkPhone() {
                         if (phoneCheck()) {
                             alert("사용 가능한 번호입니다.");
+                            phoneCheckDone = true;
                         }
                     }
                     
