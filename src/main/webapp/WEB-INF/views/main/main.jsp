@@ -11,8 +11,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        
+        
         <title>옥독캣</title>
-        <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
         <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <link href="${root}/resources/bootstrap/js/bootstrap.min.js"/>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
@@ -49,7 +51,18 @@
 	      }
 	      
      	</script>
-        <style> 
+     	<!-- 폰트 -->
+     	<!-- font-family: 'NanumSquareNeoLight';
+		font-family: 'NanumSquareNeo';
+		font-family: 'NanumSquareNeoBold';
+		font-family: 'NanumSquareNeoExtraBold';
+		font-family: 'NanumSquareNeoHeavy'; -->
+		
+	     <style type="text/css">
+		.nanum{ font-family: 'NanumSquareNeo'; }
+		.nanumB{font-family: 'NanumSquareNeoBold';}		
+		</style>
+	<style> 
 
        a:hover{
                 background-color: #feeaa5;
@@ -90,12 +103,11 @@
         </style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(id);%>
               
         <%  if( id != null) { %>
         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
@@ -109,9 +121,7 @@
                 </div>
             </form>      
             </nav>
-           
-
-           
+                    
          <!-- 로고 -->              
        <nav class="main bg-white" >
          <a class="mainlogo" href="${root}/main/main" >
@@ -125,13 +135,9 @@
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist" onclick="logplz();"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
             </nav> 
-           <!-- 메인 이미지 -->
-      <!--  <div id="photomain">             
-           		 <img class = "mainbanner" src="../resources/image/mainimg.png" style="width: 1427px;"/>
-            </div> -->
-               
+
                 
-    <main class = "mainpage">
+    <main class = "mainpage nanum">
 
   <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel" data-bs-theme="light">
     <div class="carousel-indicators">
@@ -141,7 +147,7 @@
     </div>
     <div class="carousel-inner" >
       <div class="carousel-item" >
-      <img class = "mainbanner" src="../resources/image/mainbanner8.png" style="width: 2000px; height:500px;"/>
+      <img class = "mainbanner" src="../resources/image/mainb1.png" style="width: auto; height:500px;"/>
      
         <div class="container">        
           <div class="carousel-caption text-start">                                  
@@ -149,10 +155,10 @@
         </div>
       </div>
       <div class="carousel-item active">
-       <img class = "mainbanner" src="../resources/image/mainbanner1.png" style="width: auto; height:500px;"/>
+       <img class = "mainbanner" src="../resources/image/mainb2.png" style="width: auto; height:500px;"/>
       </div>
       <div class="carousel-item">
-      <img class = "mainbanner" src="../resources/image/mainbanner7.png" style="width: auto; height:500px;"/>
+      <img class = "mainbanner" src="../resources/image/mainb3.png" style="width: auto; height:500px;"/>
         <div class="container">
         </div>
       </div>
@@ -204,40 +210,49 @@
     <hr class="featurette-divider">
 
     <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading fw-normal lh-1">매년 전국적으로 10만 마리 이상의 유기동물들이 보호소로 구조되고 있습니다.<span class="text-body-secondary"></span></h2>
-        <p class="lead">안타깝게도 이 중 절반에 가까운 동물들은 다시 가족을 만나지 못하고 안락사되거나 자연사하고 있습니다.</p>
+      <div class="col-md-6"  style="margin-left:30px">
+      <br><br><br><br><br><br>
+        <h3 class="featurette-heading fw-normal lh-1 nanumB">옥독캣에 오신 걸 환영합니다<span class="text-body-secondary"></span></h3>
+       <br>  
+        <p class="lead" style="font-size:17px">'옥독캣'은 유기 동물들에게 새로운 가족과 행복한 삶을 선사하기 위해 만들어진 공간입니다.
+        우리와 함께 이 작은 세상에서 온전한 포옹과 따스함을 전달할 수 있는 동반자를 찾아보세요.
+        </p>
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5 ms-5">
       <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5001.png" style="width: 100%; height:100%;"/>      
-<!--         <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500px" height="500px" src="../resources/image/dog1.png" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
- -->      </div>
+    </div>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading fw-normal lh-1"> 유기동물 입양 정보 <span class="text-body-secondary"></span></h2>
-        <p class="lead">전국 유기동물 보호소에 구조된 유기동물 알림 서비스를 통해 입양을 돕고 있습니다.</p>
+      <div class="col-md-6 order-md-2" style="margin-left:50px">
+      	<br><br><br><br><br>     
+        <h3 class="featurette-heading fw-normal lh-1 nanumB"> 유기 동물 공고 및 서비스 정보 <span class="text-body-secondary"></span></h3>
+        <br>
+        <p class="lead" style="font-size:17px">우리는 전국 각지에서 구조된 동물들을 소개하고,
+        				보호소 정보 및 반려 동반 가능 서비스 정보를 공유하여 활발한 반려동물 입양 사회를 만들어갑니다. <br><br>
+        				또한, 유기 동물 입양 후 건강하고 행복한 생활을 위해 반려 동반 가능 서비스 정보 및 케어(미용, 병원) 서비스 정보를 공유하고 있습니다.</p>
       </div>
-      <div class="col-md-5 order-md-1">
+      <div class="col-md-5 order-md-0">
       <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5002.png" style="width: 100%; height:100%;"/>            
-<!--         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
- -->      </div>
+      </div>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading fw-normal lh-1">입양한 유기동물의 건강검진 지원 <span class="text-body-secondary"></span></h2>
-        <p class="lead"> 유기동물 입양 후 건강하고 행복한 생활을 위해 다양한 혜택을 지원하고 있습니다.</p>
+      <div class="col-md-6" style="margin-left:30px">
+      <br><br><br><br><br><br><br>
+        <h3 class="featurette-heading fw-normal lh-1 nanumB">서로의 정보를 공유하는 커뮤니티<span class="text-body-secondary"></span></h3>
+       	<br>
+        <p class="lead" style="font-size:17px"> 커뮤니티 게시판을 통하여 각자 가진 반려동물에 관한 정보를 공유할 수 있으며,
+        '찾습니다'&'발견했습니다'와 같은 게시물로 잃어버린 반려동물을 추적해 볼 수 있습니다.</p>   
+     
       </div>
-      <div class="col-md-5">
+      <div class="col-md-5  ms-5">
             <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5003.png" style="width: 100%; height:100%;"/>               
-<!--         <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-bg)"></rect><text x="50%" y="50%" fill="var(--bs-secondary-color)" dy=".3em">500x500</text></svg>
- -->      </div>
+      </div>
     </div>
 
     <hr class="featurette-divider">
@@ -248,19 +263,16 @@
 
 
   <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>© 2017–2023 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
-  </footer>
-</main>
-     
-                <footer class="py-4 bg-light mt-auto">
+   <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">OkDogCat &copy; Happy Project</div>
+                            <p class="float-end"><a href="#">Back to top</a></p>
 
                         </div>
                     </div>
                 </footer>
+</main>
+               
     </body>
 </html>
