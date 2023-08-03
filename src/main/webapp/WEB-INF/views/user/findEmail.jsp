@@ -70,8 +70,19 @@
         }
         
     </script>
-    </head>
-    <body class="bg-primary">
+		<style type="text/css">
+          .bgcolor{
+         background-color: #f9f8f3;
+          }
+          
+          a {
+		   text-decoration-line: none;
+		   color: inherit;
+			}
+				
+		</style>
+	    </head>
+	<body class="bgcolor">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -79,7 +90,12 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">이메일 찾기</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">
+                                      	 <!-- 로고 -->              
+								         <a class="mainlogo" href="${root}/main/main" >
+								         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
+								         </a>
+                                    </h3></div>
                                     <div class="card-body">
                                         <div class="small mb-3 text-muted">정보를 입력해 주세요</div>
                                         <form action="${root}/user/findEmail" method="post">
@@ -95,17 +111,19 @@
                                             </div>
 
                                             
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="${root}/user/login">로그인 하러 가기</a>
-                                                <%-- <a class="btn btn-warning" href="${pageContext.servletContext.contextPath}/view/login.jsp">전송</a> --%>
-                                                <input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
-                                                </div>
+                                          	<div class="mt-4 mb-0">
+											<div class="d-grid">
+												<input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
+											</div>
+										</div>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="${root}/user/join">회원가입</a></div>
-                                    </div>
+                                        <div class="card-footer text-center py-3">
+	                                        <div class="small">
+	                                        <a href="${root}/user/join">회원가입</a>
+	                                        <a href="${root}/user/login">로그인</a>
+	                                        </div>
                                 </div>
                             </div>
                         </div>

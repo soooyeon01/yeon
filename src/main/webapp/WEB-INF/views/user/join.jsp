@@ -142,42 +142,49 @@
                 return result;
             };
                 
-                function phoneCheck(){
-                    var phone = $('#phone').val();
-                    var result = true;
-                    
-                    if (phone.trim() === '') {
-                        $('#pon').css("display", "none");
-                        $('#poff').css("display", "none");
-                        return;
-                    }    
-                    if (!(/^\d+$/.test(phone))) {
-                        alert("숫자로만 핸드폰 번호를 입력하세요.");
-                        result = false;
-                        return result;
-                    }
-                    
-                    $.ajax({
-                        url:'./phoneCheck', //Controller에서 요청 받을 주소
-                        type:'post', //POST 방식으로 전달
-                        data:{phone:phone},
-                        dataType:'json',
-                        async: false,
-                        success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
-                            if(cnt==1){ // cnt가 1일 경우 -> 이미 존재하는 아이디 
-                 				$('#pon').css("display", "none");
-                 				$('#poff').css("display","inline-block");
-                            	result = false;
-                            } else {
-                				$('#pon').css("display","inline-block");
-                				$('#poff').css("display", "none");
-                            }
-                        },
-                        error:function(){
-                        }
-                    });
-                    return result;
-                    };
+            function phoneCheck() {
+            	  var phone = $("#phone").val();
+            	  var result = true;
+
+            	  if (phone.trim() === "") {
+            	    $("#pon").css("display", "none");
+            	    $("#poff").css("display", "none");
+            	    return;
+            	  }
+            	  if (!/^\d+$/.test(phone)) {
+            	    alert("숫자로만 핸드폰 번호를 입력하세요.");
+            	    result = false;
+            	    return result;
+            	  }
+
+            	  $.ajax({
+            	    url: "./phoneCheck", // Controller에서 요청 받을 주소
+            	    type: "post", // POST 방식으로 전달
+            	    data: { phone: phone },
+            	    dataType: "json",
+            	    async: false,
+            	    success: function (cnt) {// 컨트롤러에서 넘어온 cnt값을 받는다
+            	      if (cnt == 1) { // cnt가 1일 경우 -> 이미 존재하는 아이디
+            	        $("#pon").css("display", "none");
+            	        $("#poff").css("display", "inline-block");
+            	        result = false;
+            	      } else {
+            	        $("#pon").css("display", "inline-block");
+            	        $("#poff").css("display", "none");
+            	      }
+            	    },
+            	    error: function () {
+            	    },
+            	  });
+
+            	  return result;
+            	}
+
+            	$(document).ready(function () {
+            	  $("#phone").on("keyup", function () {
+            	    phoneCheck();
+            	  });
+            	});
 
                     function emailCheck(){
                         var email = $('#email').val();
@@ -332,6 +339,10 @@
          background-color: #f9f8f3;
           }
           
+          a {
+		   text-decoration-line: none;
+		   color: inherit;
+			}
 	</style>
     
 </head>
@@ -346,11 +357,9 @@
 								<div class="card-header">
 									<h3 class="text-center font-weight-light my-4">
 									   <!-- 로고 -->              
-								       <nav class="main" >
 								         <a class="mainlogo" href="${root}/main/main" >
 								         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
 								         </a>
-								        </nav> 
 									</h3>
 								</div>
 								<div class="card-body">
@@ -415,8 +424,7 @@
 										</div>
 										<div class="mt-4 mb-0">
 											<div class="d-grid">
-												<input class="btn btn-warning btn-block" type="submit"
-													value="전송" onclick="return verifyField();">
+												<input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
 											</div>
 										</div>
 									</form>

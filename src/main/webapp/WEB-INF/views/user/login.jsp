@@ -51,8 +51,20 @@
             return result;
         }
     </script>
-    </head>
-    <body class="bg-primary">
+    
+		<style type="text/css">
+          .bgcolor{
+         background-color: #f9f8f3;
+          }
+          
+          a {
+		   text-decoration-line: none;
+		   color: inherit;
+			}
+				
+		</style>
+	    </head>
+	<body class="bgcolor">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -62,11 +74,9 @@
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">
                                      <!-- 로고 -->              
-								       <nav class="main" >
 								         <a class="mainlogo" href="${root}/main/main" >
 								         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
 								         </a>
-								        </nav> 
                                     </h3>
                                     </div>
                                     <div class="card-body">
@@ -79,14 +89,11 @@
                                                 <input class="form-control" id="pwd" name="pwd" type="password" placeholder="pwd" />
                                                 <label for="pwd">비밀번호</label>
                                             </div>
-                                            <!-- <div class="form-check mb-3">
-                                                <input class="form-check-input" id="inputRememberPassword" type="checkbox" value="" />
-                                                <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                            </div> -->
-                                            <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                               
-                                               	<input class="btn btn-primary btn-block" type="submit" value="로그인" onclick="return verifyField();">
-                                            </div>
+                                     	<div class="mt-4 mb-0">
+											<div class="d-grid">
+												<input class="btn btn-warning btn-block" type="submit" value="로그인" onclick="return verifyField();">
+											</div>
+										</div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
