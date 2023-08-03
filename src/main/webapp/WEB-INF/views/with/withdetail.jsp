@@ -310,7 +310,7 @@ table.table.table-bordered th{
 		<div id="layoutSidenav_content">
 			<main>
 				<div class="container-fluid px-3 pt-3">
-					<h1 class="mt-1">위드펫 상세</h1>
+					<h2 class="mt-1">위드펫 상세</h2>
 
 					<div class="card mb-4">
 						<div class="card-body">

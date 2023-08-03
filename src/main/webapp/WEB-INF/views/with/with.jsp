@@ -192,9 +192,9 @@ table.table.table-bordered th{
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4">
-				<h1 class="mt-1">
+				<h2 class="mt-1">
 					<b><a href="${root}/with/withall?category3=${param.category3}">${param.category3}</a></b>
-				</h1>
+				</h2>
 			</div>
 			<ol class="breadcrumb mb-4 pt-3">
 			</ol>
