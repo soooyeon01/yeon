@@ -144,7 +144,7 @@ a:hover {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-4">
-				<h1 class="mt-1">보호소 즐겨찾기</h1>
+				<h2 class="mt-1">보호소 즐겨찾기</h2>
 
 				<div class="card mb-4">
 					<div class="card-body">
