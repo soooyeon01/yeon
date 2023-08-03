@@ -208,6 +208,46 @@
 					   	margin-left:350px;
 					    
 					  }
+					  
+					 /* 모달 스타일 */
+				    .modal_wrap {
+				      display: none;
+				      position: fixed;
+				      z-index: 2000;
+				      top: 50%;
+				      left: 50%;
+				      transform: translate(-50%, -50%);
+				      background-color: #f8de67;
+				      padding: 10px;
+				      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+					}
+				    .black_bg{
+				        display: none;
+				        position: absolute;
+				        content: "";
+				        width: 100%;
+				        height: 100%;
+				        background-color:rgba(0, 0,0, 0.5);
+				        top:0;
+				        left: 0;
+				        z-index: 1;
+				    }
+	
+		             .modal_close{
+		                 width: 26px;
+		                 height: 26px;
+		                 position: absolute;
+		                 top: -30px;
+		                 right: 0;
+		             }
+		             .modal_close> a{
+		                 display: block;
+		                 width: 100%;
+		                 height: 100%;
+		                 background:url(https://img.icons8.com/metro/26/000000/close-window.png);
+		                 text-indent: -9999px;
+		             }
+		              
 		</style>
 		</head>
     <body class="sb-nav-fixed bgcolor"> 
@@ -287,7 +327,97 @@
 											<tr>
 												<th>도로명 주소</th>
 												<c:set var="address" value="${W_DTO.road}" />
-												<td>${W_DTO.road}</td>
+												<td>${W_DTO.road}
+												
+												<button type="button" id="modal_btn">지도보기</button>
+		                                          <div class="black_bg"></div>
+		                                          <div class="modal_wrap"style="display: block;">
+		                                              <div class="modal_close"><a href="#">close</a></div>
+		                                              <div>
+		                                                 <div id="map" style="width:700px;height:550px;"></div>
+		      
+		                                             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+		                                             <script>
+		                                                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		                                                    mapOption = {
+		                                                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		                                                        level: 3 // 지도의 확대 레벨
+		                                                    };  
+		                                             
+		                                                // 지도를 생성
+		                                                var map = new kakao.maps.Map(mapContainer, mapOption); 
+		                                                
+		                                                setTimeout(function() {
+		                                                   console.log('Works!');
+		                                                   map.relayout();
+		                                                }, 3000);
+		                                                
+		                                                // 주소-좌표 변환 객체를 생성
+		                                                var geocoder = new kakao.maps.services.Geocoder();
+		                                                
+		                                                
+		                                                // 주소로 좌표를 검색
+		                                                geocoder.addressSearch('${address}', function(result, status) {
+		                                                
+		                                                    // 정상적으로 검색이 완료됐으면 
+		                                                     if (status === kakao.maps.services.Status.OK) {
+		                                                
+		                                                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		                                                
+		                                                        // 결과값으로 받은 위치를 마커로 표시
+		                                                        var marker = new kakao.maps.Marker({
+		                                                            map: map,
+		                                                            position: coords
+		                                                        });
+		                                                
+		                                                        // 인포윈도우로 장소에 대한 설명을 표시
+		                                                        var infowindow = new kakao.maps.InfoWindow({
+		                                                        	
+		                                                            content: '<div style="font-size:15px; width:150px; text-align:center; padding-top:6px 0;">${addressNm}</div>',
+		                                                           
+		                                                        });
+		                                                        
+		                                                        infowindow.open(map, marker);
+		                                                        
+		                                                        // 지도의 중심을 결과값으로 받은 위치로 이동
+		                                                        map.setCenter(coords);
+		                                                
+		                                                        
+		                                                        
+		                                                    } 
+		                                                });   
+		                                                
+		                                                var modalBtn = document.getElementById('modal_btn');
+		                                                var modalWrap = document.querySelector('.modal_wrap');
+		                                                var modalClose = document.querySelector('.modal_close');
+		                                                var blackBg = document.querySelector('.black_bg');
+		                                                
+		
+		                                                modalBtn.addEventListener('click', function () {
+		                                                  modalWrap.style.display = 'block';
+		                                                  blackBg.style.display = 'block';
+		                                                });
+		
+		                                                modalClose.addEventListener('click', function (e) {
+		                                                  e.preventDefault();
+		                                                  modalWrap.style.display = 'none';
+		                                                  blackBg.style.display = 'none';
+		                                                });
+		
+		                                                blackBg.addEventListener('click', function () {
+		                                                  modalWrap.style.display = 'block';
+		                                                  blackBg.style.display = 'block';
+		                                                });
+		                                                
+		                                                modalWrap.style.display = 'none';
+		                                                
+		                                                
+		                                             </script>
+		                                             </div>
+		                                          </div>
+                                              
+												
+												</td>
 											</tr>
 											<tr>
 												<th>전화번호 </th>
@@ -342,57 +472,7 @@
 	                            </div>
                         </div>
                     </div>
-                             <p style="margin-top:-12px">
-		    <em class="link">
-		        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-		            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-		        </a>
-		    </em>
-		</p>
-		<div id="map" style="width:500px;height:350px;"></div>
-		
-		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
-		<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			    mapOption = {
-			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    };  
-		
-			// 지도를 생성
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-			// 주소-좌표 변환 객체를 생성
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			
-			// 주소로 좌표를 검색
-			geocoder.addressSearch('${address}', function(result, status) {
-			
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동
-			        map.setCenter(coords);
-			    } 
-			});   
-			
-			
-		</script>
+
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                    
