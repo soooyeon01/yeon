@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -19,14 +17,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.spring.domain.F_W_DTO;
-import com.spring.domain.S_DTO;
 import com.spring.domain.W_DTO;
 import com.spring.service.F_W_Service;
 import com.spring.service.W_Service;
@@ -60,45 +54,21 @@ public class WithpetController {
 
 		PageMaker pageMaker;
 		List<W_DTO> withList;
-		int totalCount;
-		cri = new Criteria(pageNum);
-
-		// 검색 조건 확인: type과 keyword 모두 null이 아닌 경우로 검색 수행 조건으로 설정
-//	    boolean searchCondition = type != null && keyword != null;
+		int totalCount = 0;
+		cri = new Criteria(pageNum);	    
+		Map<String, Object> response = new HashMap<>();				
 		
-//		if (region.isEmpty()) {
-//			if(searchCondition) { //카테고리O + 검색어O + 지역검색 x
-//				totalCount = service.getCountCategorywith(type,keyword,region,category3);
-//				pageMaker = new PageMaker(cri,totalCount);
-//				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
-//			}else {  //카테고리O + 검색어x + 지역검색 x
-//			totalCount = service.getCountCategorywith(type,keyword,region,category3);
-//			pageMaker = new PageMaker(cri, totalCount);
-//			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
-//			}
-//		} else { //카테고리O + 검색어 O + 지역검색 O			
-//			if(searchCondition) {
-//				totalCount = service.getCountCategorywith(type,keyword,region,category3);
-//				pageMaker = new PageMaker(cri, totalCount);
-//				withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);				
-//			}else { //카테고리O + 검색어 x + 지역검색 O	
-//			totalCount = service.getCountCategorywith(type,keyword,region,category3);
-//			pageMaker = new PageMaker(cri, totalCount);
-//			withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
-//			}
-//		}
-	    
-	    totalCount = service.getCountCategorywith(type,keyword,region,category3);
+	    totalCount = service.getCountCategoryWithSearch(type,keyword,region,category3);
 		pageMaker = new PageMaker(cri, totalCount);
-		withList = service.getCategoryWith(type,keyword,region,category3,pageMaker);	
-			    
-	    
-		Map<String, Object> response = new HashMap<>();
+		withList = service.getCategorySearchList(type,keyword,region,category3,pageMaker);				    
+		
 		response.put("withList", withList);
 		model.addAttribute("pageMaker", pageMaker);
 		mav.addObject("response", response);
 		return mav;
+	
 	}
+
 
 	@RequestMapping("/withdetail")
 	public ModelAndView getAllBoard(HttpSession session, int with_pet_no, Model model, String nickname) {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.MembersDTO;
+import com.spring.mapper.MembersMapper;
 import com.spring.mapper.MypageMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,8 @@ public class MypageServiceImpl implements MypageService {
 	public String getPwd(String email) {	
 		return mapper.selectPwd(email);
 	}
+
+	
 
 	
 }

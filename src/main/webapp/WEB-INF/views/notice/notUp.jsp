@@ -21,6 +21,7 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
      	<script type="text/javascript"><!--
         /*=============================================================================
         画像１個の後追いマウスストーカー　参考サイト : http://www5e.biglobe.ne.jp/~purest/javascript/index.html
@@ -89,15 +90,20 @@
           }
           
         </style>
-        
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(email);%>
+              
          <%  if( email != null) { %>
+         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -147,6 +153,7 @@
        	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
        	<div class="col p-3"></div>
        	<button type="submit" class="register col p-3 btn btn-warning" onclick="upNot();">전송</button>
+    	</div>
     </div>
   </form>
 </div>

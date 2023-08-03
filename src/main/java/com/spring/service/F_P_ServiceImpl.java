@@ -3,10 +3,10 @@ package com.spring.service;
 import java.util.List;
 
 
+
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.F_P_DTO;
-import com.spring.domain.P_DTO;
 import com.spring.mapper.F_P_Mapper;
 import com.spring.util.PageMaker;
 
@@ -31,9 +31,9 @@ public class F_P_ServiceImpl implements F_P_Service {
 
 
 	@Override
-	public int getCountAllBoard() {
+	public int getCountAllBoard(String nickname) {
 		
-		return mapper.selectCountPBoard();
+		return mapper.selectCountPBoard(nickname);
 	}
 
 

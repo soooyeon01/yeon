@@ -22,6 +22,7 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
         <script type="text/javascript">
 				// <![CDATA[
 						var sparks=75; // how many sparks per clicksplosion
@@ -229,8 +230,12 @@
           }
           
         </style> 
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
 </head>
-<body class="sb-nav-fixed"> 
+<body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -238,7 +243,9 @@
                 <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
               <%System.out.println("닉네임은? : "+nickname);%>
+              
          <%  if( email != null) { %>
+         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -269,28 +276,32 @@
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
-<div class="container mt-3">
-  <h2 style="text-align: center;">공지 작성</h2>  
-  <form action="${pageContext.servletContext.contextPath}/notice/newNot" method="post">
-    <div class="row">
-        <div class="mb-3 mt-3 col p-3">
-        제목 : <input class="form-control" type="text" placeholder="Enter Title" name="notice_title">
-        </div>
-        <div class="mb-3 mt-3 col p-3">
-        닉네임 : <div class="form-control" id="nickname" name="nickname" value="${sessionScope.SESS_NICKNAME}">${sessionScope.SESS_NICKNAME}</div>
-        </div> 
-    	<div class="mb-3 mt-3 col p-3">
-        내용 : <textarea class="form-control" rows="5" name="notice_content"></textarea>
-     	</div>
-    	<div class="row">
-       	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
-       	<div class="col p-3"></div>
-       	<button type="submit" class="register col p-3 btn btn-warning" onclick="addNot();">전송</button>
-    </div>
-	<input type="hidden" name="nickname" value="${noti.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.noti.nickname}"> 
-	</form>
-  	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
-</div>
+	<div class="container mt-3">
+		<h2 style="text-align: center;">공지 작성</h2>
+		<form action="${pageContext.servletContext.contextPath}/notice/newNot"
+			method="post">
+			<div class="row">
+				<div class="mb-3 mt-3 col p-3">
+					제목 : <input class="form-control" type="text" placeholder="Enter Title" name="notice_title">
+				</div>
+				<div class="mb-3 mt-3 col p-3">
+					닉네임 :
+					<div class="form-control" id="nickname" name="nickname" value="${sessionScope.SESS_NICKNAME}">${sessionScope.SESS_NICKNAME}</div>
+				</div>
+				<div class="mb-3 mt-3 col p-3">
+					내용 :
+					<textarea class="form-control" rows="5" name="notice_content"></textarea>
+				</div>
+				<div class="row">
+					<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
+					<div class="col p-3"></div>
+					<button type="submit" class="register col p-3 btn btn-warning" onclick="addNot();">전송</button>
+				</div>
+				<input type="hidden" name="nickname" value="${noti.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.noti.nickname}">
+			</div>
+		</form>
+		<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
+	</div>
 
 </body>
 </html>

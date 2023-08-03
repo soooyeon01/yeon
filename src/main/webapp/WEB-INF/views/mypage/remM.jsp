@@ -14,8 +14,8 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>마이페이지</title>
-<!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
+<title>회원정보확인</title>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet"> <!-- 폰트 -->
 <link href="${root}/resources/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"   crossorigin="anonymous"></script>
 <script   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"   crossorigin="anonymous"></script>
@@ -48,7 +48,7 @@
   
   <!-- 마이페이지 -->
   function favoritep(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
+	  	location.href = "${root}/fa/favoritep";
 	  }
   function favorites(){
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
@@ -57,7 +57,7 @@
 	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
 	  }
   function upmypage(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
+	  	location.href = "${root}/mypage/upmypage";
 	  }
   function mypaper(){
 	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
@@ -83,6 +83,11 @@
 	}
 
   </script>
+  <!-- 폰트 -->
+	     <style type="text/css">
+		.nanum{ font-family: 'NanumSquareNeo'; }
+		.nanumB{font-family: 'NanumSquareNeoBold';}						
+		</style>
 <style>
       .deleteMember{
          color : darkgray;
@@ -129,25 +134,26 @@
           
 </style>
 </head>
- <body class="sb-nav-fixed bgcolor" > 
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
-              <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(id);%>
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+              
             <%  if( id != null) { %>
+            <div style="margin-top:7px; font-size:14px;">♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
             <%} else{%>
                 <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
             <%}  %> 
-                </div>
+                </div>                
             </form>     
-            </nav>
-            <script>
+           </nav>
+           <script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${pageContext.servletContext.contextPath}/user/logout";
+             location.href = "${root}/user/logout";
                 }
          	}
             </script>
@@ -160,56 +166,52 @@
         </nav>
         
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
             </nav>
-   <div id="layoutSidenav_content">
-   
+            
+   <div id="layoutSidenav_content">   
       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h1 class="mt-1"><b>회원 탈퇴</b></h1>
+            <h2 class="mt-1 mb-3" style ="margin-left:77px; font"><b>회원 탈퇴</b></h2>
             </div>
-            <ol class="breadcrumb mb-4 pt-3">
-            </ol>
 
-            <div class="card mb-4">
+            <div class="card mb-4" style="margin-left:100px; margin-right:100px;">
                <div class="card-header">
-                  <i class="fas fa-table me-1"></i> 회원정보 확인
+                 회원정보확인
                </div>
               
-               <div class="card-body">
-
+               <div class="card-body" style="padding:50px 0px">
                <div align="center">
-               			
-                    
-                 <form action = "${pageContext.servletContext.contextPath }/mypage/remMC" id="form" method ="post">
+                
+                 <form action = "${root}/mypage/remMC" id="form" method ="post">
                   <div>
                      회원 탈퇴 시 회원만의 서비스를 받을 수 없습니다.<br>
                      탈퇴 하시겠습니까?
                  <br>
-                 <br>                                                    
-                 	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="Password"/>                             		
+                 <br>
+                 <div>
+                 	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="Password" style="display:inline; width:300px;"/>                             		
+                </div>                                                    
                 </div>
                 <br>
-         	
-                    	 <button type="button" class ="btn btn-warning" onclick="mypage();" >이전</button>&nbsp;    	 
-                    	  <button type="submit" class ="btn btn-warning" onclick="remM();">탈퇴하기</button>&nbsp;
-                </form> 
-                
-                       
+         		<br>
+                    	 <button type="button" class ="btn btn-warning" onclick="history.back()" style="font-size:15px" >이전</button>&nbsp;    	 
+                    	  <button type="submit" class ="btn btn-warning" onclick="location.href=${root}/mypage/remM;" style="font-size:15px">탈퇴하기</button>&nbsp;
+                </form>        
                       <input type="hidden" name="pwd" value="${mdto.pwd}">
                    
-
+				</div>
             </div>
          </div>
       </main>
-      <footer class="py-4 bg-light mt-auto">
+      <footer class="py-4 bg-light mt-auto" style="float:bottom">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                 <div class="text-muted">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>

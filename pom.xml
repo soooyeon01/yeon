@@ -175,7 +175,7 @@
 		    <version>${org.springframework-version}</version>
 		</dependency>
 		
-		<!-- Jason -->
+		<!-- Json -->
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
@@ -225,6 +225,39 @@
 			<version>20180130</version>
 		</dependency>
 				
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.8</version>
+		</dependency>
+			
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.15.2</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml -->
+		<dependency>
+		    <groupId>com.fasterxml.jackson.dataformat</groupId>
+		    <artifactId>jackson-dataformat-xml</artifactId>
+		    <version>2.15.2</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+	
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.8.0</version>
+		</dependency>
+			
 	</dependencies>
     <build>
         <plugins>
@@ -269,7 +302,17 @@
 	            <configuration>
 	                <warName>my-web-app</warName>
 	            </configuration>
-        </plugin>
+        	</plugin>
+        	<!-- javadoc -->
+        	<plugin>
+			   <groupId>org.apache.maven.plugins</groupId>
+			   <artifactId>maven-javadoc-plugin</artifactId>
+			   <version>2.9.1</version>
+			   <configuration>
+			    <locale>ko_kr</locale>
+			    <encoding>utf-8</encoding>
+			   </configuration>
+			 </plugin> 
         </plugins>
     </build>
 </project>

@@ -32,7 +32,6 @@
             if( !isValid (element,msg) ){
                 return false;
             }
-            console.log("1");
             element  = document.getElementById("phone");
             msg = "핸드폰 번호를 입력하세요.";
             if( !isValid (element,msg) ){
@@ -48,7 +47,6 @@
             if( !number (element,msg) ){
                 return false;
             } 
-            console.log("2");
             return true;
         }
    
@@ -61,7 +59,6 @@
             } else {
                 result = true;
             }
-            console.log("3");
             return result;
         }
         
@@ -74,7 +71,6 @@
             }else{
                 result = true;
             }
-            console.log("4");
             return result;
         }
         

@@ -19,14 +19,16 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
-     	<script>
-     	
-     	</script>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
         <style> 
 
        a:hover{
                 background-color: #feeaa5;
             }
+            a {
+			   text-decoration-line: none;
+			   color: inherit;
+			}
             .main{
             padding-top: 0.7cm;
             padding-left: 1.0cm;
@@ -61,8 +63,12 @@
           }
           
         </style>
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
     </head>
-   	<body class="sb-nav-fixed"> 
+   	<body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -70,7 +76,9 @@
                 <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               <%System.out.println(email);%>
               <%System.out.println(nickname);%>
+              
           <%  if( email != null) { %>
+          <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -97,18 +105,16 @@
         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withall"><b>위드펫</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
                 <main>
-                    <div class="container-fluid px-3 pt-3">
-                        <h1 class="mt-1" >공지사항</h1>
-                     
-                       
-                        <div class="card mb-4">
+                    <div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
+                        <h2 class="mt-1 mb-3" ><b>공지사항</b></h2>
+                           <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
+                                <i class="fas fa-table me-1">전체 공지 목록</i>
                              
                             </div>
                             <div class="card-body">
@@ -156,8 +162,6 @@
 				</div>
 			</div>
 		</footer>
-	</div>
-	</div>
 
 </body>
 </html>

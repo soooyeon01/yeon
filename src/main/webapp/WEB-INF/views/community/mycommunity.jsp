@@ -20,9 +20,7 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
-     	<script>
-     	
-     	</script>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
         <style> 
 
        a:hover{
@@ -62,9 +60,13 @@
           }
           
         </style>
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -73,7 +75,9 @@
                  
               <%System.out.println(email);%>
               <%System.out.println(nickname);%>
+              
          <%  if( email != null) { %>
+         		<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -102,7 +106,7 @@
             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice"><b>공지사항</b></a>
+			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
 	<div id="layoutSidenav_content">
 			<main>
@@ -134,20 +138,12 @@
                                             <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${myCommu.c_no}">${myCommu.title}</a></td>
                                             <td>${myCommu.reg_date}</td>
                                             <td>${myCommu.nickname}</td>
-                                            <td>${myCommu.view_count}</td>
+                                            <td>${myCommu.view_cnt}</td>
                                         </tr>
                                         </c:forEach>
-                                        
                                     </tbody>
                                 </table>
-                                
                             </div>
-                           
-  
-								<%-- <form action="${pageContext.servletContext.contextPath}/community/newCommu" method="get">
-                             	<button class="btn write" type="submit">글쓰기
-								 --%>
-                        
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
@@ -162,7 +158,5 @@
 			</div>
 		</footer>
 	</div>
-	</div>
-
 </body>
 </html>

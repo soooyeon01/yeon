@@ -23,6 +23,186 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+     	<script src="https://kit.fontawesome.com/1163c2c278.js" crossorigin="anonymous"></script>
+     	<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/nature/nat-2/nat186.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2006/03/05/nat186.html" target="_blank" title="Kitty Cat 19"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Kitty Cat 19" style="position:absolute; top: 0px; right: 0px;" /></a>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+     	<script type="text/javascript">
+    // <![CDATA[
+                var colours=new Array('#f00', '#f06', '#f0f', '#f6f', '#f39', '#f9c'); // colours of the hearts
+                var minisize=16; // smallest size of hearts in pixels
+                var maxisize=28; // biggest size of hearts in pixels
+                var hearts=66; // maximum number of hearts on screen
+                var over_or_under="over"; // set to "over" for hearts to always be on top, or "under" to allow them to float behind other objects
+
+                /*****************************
+                *JavaScript Love Heart Cursor*
+                *  (c)2013+ mf2fm web-design *
+                *   http://www.mf2fm.com/rv  *
+                *  DON'T EDIT BELOW THIS BOX *
+                *****************************/
+                var x=ox=400;
+                var y=oy=300;
+                var swide=800;
+                var shigh=600;
+                var sleft=sdown=0;
+                var herz=new Array();
+                var herzx=new Array();
+                var herzy=new Array();
+                var herzs=new Array();
+                var kiss=false;
+
+            if (typeof('addRVLoadEvent')!='function') function addRVLoadEvent(funky) {
+            var oldonload=window.onload;
+            if (typeof(oldonload)!='function') window.onload=funky;
+            else window.onload=function() {
+                if (oldonload) oldonload();
+                funky();
+            }
+            }
+
+            addRVLoadEvent(mwah);
+
+            function mwah() { if (document.getElementById) {
+            var i, heart;
+            for (i=0; i<hearts; i++) {
+                heart=createDiv("auto", "auto");
+                heart.style.visibility="hidden";
+                heart.style.zIndex=(over_or_under=="over")?"1001":"0";
+                heart.style.color=colours[i%colours.length];
+                heart.style.pointerEvents="none";
+                if (navigator.appName=="Microsoft Internet Explorer") heart.style.filter="alpha(opacity=75)";
+                else heart.style.opacity=0.75;
+                heart.appendChild(document.createTextNode(String.fromCharCode(9829)));
+                document.body.appendChild(heart);
+                herz[i]=heart;
+                herzy[i]=false;
+            }
+            set_scroll();
+            set_width();
+            herzle();
+            }}
+
+            function herzle() {
+            var c;
+            if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
+                ox=x;
+                oy=y;
+                for (c=0; c<hearts; c++) if (herzy[c]===false) {
+                herz[c].firstChild.nodeValue=String.fromCharCode(9829);
+                herz[c].style.left=(herzx[c]=x-minisize/2)+"px";
+                herz[c].style.top=(herzy[c]=y-minisize)+"px";
+                herz[c].style.fontSize=minisize+"px";
+                herz[c].style.fontWeight='normal';
+                herz[c].style.visibility='visible';
+                herzs[c]=minisize;
+                break;
+                }
+            }
+            for (c=0; c<hearts; c++) if (herzy[c]!==false) blow_me_a_kiss(c);
+            setTimeout("herzle()", 40);
+            }
+
+            document.onmousedown=pucker;
+            document.onmouseup=function(){clearTimeout(kiss);};
+
+            function pucker() {
+            ox=-1;
+            oy=-1;
+            kiss=setTimeout('pucker()', 100);
+            }
+
+            function blow_me_a_kiss(i) {
+            herzy[i]-=herzs[i]/minisize+i%2;
+            herzx[i]+=(i%5-2)/5;
+            if (herzy[i]<sdown-herzs[i] || herzx[i]<sleft-herzs[i] || herzx[i]>sleft+swide-herzs[i]) {
+                herz[i].style.visibility="hidden";
+                herzy[i]=false;
+            }
+            else if (herzs[i]>minisize+2 && Math.random()<.5/hearts) break_my_heart(i);
+            else {
+                if (Math.random()<maxisize/herzy[i] && herzs[i]<maxisize) herz[i].style.fontSize=(++herzs[i])+"px";
+                herz[i].style.top=herzy[i]+"px";
+                herz[i].style.left=herzx[i]+"px";
+            }
+            }
+
+            function break_my_heart(i) {
+            var t;
+            herz[i].firstChild.nodeValue=String.fromCharCode(9676);
+            herz[i].style.fontWeight='bold';
+            herzy[i]=false;
+            for (t=herzs[i]; t<=maxisize; t++) setTimeout('herz['+i+'].style.fontSize="'+t+'px"', 60*(t-herzs[i]));
+            setTimeout('herz['+i+'].style.visibility="hidden";', 60*(t-herzs[i]));
+            }
+
+            document.onmousemove=mouse;
+            function mouse(e) {
+            if (e) {
+                y=e.pageY;
+                x=e.pageX;
+            }
+            else {
+                set_scroll();
+                y=event.y+sdown;
+                x=event.x+sleft;
+            }
+            }
+
+            window.onresize=set_width;
+            function set_width() {
+            var sw_min=999999;
+            var sh_min=999999;
+            if (document.documentElement && document.documentElement.clientWidth) {
+                if (document.documentElement.clientWidth>0) sw_min=document.documentElement.clientWidth;
+                if (document.documentElement.clientHeight>0) sh_min=document.documentElement.clientHeight;
+            }
+            if (typeof(self.innerWidth)=='number' && self.innerWidth) {
+                if (self.innerWidth>0 && self.innerWidth<sw_min) sw_min=self.innerWidth;
+                if (self.innerHeight>0 && self.innerHeight<sh_min) sh_min=self.innerHeight;
+            }
+            if (document.body.clientWidth) {
+                if (document.body.clientWidth>0 && document.body.clientWidth<sw_min) sw_min=document.body.clientWidth;
+                if (document.body.clientHeight>0 && document.body.clientHeight<sh_min) sh_min=document.body.clientHeight;
+            }
+            if (sw_min==999999 || sh_min==999999) {
+                sw_min=800;
+                sh_min=600;
+            }
+            swide=sw_min;
+            shigh=sh_min;
+            }
+
+            window.onscroll=set_scroll;
+            function set_scroll() {
+            if (typeof(self.pageYOffset)=='number') {
+                sdown=self.pageYOffset;
+                sleft=self.pageXOffset;
+            }
+            else if (document.body && (document.body.scrollTop || document.body.scrollLeft)) {
+                sdown=document.body.scrollTop;
+                sleft=document.body.scrollLeft;
+            }
+            else if (document.documentElement && (document.documentElement.scrollTop || document.documentElement.scrollLeft)) {
+                sleft=document.documentElement.scrollLeft;
+                sdown=document.documentElement.scrollTop;
+            }
+            else {
+                sdown=0;
+                sleft=0;
+            }
+            }
+
+            function createDiv(height, width) {
+            var div=document.createElement("div");
+            div.style.position="absolute";
+            div.style.height=height;
+            div.style.width=width;
+            div.style.overflow="hidden";
+            div.style.backgroundColor="transparent";
+            return (div);
+            }
+            // ]]>
+    </script>
      	<script>  
 	       	function toListPage() {
 	    		location.href="${pageContext.servletContext.contextPath}/community/clist";
@@ -98,7 +278,7 @@
     		
 		    var reUp = "";
     		reUp+="<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
-    		reUp+="<textarea id='uprcontent' >"+rcontent+"</textarea><br>";
+    		reUp+="<textarea id='uprcontent' rows='5'>"+rcontent+"</textarea><br>";
     		reUp+="<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>";
     		reUp+="댓글 수정</button>";
     		reUp+="<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
@@ -177,7 +357,7 @@
 					if(data.total > 0){
 						var list = data.list;
 						
-						var reply_html = "<div>";
+						var reply_html = "<div style=margin:15px;>";
 						
 						$('#count').html(data.total);
 						for(i = 0;i < list.length;i++){
@@ -193,7 +373,7 @@
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
 							reply_html += "<span id='reg_date' style='font-size:3px;'>" + reg_date + "</span><br>";
 							
-							if(nickname === "${sessionScope.SESS_NICKNAME}"){
+							if(nickname === "${sessionScope.SESS_NICKNAME}" || "${sessionScope.SESS_NICKNAME}" === "관리자"){
 
 								reply_html += "<span id='updateReply' class='updateBtn' style='cursor:pointer;' data-rno="+r_no+" data-rcontent='" + rcontent + "' data-nickname='" + nickname + "'>[수정]</span><span id='delete' style='cursor:pointer;' data-id ="+rcontent+" data-rno="+r_no+">[삭제]</span><br></div><hr>";
 							
@@ -217,11 +397,8 @@
 						var reply_html = "<div>등록된 댓글이 없습니다.</div>";
 						$(".reply_Box").html(reply_html);
 					}
-			
-				
 				}
 				);//getJson
-	
 		}
     	}) ;//jquery
     	
@@ -319,6 +496,7 @@
 	    		}
 			}
 		</script>
+		
     	<style>
     	#cont {
     		width: 70rem;
@@ -373,19 +551,27 @@
     	margin: auto;
     	display: block;
          }
-         #btnLike {
-  
+       
+         #replyBox{
+         	background-color:white;
+         	width: 50rem;
          }
         </style>
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
         
     </head>
-   <body class="sb-nav-fixed"> 
+   <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
                 <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
               <%System.out.println(email);%>
+              
          <%  if( email != null) { %>
+         		<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
                    <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
                    <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
             <%} else{%>
@@ -442,15 +628,17 @@
         	<label>글내용:</label>
         	<p id="cont" class="form-control" id="content" name="content">${selectone.content}</p>
      	</div>
+     	
      	<div class="mb-3 mt-3">
         	<label>추천수:</label>
         	<p id="like_cnt" class="form-control" name="like_cnt"></p>
      	</div>
      </div>
 	</form>
+	
 	<div class="container bt">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
-	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname}">
+	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname || sessionScope.SESS_NICKNAME=='관리자'}">
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>
@@ -465,8 +653,12 @@
 						<br>
 						<form method="post">
 							<div>
-		                        <c:if test = "${sessionScope.nickname== null and sessionScope.SESS_NICKNAME!=selectone.nickname}">
+		                        <c:if test = "${sessionScope.SESS_NICKNAME!= null and sessionScope.SESS_NICKNAME!=selectone.nickname}">
 	            					<button type ="button" class="btn btn-warning btnLike" id="btnLike" >추천하기</button>
+	            					<i class="fa-solid fa-face-kiss-wink-heart fa-2x" style="color: #f00000;"></i>
+	            					<i class="fa-solid fa-heart fa-3x" style="color: #ff0000;"></i>
+	            					<i class="fa-solid fa-heart fa-5x" style="color: #ff0000;"></i>
+	            					<i class="fa-solid fa-heart fa-10x" style="color: #ff0000;"></i>
 	    						</c:if>
 	    					</div>		
 	                    </form>
@@ -476,26 +668,18 @@
    		                 </div>	
    		                 	   <!-- <span class="c-icon"><i class="fa-solid fa-user"></i>  -->
    		                 <div class="reply-name">
-	                        <span class="anonym">작성자 : 
-	                        <input type="text" class="form-control" id="nickname" name ="nickname" value='${sessionScope.SESS_NICKNAME}' readonly  style="width: 100px; border:none;">
+	                        <span class="anonym">작성자 : ${sessionScope.SESS_NICKNAME}
+	               			<%-- <input type="text" class="form-control" id="nickname" name ="nickname" value='${sessionScope.SESS_NICKNAME}' readonly  style=" width: 200px; border:none;"> --%>
 	                        </span>
 	                      </div>   
-	                   
-	                        <!-- </span> -->
-                     <!--<img src="/익명.jpg" width ="50px" alt="My Image"><!-->
                     <div class="reply-sbox">
-                        <textarea class="reply-input" id="rcontent" cols="80" rows="2" name="rcontent" ></textarea>
-                        <!-- <span class="com-function-btn" type="hidden">
-                            
-                            <a href="#"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="#"><i class="fa-solid fa-trash-can"></i></a>
-                         </span> -->
+                        <textarea class="reply-input" id="rcontent" cols="100" rows="3" name="rcontent" style="margin-top:1rem;"></textarea>
                     </div>
                     	<div class="regBtn">
            					<button id="Reply_regist" class="btn btn-warning"> 댓글등록</button>
     					</div>
     					<br>
-    <div class="reply_Box" style="border:1px solid gray;"> 
+    <div class="reply_Box" style="border:1px solid gray;" id="replyBox"> 
     <!-- 댓글이 들어갈 박스 -->
 	</div>
    </div>

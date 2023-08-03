@@ -1,9 +1,6 @@
 package com.spring.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,119 +13,126 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 import com.spring.domain.S_DTO;
-import com.spring.domain.W_DTO;
 import com.spring.service.ApiService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
+
+/**
+ * 보호소 API 데이터를 처리하는데 사용되는 컨트롤러 클래스 입니다.
+ * 
+ * @author 김민주 
+ */
 @Log4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
 public class ApiShelDataController {
-	// http://localhost:8080/4jojo/api/sheldata
-	
-	
-	
-	  @Scheduled(cron = "0 0 0 * * ?") // 매일 자정에 실행 public void
-	  void fetchPetDataScheduled()
-	  { 
-		  fetchShelData(); 
-	  }
-	 
-	 
+	// 주소 - http://localhost:8080/4jojo/api/sheldata
+
+	/**
+	 * 매일 오전 1시에 실행되는 스케줄러입니다. apiShelData() 메서드를 호출합니다.
+	 * 
+	 * @see com.spring.controller.ApiShelDataController#apiShelData()
+	 */
+
+	@Scheduled(cron = "0 0 1 * * ?")
+	void apiPetDataScheduled() {
+		apiShelData();
+	}
+
+	/**
+	 * 보호소에 대한 API 데이터를 가져옵니다.
+	 * 
+	 * @see com.spring.service.ApiService#regitsterShelData(S_DTO) - 데이터 삽입
+	 * @see com.spring.service.ApiService#removeShelData(S_DTO) - 중복 제거
+	 * @return API 처리 결과를 나타내는 jsp 페이지
+	 */
+
 	private final ApiService service;
-	private static final int max = 20;
 	private static String serviceKey = "vPYPuEmQxsTmZx%2BMhGPBNw5QXD9P1oWLThzGQjTSlEg%2FNBb05bVez9RVHAYkGwXcAfJHD43kuDJf81MUKBJq4A%3D%3D";
-	
+
 	@RequestMapping("/sheldata")
-	public String fetchShelData() {
-      
+	public String apiShelData() {
 
-      // sdto 객체들을 저장할 list
-      ArrayList<S_DTO> list = new ArrayList<>();
-      S_DTO sdto =  new S_DTO();
-      try {
-            // parsing할 url 지정(API 키 포함해서)
-            for(int i=1; i<max; i++) {
-            	
-            //	https://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo?serviceKey=vPYPuEmQxsTmZx%2BMhGPBNw5QXD9P1oWLThzGQjTSlEg%2FNBb05bVez9RVHAYkGwXcAfJHD43kuDJf81MUKBJq4A%3D%3D
-	            String url = "https://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo?"
-	            		+ "pageNo="+i+"&"
-            				+ "numOfRows=1000&"
-            				+ "serviceKey="+serviceKey;
-	
-	            DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
-	            DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
-	            Document doc = dBuilder.parse(url);
-	            
-	            // root tag
-	            doc.getDocumentElement().normalize();
-	            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-	
-	            // 파싱할 tag
-	            NodeList nList = doc.getElementsByTagName("item");
-	            System.out.println("파싱할 리스트 수 : " + nList.getLength());
-	            System.out.println("여기1");
-	        
-	        
-	            for (int temp = 0; temp < nList.getLength(); temp++) {
-	               Node nNode = nList.item(temp);
-	               if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	
-	                  Element eElement = (Element) nNode;
-	                  
-	                  // sdtotage vo를 저장할 객체
-	                 
-	                  sdto.setCareNm(getTagValue("careNm", eElement));
-	                  sdto.setDivisionNm(getTagValue("divisionNm", eElement)); // 지정번호
-	                  sdto.setSaveTrgtAnimal(getTagValue("saveTrgtAnimal", eElement));
-	                  sdto.setCareAddr(getTagValue("careAddr", eElement)); // 시도코드
-	                  sdto.setWeekOprStime(getTagValue("weekOprStime", eElement)); // 위도
-	                  sdto.setWeekOprEtime(getTagValue("weekOprEtime", eElement)); // 경도
-	                  sdto.setWeekCellStime(getTagValue("weekCellStime", eElement));
-	                  sdto.setWeekCellEtime(getTagValue("weekCellEtime", eElement));
-	                  sdto.setWeekendOprStime(getTagValue("weekendOprStime", eElement));
-	                  sdto.setWeekendOprEtime(getTagValue("weekendOprEtime", eElement));
-	                  sdto.setWeekendCellStime(getTagValue("weekendCellStime", eElement));
-	                  sdto.setWeekendCellEtime(getTagValue("weekendCellEtime", eElement));
-	                  sdto.setCloseDay(getTagValue("closeDay", eElement));
-	                  sdto.setCareTel(getTagValue("careTel", eElement));
-	              
-	                  list.add(sdto);
-	
-	                  // 서비스 시작!
-	                 
-	
-	                 service.regitsterShelData(sdto);
-	                 
-	               }
-	               System.out.println("들어가는중");
-               }
-            } // if end
-            service.removeShelData(sdto);
-            log.info("end");
+		ArrayList<S_DTO> list = new ArrayList<>();
+		S_DTO sdto = new S_DTO();
+		int max = 0;
 
-            
-            
-        }catch (Exception e) {
-            e.printStackTrace(); // for end
-      }
-      return "/api/api";
+		try {
+			String url = "https://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo?" + "pageNo=1&"
+					+ "numOfRows=1000&" + "serviceKey=" + serviceKey;
 
-} // try~catch end
-	
-	
-	
-	public static String getTagValue(String tag, Element eElement) {
-		   Node nlList = eElement.getElementsByTagName(tag).item(0);
-		   if (nlList != null) {
-		      Node nValue = nlList.getChildNodes().item(0);
-		      if (nValue != null)
-		         return nValue.getNodeValue();
-		   }
-		   return null; // 또는 적절한 오류 처리
+			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+			Document doc = dBuilder.parse(url);
+			doc.getDocumentElement().normalize();
+
+			NodeList totalNode = doc.getElementsByTagName("totalCount");
+			Element totalElement = (Element) totalNode.item(0);
+			int totalCount = Integer.parseInt(totalElement.getTextContent());
+
+			int numOfRows = 1000;
+			max = (int) Math.ceil((double) totalCount / numOfRows);
+
+			// 바깥 for문을 추가하여 각 페이지의 데이터를 가져옵니다.
+			for (int page = 1; page <= max; page++) {
+				url = "https://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo?" + "pageNo=" + page + "&"
+						+ "numOfRows=1000&" + "serviceKey=" + serviceKey;
+				doc = dBuilder.parse(url);
+				doc.getDocumentElement().normalize();
+
+				NodeList nList = doc.getElementsByTagName("item");
+
+				for (int temp = 0; temp < nList.getLength(); temp++) {
+					Node nNode = nList.item(temp);
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+						Element eElement = (Element) nNode;
+						sdto.setCareNm(getTagValue("careNm", eElement));
+						sdto.setDivisionNm(getTagValue("divisionNm", eElement));
+						sdto.setSaveTrgtAnimal(getTagValue("saveTrgtAnimal", eElement));
+						sdto.setCareAddr(getTagValue("careAddr", eElement));
+						sdto.setWeekOprStime(getTagValue("weekOprStime", eElement));
+						sdto.setWeekOprEtime(getTagValue("weekOprEtime", eElement));
+						sdto.setWeekCellStime(getTagValue("weekCellStime", eElement));
+						sdto.setWeekCellEtime(getTagValue("weekCellEtime", eElement));
+						sdto.setWeekendOprStime(getTagValue("weekendOprStime", eElement));
+						sdto.setWeekendOprEtime(getTagValue("weekendOprEtime", eElement));
+						sdto.setWeekendCellStime(getTagValue("weekendCellStime", eElement));
+						sdto.setWeekendCellEtime(getTagValue("weekendCellEtime", eElement));
+						sdto.setCloseDay(getTagValue("closeDay", eElement));
+						sdto.setCareTel(getTagValue("careTel", eElement));
+						list.add(sdto);
+						service.regitsterShelData(sdto);
+					}
+				}
+			}
+			service.removeShelData(sdto);
+			log.info("end");
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		return "/api/api";
+	}
+
+	/**
+	 * 주어진 XML 요소(eElement)에서 태그(tag)의 값을 가져옵니다.
+	 * 
+	 * @param tag      태그 이름
+	 * @param eElement 태그 값을 가져올 XML 요소
+	 * @return 추출된 태그의 값 또는 찾지 못한 경우 null
+	 */
+	public static String getTagValue(String tag, Element eElement) {
+		Node nlList = eElement.getElementsByTagName(tag).item(0);
+		if (nlList != null) {
+			Node nValue = nlList.getChildNodes().item(0);
+			if (nValue != null) {
+				return nValue.getNodeValue();
+			}
+		}
+		return null;
+	}
 }
