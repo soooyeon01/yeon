@@ -15,7 +15,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>마이페이지</title>
-<!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 <link href="${root}/resources/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"   crossorigin="anonymous"></script>
 <script   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"   crossorigin="anonymous"></script>
@@ -71,23 +71,31 @@
 
   </script>
   
+		<!-- 폰트 -->
+	     <style type="text/css">
+		.nanum{ font-family: 'NanumSquareNeo'; }
+		.nanumB{font-family: 'NanumSquareNeoBold';}						
+		</style>
+	
 <style>
-		.table tr th {
-		width : 300px;
+		.table tr th{
+		width : 280px;
 		height : 80px;
-		background-color : #fff6c2;
+		background-color : #fff4bd;
 		text-align : center;
+		padding :30px 0px;
+		 color:#787878;
 		}
+		
+		.table tr td{
+		 text-align : center;
+		 padding: 30px 0px
+		}
+		
       .deleteMember{
          color : black;
          text-align : right;
       }
-       tr {
-          text-align : center;
-       }
-       td {
-          text-align : center;
-       }
         a:hover{
                 background-color: #feeaa5;
             }
@@ -176,7 +184,7 @@
           
 </style>
 </head>
- <body class="sb-nav-fixed bgcolor" > 
+ <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
               <div class="input-group">
@@ -209,7 +217,7 @@
             </nav>
    <div id="layoutSidenav_content">
    
-      <main>
+      <main class = "nanum">
          <div class="container-fluid px-10 pt-5 ps-4" >
             <h2 class="mt-1 mb-3" style ="margin-left:77px; font"><b>마이페이지</b></h2>
             </div>
@@ -220,60 +228,71 @@
                    개인정보조회
                </div>
               
-               <div class="card-body" style="padding: 50px">
+               <div>               		 
+                     <!-- 드롭버튼 -->
+                     <div class="dropdown" style="padding-top:50px; padding-bottom:10px; padding-right:100px; float:right;">
+                     		
+						  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+						    즐겨찾기
+						  </button>&nbsp;&nbsp;&nbsp;
+						  <ul class="dropdown-menu">
+						    <li><a class="dropdown-item" href="${root}/fa/favoritep">공고</a></li>
+						    <li><a class="dropdown-item" href="${root}/fa/favorites">보호소</a></li>
+						    <li><a class="dropdown-item" href="${root}/fa/favoritew">위드펫</a></li>
+						  </ul>
+						 
+						  <form action="${root}/community/myclist" method="post"  style="width:100px; display:inline;">            
+		                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;&nbsp;&nbsp;
+		                      <input type="hidden" name="nickname" value="${mdto.nickname}"> 
+		                  </form>
+		                  <button type="button" class ="btn btn-warning" onclick="updatecheck();">정보 수정</button>&nbsp;
+						</div>
+                            
+                      <!-- 관리자 강퇴버튼 -->               
+                      <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
+                      <button type="button" class ="btn-3d red" onclick="kick();">누르지마시오</button>&nbsp;
+                      </c:if>
+                 </div>
+              
+ 
+               <div class="card-body" style ="padding: 0px 100px; padding-bottom:50px;">
             
                   <table class = "table">
                  <c:forEach items="${membersDTO}" var="mdto">
 						
-                        <tr>
+                        <tr style="border-top:2px gray solid;">
                            <th>닉네임</th>                        
                            <td>${mdto.nickname}</td>                               
-                        </tr>                    
-                      
+                        </tr>                                        
                         <tr>         
                           <th>비밀번호</th>
                           <td >*******</td>                         
                         </tr>                                         
-                       
+                      
                         <tr>
                          <th>이메일</th>                 
                          <td>${mdto.email}</td>
-                        </tr>
-                     
+                        </tr>                     
                         <tr>
                           <th>이름</th>
                           <td>${mdto.name}</td>       
-                        </tr>                       
-                       
+                        </tr>                                              
                         <tr>
                            <th>전화번호</th>
                            <td>${mdto.phone}</td>    
                         </tr>
                 </c:forEach>
-               </table>
-            
-               <div align="center"> 
-              		 <form action="${root}/community/myclist" method="post">            
-                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;
-                      <input type="hidden" name="nickname" value="${mdto.nickname}"> 
-                     </form>
-                     <button type="button" class ="btn btn-warning" onclick="favorites();">보호소 즐겨찾기</button>&nbsp; 
-                      <button type="button" class ="btn btn-warning" onclick="favoritew();">위드펫 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="favoritep();">공고 즐겨찾기</button>&nbsp;
-                      <button type="button" class ="btn btn-warning" onclick="updatecheck();">정보 수정</button>&nbsp;
-                      <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
-                      <button type="button" class ="btn-3d red" onclick="kick();">누르지마시오</button>&nbsp;
-                      </c:if>
-                    </div>
+               </table>           
                     
-                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px;">회원 탈퇴</button>
+                    <!-- 회원탈퇴 -->
+                    <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px; float:right;">회원 탈퇴</button>
             </div>
          </div>
       </main>
       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted">Copyright &copy; Your Website 2023</div>
+               <div class="text-muted">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>
