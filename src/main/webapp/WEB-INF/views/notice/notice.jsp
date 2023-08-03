@@ -110,13 +110,13 @@
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
                 <main>
-                    <div class="container-fluid px-3 pt-3" style="width:80%;">
-                        <h1 class="mt-1" >공지사항</h1>
+                    <div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
+                        <h2 class="mt-1" >공지사항</h2>
                      
                        
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
+                                <i class="fas fa-table me-1">전체 공지 목록</i>
                              
                             </div>
                             <div class="card-body">
