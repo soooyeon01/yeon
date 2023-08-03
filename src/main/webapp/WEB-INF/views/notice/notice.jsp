@@ -19,14 +19,16 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
-     	<script>
-     	
-     	</script>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
         <style> 
 
        a:hover{
                 background-color: #feeaa5;
             }
+            a {
+			   text-decoration-line: none;
+			   color: inherit;
+			}
             .main{
             padding-top: 0.7cm;
             padding-left: 1.0cm;
@@ -61,8 +63,12 @@
           }
           
         </style>
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
     </head>
-   	<body class="sb-nav-fixed bgcolor"> 
+   	<body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -104,7 +110,7 @@
 			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
         </nav>
                 <main>
-                    <div class="container-fluid px-3 pt-3">
+                    <div class="container-fluid px-3 pt-3" style="width:80%;">
                         <h1 class="mt-1" >공지사항</h1>
                      
                        

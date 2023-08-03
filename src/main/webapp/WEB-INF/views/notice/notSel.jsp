@@ -20,6 +20,7 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
      	<script>  
 	       	function toListPage() {
 	    		location.href="${pageContext.servletContext.contextPath}/notice/nlist";
@@ -98,6 +99,10 @@
     	display: block;
          }
         </style>
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
         <script type="text/javascript">
 				// <![CDATA[
 						var sparks=75; // how many sparks per clicksplosion
@@ -255,7 +260,7 @@
      <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
      <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
 </head>
-<body class="sb-nav-fixed bgcolor"> 
+<body class="sb-nav-fixed bgcolor nanum"> 
 	<nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">

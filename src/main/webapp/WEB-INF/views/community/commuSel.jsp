@@ -25,6 +25,7 @@
         <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
      	<script src="https://kit.fontawesome.com/1163c2c278.js" crossorigin="anonymous"></script>
      	<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/nature/nat-2/nat186.cur), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2006/03/05/nat186.html" target="_blank" title="Kitty Cat 19"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Kitty Cat 19" style="position:absolute; top: 0px; right: 0px;" /></a>
+     	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
      	<script type="text/javascript">
     // <![CDATA[
                 var colours=new Array('#f00', '#f06', '#f0f', '#f6f', '#f39', '#f9c'); // colours of the hearts
@@ -495,72 +496,7 @@
 	    		}
 			}
 		</script>
-		<script>
-			$(document).ready(function(){
-				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-				var maxSize = 5242880; //5MB
-				
-				function checkExtension(fileName, fileSize){
-					if(fileSize >= maxSize){
-						alert("파일 사이즈 초과");
-						return false;
-					}
-					
-					if(regex.test(fileName)){
-						alert("해당 종류의 파일은 업로드할 수 없습니다.");
-						return false;
-					}
-					return true;
-				}
-				
-				var cloneObj=$(".uploadDiv").clone();
-				$("#uploadBtn").on("click",function(e) {
-					var formData=new FormData();
-					var inputFile=$("input[name='uploadFile']");
-				})
-				
-				$("#uploadBtn").on("click", function(e){
-					var formData = new FormData();
-					var inputFile = $("input[name='uploadFile']");
-					var files = inputFile[0].files;
-					console.log(files);
-					
-					//add file data to formdata
-					for(var i=0; i<files.length; i++){
-						
-						if(!checkExtension(files[i].name, files[i].size)){
-							return false;
-						}
-						
-						formData.append("uploadFile", files[i]);
-					}
-					
-					$.ajax({
-						url : '/uploadAjaxAction',
-						processData : false,
-						contentType : false,
-						data : formData,
-						type : 'POST',
-						dataType:'json',
-						success : function(result){
-							console.log(result);
-							showUploadFile(result);
-							$(".uploadDiv").html(cloneObj.html());
-						}
-					}); // $.ajax
-				});
-			});
-			
-			var uploadResult = $(".uploadResult ul");
-			function showUploadedFile(uploadResultArr){
-				var str = "";
-				$(uploadResultArr).each(function(i,obj){
-					str += "<li>" + obj.fileName + "</li>";
-				});
-				
-				uploadResult.append(str);
-			}
-		</script>
+		
     	<style>
     	#cont {
     		width: 70rem;
@@ -621,9 +557,13 @@
          	width: 50rem;
          }
         </style>
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
         
     </head>
-   <body class="sb-nav-fixed bgcolor"> 
+   <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -695,13 +635,7 @@
      	</div>
      </div>
 	</form>
-	<div class='uploadDiv'>
-		<input type="file" name='uploadFile' multiple>
-	</div>
-	<div class='uploadResult'>
-		<ul>
-		</ul>
-	</div>
+	
 	<div class="container bt">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
 	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname || sessionScope.SESS_NICKNAME=='관리자'}">

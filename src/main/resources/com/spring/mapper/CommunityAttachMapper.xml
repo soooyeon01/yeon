@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.spring.mapper.CommunityAttachMapper">
+	<insert id = "insert">
+			insert into attach (uuid, uploadpath, filename, filetype, c_no)
+			values (#{uuid}, #{uploadpath}, #{filename}, #{filetype}, #{c_no})
+	</insert>
+		
+	<delete id = "delete">
+		delete from attach where uuid = #{uuid}
+	</delete>
+		
+	<select id = "findByCno" resultType="com.spring.domain.CommunityAttachDTO">
+		select * from attach where c_no = #{c_no}
+	</select>
+  </mapper>
