@@ -74,6 +74,9 @@
 		#tptp {
 		display : flex;
 		}
+		.ttt th{
+			background-color:#feeaa5;
+		}
         </style>
         <style type="text/css">
 		  .nanum{ font-family: 'NanumSquareNeo'; }
@@ -124,14 +127,14 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
-				<h2 class="mt-1 mb-3">커뮤니티 페이지</h2>
+				<h2 class="mt-1 mb-3"><b>커뮤니티 페이지</b></h2>
 			<div id="tptp">
 				<div class="card mb-4  mytb">
 					<div class="card-header">
 						<i class="fas fa-table me-1">조회수 top 5</i>
 					</div>
 					<div class="card-body">
-						<table class="datatable-table">
+						<table class="datatable-table ttt"> 
 							<thead>
 								<tr>
 									<!-- <th>글번호</th> -->
@@ -167,7 +170,7 @@
 
 					</div>
 					<div class="card-body">
-						<table class="datatable-table">
+						<table class="datatable-table ttt">
 							<thead>
 								<tr>
 									<!-- <th>글번호</th> -->
@@ -204,7 +207,7 @@
 
 					</div>
 					<div class="card-body">
-						<table id="datatablesSimple">
+						<table id="datatablesSimple" class="ttt">
 							<thead>
 								<tr>
 									<!-- <th>글번호</th> -->
