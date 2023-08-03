@@ -60,7 +60,15 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">로그인</h3></div>
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">
+                                     <!-- 로고 -->              
+								       <nav class="main" >
+								         <a class="mainlogo" href="${root}/main/main" >
+								         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
+								         </a>
+								        </nav> 
+                                    </h3>
+                                    </div>
                                     <div class="card-body">
                                         <form action="${root}/user/login" method="post">
                                             <div class="form-floating mb-3">
@@ -76,26 +84,18 @@
                                                 <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                                             </div> -->
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                                <a class="small" href="${root}/user/join">회원가입</a> 
-                                                <%-- <a class="small" href="${pageContext.servletContext.contextPath}/view/findEmail.jsp">이메일 찾기</a> --%>
-                                                
-                                                <input class="btn btn-primary" type="submit" value="로그인" onclick="return verifyField();">
-                                                <!-- <a class="btn btn-primary" type="submit" onclick="return verifyField();">로그인</a> -->
-                                                
-
-                                                
-                                                
+                                               
+                                               	<input class="btn btn-primary btn-block" type="submit" value="로그인" onclick="return verifyField();">
                                             </div>
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
                                         <div class="small">
+                                        <a href="${root}/user/join">회원가입</a>
                                         <a href="${root}/user/findEmail">이메일 찾기</a>
                                         <a href="${root}/user/findPwd">비밀번호 찾기</a>
                                         </div>
                                         
-                                        <%-- <div class="small"><a href="${pageContext.servletContext.contextPath}/view/join.jsp">회원가입 하러 가기</a></div> --%>
-                                     
                                     </div>
                                 </div>
                             </div>
@@ -103,20 +103,7 @@
                     </div>
                 </main>
             </div>
-            <!-- <div id="layoutAuthentication_footer">
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div> -->
+
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
