@@ -47,8 +47,10 @@ public class NoticeController {
             
 			model.addAttribute("noticeList", service.getAllNotice());
 			return "notice/notice";
+        }else {
+        	model.addAttribute("noticeList", service.getAllNotice());
+		return "notice/notice";
         }
-		return "main/main";
 	}
 	
 	@GetMapping("/newNot")

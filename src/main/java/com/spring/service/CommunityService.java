@@ -2,6 +2,7 @@ package com.spring.service;
 
 import java.util.List;
 
+import com.spring.domain.CommunityAttachDTO;
 import com.spring.domain.CommunityDTO;
 import com.spring.util.PageMaker;
 
@@ -17,5 +18,7 @@ public interface CommunityService {
 	int modifyCommunity(CommunityDTO dto);
 	int removeCommunity(int c_no);
 	int viewCnt(int c_no);
+	
+	List<CommunityAttachDTO> findByCno(int c_no);
 
 }

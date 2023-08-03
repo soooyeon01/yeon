@@ -2,15 +2,10 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.spring.mapper.F_S_Mapper">
-  
-	<select id="selectLikedPostIdsByUser" resultType="com.spring.domain.F_S_DTO">
-	  SELECT shelter_no
-	  FROM favorites
-	  WHERE nickname=#{nickname,jdbcType=VARCHAR}
-	 
-	</select>
-  <select id="selectSBoard" resultType="com.spring.domain.F_S_DTO">
+<mapper namespace="com.spring.mapper.F_S_Mapper">
+
+	<!-- 이메일 전송 할 리스트 조회 -->
+	<select id="selectSBoard" resultType="com.spring.domain.F_S_DTO">
   		<![CDATA[
   		SELECT f.favorites_no
       		     , f.favorites_reg_date
@@ -23,15 +18,24 @@
       		JOIN shelter s ON f.shelter_no = s.shelter_no
       		WHERE f.nickname=#{nickname, jdbcType=VARCHAR}
       		]]>
-  	</select>
-  	<select id="selectCountSBoard" parameterType="String" resultType="int">	
-  		
-  			SELECT COUNT(1)FROM favorites WHERE nickname=#{nickname,jdbcType=VARCHAR}
-  		
-  		</select>
-  	
-  	
-  	 <select id="selectSBoardByPage" resultType="com.spring.domain.F_S_DTO">
+	</select>
+
+	<!-- 닉네임 기준으로 보호소 즐겨찾기 리스트 개수 조회 -->
+	<select id="selectCountSBoard" parameterType="String" resultType="int">
+		SELECT COUNT(1)FROM favorites WHERE
+		nickname=#{nickname,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 유저가 즐겨찾기 눌렀는지 여부를 조회 -->
+	<select id="selectLikedPostIdsByUser" resultType="com.spring.domain.F_S_DTO">
+		SELECT shelter_no
+		FROM favorites
+		WHERE
+		nickname=#{nickname,jdbcType=VARCHAR}
+	</select>
+	
+	<!-- 페이징 포함한 보호소 즐겨찾기 리스트 조회 -->
+	<select id="selectSBoardByPage" resultType="com.spring.domain.F_S_DTO">
   		<![CDATA[
   		SELECT 
               favorites_no
@@ -58,5 +62,5 @@
         		            )
         		   WHERE rn > ( ( #{pageMaker.cri.pageNum,jdbcType=INTEGER} - 1 ) * #{pageMaker.cri.amount} )
             ]]>
-  	</select>
-  	</mapper>
+	</select>
+</mapper>
