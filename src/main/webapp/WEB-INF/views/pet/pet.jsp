@@ -12,26 +12,30 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>유기동물 공고</title>
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
 	rel="stylesheet" />
-			<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"	crossorigin="anonymous"></script>
-			<script
-				src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-				crossorigin="anonymous"></script>
-			<script
-				src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
-			<script
-				src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-				crossorigin="anonymous"></script>
-			<script
-				src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-			<script src="https://code.jquery.com/jquery-3.7.0.js"
-				integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-				crossorigin="anonymous"></script>
-			
-			<script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+	crossorigin="anonymous"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+	crossorigin="anonymous"></script>
+<script
+	src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"
+	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+	crossorigin="anonymous"></script>
+
+<script>
 			  $(document).ready(function () {
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
@@ -63,15 +67,25 @@
 			 
 			  
 	       </script>
-	    
+
 <style>
+.nanum {
+	font-family: 'NanumSquareNeo';
+}
+
+.nanumB {
+	font-family: 'NanumSquareNeoBold';
+}
+
 a:hover {
 	background-color: #feeaa5;
 }
+
 a {
- 	 text-decoration-line: none;
- 	 color: inherit;
+	text-decoration-line: none;
+	color: inherit;
 }
+
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -125,7 +139,7 @@ a {
 }
 </style>
 </head>
-<body class="sb-nav-fixed bgcolor">
+<body class="sb-nav-fixed nanum">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
@@ -137,11 +151,12 @@ a {
 				<%
 				System.out.println(email);
 				%>
-				
+
 				<%
 				if (email != null) {
 				%>
-				<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
+				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
+					환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
 					style="font-size: 14px;">로그아웃</button>
 				<button type="button" class="btn"
@@ -190,14 +205,12 @@ a {
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-3 pt-3">
-				<h2 class="mt-1"><b><a href="${root}/pet/petall">유기동물 공고</a></b></h2>
+			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
+				<h2 class="mt-1">
+					<b><a href="${root}/pet/petall">유기동물 공고</a></b>
+				</h2>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
 					<div class="card-body">
 						<select id="region-select">
 							<option value="">지역 선택</option>
@@ -236,85 +249,91 @@ a {
 							<option value="제주특별자치도"
 								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
 						</select>
-							
+
 
 
 						<div id="animals-container">
-                     <div class="container">
-                        <c:forEach var="P_DTO" items="${response.petList}">
-                        	
-                           <c:if test="${not empty P_DTO}">
-                              <div class="data">
-                                <a href="javascript:void(0);" onclick="checkLoginAndRedirect(${P_DTO.pet_notice_no});">
-                                 <img src="${P_DTO.popfile}" alt="펫이미지" style="width:250px; height:300px;" />                               
-                                 </a>
-							
-                                 <div>
-                                    <br>
-                                    <p style="display: block;">품종 : ${P_DTO.kindCd}</p>
-                                    <br>
-                                    <p style="display: block;">나이 : ${P_DTO.age}</p>
-                                    <br>
-                                    <p style="display: block;">무게 : ${P_DTO.weight}</p>
-                                    <br>
-                                    <p style="display: block;">성별 : ${P_DTO.sexCd}</p>
-                                    <br>
-                                    <p style="display: block;">특징 : ${P_DTO.specialMark}</p>
-                                    <br>
-
-                                 </div>
-
-                              </div>
-                           </c:if>
-                        </c:forEach>
-                        <c:if test="${empty response.petList}">
-                       		 <table class="table">
-								<tr>
-								 <td colspan="6" style="text-align:center;">검색된 결과가 없습니다.</td>
-							 	</tr>
-							 </table>
-						 </c:if>		
-                     </div>
-                  </div>
-				</div>	
 							<div class="container">
-										<div class="row">
-											<form method="get" name="search-form" action="${root}/pet/petall" autocomplete = "off">
-												<table id="table">
-													<tr>
-														<td>
-														<select id="form-control" class="form-control" name="type">	
-														<option value="allsearch"
-																	<c:if test='${ param.type eq "allsearch" }'>selected="selected"</c:if>>전체검색</option>														
-																<option value="careNm"
-																	<c:if test='${ param.type eq "careNm" }'>selected="selected"</c:if>>보호소명</option>							
-																<option value="careAddr"
-																	<c:if test='${ param.type eq "careAddr" }'>selected="selected"</c:if>>주소</option>
-																<option value="kindCd"
-																	<c:if test='${ param.type eq "kindCd" }'>selected="selected"</c:if>>품종</option>
-														</select></td>
-														<td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value="" ></td>
-														<td><button type="submit" onclick = "return getSearchList();" class="btn btn-success">검색</button></td>														
-													</tr>								
-													
-												</table>																						
-											</form>
-											
-										</div>
-										
-									</div>
-							<%@ include file="../import/page-pet_notice.jsp"%>
-						
-					</div>
-					
+								<c:forEach var="P_DTO" items="${response.petList}">
 
+									<c:if test="${not empty P_DTO}">
+										<div class="data">
+											<a href="javascript:void(0);"
+												onclick="checkLoginAndRedirect(${P_DTO.pet_notice_no});">
+												<img src="${P_DTO.popfile}" alt="펫이미지"
+												style="width: 250px; height: 300px;" />
+											</a>
+
+											<div>
+												<br>
+												<p style="display: block;">품종 : ${P_DTO.kindCd}</p>
+												<br>
+												<p style="display: block;">나이 : ${P_DTO.age}</p>
+												<br>
+												<p style="display: block;">무게 : ${P_DTO.weight}</p>
+												<br>
+												<p style="display: block;">성별 : ${P_DTO.sexCd}</p>
+												<br>
+												<p style="display: block;">특징 : ${P_DTO.specialMark}</p>
+												<br>
+
+											</div>
+
+										</div>
+									</c:if>
+								</c:forEach>
+								<c:if test="${empty response.petList}">
+									<table class="table">
+										<tr>
+											<td colspan="6" style="text-align: center;">검색된 결과가
+												없습니다.</td>
+										</tr>
+									</table>
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="container">
+						<div class="row">
+							<form method="get" name="search-form" action="${root}/pet/petall"
+								autocomplete="off">
+								<table id="table">
+									<tr>
+										<td><select id="form-control" class="form-control"
+											name="type">
+												<option value="allsearch"
+													<c:if test='${ param.type eq "allsearch" }'>selected="selected"</c:if>>전체검색</option>
+												<option value="careNm"
+													<c:if test='${ param.type eq "careNm" }'>selected="selected"</c:if>>보호소명</option>
+												<option value="careAddr"
+													<c:if test='${ param.type eq "careAddr" }'>selected="selected"</c:if>>주소</option>
+												<option value="kindCd"
+													<c:if test='${ param.type eq "kindCd" }'>selected="selected"</c:if>>품종</option>
+										</select></td>
+										<td><input type="text" class="form-control"
+											placeholder="검색어 입력" name="keyword" value=""></td>
+										<td><button type="submit"
+												onclick="return getSearchList();" class="btn btn-success">검색</button></td>
+									</tr>
+
+								</table>
+							</form>
+
+						</div>
+
+					</div>
+					<%@ include file="../import/page-pet_notice.jsp"%>
 
 				</div>
 
+
+
 			</div>
 		</main>
-		<footer class="py-4 bg-light mt-auto"> </footer>
 	</div>
+
+	<footer class="py-4 bg-light mt-auto"> </footer>
+
 
 
 </body>

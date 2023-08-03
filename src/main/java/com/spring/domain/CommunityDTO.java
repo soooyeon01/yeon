@@ -1,5 +1,7 @@
 package com.spring.domain;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,4 +18,5 @@ public class CommunityDTO {
     private int view_cnt;
     private int like_cnt;
     private int reply_cnt;
+    private List<CommunityAttachDTO> attachList;
 }

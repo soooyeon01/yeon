@@ -19,6 +19,7 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
      	<script>
      	
      	</script>
@@ -27,6 +28,10 @@
        a:hover{
                 background-color: #feeaa5;
             }
+            a {
+			   text-decoration-line: none;
+			   color: inherit;
+			}
             .main{
             padding-top: 0.7cm;
             padding-left: 1.0cm;
@@ -70,9 +75,12 @@
 		display : flex;
 		}
         </style>
-        
+        <style type="text/css">
+		  .nanum{ font-family: 'NanumSquareNeo'; }
+		  .nanumB{font-family: 'NanumSquareNeoBold';}      
+		</style>
     </head>
-   <body class="sb-nav-fixed bgcolor"> 
+   <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
           <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
                  <div class="input-group">
@@ -115,8 +123,8 @@
         </nav>
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-3 pt-3">
-				<h1 class="mt-1">커뮤니티 페이지</h1>
+			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
+				<h2 class="mt-1 mb-3">커뮤니티 페이지</h2>
 			<div id="tptp">
 				<div class="card mb-4  mytb">
 					<div class="card-header">
@@ -229,7 +237,7 @@
 				</div>
 				
 				<c:if test="${sessionScope.SESS_NICKNAME!=null}">
-				<input type="button" class="btn btn-warning" value="글쓰기" onclick="location.href='newCommu'">
+				<input type="button" class="btn btn-warning" style="float:right" value="글쓰기" onclick="location.href='newCommu'">
 				</c:if>
 				<%-- <%@ include file="../import/page-community.jsp" %> --%>
 				<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
