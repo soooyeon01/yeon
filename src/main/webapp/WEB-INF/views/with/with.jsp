@@ -120,6 +120,7 @@ table.table.table-bordered th {
 	font-family: 'NanumSquareNeo';
 	background-color: #f9f8f3;
 }
+
 </style>
 </head>
 <body class="sb-nav-fixed bgcolor">
@@ -277,8 +278,9 @@ table.table.table-bordered th {
 
 							<div class="container">
 								<div class="row">
-									<form method="get" name="search-form"
-										action="${root}/with/withall" autocomplete="off">
+									
+									<form class="form" method="get" name="search-form"
+										action="${root}/with/withall" autocomplete="off" >
 										<table class="pull-right">
 											<tr>
 												<td><select id="form-control" class="form-control"
@@ -299,17 +301,21 @@ table.table.table-bordered th {
 														onclick="return getSearchList();" class="btn btn-success">검색</button></td>
 											</tr>
 										</table>
-
+					
 										<input type="hidden" name="category3"
 											value="${param.category3}">
 									</form>
+							
+										<%@ include file="../import/page-with_pet.jsp"%>
+									
 								</div>
+								
 							</div>
-
+							
 						</div>
 					</div>
 
-					<%@ include file="../import/page-with_pet.jsp"%>
+					
 				</div>
 			</div>
 		</main>

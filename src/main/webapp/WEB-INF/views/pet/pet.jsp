@@ -51,7 +51,7 @@
 			    }	  
 	       </script>
 
-<<<<<<< HEAD
+
 <style>
 
 a:hover {
@@ -103,10 +103,6 @@ a {
 }
 </style>
 <style>
-.container {
-	display: flex;
-	flex-wrap: wrap;
-}
 
 .data {
 	width: 50%;
@@ -115,71 +111,7 @@ a {
 	padding: 10px;
 	box-sizing: border-box;
 }
-</style>
-</head>
-<body class="sb-nav-fixed bgcolor">
-=======
-	<style>
-		.nanum {
-			font-family: 'NanumSquareNeo';
-		}
 		
-		.nanumB {
-			font-family: 'NanumSquareNeoBold';
-		}
-		
-		a:hover {
-			background-color: #feeaa5;
-		}
-		
-		a {
-			text-decoration-line: none;
-			color: inherit;
-		}
-		
-		.main {
-			padding-top: 0.7cm;
-			padding-left: 1.0cm;
-			padding-right: 1.5cm;
-			padding-bottom: 3cm;
-			height: 120px;
-		}
-		
-		.bg-yellow { -
-			-bs-bg-opacity: 1;
-			background-color: #feeaa5 !important;
-		}
-		
-		.main1 {
-			border-bottom: 1px solid #645326;
-			padding-bottom: 2px;
-			padding-top: 2px;
-		}
-		
-		.tab {
-			padding-bottom: 0;
-			padding-top: 0;
-			border-bottom: 1px solid #645326;
-			border-top: 1px solid #645326;
-		}
-		
-		.img_main {
-			width: 60%;
-			margin: 0px auto;
-			display: block;
-			width: 250px;
-			height: 90px;
-		}
-		
-		.bgcolor {
-			background-color: #f9f8f3;
-		}
-		</style>
-		<style>
-		.container {
-			display: flex;
-			flex-wrap: wrap;
-		}
 		
 		.data {
 			width: 50%;
@@ -191,8 +123,8 @@ a {
 	</style>
 </head>
 
-<body class="sb-nav-fixed nanum">
->>>>>>> 1c51fbd211c1d1e918a144df74a03644f833d194
+<body class="sb-nav-fixed bgcolor">
+
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
@@ -299,7 +231,7 @@ a {
 
 
 						<div id="animals-container">
-							<div class="container">
+							<div class="container" style="display:flex; flex-wrap:wrap;">
 								<c:forEach var="P_DTO" items="${response.petList}">
 									<c:if test="${not empty P_DTO}">
 										<div class="data">
@@ -336,40 +268,31 @@ a {
 						</div>
 					</div>
 					<div class="container">
-						<div class="row">
-							<form method="get" name="search-form" action="${root}/pet/petall"
-								autocomplete="off">
-								<table id="table">
-									<tr>
-										<td><select id="form-control" class="form-control"
-											name="type">
-												<option value="allsearch"
-													<c:if test='${ param.type eq "allsearch" }'>selected="selected"</c:if>>전체검색</option>
-												<option value="careNm"
-													<c:if test='${ param.type eq "careNm" }'>selected="selected"</c:if>>보호소명</option>
-												<option value="careAddr"
-													<c:if test='${ param.type eq "careAddr" }'>selected="selected"</c:if>>주소</option>
-												<option value="kindCd"
-													<c:if test='${ param.type eq "kindCd" }'>selected="selected"</c:if>>품종</option>
-										</select></td>
-										<td><input type="text" class="form-control"
-											placeholder="검색어 입력" name="keyword" value=""></td>
-										<td><button type="submit"
-												onclick="return getSearchList();" class="btn btn-success">검색</button></td>
-									</tr>
-
-								</table>
-							</form>
-
-						</div>
-
+					    <div class="row">
+					        <div class="col-md-6">
+					            <form method="get" name="search-form" action="${root}/pet/petall" autocomplete="off">
+					                <table id="table">
+					                    <tr>
+					                        <td>
+					                            <select id="form-control" class="form-control" name="type">
+					                                <option value="allsearch" <c:if test='${param.type eq "allsearch"}'>selected="selected"</c:if>>전체검색</option>
+					                                <option value="careNm" <c:if test='${param.type eq "careNm"}'>selected="selected"</c:if>>보호소명</option>
+					                                <option value="careAddr" <c:if test='${param.type eq "careAddr"}'>selected="selected"</c:if>>주소</option>
+					                                <option value="kindCd" <c:if test='${param.type eq "kindCd"}'>selected="selected"</c:if>>품종</option>
+					                            </select>
+					                        </td>
+					                        <td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value=""></td>
+					                        <td><button type="submit" onclick="return getSearchList();" class="btn btn-success">검색</button></td>
+					                    </tr>
+					                </table>
+					            </form>
+					        </div>
+					        <div class="col-md-6 d-flex justify-content-end">
+					            <%@ include file="../import/page-pet_notice.jsp"%>
+					        </div>
+			   		 	</div>
 					</div>
-					<%@ include file="../import/page-pet_notice.jsp"%>
-
 				</div>
-
-
-
 			</div>
 		</main>
 	</div>
