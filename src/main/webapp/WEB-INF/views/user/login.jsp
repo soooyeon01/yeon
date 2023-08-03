@@ -99,7 +99,9 @@
                                     <div class="card-footer text-center py-3">
                                         <div class="small">
                                         <a href="${root}/user/join">회원가입</a>
+                                        <a>|</a>
                                         <a href="${root}/user/findEmail">이메일 찾기</a>
+                                        <a>|</a>
                                         <a href="${root}/user/findPwd">비밀번호 찾기</a>
                                         </div>
                                         

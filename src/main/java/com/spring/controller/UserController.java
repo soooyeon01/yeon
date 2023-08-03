@@ -31,6 +31,7 @@ import com.spring.service.FindPwdService;
 import com.spring.service.JoinService;
 import com.spring.service.LoginService;
 import com.spring.service.MembersService;
+import com.spring.util.SHAEncodeUtil;
 import com.spring.util.SendEmail; 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -59,11 +60,11 @@ public class UserController {
    }
    
    @PostMapping("/login")
-   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String pwd,
         HttpSession session,Model model,MembersDTO mdto) {
        //MembersDTO mdto = new MembersDTO();
        mdto.setEmail(email);
-       mdto.setPwd(password);
+       mdto.setPwd(SHAEncodeUtil.encodeSha(pwd));
        
        if(service.countLogin(mdto) == 1) {
           mdto=service.selectLogin(mdto);
@@ -86,16 +87,16 @@ public class UserController {
    
    @PostMapping("/join")
    public String joinpost(MembersDTO mdto, Model model) {
-      int isOk = 1;
-      if( servicej.registerMembers(mdto) == isOk) {
-         model.addAttribute("msg", "회원가입 완료"); 
-         model.addAttribute("url", "login"); 
-         return "alert";
-         
-      } else {
-         model.addAttribute("msg", "회원가입 실패"); 
-         return "alert";
-      } 
+     int isOk = 1;
+     mdto.setPwd(SHAEncodeUtil.encodeSha(mdto.getPwd())); // 비밀번호를 SHA-512로 암호화하여 저장
+     if(servicej.registerMembers(mdto) == isOk) {
+       model.addAttribute("msg", "회원가입 완료"); 
+       model.addAttribute("url", "login");
+       return "alert";
+     } else {
+       model.addAttribute("msg", "회원가입 실패"); 
+       return "alert";
+     } 
    }
    
    @ResponseBody

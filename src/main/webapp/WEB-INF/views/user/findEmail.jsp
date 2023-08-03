@@ -109,7 +109,6 @@
                                                 <input class="form-control" id="phone" name="phone" type="tel"  />
                                                 <label for="phone">핸드폰 번호</label>
                                             </div>
-
                                             
                                           	<div class="mt-4 mb-0">
 											<div class="d-grid">
@@ -122,6 +121,7 @@
                                         <div class="card-footer text-center py-3">
 	                                        <div class="small">
 	                                        <a href="${root}/user/join">회원가입</a>
+	                                        <a>|</a>
 	                                        <a href="${root}/user/login">로그인</a>
 	                                        </div>
                                 </div>

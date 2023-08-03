@@ -131,6 +131,7 @@
                                     <div class="card-footer text-center py-3">
                                         <div class="small">
                                         <a href="${root}/user/join">회원가입</a>
+                                        <a>|</a>
                                         <a href="${root}/user/login">로그인</a>
                                         </div>
                                         

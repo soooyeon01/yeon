@@ -42,7 +42,7 @@
             } 
             element  = document.getElementById("pwd");
             msg = "비밀번호를 입력하세요.";
-            if( !isValid (element,msg) ){
+            if(!isValid (element,msg) || !isPasswordValid(element.value)){
                 return false;
             }
             element  = document.getElementById("pwd-double-check");
@@ -109,6 +109,14 @@
                 boxSpan.textContent = "불일치함";
             }
 
+        }
+        //비밀번호 lenght
+        function isPasswordValid(password){
+            if(password.length < 8){
+                alert("비밀번호는 8자 이상이어야 합니다.");
+                return false;
+            }
+            return true;
         }
 		// 중복체크
             function nicknameCheck(){
