@@ -211,7 +211,6 @@ a {
 				</h2>
 
 				<div class="card mb-4">
-					<div class="card-header"></div>
 					<div class="card-body">
 						<select id="region-select">
 							<option value="">지역 선택</option>

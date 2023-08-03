@@ -147,7 +147,6 @@ a:hover {
 				<h1 class="mt-1">위드펫 즐겨찾기</h1>
 
 				<div class="card mb-4">
-					<div class="card-header"></div>
 					<div class="card-body">
 
 						<table class="table table-bordered">

@@ -233,7 +233,6 @@ a:hover {
 			</div>
 			<ol class="breadcrumb mb-4 pt-3">
 			</ol>
-			<div class="card-header"></div>
 			<div class="card-body">
 				<div align="center">
 

@@ -199,7 +199,6 @@ table.table.table-bordered th{
 			<ol class="breadcrumb mb-4 pt-3">
 			</ol>
 			<div class="card mb-4">
-				<div class="card-header"></div>
 				<div class="card-body">
 					<select id="region-select" name="region-select">
 						<option value="">지역 선택</option>

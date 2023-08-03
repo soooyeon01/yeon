@@ -313,7 +313,6 @@ table.table.table-bordered th{
 					<h1 class="mt-1">위드펫 상세</h1>
 
 					<div class="card mb-4">
-						<div class="card-header"></div>
 						<div class="card-body">
 
 							<button type="button" class="btn btn-warning" onclick="back();">목록</button>

@@ -148,7 +148,6 @@ a:hover {
 				<h1 class="mt-1">공고 즐겨찾기</h1>
 
 				<div class="card mb-4">
-					<div class="card-header"></div>
 					<div class="card-body">
 
 

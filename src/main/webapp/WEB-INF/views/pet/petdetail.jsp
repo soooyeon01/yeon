@@ -382,7 +382,6 @@ table.table.table-bordered {
 				<h1 class="mt-1">유기동물 공고 상세</h1>
 
 				<div class="card mb-4">
-					<div class="card-header"></div>
 					<div class="card-body">
 
 
