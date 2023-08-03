@@ -2,7 +2,6 @@ package com.spring.controller;
 
 import java.util.List;
 
-
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -170,21 +169,27 @@ public class FavoriteController {
 
 			// 메일 내용을 HTML 형식으로 설정
 			List<F_P_DTO> favoritepList = servicep.getPBoard(nickname);
-			StringBuilder emailContent = new StringBuilder("<h1>유기동물 공고 즐겨찾기 목록</h1><br><ul>");
-			for (F_P_DTO favItem : favoritepList) {
-				emailContent.append(formatFavItemAsHtml(favItem));
+			if (favoritepList.isEmpty()) {
+				model.addAttribute("msg", "이메일 전송 실패: 즐겨찾기 목록이 비어 있습니다.");
+				model.addAttribute("url", "/4jojo/fa/favoritep");
+				return "alert";
+			} else {
+				StringBuilder emailContent = new StringBuilder("<h1>유기동물 공고 즐겨찾기 목록</h1><br><ul>");
+				for (F_P_DTO favItem : favoritepList) {
+					emailContent.append(formatFavItemAsHtml(favItem));
+				}
+				emailContent.append("</ul>");
+
+				// HTML을 포함한 메시지 내용 설정
+				message.setContent(emailContent.toString(), "text/html; charset=UTF-8");
+
+				// 메시지 전송
+				Transport.send(message);
+				log.info("success");
+				model.addAttribute("msg", "이메일 전송 성공");
+				model.addAttribute("url", "/4jojo/fa/favoritep");
+				return "alert";
 			}
-			emailContent.append("</ul>");
-
-			// HTML을 포함한 메시지 내용 설정
-			message.setContent(emailContent.toString(), "text/html; charset=UTF-8");
-
-			// 메시지 전송
-			Transport.send(message);
-			log.info("success");
-			model.addAttribute("msg", "이메일 전송 성공");
-			model.addAttribute("url", "/4jojo/fa/favoritep");
-			return "alert";
 		} catch (MessagingException e) {
 			model.addAttribute("msg", "이메일 전송 실패");
 			model.addAttribute("url", "/4jojo/fa/favoritep");
@@ -249,21 +254,28 @@ public class FavoriteController {
 
 			// 메일 내용을 HTML 형식으로 설정
 			List<F_S_DTO> favoritesList = services.getSBoard(nickname);
-			StringBuilder emailContent = new StringBuilder("<h1>보호소 즐겨찾기 목록</h1><br><ul>");
-			for (F_S_DTO favItem : favoritesList) {
-				emailContent.append(formatFavItemAsHtml(favItem));
+			if (favoritesList.isEmpty()) {
+				model.addAttribute("msg", "이메일 전송 실패: 즐겨찾기 목록이 비어 있습니다.");
+				model.addAttribute("url", "/4jojo/fa/favorites");
+				return "alert";
+			} else {
+				StringBuilder emailContent = new StringBuilder("<h1>보호소 즐겨찾기 목록</h1><br><ul>");
+				for (F_S_DTO favItem : favoritesList) {
+					emailContent.append(formatFavItemAsHtml(favItem));
+				}
+
+				emailContent.append("</ul>");
+
+				// HTML을 포함한 메시지 내용 설정
+				message.setContent(emailContent.toString(), "text/html; charset=UTF-8");
+
+				// 메시지 전송
+				Transport.send(message);
+				log.info("success");
+				model.addAttribute("msg", "이메일 전송 성공");
+				model.addAttribute("url", "/4jojo/fa/favorites");
+				return "alert";
 			}
-			emailContent.append("</ul>");
-
-			// HTML을 포함한 메시지 내용 설정
-			message.setContent(emailContent.toString(), "text/html; charset=UTF-8");
-
-			// 메시지 전송
-			Transport.send(message);
-			log.info("success");
-			model.addAttribute("msg", "이메일 전송 성공");
-			model.addAttribute("url", "/4jojo/fa/favorites");
-			return "alert";
 		} catch (MessagingException e) {
 			model.addAttribute("msg", "이메일 전송 실패");
 			model.addAttribute("url", "/4jojo/fa/favorites");
@@ -329,26 +341,36 @@ public class FavoriteController {
 
 			// 메일 내용을 HTML 형식으로 설정
 			List<F_W_DTO> favoritewList = servicew.getWBoard(nickname);
-			StringBuilder emailContent = new StringBuilder("<h1>위드펫 즐겨찾기 목록</h1><br><ul>");
-			for (F_W_DTO favItem : favoritewList) {
-				emailContent.append(formatFavItemAsHtml(favItem));
+			if (favoritewList.isEmpty()) {
+				model.addAttribute("msg", "이메일 전송 실패: 즐겨찾기 목록이 비어 있습니다.");
+				model.addAttribute("url", "/4jojo/fa/favoritew");
+				return "alert";
+			} else {
+				StringBuilder emailContent = new StringBuilder("<h1>위드펫 즐겨찾기 목록</h1><br><ul>");
+				for (F_W_DTO favItem : favoritewList) {
+					emailContent.append(formatFavItemAsHtml(favItem));
+				}
+
+				emailContent.append("</ul>");
+
+				// HTML을 포함한 메시지 내용 설정
+				message.setContent(emailContent.toString(), "text/html; charset=UTF-8");
+
+				// 메시지 전송
+
+				Transport.send(message);
+				log.info("success");
+				model.addAttribute("msg", "이메일 전송 성공");
+				model.addAttribute("url", "/4jojo/fa/favoritew");
+				return "alert";
 			}
-			emailContent.append("</ul>");
-
-			// HTML을 포함한 메시지 내용 설정
-			message.setContent(emailContent.toString(), "text/html; charset=UTF-8");
-
-			// 메시지 전송
-			Transport.send(message);
-			log.info("success");
-			model.addAttribute("msg", "이메일 전송 성공");
-			model.addAttribute("url", "/4jojo/fa/favoritew");
-			return "alert";
 		} catch (MessagingException e) {
+
 			model.addAttribute("msg", "이메일 전송 실패");
 			model.addAttribute("url", "/4jojo/fa/favoritew");
 			e.printStackTrace();
 			return "alert";
+
 		}
 
 	}
