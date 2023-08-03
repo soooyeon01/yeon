@@ -204,7 +204,7 @@
             <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>마이페이지</b></h2>
             </div>
       
-            <div class="card mb-4" style="margin-left:150px; margin-right:150px;">
+            <div class="card mb-4" style="margin-left:150px; margin-right:138px;">
                <div class="card-header">
                    개인정보조회
                </div>
