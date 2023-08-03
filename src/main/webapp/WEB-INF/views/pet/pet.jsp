@@ -69,13 +69,6 @@
 	       </script>
 
 <style>
-.nanum {
-	font-family: 'NanumSquareNeo';
-}
-
-.nanumB {
-	font-family: 'NanumSquareNeoBold';
-}
 
 a:hover {
 	background-color: #feeaa5;
@@ -122,6 +115,7 @@ a {
 
 .bgcolor {
 	background-color: #f9f8f3;
+	font-family: 'NanumSquareNeo';
 }
 </style>
 <style>
@@ -139,7 +133,7 @@ a {
 }
 </style>
 </head>
-<body class="sb-nav-fixed nanum">
+<body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
@@ -261,10 +255,10 @@ a {
 											<a href="javascript:void(0);"
 												onclick="checkLoginAndRedirect(${P_DTO.pet_notice_no});">
 												<img src="${P_DTO.popfile}" alt="펫이미지"
-												style="width: 250px; height: 300px;" />
+												style="width: 250px; height: 300px; border:1px solid #feeaa5; border-radius: 10px;"/>
 											</a>
 
-											<div>
+											<div style=" margin-left:20px; ">
 												<br>
 												<p style="display: block;">품종 : ${P_DTO.kindCd}</p>
 												<br>

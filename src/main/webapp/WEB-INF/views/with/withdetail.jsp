@@ -168,13 +168,6 @@
 </script>
 
 <style>
-.nanum {
-	font-family: 'NanumSquareNeo';
-}
-
-.nanumB {
-	font-family: 'NanumSquareNeoBold';
-}
 
 a:hover {
 	background-color: #feeaa5;
@@ -216,6 +209,7 @@ a:hover {
 
 .bgcolor {
 	background-color: #f9f8f3;
+	font-family: 'NanumSquareNeo';
 }
 
 .img_fa1 {
@@ -244,7 +238,7 @@ table.table.table-bordered th{
 }
 </style>
 </head>
-<body class="sb-nav-fixed nanum">
+<body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form

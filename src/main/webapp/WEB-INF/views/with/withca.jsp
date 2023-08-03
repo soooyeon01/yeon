@@ -99,16 +99,22 @@
 	      }
 	   });
 	}
+  <!-- 카테고리 버튼 -->
+  $('.fun-btn').on('click', function(event) {
+	  $(this).toggleClass('start-fun');
+	  var $page = $('.page');
+	  $page.toggleClass('color-bg-start')
+	    .toggleClass('bg-animate-color');
 
+	  //change text when when button is clicked
+
+	  $(this).hasClass('start-fun') ?
+	    $(this).text('stop the fun') :
+	    $(this).text('start the fun');
+
+	});
   </script>
 <style>
-.nanum {
-	font-family: 'NanumSquareNeo';
-}
-
-.nanumB {
-	font-family: 'NanumSquareNeoBold';
-}
 
 .deleteMember {
 	color: darkgray;
@@ -159,10 +165,96 @@ a:hover {
 
 .bgcolor {
 	background-color: #f9f8f3;
+	font-family: 'NanumSquareNeo';
+}
+.page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+
+/* add default color for animation start  */
+
+
+/* toggle this class */
+
+.color-bg-start {
+  background-color: salmon;
+}
+
+
+/* toggle class bg-animate-color */
+
+.bg-animate-color {
+  animation: random-bg .5s linear infinite;
+}
+
+
+/* add animation to bg color  */
+
+@keyframes random-bg {
+  from {
+    filter: hue-rotate(0);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.fun-btn {
+  /* change bg color to get different hues    */
+  background-color: #feeaa5;
+  color: black;
+  padding: 2em 3em;
+  border:none;
+  transition: all .3s ease;
+  border-radius: 5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  outline: none;
+  align-self: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.fun-btn:hover {
+  animation: random-bg .5s linear infinite, grow 1300ms ease infinite;
+}
+
+.start-fun {
+  background-color: #fff !important;
+  /* change color of button text when fun is started   */
+  color: salmon !important;
+}
+
+/* pulsating effect on button */
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+.container{
+	display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
+    gap: 10px;
 }
 </style>
 </head>
-<body class="sb-nav-fixed nanum">
+<body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
@@ -226,7 +318,7 @@ a:hover {
 	<div id="layoutSidenav_content">
 
 		<main>
-			<div class="container-fluid px-10 pt-5 ps-4">
+			<div class="container-fluid px-10 pt-5 ps-4" style="width: 88%;">
 				<h2 class="mt-1">
 					<b>위드펫</b>
 				</h2>
@@ -239,41 +331,32 @@ a:hover {
 
 					<form id="myForm" action="${root}/with/withall" method="get">
 						<input type="hidden" id="category3" name="category3">
-						<h3>카페,식당</h3>
-						<button class="btn btn-warning" type="submit" value="카페"
-							onclick="submitForm(this.value)">카페</button>
-						<button class="btn btn-warning" type="submit" value="식당"
-							onclick="submitForm(this.value)">식당</button>
-						<br> <br>
-
-						<h3>여행</h3>
-						<button class="btn btn-warning" type="submit" value="여행지"
-							onclick="submitForm(this.value)">여행지</button>
-						<button class="btn btn-warning" type="submit" value="펜션"
-							onclick="submitForm(this.value)">펜션</button>
-						<button class="btn btn-warning" type="submit" value="호텔"
-							onclick="submitForm(this.value)">호텔</button>
-						<br> <br>
-
-						<h3>문화</h3>
-						<button class="btn btn-warning" type="submit" value="박물관"
-							onclick="submitForm(this.value)">박물관</button>
-						<button class="btn btn-warning" type="submit" value="미술관"
-							onclick="submitForm(this.value)">미술관</button>
-						<button class="btn btn-warning" type="submit" value="문예회관"
-							onclick="submitForm(this.value)">문예회관</button>
-						<br> <br>
-
-						<h3>케어</h3>
-						<button class="btn btn-warning" type="submit" value="동물병원"
-							onclick="submitForm(this.value)">동물병원</button>
-						<button class="btn btn-warning" type="submit" value="동물약국"
-							onclick="submitForm(this.value)">동물약국</button>
-						<button class="btn btn-warning" type="submit" value="위탁관리"
-							onclick="submitForm(this.value)">위탁관리</button>
-						<button class="btn btn-warning" type="submit" value="미용"
-							onclick="submitForm(this.value)">미용</button>
-						<br>
+						<div class="container">
+							<button class="fun-btn" type="submit" value="카페"
+								onclick="submitForm(this.value)">카페</button>
+							<button class="fun-btn" type="submit" value="식당"
+								onclick="submitForm(this.value)">식당</button>
+							<button class="fun-btn" type="submit" value="여행지"
+								onclick="submitForm(this.value)">여행지</button>
+							<button class="fun-btn" type="submit" value="박물관"
+								onclick="submitForm(this.value)">박물관</button>
+							<button class="fun-btn" type="submit" value="펜션"
+								onclick="submitForm(this.value)">펜션</button>
+							<button class="fun-btn" type="submit" value="호텔"
+								onclick="submitForm(this.value)">호텔</button>
+							<button class="fun-btn" type="submit" value="동물병원"
+								onclick="submitForm(this.value)">동물병원</button>
+							<button class="fun-btn" type="submit" value="미술관"
+								onclick="submitForm(this.value)">미술관</button>
+							<button class="fun-btn" type="submit" value="문예회관"
+								onclick="submitForm(this.value)">문예회관</button>
+							<button class="fun-btn" type="submit" value="동물약국"
+								onclick="submitForm(this.value)">동물약국</button>
+							<button class="fun-btn" type="submit" value="위탁관리"
+								onclick="submitForm(this.value)">위탁관리</button>
+							<button class="fun-btn" type="submit" value="미용"
+								onclick="submitForm(this.value)">미용</button>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -281,7 +364,7 @@ a:hover {
 		<footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">
 				<div class="d-flex align-items-center justify-content-between small">
-					<div class="text-muted">Copyright &copy; Your Website 2023</div>
+					
 
 					<div></div>
 				</div>

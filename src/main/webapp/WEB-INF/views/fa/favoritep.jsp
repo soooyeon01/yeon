@@ -75,6 +75,7 @@ a:hover {
 
 .bgcolor {
 	background-color: #f9f8f3;
+	font-family: 'NanumSquareNeo';
 }
 </style>
 </head>
