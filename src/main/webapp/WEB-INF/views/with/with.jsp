@@ -278,10 +278,10 @@ table.table.table-bordered th {
 
 							<div class="container">
 								<div class="row">
-									
+									<div class="col-md-6">
 									<form class="form" method="get" name="search-form"
 										action="${root}/with/withall" autocomplete="off" >
-										<table class="pull-right">
+										<table id="table">
 											<tr>
 												<td><select id="form-control" class="form-control"
 													name="type">
@@ -305,17 +305,16 @@ table.table.table-bordered th {
 										<input type="hidden" name="category3"
 											value="${param.category3}">
 									</form>
-							
-										<%@ include file="../import/page-with_pet.jsp"%>
-									
 								</div>
-								
+								 <div class="col-md-6 d-flex justify-content-end">
+								 	<%@ include file="../import/page-with_pet.jsp"%>
+								 </div>
 							</div>
 							
 						</div>
 					</div>
-
-					
+						
+					</div>
 				</div>
 			</div>
 		</main>
