@@ -66,6 +66,11 @@ a:hover {
 	background-color: #feeaa5;
 }
 
+a {
+	text-decoration-line: none;
+	color: inherit;
+}
+
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -103,6 +108,9 @@ a:hover {
 .bgcolor {
 	background-color: #f9f8f3;
 }
+table.table.table-bordered th{
+	background-color:#feeaa5;
+}
 </style>
 </head>
 <body class="sb-nav-fixed nanum">
@@ -111,10 +119,16 @@ a:hover {
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
 			<div class="input-group">
-				<% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-				<%System.out.println(email);%>
+				<%
+				String email = (String) session.getAttribute("SESS_EMAIL");
+				%>
+				<%
+				System.out.println(email);
+				%>
 
-				<%  if( email != null) { %>
+				<%
+				if (email != null) {
+				%>
 				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
 					환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
@@ -122,12 +136,16 @@ a:hover {
 				<button type="button" class="btn"
 					onclick="location.href='${root}/mypage/mypage'"
 					style="font-size: 14px;">마이페이지</button>
-				<%} else{%>
+				<%
+				} else {
+				%>
 				<button type="button" class="btn"
 					onclick="location.href='${root}/user/login'"
 					style="font-size: 14px;">로그인</button>
 
-				<%}  %>
+				<%
+				}
+				%>
 			</div>
 		</form>
 	</nav>
@@ -162,13 +180,12 @@ a:hover {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-3 pt-3">
-				<h1 class="mt-1">보호소</h1>
+				<h2 class="mt-1">
+					<b><a href="${root}/shel/shelall">보호소</a></b>
+				</h2>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
+					<div class="card-header"></div>
 					<div class="card-body">
 						<select id="region-select">
 							<option value="">지역 선택</option>

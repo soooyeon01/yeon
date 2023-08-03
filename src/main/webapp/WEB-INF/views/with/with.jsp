@@ -117,7 +117,9 @@ a:hover {
 	width: 250px;
 	height: 90px;
 }
-
+table.table.table-bordered th{
+	background-color:#feeaa5;
+}
 .bgcolor {
 	background-color: #f9f8f3;
 }
@@ -129,10 +131,16 @@ a:hover {
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
 			<div class="input-group">
-				<% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-				<%System.out.println(email);%>
+				<%
+				String email = (String) session.getAttribute("SESS_EMAIL");
+				%>
+				<%
+				System.out.println(email);
+				%>
 
-				<%  if( email != null) { %>
+				<%
+				if (email != null) {
+				%>
 				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
 					환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
@@ -140,12 +148,16 @@ a:hover {
 				<button type="button" class="btn"
 					onclick="location.href='${root}/mypage/mypage'"
 					style="font-size: 14px;">마이페이지</button>
-				<%} else{%>
+				<%
+				} else {
+				%>
 				<button type="button" class="btn"
 					onclick="location.href='${root}/user/login'"
 					style="font-size: 14px;">로그인</button>
 
-				<%}  %>
+				<%
+				}
+				%>
 			</div>
 		</form>
 	</nav>
@@ -187,10 +199,7 @@ a:hover {
 			<ol class="breadcrumb mb-4 pt-3">
 			</ol>
 			<div class="card mb-4">
-				<div class="card-header">
-					<i class="fas fa-table me-1"></i>
-
-				</div>
+				<div class="card-header"></div>
 				<div class="card-body">
 					<select id="region-select" name="region-select">
 						<option value="">지역 선택</option>
@@ -236,7 +245,7 @@ a:hover {
 					</div>
 
 					<div id="with-container">
-						<table class="datatable-table" id="table">
+						<table class="table table-bordered">
 
 							<thead>
 								<tr>
@@ -251,7 +260,7 @@ a:hover {
 							<tbody>
 
 								<c:forEach var="W_DTO" items="${response.withList}">
-									<tr onclick="checkLoginAndRedirect(${W_DTO.with_pet_no});">
+									<tr onclick="checkLoginAndRedirect(${W_DTO.with_pet_no});" style="cursor: pointer">
 										<!-- pageScope에 vo가 생성되었다.  -->
 
 										<td>${W_DTO.building}</td>

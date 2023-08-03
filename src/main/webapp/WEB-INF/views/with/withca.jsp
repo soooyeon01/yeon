@@ -168,20 +168,30 @@ a:hover {
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
 			<div class="input-group">
-				<% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-				<%System.out.println(id);%>
+				<%
+				String id = (String) session.getAttribute("SESS_EMAIL");
+				%>
+				<%
+				System.out.println(id);
+				%>
 
-				<%  if( id != null) { %>
+				<%
+				if (id != null) {
+				%>
 				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
 					환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
 					style="font-size: 14px;">로그아웃</button>
 				<button type="button" class="btn" onclick="mypage();"
 					style="font-size: 14px;">마이페이지</button>
-				<%} else{%>
+				<%
+				} else {
+				%>
 				<button type="button" class="btn" onclick="login();"
 					style="font-size: 14px;">로그인</button>
-				<%}  %>
+				<%
+				}
+				%>
 			</div>
 		</form>
 	</nav>
@@ -235,8 +245,7 @@ a:hover {
 							onclick="submitForm(this.value)">카페</button>
 						<button class="btn btn-warning" type="submit" value="식당"
 							onclick="submitForm(this.value)">식당</button>
-						<br>
-						<br>
+						<br> <br>
 
 						<h3>여행</h3>
 						<button class="btn btn-warning" type="submit" value="여행지"
@@ -245,8 +254,7 @@ a:hover {
 							onclick="submitForm(this.value)">펜션</button>
 						<button class="btn btn-warning" type="submit" value="호텔"
 							onclick="submitForm(this.value)">호텔</button>
-						<br>
-						<br>
+						<br> <br>
 
 						<h3>문화</h3>
 						<button class="btn btn-warning" type="submit" value="박물관"
@@ -255,8 +263,7 @@ a:hover {
 							onclick="submitForm(this.value)">미술관</button>
 						<button class="btn btn-warning" type="submit" value="문예회관"
 							onclick="submitForm(this.value)">문예회관</button>
-						<br>
-						<br>
+						<br> <br>
 
 						<h3>케어</h3>
 						<button class="btn btn-warning" type="submit" value="동물병원"

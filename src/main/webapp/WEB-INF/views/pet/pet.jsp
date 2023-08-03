@@ -211,10 +211,7 @@ a {
 				</h2>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
+					<div class="card-header"></div>
 					<div class="card-body">
 						<select id="region-select">
 							<option value="">지역 선택</option>
@@ -333,10 +330,11 @@ a {
 
 
 			</div>
+		</main>
 	</div>
-	</main>
+
 	<footer class="py-4 bg-light mt-auto"> </footer>
-	</div>
+
 
 
 </body>

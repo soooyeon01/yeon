@@ -38,139 +38,140 @@
 
 
 <script>
-		function getInitialFavoriteStatus() {
-		    $.ajax({
-		        url: "${pageContext.servletContext.contextPath}/fa/favorites",
-		        async:false,
-		        type: "POST",
-		        success: function(data) {
-		            applyImageDisplayStatus(data);
-		            
-		        },
-		        error: function(jqXHR, textStatus, errorThrown) {
-		            console.log(jqXHR);
-		            console.log(textStatus);
-		            console.log(errorThrown);
-		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
-		        }
-		    });
-		}
-		  function applyImageDisplayStatus(favoriteStatus) {
-		        $('.img_fa1, .img_fa2').each(function () {
-		            var img_fa1 = $(this).closest('label').find('.img_fa1');
-		            var img_fa2 = $(this).closest('label').find('.img_fa2');
-		            var key = parseInt($(this).closest('label').find('.img_fa1').attr('data-value'));
-		            
-		            if (favoriteStatus.indexOf(key) >= 1) { // 좋아요 정보가 있는 경우
-		                // 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
-		                img_fa1.hide();
-		                img_fa2.show();
-		            } else { // 좋아요 정보가 없는 경우
-		                // 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
-		                img_fa1.show();
-		                img_fa2.hide();
-		            }
-		        });
-		    }
-		function applyImageCheckboxStyle() {
-		    $('.img_fa1, .img_fa2').on('click', function () {
-		        var img_fa1 = $(this).closest('label').find('.img_fa1');
-		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+	function getInitialFavoriteStatus() {
+		$.ajax({
+			url : "${pageContext.servletContext.contextPath}/fa/favorites",
+			async : false,
+			type : "POST",
+			success : function(data) {
+				applyImageDisplayStatus(data);
 
-		        img_fa1.toggle();
-		        img_fa2.toggle();
-
-		        setImageDisplayStatus(img_fa1, img_fa2);
-		    });
-		}
-
-		function setImageDisplayStatus(img_fa1, img_fa2) {
-		    var key = img_fa1.data('value');
-		    var visible = img_fa2.is(':visible');
-		    localStorage.setItem(key, visible);
-		}
-
-		
-
-		$(document).ready(function () {
-		    applyImageCheckboxStyle();
-		    getInitialFavoriteStatus(); // Load stored status on page load
-
-		    $(".img_fa1, .img_fa2").on("click", function () {
-		        var img_fa1 = $(this).closest('label').find('.img_fa1');
-		        var img_fa2 = $(this).closest('label').find('.img_fa2');
-		        var isChecked = img_fa2.is(':visible');
-
-		        if (isChecked) {
-		            // 체크가 선택된 경우
-		            sendFavorites(img_fa1);
-		        } else {
-		            // 체크가 해제된 경우
-		            removeFavorites(img_fa2);
-		        }
-		    });
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+				alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+			}
 		});
-		
-		function sendFavorites(img_fa1) {
-		    var favorites = img_fa1.data("value");
-		    console.log(favorites);
-		    $.ajax({
-		        url: "${pageContext.servletContext.contextPath}/shel/registershel",
-		        type: "POST",
-		        data: {
-		           shelter_no: favorites
-		        },
-		        dataType: "json",
-		        success: function(data) {
-		        	console.log(data);
-		            if (data.result === 1) {
-		                alert("등록되었습니다.");
-		                
-		            }else{
-		            	alert("등록되었습니다.");
-		            	
-		            }
-		          
-		        },
-		        error: function(jqXHR, textStatus, errorThrown) {
-		            console.log(jqXHR);
-		            console.log(textStatus);
-		            console.log(errorThrown);
-		            alert("오류가 발생했습니다. 다시 시도해주세요.");
-		        }
-		    });
-		}
-		function removeFavorites(img_fa2) {
-		    var favorites = img_fa2.data("value");
+	}
+	function applyImageDisplayStatus(favoriteStatus) {
+		$('.img_fa1, .img_fa2').each(
+				function() {
+					var img_fa1 = $(this).closest('label').find('.img_fa1');
+					var img_fa2 = $(this).closest('label').find('.img_fa2');
+					var key = parseInt($(this).closest('label')
+							.find('.img_fa1').attr('data-value'));
 
-		    $.ajax({
-		        url: "${pageContext.servletContext.contextPath}/shel/removeshel",
-		        type: "POST",
-		        data: {
-		            shelter_no: favorites
-		        },
-		        dataType: "json",
-		        success: function(data) {
-		            if (data.result === 1) {
-		                alert("삭제되었습니다.");
-		                console.log(data.result);
-		            } else {
-		                alert("삭제되었습니다.");
-		              
-		            }
-		        },
-		        error: function(jqXHR, textStatus, errorThrown) {
-		            console.log(jqXHR);
-		            console.log(textStatus);
-		            console.log(errorThrown);
-		            alert("오류가 발생했습니다. 다시 시도해주세요.");
-		        }
-		    });
-		}
-		function back(){
-			window.location = document.referrer;
-		}
-			  </script>
+					if (favoriteStatus.indexOf(key) >= 1) { // 좋아요 정보가 있는 경우
+						// 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
+						img_fa1.hide();
+						img_fa2.show();
+					} else { // 좋아요 정보가 없는 경우
+						// 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
+						img_fa1.show();
+						img_fa2.hide();
+					}
+				});
+	}
+	function applyImageCheckboxStyle() {
+		$('.img_fa1, .img_fa2').on('click', function() {
+			var img_fa1 = $(this).closest('label').find('.img_fa1');
+			var img_fa2 = $(this).closest('label').find('.img_fa2');
+
+			img_fa1.toggle();
+			img_fa2.toggle();
+
+			setImageDisplayStatus(img_fa1, img_fa2);
+		});
+	}
+
+	function setImageDisplayStatus(img_fa1, img_fa2) {
+		var key = img_fa1.data('value');
+		var visible = img_fa2.is(':visible');
+		localStorage.setItem(key, visible);
+	}
+
+	$(document).ready(function() {
+		applyImageCheckboxStyle();
+		getInitialFavoriteStatus(); // Load stored status on page load
+
+		$(".img_fa1, .img_fa2").on("click", function() {
+			var img_fa1 = $(this).closest('label').find('.img_fa1');
+			var img_fa2 = $(this).closest('label').find('.img_fa2');
+			var isChecked = img_fa2.is(':visible');
+
+			if (isChecked) {
+				// 체크가 선택된 경우
+				sendFavorites(img_fa1);
+			} else {
+				// 체크가 해제된 경우
+				removeFavorites(img_fa2);
+			}
+		});
+	});
+
+	function sendFavorites(img_fa1) {
+		var favorites = img_fa1.data("value");
+		console.log(favorites);
+		$
+				.ajax({
+					url : "${pageContext.servletContext.contextPath}/shel/registershel",
+					type : "POST",
+					data : {
+						shelter_no : favorites
+					},
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+						if (data.result === 1) {
+							alert("등록되었습니다.");
+
+						} else {
+							alert("등록되었습니다.");
+
+						}
+
+					},
+					error : function(jqXHR, textStatus, errorThrown) {
+						console.log(jqXHR);
+						console.log(textStatus);
+						console.log(errorThrown);
+						alert("오류가 발생했습니다. 다시 시도해주세요.");
+					}
+				});
+	}
+	function removeFavorites(img_fa2) {
+		var favorites = img_fa2.data("value");
+
+		$.ajax({
+			url : "${pageContext.servletContext.contextPath}/shel/removeshel",
+			type : "POST",
+			data : {
+				shelter_no : favorites
+			},
+			dataType : "json",
+			success : function(data) {
+				if (data.result === 1) {
+					alert("삭제되었습니다.");
+					console.log(data.result);
+				} else {
+					alert("삭제되었습니다.");
+
+				}
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR);
+				console.log(textStatus);
+				console.log(errorThrown);
+				alert("오류가 발생했습니다. 다시 시도해주세요.");
+			}
+		});
+	}
+	function back() {
+		window.location = document.referrer;
+	}
+</script>
 <style>
 .nanum {
 	font-family: 'NanumSquareNeo';
@@ -243,6 +244,9 @@ table.table.table-bordered {
 	margin-top: 50px;
 	margin-left: 350px;
 }
+table.table.table-bordered th{
+	background-color:#feeaa5;
+}
 </style>
 </head>
 <body class="sb-nav-fixed nanum">
@@ -251,10 +255,16 @@ table.table.table-bordered {
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
 			<div class="input-group">
-				<% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-				<%System.out.println(email);%>
+				<%
+				String email = (String) session.getAttribute("SESS_EMAIL");
+				%>
+				<%
+				System.out.println(email);
+				%>
 
-				<%  if( email != null) { %>
+				<%
+				if (email != null) {
+				%>
 				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
 					환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
@@ -262,22 +272,26 @@ table.table.table-bordered {
 				<button type="button" class="btn"
 					onclick="location.href='${root}/mypage/mypage'"
 					style="font-size: 14px;">마이페이지</button>
-				<%} else{%>
+				<%
+				} else {
+				%>
 				<button type="button" class="btn"
 					onclick="location.href='${root}/user/login'"
 					style="font-size: 14px;">로그인</button>
 
-				<%}  %>
+				<%
+				}
+				%>
 			</div>
 		</form>
 	</nav>
 	<script>
-               function logout() {
-             if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/user/logout";
-                }
-         }
-            </script>
+		function logout() {
+			if (confirm("로그아웃 하시겠습니까?")) {
+				location.href = "${root}/user/logout";
+			}
+		}
+	</script>
 	<!-- 로고 -->
 	<nav class="main bg-white">
 		<a class="mainlogo" href="${root}/main/main"> <img
@@ -305,10 +319,7 @@ table.table.table-bordered {
 				<h1 class="mt-1">보호소 목록 상세</h1>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
+					<div class="card-header"></div>
 
 
 					<div class="card-body">
@@ -424,46 +435,49 @@ table.table.table-bordered {
 			<script type="text/javascript"
 				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
 			<script>
-			var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-			    mapOption = {
-			        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			        level: 3 // 지도의 확대 레벨
-			    };  
-		
-			// 지도를 생성
-			var map = new kakao.maps.Map(mapContainer, mapOption); 
-			
-			// 주소-좌표 변환 객체를 생성
-			var geocoder = new kakao.maps.services.Geocoder();
-			
-			
-			// 주소로 좌표를 검색
-			geocoder.addressSearch('${address}', function(result, status) {
-			
-			    // 정상적으로 검색이 완료됐으면 
-			     if (status === kakao.maps.services.Status.OK) {
-			
-			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-			
-			        // 결과값으로 받은 위치를 마커로 표시
-			        var marker = new kakao.maps.Marker({
-			            map: map,
-			            position: coords
-			        });
-			
-			        // 인포윈도우로 장소에 대한 설명을 표시
-			        var infowindow = new kakao.maps.InfoWindow({
-			            content: '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
-			        });
-			        infowindow.open(map, marker);
-			
-			        // 지도의 중심을 결과값으로 받은 위치로 이동
-			        map.setCenter(coords);
-			    } 
-			});   
-			
-			
-		</script>
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+				mapOption = {
+					center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+					level : 3
+				// 지도의 확대 레벨
+				};
+
+				// 지도를 생성
+				var map = new kakao.maps.Map(mapContainer, mapOption);
+
+				// 주소-좌표 변환 객체를 생성
+				var geocoder = new kakao.maps.services.Geocoder();
+
+				// 주소로 좌표를 검색
+				geocoder
+						.addressSearch(
+								'${address}',
+								function(result, status) {
+
+									// 정상적으로 검색이 완료됐으면 
+									if (status === kakao.maps.services.Status.OK) {
+
+										var coords = new kakao.maps.LatLng(
+												result[0].y, result[0].x);
+
+										// 결과값으로 받은 위치를 마커로 표시
+										var marker = new kakao.maps.Marker({
+											map : map,
+											position : coords
+										});
+
+										// 인포윈도우로 장소에 대한 설명을 표시
+										var infowindow = new kakao.maps.InfoWindow(
+												{
+													content : '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
+												});
+										infowindow.open(map, marker);
+
+										// 지도의 중심을 결과값으로 받은 위치로 이동
+										map.setCenter(coords);
+									}
+								});
+			</script>
 		</main>
 
 	</div>

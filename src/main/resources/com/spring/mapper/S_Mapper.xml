@@ -2,9 +2,42 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  <mapper namespace="com.spring.mapper.S_Mapper">
-  
-   <select id="selectRegionShel" resultType="com.spring.domain.S_DTO">
+<mapper namespace="com.spring.mapper.S_Mapper">
+	<!-- 페이징을 포함한 보호소 전체리스트 조회 -->
+	<select id="selectAllBoardByPage" resultType="com.spring.domain.S_DTO">
+  		<![CDATA[
+  		SELECT * FROM (
+				SELECT
+				 ROWNUM as rn
+				,shelter_no  
+				,careNm  
+				,divisionNm 
+				,saveTrgtAnimal 
+				,careAddr 
+				,weekOprStime 
+				,weekOprEtime
+				,weekCellStime 
+				,weekCellEtime  
+				,weekendOprStime  
+				,weekendOprEtime  
+				,weekendCellStime 
+				,weekendCellEtime 
+				,closeDay 
+				,careTel
+				FROM  shelter 
+				WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )   
+				       )
+				WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} ) 
+				]]>
+	</select>
+	
+	<!-- 전체 보호소 목록 개수 -->
+	<select id="selectCountAllBoard" parameterType="int" resultType="int">
+		SELECT COUNT(1)FROM shelter
+	</select>
+	
+	<!-- 보호소 지역별 조회  -->
+	<select id="selectRegionShel" resultType="com.spring.domain.S_DTO">
     <![CDATA[
   		SELECT * FROM (
 				SELECT
@@ -30,15 +63,19 @@
 				       )
 				WHERE rn > ( ( #{pageMaker.cri.pageNum} - 1 ) * #{pageMaker.cri.amount} ) 
 				]]>
-</select>
-  
-  	<select id="selectCountRegionShel" parameterType="string" resultType="int">	
-  		
-  			SELECT COUNT(1) FROM shelter WHERE(SUBSTR(careaddr, 1, INSTR(careaddr, ' ') - 1)) = #{region}
-  		
-  	</select>
-  
-  <select id="selectS" resultType="com.spring.domain.S_DTO">
+	</select>
+	
+	<!-- 보호소 지역별 조회 개수 -->
+	<select id="selectCountRegionShel" parameterType="string"
+		resultType="int">
+
+		SELECT COUNT(1) FROM shelter WHERE(SUBSTR(careaddr, 1, INSTR(careaddr, ' ')
+		- 1)) = #{region}
+
+	</select>
+	
+	<!-- 보호소 상세조회 -->
+	<select id="selectS" resultType="com.spring.domain.S_DTO">
   		<![CDATA[
   		SELECT  
 			shelter_no
@@ -58,84 +95,54 @@
 			 ,careTel
 			 FROM shelter where shelter_no=#{shelter_no}
 			 ]]>
-  	</select>
-  	
-  	<select id="selectAllBoard" resultType="com.spring.domain.S_DTO">
-  		SELECT * FROM shelter
-  	</select>
-  	 <select id="selectCountAllBoard" parameterType="int" resultType="int">	
-  			SELECT COUNT(1)FROM shelter
-  		</select>
-  	
-  	<select id="selectAllBoardByPage" resultType="com.spring.domain.S_DTO">
-  		<![CDATA[
-  		SELECT * FROM (
-				SELECT
-				 ROWNUM as rn
-				,shelter_no  
-				,careNm  
-				,divisionNm 
-				,saveTrgtAnimal 
-				,careAddr 
-				,weekOprStime 
-				,weekOprEtime
-				,weekCellStime 
-				,weekCellEtime  
-				,weekendOprStime  
-				,weekendOprEtime  
-				,weekendCellStime 
-				,weekendCellEtime 
-				,closeDay 
-				,careTel
-				FROM  shelter 
-				WHERE ROWNUM <= ( #{cri.pageNum} * #{cri.amount} )   
-				       )
-				WHERE rn > ( ( #{cri.pageNum} - 1 ) * #{cri.amount} ) 
-				]]>
-  	</select>
-  	<insert id="insertShelterData">
-  		INSERT INTO favorites( 
-						favorites_no
-						,nickname 
-						,favorites_reg_date
-						,shelter_no 
-						,careNm  
-						,divisionNm 
-						,saveTrgtAnimal 
-						,careAddr 
-						,weekOprStime 
-						,weekOprEtime
-						,weekCellStime 
-						,weekCellEtime  
-						,weekendOprStime  
-						,weekendOprEtime  
-						,weekendCellStime 
-						,weekendCellEtime 
-						,closeDay 
-						,careTel
-						)
-						values(
-						seq_favorites_no.nextval
-						,#{nickname}
-						,sysdate
-						,(SELECT shelter_no from shelter where shelter_no=#{dto.shelter_no})
-						,(SELECT careNm FROM shelter WHERE careNm = #{dto.careNm,jdbcType=VARCHAR})
-						,(SELECT divisionNm FROM shelter WHERE divisionNm = #{dto.divisionNm,jdbcType=VARCHAR})
-						,(SELECT saveTrgtAnimal FROM shelter WHERE saveTrgtAnimal = #{dto.saveTrgtAnimal,jdbcType=VARCHAR})
-						,(SELECT careAddr FROM shelter WHERE careAddr = #{dto.careAddr,jdbcType=VARCHAR})
-						,(SELECT weekOprStime FROM shelter WHERE weekOprStime = #{dto.weekOprStime,jdbcType=VARCHAR})
-						,(SELECT weekOprEtime FROM shelter WHERE weekOprEtime = #{dto.weekOprEtime,jdbcType=VARCHAR})
-						,(SELECT weekCellStime FROM shelter WHERE weekCellStime = #{dto.weekCellStime,jdbcType=VARCHAR})
-						,(SELECT weekCellEtime FROM shelter WHERE weekCellEtime = #{dto.weekCellEtime,jdbcType=VARCHAR})
-						,(SELECT weekendOprStime FROM shelter WHERE weekendOprStime = #{dto.weekendOprStime,jdbcType=VARCHAR})
-						,(SELECT weekendOprEtime FROM shelter WHERE weekendOprEtime = #{dto.weekendOprEtime,jdbcType=VARCHAR})
-						,(SELECT weekendCellStime FROM shelter WHERE weekendCellStime = #{dto.weekendCellStime,jdbcType=VARCHAR})
-						,(SELECT weekendCellEtime FROM shelter WHERE weekendCellEtime = #{dto.weekendCellEtime,jdbcType=VARCHAR})
-						,(SELECT closeDay FROM shelter WHERE closeDay = #{dto.closeDay,jdbcType=VARCHAR})
-						,(SELECT careTel FROM shelter WHERE careTel = #{dto.careTel,jdbcType=VARCHAR})
-						)
-  	</insert>
-  	<delete id="deleteShelterData">
-  		DELETE FROM favorites WHERE shelter_no=#{shelter_no}
-  	</delete>
-  	</mapper>
+	</select>
+
+	<!-- 보호소 즐겨찾기 등록 -->
+	<insert id="insertShelterData">
+		INSERT INTO favorites(
+		favorites_no
+		,nickname
+		,favorites_reg_date
+		,shelter_no
+		,careNm
+		,divisionNm
+		,saveTrgtAnimal
+		,careAddr
+		,weekOprStime
+		,weekOprEtime
+		,weekCellStime
+		,weekCellEtime
+		,weekendOprStime
+		,weekendOprEtime
+		,weekendCellStime
+		,weekendCellEtime
+		,closeDay
+		,careTel
+		)
+		values(
+		seq_favorites_no.nextval
+		,#{nickname}
+		,sysdate
+		,(SELECT shelter_no from shelter where shelter_no=#{dto.shelter_no})
+		,(SELECT careNm FROM shelter WHERE careNm = #{dto.careNm,jdbcType=VARCHAR})
+		,(SELECT divisionNm FROM shelter WHERE divisionNm = #{dto.divisionNm,jdbcType=VARCHAR})
+		,(SELECT saveTrgtAnimal FROM shelter WHERE saveTrgtAnimal = #{dto.saveTrgtAnimal,jdbcType=VARCHAR})
+		,(SELECT careAddr FROM shelter WHERE careAddr = #{dto.careAddr,jdbcType=VARCHAR})
+		,(SELECT weekOprStime FROM shelter WHERE weekOprStime = #{dto.weekOprStime,jdbcType=VARCHAR})
+		,(SELECT weekOprEtime FROM shelter WHERE weekOprEtime = #{dto.weekOprEtime,jdbcType=VARCHAR})
+		,(SELECT weekCellStime FROM shelter WHERE weekCellStime = #{dto.weekCellStime,jdbcType=VARCHAR})
+		,(SELECT weekCellEtime FROM shelter WHERE weekCellEtime = #{dto.weekCellEtime,jdbcType=VARCHAR})
+		,(SELECT weekendOprStime FROM shelter WHERE weekendOprStime = #{dto.weekendOprStime,jdbcType=VARCHAR})
+		,(SELECT weekendOprEtime FROM shelter WHERE weekendOprEtime = #{dto.weekendOprEtime,jdbcType=VARCHAR})
+		,(SELECT weekendCellStime FROM shelter WHERE weekendCellStime = #{dto.weekendCellStime,jdbcType=VARCHAR})
+		,(SELECT weekendCellEtime FROM shelter WHERE weekendCellEtime = #{dto.weekendCellEtime,jdbcType=VARCHAR})
+		,(SELECT closeDay FROM shelter WHERE closeDay = #{dto.closeDay,jdbcType=VARCHAR})
+		,(SELECT careTel FROM shelter WHERE careTel = #{dto.careTel,jdbcType=VARCHAR})
+		)
+	</insert>
+	
+	<!-- 보호소 즐겨찾기 삭제 -->
+	<delete id="deleteShelterData">
+		DELETE FROM favorites WHERE shelter_no=#{shelter_no}
+	</delete>
+</mapper>
