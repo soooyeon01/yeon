@@ -63,7 +63,7 @@
 		.nanumB{font-family: 'NanumSquareNeoBold';}		
 		</style>
 	<style> 
-
+		
        a:hover{
                 background-color: #feeaa5;
             }
@@ -145,20 +145,20 @@
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
     </div>
-    <div class="carousel-inner" >
-      <div class="carousel-item" >
-      <img class = "mainbanner" src="../resources/image/mainb1.png" style="width: auto; height:500px;"/>
+    <div class="carousel-inner mybanner" >
+      <div class="carousel-item " >
+      <img class = "mainbanner" src="../resources/image/mainb1.png" style="max-width: 100%; height:500px; overflow:hidden; object-fit: none;"/>
      
         <div class="container">        
           <div class="carousel-caption text-start">                                  
           </div>
         </div>
       </div>
-      <div class="carousel-item active">
-       <img class = "mainbanner" src="../resources/image/mainb2.png" style="width: auto; height:500px;"/>
+      <div class="carousel-item active ">
+       <img class = "mainbanner" src="../resources/image/mainb3.png" style="max-width: 100%; height:500px; overflow:hidden; object-fit: none;"/>
       </div>
       <div class="carousel-item">
-      <img class = "mainbanner" src="../resources/image/mainb3.png" style="width: auto; height:500px;"/>
+      <img class = "mainbanner" src="../resources/image/mainb2.png" style="max-width: 100%; height:500px; overflow:hidden; object-fit: none;"/>
         <div class="container">
         </div>
       </div>
@@ -212,7 +212,7 @@
     <div class="row featurette">
       <div class="col-md-6"  style="margin-left:30px">
       <br><br><br><br><br><br>
-        <h3 class="featurette-heading fw-normal lh-1 nanumB">옥독캣에 오신 걸 환영합니다<span class="text-body-secondary"></span></h3>
+        <h3 class="featurette-heading fw-normal lh-1 nanumB">옥독캣에 오신 걸 환영합니다!<span class="text-body-secondary"></span></h3>
        <br>  
         <p class="lead" style="font-size:17px">'옥독캣'은 유기 동물들에게 새로운 가족과 행복한 삶을 선사하기 위해 만들어진 공간입니다.
         우리와 함께 이 작은 세상에서 온전한 포옹과 따스함을 전달할 수 있는 동반자를 찾아보세요.
