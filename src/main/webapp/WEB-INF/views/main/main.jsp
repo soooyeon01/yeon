@@ -14,7 +14,7 @@
         
         
         <title>옥독캣</title>
-        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet"> <!-- 폰트 -->
         <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <link href="${root}/resources/bootstrap/js/bootstrap.min.js"/>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
@@ -40,15 +40,7 @@
 	      
 	      function main(){
 	    		location.href = "${pageContext.servletContext.contextPath}/main/main";
-	   	 }
-	      function logplz() {
-	    	  var uid ='<%=(String)session.getAttribute("SESS_EMAIL")%>';
-	   
-	   			console.log(uid+"뿡");
-	    	  if(uid==null){
-	    	  alert("로그인해라 조은말로할때...");
-	    	  }
-	      }
+	   	 }	     
 	      
      	</script>
      	<!-- 폰트 -->
@@ -99,42 +91,50 @@
           .mainpage{
          background-color: #f9f8f3;
           }
-          
-        </style>
-        
-    </head>
-   <body class="sb-nav-fixed nanum"> 
+       /* a태그 스타일 */
+          a {
+   text-decoration-line: none;
+   color: inherit;
+   }
+</style>
+</head>
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-        <%  if( id != null) { %>
-        <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
-                   
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                 
-             
-            <%}  %>
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-                    
+            </form>     
+            </nav>         
+            
          <!-- 로고 -->              
-       <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main/main" >
+        <nav class="main bg-white" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
-        </nav> 
+        </nav>
+        
+        <!-- 상단바 메뉴 -->
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist" onclick="logplz();"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
-            </nav> 
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>
 
                 
     <main class = "mainpage nanum">

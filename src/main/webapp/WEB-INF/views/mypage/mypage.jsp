@@ -27,26 +27,18 @@
  
   <script>
 
-  
- 	function main(){
-  		location.href = "${root}/main/main";
- 	 }
-
    	function logout() {
 		if (confirm("로그아웃 하시겠습니까?")) {
 		location.href = "${root}/user/logout";
 	 	}
 	}
-  <!-- 마이페이지 --> 
  
   function mypaper(){
 		let nickname=document.getElementsByName("nickname").value;
 		location.href = "${root}/community/myclist";
 		  return true;	  
 	  }
-  function kick(){
-	  	location.href = "${root}/user/userlist";
-	  }
+
   </script>
     
 		<!-- 폰트 -->
@@ -158,46 +150,52 @@
 			  background: linear-gradient(rgba(250,90,90,1) 0%, rgba(232,81,81,1) 100%);
 			  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fa5a5a', endColorstr='#e85151', GradientType=0 );
 			}
-			
-		/* ------------ */
-			
-          
+
+		 /* a태그 스타일 */
+          a {
+			text-decoration-line: none;
+			color: inherit;
+			}
 </style>
 </head>
- <body class="sb-nav-fixed bgcolor nanum"> 
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
            
-           <!-- 로그인,로그아웃,마이페이지 반응 버튼  -->
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-              <div class="input-group">
-              <% String id = (String)session.getAttribute("SESS_EMAIL"); %>			
-           	 <% if( id != null) { %>
-           	 <div style="margin-top:7px;  font-size:14px;">♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage';" style="font-size: 14px;">마이페이지</button>                          
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
+              
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+            	♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login';" style="font-size: 14px;">로그인</button>                                         
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
-            </nav>
-           
+            </nav>         
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" onclick= "location.href='${root}/main/main';" >
+        	<a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
         <!-- 상단바 메뉴 -->
-		<nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-		</nav>
-            
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>  
+           
    <div id="layoutSidenav_content">
       <main class = "nanum">
          <div class="container-fluid px-10 pt-5 ps-4" >
@@ -228,10 +226,9 @@
 		                  </form>
 		                  <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/updatecheck';">정보수정</button>&nbsp;
 						</div>            
-                 </div>
-              
+                 </div>              
  
-               <div class="card-body" style ="padding: 0px 100px; padding-bottom:50px;">
+               <div class="card-body" style ="padding: 50px 100px;">
             
                <table class = "table">
                  <c:forEach items="${membersDTO}" var="mdto">
@@ -260,8 +257,9 @@
                 </c:forEach>
                </table>           
                     <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
-                      <button type="button" class ="btn-3d red" onclick="kick();">누르지마시오</button>&nbsp;
+                      <button type="button" class ="btn-3d red" onclick="location.href='${root}/user/userlist';">누르지마시오</button>&nbsp;
                       </c:if>
+                    
                     <!-- 회원탈퇴 -->
                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px; float:right;">회원 탈퇴</button>
             </div>             
@@ -272,7 +270,7 @@
       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted">Website 2023 &copy; Happy OkDogCat</div>
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>
