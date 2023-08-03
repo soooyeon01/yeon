@@ -7,33 +7,18 @@
 <head>
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>유기동물 공고</title>
-<link
-	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
-	rel="stylesheet">
-<!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
-<link
-	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
-	rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-	crossorigin="anonymous"></script>
-<script
-	src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.js"
-	integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-	crossorigin="anonymous"></script>
+<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+<link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"	rel="stylesheet" />
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"	crossorigin="anonymous"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"crossorigin="anonymous"></script>
+<script src="${ pageContext.servletContext.contextPath }/resources/bootstrap/js/datatables-simple-demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js"integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="crossorigin="anonymous"></script>
 
 <script>
 			  $(document).ready(function () {
@@ -63,11 +48,10 @@
 			            alert("로그인 후 이용해주세요");
 			            window.location.href = "${pageContext.servletContext.contextPath }/main/main";
 			        }
-			    }
-			 
-			  
+			    }	  
 	       </script>
 
+<<<<<<< HEAD
 <style>
 
 a:hover {
@@ -134,22 +118,91 @@ a {
 </style>
 </head>
 <body class="sb-nav-fixed bgcolor">
+=======
+	<style>
+		.nanum {
+			font-family: 'NanumSquareNeo';
+		}
+		
+		.nanumB {
+			font-family: 'NanumSquareNeoBold';
+		}
+		
+		a:hover {
+			background-color: #feeaa5;
+		}
+		
+		a {
+			text-decoration-line: none;
+			color: inherit;
+		}
+		
+		.main {
+			padding-top: 0.7cm;
+			padding-left: 1.0cm;
+			padding-right: 1.5cm;
+			padding-bottom: 3cm;
+			height: 120px;
+		}
+		
+		.bg-yellow { -
+			-bs-bg-opacity: 1;
+			background-color: #feeaa5 !important;
+		}
+		
+		.main1 {
+			border-bottom: 1px solid #645326;
+			padding-bottom: 2px;
+			padding-top: 2px;
+		}
+		
+		.tab {
+			padding-bottom: 0;
+			padding-top: 0;
+			border-bottom: 1px solid #645326;
+			border-top: 1px solid #645326;
+		}
+		
+		.img_main {
+			width: 60%;
+			margin: 0px auto;
+			display: block;
+			width: 250px;
+			height: 90px;
+		}
+		
+		.bgcolor {
+			background-color: #f9f8f3;
+		}
+		</style>
+		<style>
+		.container {
+			display: flex;
+			flex-wrap: wrap;
+		}
+		
+		.data {
+			width: 50%;
+			display: flex;
+			align-items: center;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+
+<body class="sb-nav-fixed nanum">
+>>>>>>> 1c51fbd211c1d1e918a144df74a03644f833d194
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
 			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
 			<div class="input-group">
-				<%
-				String email = (String) session.getAttribute("SESS_EMAIL");
-				%>
-				<%
-				System.out.println(email);
-				%>
-
-				<%
+				<% String email = (String) session.getAttribute("SESS_EMAIL"); %>
+				<% 
 				if (email != null) {
 				%>
-				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
+				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님 
 					환영합니다♡</div>
 				<button type="button" class="btn" onclick="logout();"
 					style="font-size: 14px;">로그아웃</button>
@@ -162,7 +215,6 @@ a {
 				<button type="button" class="btn"
 					onclick="location.href='${root}/user/login'"
 					style="font-size: 14px;">로그인</button>
-
 				<%
 				}
 				%>
@@ -249,7 +301,6 @@ a {
 						<div id="animals-container">
 							<div class="container">
 								<c:forEach var="P_DTO" items="${response.petList}">
-
 									<c:if test="${not empty P_DTO}">
 										<div class="data">
 											<a href="javascript:void(0);"
@@ -270,17 +321,14 @@ a {
 												<br>
 												<p style="display: block;">특징 : ${P_DTO.specialMark}</p>
 												<br>
-
 											</div>
-
 										</div>
 									</c:if>
 								</c:forEach>
 								<c:if test="${empty response.petList}">
 									<table class="table">
 										<tr>
-											<td colspan="6" style="text-align: center;">검색된 결과가
-												없습니다.</td>
+											<td colspan="6" style="text-align: center;">검색된 결과가 없습니다.</td>
 										</tr>
 									</table>
 								</c:if>

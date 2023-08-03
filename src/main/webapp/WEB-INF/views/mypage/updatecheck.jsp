@@ -26,32 +26,7 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
   <script>
-  <!-- 최상단 -->
 
- 	function login(){
-		location.href = "${pageContext.servletContext.contextPath}/user/login";
-	  }
-  	function mypage(){
-  		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
- 	 }
-  
- 	function main(){
-  		location.href = "${pageContext.servletContext.contextPath}/main/main";
- 	 }
-
-   	function logout() {
-		if (confirm("로그아웃 하시겠습니까?")) {
-		location.href = "${pageContext.servletContext.contextPath}/user/logout";
-	 	}
-	}
-  
-  <!-- 정보수정 -->
-
-  function upmypage(){
-	  	location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
-	  }
- 
-  
   <!-- inputpwd값 보내기 -->
   function remM() {
 	   var data = $("form").serialize(); // form 데이터 직렬화
@@ -69,9 +44,14 @@
 	         console.log(errorThrown);
 	      }
 	   });
-	}
+	}  
 
-  </script>
+  function logout() {
+	if (confirm("로그아웃 하시겠습니까?")) {
+	location.href = "${root}/user/logout";
+	   }
+	}
+ </script>
   
   <!-- 폰트 -->
 	     <style type="text/css">
@@ -123,76 +103,77 @@
          background-color: #f9f8f3;
           }
           
+         /* a태그 스타일 */
+          a {
+			text-decoration-line: none;
+			color: inherit;
+			}
 </style>
 </head>
  <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-              <div class="input-group">
-              <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
-              <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
             <%  if( id != null) { %>
-            <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
+            <div style="padding:6px 10px;  font-size:14px;">
+            	♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
-            </nav>
-            <script>
-               function logout() {
-             if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${pageContext.servletContext.contextPath}/user/logout";
-                }
-         	}
-            </script>
+            </nav>         
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" onclick= "main();" >
+        	<a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
+        <!-- 상단바 메뉴 -->
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
-            </nav>           
-            
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>        
+   
+   <!-- 테이블 시작  -->        
    <div id="layoutSidenav_content">  
        <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h2 class="mt-1 mb-3" style ="margin-left:77px; font"><b>회원정보확인</b></h2>
-            </div>
-           
-       			<div class="card mb-4">
-               <div class="card-header">
-                 회원정보확인
-               </div>
+            <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>회원정보확인</b></h2>
+            </div>          
+       			<div class="card mb-4" style="margin-left:150px; margin-right:155px;">
+	               <div class="card-header">
+	                 회원정보확인
+	               </div>
               
-               <div class="card-body">
-               <div align="center">              			
-                    
+               <div class="card-body" style="padding:40px 0px">
+               <div align="center">              			                    
                  <form action = "${root}/mypage/updatecheck" id="form" method ="post">                 
-                  <div>
-                   <br>
+                  <div>             
                      <b><%=nickname%></b>님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.<br>
-                     </div>    
-                     <div>        
+                  </div>    
+               <div>        
                  	<br>                                                    
                  	비밀번호 입력: <input class="form-control" type="password" name ="inputpwd" id="inputpwd" placeholder="Password" style="display:inline; width:300px;"/>                             		
-                </div>
-                <br>         	
+               </div>
+                	<br>         	
                     <button type="button" class ="btn btn-warning" onclick="history.go(-1)">이전</button>&nbsp;    	 
                     <button type="submit" class ="btn btn-warning" onclick="location.href = '${root}/mypage/upmypage'">확인</button>&nbsp;
-                </form>                                      
-                      <input type="hidden" name="pwd" value="${mdto.pwd}">                  
+               </form>                                      
+                    <input type="hidden" name="pwd" value="${mdto.pwd}">                  
             	</div>
          	</div>
          </div>
@@ -202,7 +183,7 @@
       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted">Copyright &copy; Your Website 2023</div>
+               <div class="text-muted" style="padding-top:190px;">Copyright &copy; Your Website 2023</div>
 
                <div></div>
             </div>
