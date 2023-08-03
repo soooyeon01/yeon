@@ -179,7 +179,7 @@ table.table.table-bordered th{
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-3 pt-3">
+			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
 				<h2 class="mt-1">
 					<b><a href="${root}/shel/shelall">보호소</a></b>
 				</h2>

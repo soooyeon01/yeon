@@ -124,7 +124,7 @@
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
-				<h1 class="mt-1 mb-3">커뮤니티 페이지</h1>
+				<h2 class="mt-1 mb-3">커뮤니티 페이지</h2>
 			<div id="tptp">
 				<div class="card mb-4  mytb">
 					<div class="card-header">
