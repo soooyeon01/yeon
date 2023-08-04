@@ -15,10 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -29,16 +27,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.domain.AttachFileDTO;
 import com.spring.domain.CommunityDTO;
@@ -49,8 +44,6 @@ import com.spring.service.CommunityService;
 import com.spring.service.LikeService;
 import com.spring.service.LoginService;
 import com.spring.service.ReplyService;
-import com.spring.util.Criteria;
-import com.spring.util.PageMaker;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -63,7 +56,6 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class CommunityController {
 
 	private final CommunityService service;
-	private final LoginService logservice;
 	private final ReplyService rservice;
 	private final LikeService lservice;
 	
