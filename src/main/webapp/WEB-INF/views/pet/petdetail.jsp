@@ -12,6 +12,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>유기동물 공고 상세</title>
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
@@ -171,7 +174,10 @@
 a:hover {
 	background-color: #feeaa5;
 }
-
+a {
+	text-decoration-line: none;
+	color: inherit;
+}
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -338,10 +344,7 @@ table.table.table-bordered {
 				<h1 class="mt-1">유기동물 공고 상세</h1>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
+					
 					<div class="card-body">
 
 
@@ -356,16 +359,12 @@ table.table.table-bordered {
 									</c:if>
 								</c:forEach>
 
-								<label> <input type="checkbox" class="image-checkbox"
-									id="fa" name="favorite"
-									style="transform: scale(4); margin: 5px; display: none;"
-									value="${P_DTO.pet_notice_no}"> <img class="img_fa1"
-									name="favorite" data-value="${P_DTO.pet_notice_no}"
-									src="../resources/image/fa1.png"
-									style="${isLiked ? 'display:none;' : ''}"> <img
-									class="img_fa2" name="favorite"
-									data-value="${P_DTO.pet_notice_no}"
-									src="../resources/image/fa3.gif"
+								<label>
+								<input type="checkbox" class="image-checkbox" id="fa" name="favorite" 
+								style="transform: scale(4); margin: 5px; display: none;" value="${P_DTO.pet_notice_no}"> 
+								<img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png"
+									style="${isLiked ? 'display:none;' : ''}"> 
+								<img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa3.gif"
 									style="${!isLiked ? 'display:none;' : ''}">
 								</label>
 
