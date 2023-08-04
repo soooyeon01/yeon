@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
@@ -21,9 +22,15 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
      	<link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
-        <style> 
+        
+        <script>
+			function back() {
+				window.location.href = "${root}/mypage/mypage";
+			}
+		</script>
+		<style> 
 
-       a:hover{
+       	a:hover{
                 background-color: #feeaa5;
             }
             .main{
@@ -65,52 +72,54 @@
 		  .nanumB{font-family: 'NanumSquareNeoBold';}      
 		</style>
         
-    </head>
-   <body class="sb-nav-fixed bgcolor nanum"> 
+  <style>
+/* a태그 스타일 */
+          a {
+   text-decoration-line: none;
+   color: inherit;
+   }
+</style>
+</head>
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-                <% String nickname = (String) session.getAttribute("SESS_NICKNAME"); %>
-                 
-              <%System.out.println(email);%>
-              <%System.out.println(nickname);%>
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-         <%  if( email != null) { %>
-         		<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-            <script>
-	            function logout() {
-	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/user/logout";
-	   		 	}
-			}
-
-            </script>
+            </form>     
+            </nav>         
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main/main" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
-        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
-            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-        </nav>
+        <!-- 상단바 메뉴 -->
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>
 	<div id="layoutSidenav_content">
 			<main>
-                    <div class="container-fluid px-3 pt-3">
+                    <div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
                         <h1 class="mt-1" >내가 쓴 글</h1>
                     
                         <div class="card mb-4">
@@ -122,10 +131,8 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>글번호</th>
                                             <th>제목</th>
                                             <th>작성일</th>
-                                            <th>작성자</th>
                                             <th>조회수</th>
                                         </tr>
                                        
@@ -133,16 +140,16 @@
                                    
                                     <tbody>
                                     	<c:forEach var="myCommu" items="${requestScope.myCommuList}" varStatus="status">
+                                        <c:set var="fixdate" value="${fn:substring(myCommu.reg_date, 0, 11)}" />
                                         <tr>
-                                            <td>${myCommu.c_no}</td>
                                             <td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${myCommu.c_no}">${myCommu.title}</a></td>
-                                            <td>${myCommu.reg_date}</td>
-                                            <td>${myCommu.nickname}</td>
+                                            <td>${fixdate}</td>
                                             <td>${myCommu.view_cnt}</td>
                                         </tr>
                                         </c:forEach>
                                     </tbody>
                                 </table>
+                                <button type="button" class="btn btn-warning" onclick="back();">이전</button>
                             </div>
                             <%-- <%@ include file="../import/page-community.jsp" %> --%>
                            <%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
