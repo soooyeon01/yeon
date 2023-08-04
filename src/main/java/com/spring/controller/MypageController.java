@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.domain.MembersDTO;
 import com.spring.service.MypageService;
+import com.spring.util.SHAEncodeUtil;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -85,7 +86,9 @@ public class MypageController {
      			 return "alert";	
      			
      	   }else if(pwd.equals(nowpwd) && newpwd.equals(newcpwd)){
-     		   dto.setPwd(newpwd);
+     		// 새 비밀번호를 암호화해서 MembersDTO를 수정
+               String encodedNewPwd = SHAEncodeUtil.encodeSha(newpwd);
+               dto.setPwd(encodedNewPwd);
      		   service.modifyPwd(dto);
       		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
       		   model.addAttribute("url", "upmypage"); 
@@ -98,7 +101,7 @@ public class MypageController {
 		return null;
    }	
    
- //phone
+  
    @PostMapping("/upmyphone")
    public String upmyphone(HttpSession session, Model model, MembersDTO dto,@RequestParam("phone")String phone) {
      
@@ -137,7 +140,7 @@ public class MypageController {
          return "redirect:/main/main";
       }
    }
-
+   
          //페이지연결
          @RequestMapping("/upmypage")
          public String upmypage(HttpSession session, Model model, MembersDTO dto) {
@@ -215,15 +218,18 @@ public class MypageController {
 	    	  Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
 	          String email = (String) session.getAttribute("SESS_EMAIL");
 
-	          // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴
+	          // SESS_EMAIL 값을 사용하여 데이터베이스에서 pwd 값을 가져옴	         
 	          String pwd = service.getPwd(email);
-	          
+	     
 	          response.setCharacterEncoding("utf-8");
 	          response.setContentType("text/html; charset=utf-8");	      
 
-	          if (SESS_AUTH != null && SESS_AUTH) {	           
-
-		              if (pwd.equals(inputpwd)) {
+	          if (SESS_AUTH != null && SESS_AUTH) {	
+	        	  
+	        	// inputpwd를 같은 암호화 방법으로 인코딩
+	              String encodedInputPwd = SHAEncodeUtil.encodeSha(inputpwd);	              
+	              
+		              if (pwd.equals(encodedInputPwd)) {
 		            	List<MembersDTO> mdto = service.getMypage(email);
 		   	   	       model.addAttribute("membersDTO", mdto);	   	    
 		      			return "/mypage/upmypage";

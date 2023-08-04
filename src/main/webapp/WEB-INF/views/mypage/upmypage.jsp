@@ -61,9 +61,10 @@
 	} 
   
   function phoneShow() {
-		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴
+		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴		 
 		  location.href = "${root}/mypage/upmyphone";
 		  return true;
+		  
 		} 
   
   function checkmypage() {
