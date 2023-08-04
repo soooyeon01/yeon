@@ -36,155 +36,14 @@
 	crossorigin="anonymous"></script>
 
 
-
-<script>
-	function getInitialFavoriteStatus() {
-		$.ajax({
-			url : "${pageContext.servletContext.contextPath}/fa/favorites",
-			async : false,
-			type : "POST",
-			success : function(data) {
-				applyImageDisplayStatus(data);
-
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(jqXHR);
-				console.log(textStatus);
-				console.log(errorThrown);
-				alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
-			}
-		});
-	}
-	function applyImageDisplayStatus(favoriteStatus) {
-		$('.img_fa1, .img_fa2').each(
-				function() {
-					var img_fa1 = $(this).closest('label').find('.img_fa1');
-					var img_fa2 = $(this).closest('label').find('.img_fa2');
-					var key = parseInt($(this).closest('label')
-							.find('.img_fa1').attr('data-value'));
-
-					if (favoriteStatus.indexOf(key) >= 1) { // 좋아요 정보가 있는 경우
-						// 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
-						img_fa1.hide();
-						img_fa2.show();
-					} else { // 좋아요 정보가 없는 경우
-						// 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
-						img_fa1.show();
-						img_fa2.hide();
-					}
-				});
-	}
-	function applyImageCheckboxStyle() {
-		$('.img_fa1, .img_fa2').on('click', function() {
-			var img_fa1 = $(this).closest('label').find('.img_fa1');
-			var img_fa2 = $(this).closest('label').find('.img_fa2');
-
-			img_fa1.toggle();
-			img_fa2.toggle();
-
-			setImageDisplayStatus(img_fa1, img_fa2);
-		});
-	}
-
-	function setImageDisplayStatus(img_fa1, img_fa2) {
-		var key = img_fa1.data('value');
-		var visible = img_fa2.is(':visible');
-		localStorage.setItem(key, visible);
-	}
-
-	$(document).ready(function() {
-		applyImageCheckboxStyle();
-		getInitialFavoriteStatus(); // Load stored status on page load
-
-		$(".img_fa1, .img_fa2").on("click", function() {
-			var img_fa1 = $(this).closest('label').find('.img_fa1');
-			var img_fa2 = $(this).closest('label').find('.img_fa2');
-			var isChecked = img_fa2.is(':visible');
-
-			if (isChecked) {
-				// 체크가 선택된 경우
-				sendFavorites(img_fa1);
-			} else {
-				// 체크가 해제된 경우
-				removeFavorites(img_fa2);
-			}
-		});
-	});
-
-	function sendFavorites(img_fa1) {
-		var favorites = img_fa1.data("value");
-		console.log(favorites);
-		$
-				.ajax({
-					url : "${pageContext.servletContext.contextPath}/shel/registershel",
-					type : "POST",
-					data : {
-						shelter_no : favorites
-					},
-					dataType : "json",
-					success : function(data) {
-						console.log(data);
-						if (data.result === 1) {
-							alert("등록되었습니다.");
-
-						} else {
-							alert("등록되었습니다.");
-
-						}
-
-					},
-					error : function(jqXHR, textStatus, errorThrown) {
-						console.log(jqXHR);
-						console.log(textStatus);
-						console.log(errorThrown);
-						alert("오류가 발생했습니다. 다시 시도해주세요.");
-					}
-				});
-	}
-	function removeFavorites(img_fa2) {
-		var favorites = img_fa2.data("value");
-
-		$.ajax({
-			url : "${pageContext.servletContext.contextPath}/shel/removeshel",
-			type : "POST",
-			data : {
-				shelter_no : favorites
-			},
-			dataType : "json",
-			success : function(data) {
-				if (data.result === 1) {
-					alert("삭제되었습니다.");
-					console.log(data.result);
-				} else {
-					alert("삭제되었습니다.");
-
-				}
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(jqXHR);
-				console.log(textStatus);
-				console.log(errorThrown);
-				alert("오류가 발생했습니다. 다시 시도해주세요.");
-			}
-		});
-	}
-	function back() {
-		window.location = document.referrer;
-	}
-</script>
 <style>
-.nanum {
-	font-family: 'NanumSquareNeo';
-}
-
-.nanumB {
-	font-family: 'NanumSquareNeoBold';
-}
-
 a:hover {
 	background-color: #feeaa5;
 }
-
+a {
+	text-decoration-line: none;
+	color: inherit;
+}
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -220,78 +79,244 @@ a:hover {
 }
 
 .bgcolor {
+	font-family: 'NanumSquareNeo';
 	background-color: #f9f8f3;
 }
 
 .img_fa1 {
-	width: 100px;
-	height: 100px;
+	width: 200px;
+	height: 200px;
 	border: 0;
+	margin-top:-60px;
 }
 
 .img_fa2 {
-	width: 100px;
-	height: 100px;
+	width: 200px;
+	height: 200px;
 	display: none;
-	margin: 0;
+	margin-top:-60px;
 	padding: 0;
 	border: none;
 	background: none;
 }
 
 table.table.table-bordered {
-	width: 50%;
+	width: 55%;
+	margin-top: 50px;
+	margin-left: 280px;
+}
+table.table.table-bordered th {
+	width: 30%;
 	margin-top: 50px;
 	margin-left: 350px;
+	background-color: #feeaa5;
+	text-align:center;
 }
-table.table.table-bordered th{
-	background-color:#feeaa5;
+/* 모달 스타일 */
+.modal_wrap {
+	display: none;
+	position: fixed;
+	z-index: 2000;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #f8de67;
+	padding: 10px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.black_bg {
+	display: none;
+	position: absolute;
+	content: "";
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+
+.modal_close {
+	width: 26px;
+	height: 26px;
+	position: absolute;
+	top: -30px;
+	right: 0;
+}
+
+.modal_close>a {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: url(https://img.icons8.com/metro/26/000000/close-window.png);
+	text-indent: -9999px;
 }
 </style>
+<script>
+		function getInitialFavoriteStatus() {
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/fa/favorites",
+		        async:false,
+		        type: "POST",
+		        success: function(data) {
+		            applyImageDisplayStatus(data);
+		            
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 즐겨찾기 상태를 가져오는 데 실패했습니다.");
+		        }
+		    });
+		}
+		  function applyImageDisplayStatus(favoriteStatus) {
+		        $('.img_fa1, .img_fa2').each(function () {
+		            var img_fa1 = $(this).closest('label').find('.img_fa1');
+		            var img_fa2 = $(this).closest('label').find('.img_fa2');
+		            var key = parseInt($(this).closest('label').find('.img_fa1').attr('data-value'));
+		            
+		            if (favoriteStatus.indexOf(key) >= 1) { // 좋아요 정보가 있는 경우
+		                // 좋아요 이미지(img_fa1)를 숨기고 좋아요 취소 이미지(img_fa2)를 표시
+		                img_fa1.hide();
+		                img_fa2.show();
+		            } else { // 좋아요 정보가 없는 경우
+		                // 좋아요 이미지(img_fa1)를 표시하고 좋아요 취소 이미지(img_fa2)를 숨김
+		                img_fa1.show();
+		                img_fa2.hide();
+		            }
+		        });
+		    }
+		function applyImageCheckboxStyle() {
+		    $('.img_fa1, .img_fa2').on('click', function () {
+		        var img_fa1 = $(this).closest('label').find('.img_fa1');
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+
+		        img_fa1.toggle();
+		        img_fa2.toggle();
+
+		        setImageDisplayStatus(img_fa1, img_fa2);
+		    });
+		}
+
+		function setImageDisplayStatus(img_fa1, img_fa2) {
+		    var key = img_fa1.data('value');
+		    var visible = img_fa2.is(':visible');
+		    localStorage.setItem(key, visible);
+		}
+
+		
+
+		$(document).ready(function () {
+		    applyImageCheckboxStyle();
+		    getInitialFavoriteStatus(); // Load stored status on page load
+
+		    $(".img_fa1, .img_fa2").on("click", function () {
+		        var img_fa1 = $(this).closest('label').find('.img_fa1');
+		        var img_fa2 = $(this).closest('label').find('.img_fa2');
+		        var isChecked = img_fa2.is(':visible');
+
+		        if (isChecked) {
+		            // 체크가 선택된 경우
+		            sendFavorites(img_fa1);
+		        } else {
+		            // 체크가 해제된 경우
+		            removeFavorites(img_fa2);
+		        }
+		    });
+		});
+		
+		function sendFavorites(img_fa1) {
+		    var favorites = img_fa1.data("value");
+		    console.log(favorites);
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/shel/registershel",
+		        type: "POST",
+		        data: {
+		           shelter_no: favorites
+		        },
+		        dataType: "json",
+		        success: function(data) {
+		        	console.log(data);
+		            if (data.result === 1) {
+		                alert("등록되었습니다.");
+		                
+		            }else{
+		            	alert("등록되었습니다.");
+		            	
+		            }
+		          
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 다시 시도해주세요.");
+		        }
+		    });
+		}
+		function removeFavorites(img_fa2) {
+		    var favorites = img_fa2.data("value");
+
+		    $.ajax({
+		        url: "${pageContext.servletContext.contextPath}/shel/removeshel",
+		        type: "POST",
+		        data: {
+		            shelter_no: favorites
+		        },
+		        dataType: "json",
+		        success: function(data) {
+		            if (data.result === 1) {
+		                alert("삭제되었습니다.");
+		                console.log(data.result);
+		            } else {
+		                alert("삭제되었습니다.");
+		              
+		            }
+		        },
+		        error: function(jqXHR, textStatus, errorThrown) {
+		            console.log(jqXHR);
+		            console.log(textStatus);
+		            console.log(errorThrown);
+		            alert("오류가 발생했습니다. 다시 시도해주세요.");
+		        }
+		    });
+		}
+		function back(){
+			window.location = document.referrer;
+		}
+			  </script>
+
 </head>
-<body class="sb-nav-fixed nanum">
+<body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
-		<form
-			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-			<div class="input-group">
-				<%
-				String email = (String) session.getAttribute("SESS_EMAIL");
-				%>
-				<%
-				System.out.println(email);
-				%>
-
-				<%
-				if (email != null) {
-				%>
-				<div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
-					환영합니다♡</div>
-				<button type="button" class="btn" onclick="logout();"
-					style="font-size: 14px;">로그아웃</button>
-				<button type="button" class="btn"
-					onclick="location.href='${root}/mypage/mypage'"
-					style="font-size: 14px;">마이페이지</button>
-				<%
-				} else {
-				%>
-				<button type="button" class="btn"
-					onclick="location.href='${root}/user/login'"
-					style="font-size: 14px;">로그인</button>
-
-				<%
-				}
-				%>
-			</div>
-		</form>
-	</nav>
+		<!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
+              
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
+            <%} else{%>
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
+                </div>
+            </form>     
+            </nav>   
 	<script>
-		function logout() {
-			if (confirm("로그아웃 하시겠습니까?")) {
-				location.href = "${root}/user/logout";
-			}
-		}
-	</script>
+               function logout() {
+             if (confirm("로그아웃 하시겠습니까?")) {
+             location.href = "${root}/user/logout";
+                }
+         }
+            </script>
 	<!-- 로고 -->
 	<nav class="main bg-white">
 		<a class="mainlogo" href="${root}/main/main"> <img
@@ -302,34 +327,31 @@ table.table.table-bordered th{
 
 	<nav class="tab sb-topnav2 navbar navbar-expand; bg-white">
 		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/pet/petall"><b>공고</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/shel/shelall"><b>보호소</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/with/withca"><b>위드펫</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/community/clist"><b>커뮤니티</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/pet/petall"><b>공고</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/shel/shelall"><b>보호소</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/with/withca"><b>위드펫</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/community/clist"><b>커뮤니티</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
 			href="${root}/notice/nlist"><b>공지사항</b></a>
 	</nav>
 
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-3 pt-3">
-				<h2 class="mt-1">보호소 목록 상세</h2>
+				<h1 class="mt-1">보호소 목록 상세</h1>
 
 				<div class="card mb-4">
+					
 
 
 					<div class="card-body">
-						<button type="button" class="btn btn-warning" onclick="back();">목록</button>
+						<p>
+							<button type="button" class="btn btn-warning" onclick="back();">목록</button>
+						</p>
 						<table class="table table-bordered">
-
-
-
-
-
-
 							<c:forEach var="S_DTO" items="${sheldetailList}">
 
 								<div style="float: right;">
@@ -354,7 +376,7 @@ table.table.table-bordered th{
 										style="${!isLiked ? 'display:none;' : ''}">
 									</label>
 								</div>
-
+								
 								<tr>
 									<th>보호소 이름</th>
 									<c:set var="addressNm" value="${S_DTO.careNm}" />
@@ -371,7 +393,99 @@ table.table.table-bordered th{
 								<tr>
 									<th>보호소 주소</th>
 									<c:set var="address" value="${S_DTO.careAddr}" />
-									<td>${S_DTO.careAddr}</td>
+									<td>${S_DTO.careAddr}
+										<button type="button" id="modal_btn">지도보기</button>
+										<div class="black_bg"></div>
+										<div class="modal_wrap" style="display: block;">
+											<div class="modal_close">
+												<a href="#">close</a>
+											</div>
+											<div>
+												<div id="map" style="width: 700px; height: 550px;"></div>
+
+												<script type="text/javascript"
+													src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
+												<script>
+		                                                var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		                                                    mapOption = {
+		                                                        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		                                                        level: 3 // 지도의 확대 레벨
+		                                                    };  
+		                                             
+		                                                // 지도를 생성
+		                                                var map = new kakao.maps.Map(mapContainer, mapOption); 
+		                                                
+		                                                setTimeout(function() {
+		                                                   console.log('Works!');
+		                                                   map.relayout();
+		                                                }, 3000);
+		                                                
+		                                                // 주소-좌표 변환 객체를 생성
+		                                                var geocoder = new kakao.maps.services.Geocoder();
+		                                                
+		                                                
+		                                                // 주소로 좌표를 검색
+		                                                geocoder.addressSearch('${address}', function(result, status) {
+		                                                
+		                                                    // 정상적으로 검색이 완료됐으면 
+		                                                     if (status === kakao.maps.services.Status.OK) {
+		                                                
+		                                                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		                                                
+		                                                        // 결과값으로 받은 위치를 마커로 표시
+		                                                        var marker = new kakao.maps.Marker({
+		                                                            map: map,
+		                                                            position: coords
+		                                                        });
+		                                                
+		                                                        // 인포윈도우로 장소에 대한 설명을 표시
+		                                                        var infowindow = new kakao.maps.InfoWindow({
+		                                                        	
+		                                                            content: '<div style="font-size:15px; width:150px; text-align:center; padding-top:6px 0;">${addressNm}</div>',
+		                                                           
+		                                                        });
+		                                                        
+		                                                        infowindow.open(map, marker);
+		                                                        
+		                                                        // 지도의 중심을 결과값으로 받은 위치로 이동
+		                                                        map.setCenter(coords);
+		                                                
+		                                                        
+		                                                        
+		                                                    } 
+		                                                });   
+		                                                
+		                                                var modalBtn = document.getElementById('modal_btn');
+		                                                var modalWrap = document.querySelector('.modal_wrap');
+		                                                var modalClose = document.querySelector('.modal_close');
+		                                                var blackBg = document.querySelector('.black_bg');
+		                                                
+		
+		                                                modalBtn.addEventListener('click', function () {
+		                                                  modalWrap.style.display = 'block';
+		                                                  blackBg.style.display = 'block';
+		                                                });
+		
+		                                                modalClose.addEventListener('click', function (e) {
+		                                                  e.preventDefault();
+		                                                  modalWrap.style.display = 'none';
+		                                                  blackBg.style.display = 'none';
+		                                                });
+		
+		                                                blackBg.addEventListener('click', function () {
+		                                                  modalWrap.style.display = 'block';
+		                                                  blackBg.style.display = 'block';
+		                                                });
+		                                                
+		                                                modalWrap.style.display = 'none';
+		                                                
+		                                                
+		                                             </script>
+											</div>
+										</div>
+
+
+									</td>
 								</tr>
 								<tr>
 									<th>보호소 전화번호</th>
@@ -423,60 +537,7 @@ table.table.table-bordered th{
 					</div>
 				</div>
 			</div>
-			<p style="margin-top: -12px">
-				<em class="link"> <a href="javascript:void(0);"
-					onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-						혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요. </a>
-				</em>
-			</p>
-			<div id="map" style="width: 500px; height: 350px;"></div>
 
-			<script type="text/javascript"
-				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=db38443adad424d348cb3fedd60e5b26&libraries=services"></script>
-			<script>
-				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-				mapOption = {
-					center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-					level : 3
-				// 지도의 확대 레벨
-				};
-
-				// 지도를 생성
-				var map = new kakao.maps.Map(mapContainer, mapOption);
-
-				// 주소-좌표 변환 객체를 생성
-				var geocoder = new kakao.maps.services.Geocoder();
-
-				// 주소로 좌표를 검색
-				geocoder
-						.addressSearch(
-								'${address}',
-								function(result, status) {
-
-									// 정상적으로 검색이 완료됐으면 
-									if (status === kakao.maps.services.Status.OK) {
-
-										var coords = new kakao.maps.LatLng(
-												result[0].y, result[0].x);
-
-										// 결과값으로 받은 위치를 마커로 표시
-										var marker = new kakao.maps.Marker({
-											map : map,
-											position : coords
-										});
-
-										// 인포윈도우로 장소에 대한 설명을 표시
-										var infowindow = new kakao.maps.InfoWindow(
-												{
-													content : '<div style="width:150px;text-align:center;padding:6px 0;">${addressNm}</div>'
-												});
-										infowindow.open(map, marker);
-
-										// 지도의 중심을 결과값으로 받은 위치로 이동
-										map.setCenter(coords);
-									}
-								});
-			</script>
 		</main>
 
 	</div>

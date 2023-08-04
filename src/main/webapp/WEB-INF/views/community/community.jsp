@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.CommunityDTO"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
 <html lang="ko">
@@ -77,53 +78,68 @@
 		.ttt th{
 			background-color:#feeaa5;
 		}
+		#sht{
+			width: 15rem;
+		}
+		#lng {
+			width: 50rem;
+		}
+		#toosht {
+			width: 8rem;
+		}
+		#tooosht {
+			width: 4rem;
+		}
         </style>
         <style type="text/css">
 		  .nanum{ font-family: 'NanumSquareNeo'; }
 		  .nanumB{font-family: 'NanumSquareNeoBold';}      
 		</style>
-    </head>
-   <body class="sb-nav-fixed bgcolor nanum"> 
+<style>
+/* a태그 스타일 */
+          a {
+   text-decoration-line: none;
+   color: inherit;
+   }
+</style>
+</head>
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-                <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
-              <%System.out.println(email);%>
-              <%System.out.println(nickname);%>
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-         <%  if( email != null) { %>
-         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-            <script>
-	            function logout() {
-	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/user/logout";
-	   		 	}
-			}
-
-            </script>
+            </form>     
+            </nav>         
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main/main" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
-        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
-            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-        </nav>
+        <!-- 상단바 메뉴 -->
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
@@ -137,11 +153,10 @@
 						<table class="datatable-table ttt"> 
 							<thead>
 								<tr>
-									<!-- <th>글번호</th> -->
-									<th>제목</th>
-									<th>작성일</th>
+									<th id="sht">제목</th>
 									<th>작성자</th>
-									<th>조회수</th>
+									<th id="toosht">작성일</th>
+									<th id="tooosht">조회수</th>
 								</tr>
 
 							</thead>
@@ -149,12 +164,13 @@
 							<tbody>
 								<c:forEach var="viewCntList" items="${requestScope.viewCntList}"
 									varStatus="status">
+									<c:set var="fixdate" value="${fn:substring(viewCntList.reg_date, 0, 11)}" />
 									<tr>
 										<%-- <td>${communityDTO.c_no}</td> --%>
 										<td><a
 											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${viewCntList.c_no}">${viewCntList.title} (${viewCntList.reply_cnt})</a></td>
-										<td>${viewCntList.reg_date}</td>
 										<td>${viewCntList.nickname}</td>
+										<td>${fixdate}</td>
 										<td>${viewCntList.view_cnt}</td>
 									</tr>
 								</c:forEach>
@@ -173,11 +189,10 @@
 						<table class="datatable-table ttt">
 							<thead>
 								<tr>
-									<!-- <th>글번호</th> -->
-									<th>제목</th>
-									<th>작성일</th>
+									<th id="sht">제목</th>
 									<th>작성자</th>
-									<th>추천수</th>
+									<th id="toosht">작성일</th>
+									<th id="tooosht">추천수</th>
 								</tr>
 
 							</thead>
@@ -185,12 +200,13 @@
 							<tbody>
 								<c:forEach var="likeCntList" items="${requestScope.likeCntList}"
 									varStatus="status">
+									<c:set var="fixdate" value="${fn:substring(likeCntList.reg_date, 0, 11)}" />
 									<tr>
 										<%-- <td>${communityDTO.c_no}</td> --%>
 										<td><a
 											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${likeCntList.c_no}">${likeCntList.title} (${likeCntList.reply_cnt})</a></td>
-										<td>${likeCntList.reg_date}</td>
 										<td>${likeCntList.nickname}</td>
+										<td>${fixdate}</td>
 										<td>${likeCntList.like_cnt}</td>
 									</tr>
 								</c:forEach>
@@ -211,11 +227,11 @@
 							<thead>
 								<tr>
 									<!-- <th>글번호</th> -->
-									<th>제목</th>
-									<th>작성일</th>
+									<th id="lng">제목</th>
 									<th>작성자</th>
-									<th>조회수</th>
-									<th>추천수</th>
+									<th id="toosht">작성일</th>
+									<th id="tooosht">조회수</th>
+									<th id="tooosht">추천수</th>
 								</tr>
 
 							</thead>
@@ -224,12 +240,13 @@
 								
 								<c:forEach var="communityDTO"
 									items="${requestScope.communityList}" varStatus="status">
+									<c:set var="fixdate" value="${fn:substring(communityDTO.reg_date, 0, 11)}" />
 									<tr>
 										<%-- <td>${communityDTO.c_no}</td> --%>
 										<td><a
 											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title} (${communityDTO.reply_cnt})</a></td>
-										<td>${communityDTO.reg_date}</td>
 										<td>${communityDTO.nickname}</td>
+										<td>${fixdate}</td>
 										<td>${communityDTO.view_cnt}</td>
 										<td>${communityDTO.like_cnt}</td>
 									</tr>

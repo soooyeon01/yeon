@@ -12,6 +12,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>보호소 즐겨찾기</title>
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
@@ -74,6 +77,10 @@ a:hover {
 
 .bgcolor {
 	background-color: #f9f8f3;
+	font-family: 'NanumSquareNeo';
+}
+table.table.table-bordered th {
+	background-color: #feeaa5;
 }
 </style>
 </head>
@@ -143,7 +150,7 @@ a:hover {
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-4">
+			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
 				<h2 class="mt-1">보호소 즐겨찾기</h2>
 
 				<div class="card mb-4">
@@ -195,10 +202,9 @@ a:hover {
 		<footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">
 				<div class="d-flex align-items-center justify-content-between small">
-					<div class="text-muted">Copyright &copy; Your Website 2023</div>
+					
 					<div>
-						<a href="#">Privacy Policy</a> &middot; <a href="#">Terms
-							&amp; Conditions</a>
+						
 					</div>
 				</div>
 			</div>

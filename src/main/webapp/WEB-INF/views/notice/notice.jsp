@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.spring.domain.NoticeDTO"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.servletContext.contextPath}" />
 <!DOCTYPE html>
@@ -61,54 +62,60 @@
           .bgcolor{
          background-color: #f9f8f3;
           }
+          .ttt th{
+			background-color:#feeaa5;
+		}
           
         </style>
         <style type="text/css">
 		  .nanum{ font-family: 'NanumSquareNeo'; }
 		  .nanumB{font-family: 'NanumSquareNeoBold';}      
 		</style>
-    </head>
-   	<body class="sb-nav-fixed bgcolor nanum"> 
+  <style>
+/* a태그 스타일 */
+          a {
+   text-decoration-line: none;
+   color: inherit;
+   }
+</style>
+</head>
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-                <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
-              <%System.out.println(email);%>
-              <%System.out.println(nickname);%>
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-          <%  if( email != null) { %>
-          <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-            <script>
-	            function logout() {
-	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/user/logout";
-	   		 	}
-			}
-
-            </script>
+            </form>     
+            </nav>         
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main/main" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
-        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
-            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-        </nav>
+        <!-- 상단바 메뉴 -->
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>
                 <main>
                     <div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
                         <h2 class="mt-1 mb-3" ><b>공지사항</b></h2>
@@ -118,13 +125,12 @@
                              
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="ttt">
                                     <thead>
                                         <tr>
-                                            <!-- <th>공지 번호</th> -->
                                             <th>공지 제목</th>
-                                            <th>공지 작성일</th>
                                             <th>공지 작성자</th>
+                                            <th>공지 작성일</th>
                                             <th>조회수</th>
                                         </tr>
                           
@@ -133,11 +139,12 @@
                                     </tfoot>
                                     <tbody>
                                     	<c:forEach var="noticeDTO" items="${requestScope.noticeList}" varStatus="status">
+                                        <c:set var="fixdate" value="${fn:substring(noticeDTO.notice_reg_date, 0, 11)}" />
                                         <tr>
                                             <%-- <td>${noticeDTO.notice_no}</td> --%>
                                             <td><a href="${pageContext.servletContext.contextPath}/notice/notSel?notice_no=${noticeDTO.notice_no}">${noticeDTO.notice_title}</a></td>
-                                            <td>${noticeDTO.notice_reg_date}</td>
                                             <td>${noticeDTO.nickname}</td>
+                                            <td>${fixdate}</td>
                                             <td>${noticeDTO.view_count}</td>
                                         </tr>
                                         </c:forEach>
@@ -156,8 +163,6 @@
                 <footer class="py-4 bg-light mt-auto">
 			<div class="container-fluid px-4">
 				<div class="d-flex align-items-center justify-content-between small">
-		
-
 					<div></div>
 				</div>
 			</div>

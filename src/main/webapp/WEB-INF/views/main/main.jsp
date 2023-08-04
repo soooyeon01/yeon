@@ -234,7 +234,7 @@
                         </div>
                     </div>
                 </footer>
-</main>
+			</main>
                
     </body>
 </html>

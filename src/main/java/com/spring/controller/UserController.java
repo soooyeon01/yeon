@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,6 +32,7 @@ import com.spring.service.FindPwdService;
 import com.spring.service.JoinService;
 import com.spring.service.LoginService;
 import com.spring.service.MembersService;
+import com.spring.util.SHAEncodeUtil;
 import com.spring.util.SendEmail; 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -59,11 +61,11 @@ public class UserController {
    }
    
    @PostMapping("/login")
-   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String password,
+   public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String pwd,
         HttpSession session,Model model,MembersDTO mdto) {
        //MembersDTO mdto = new MembersDTO();
        mdto.setEmail(email);
-       mdto.setPwd(password);
+       mdto.setPwd(SHAEncodeUtil.encodeSha(pwd));
        
        if(service.countLogin(mdto) == 1) {
           mdto=service.selectLogin(mdto);
@@ -86,16 +88,16 @@ public class UserController {
    
    @PostMapping("/join")
    public String joinpost(MembersDTO mdto, Model model) {
-      int isOk = 1;
-      if( servicej.registerMembers(mdto) == isOk) {
-         model.addAttribute("msg", "회원가입 완료"); 
-         model.addAttribute("url", "login"); 
-         return "alert";
-         
-      } else {
-         model.addAttribute("msg", "회원가입 실패"); 
-         return "alert";
-      } 
+     int isOk = 1;
+     mdto.setPwd(SHAEncodeUtil.encodeSha(mdto.getPwd())); // 비밀번호를 SHA-512로 암호화하여 저장
+     if(servicej.registerMembers(mdto) == isOk) {
+       model.addAttribute("msg", "회원가입 완료"); 
+       model.addAttribute("url", "login");
+       return "alert";
+     } else {
+       model.addAttribute("msg", "회원가입 실패"); 
+       return "alert";
+     } 
    }
    
    @ResponseBody
@@ -192,11 +194,12 @@ public class UserController {
       mdto.setEmail(email);
       mdto.setPhone(phone);
       
-       int count = servicep.findPwd(mdto);
+      int count = servicep.findPwd(mdto);
       
       if (count > 0) {
            String tempPwd = servicep.makeTempPwd();
-           mdto.setTempPwd(tempPwd);
+           String modifyTempPwd = SHAEncodeUtil.encodeSha(tempPwd); // 암호화 처리 추가
+           mdto.setTempPwd(modifyTempPwd); // 암호화된 임시 비밀번호로 업데이트
            servicep.updatePwd(mdto);
            
            String subject = "임시 비밀번호 발급 안내";
@@ -207,10 +210,13 @@ public class UserController {
          model.addAttribute("url", "login"); 
            return "alert";
        } else {
-           model.addAttribute("msg", "없는 정보입니다");
+    	   model.addAttribute("msg", "입력하신 정보와 일치하는 회원이 없습니다.");
+           model.addAttribute("url", "findPwd");
            return "alert";
        }
    }
+   
+
    
    @GetMapping("/logout")
    public String logout(HttpSession session) {
