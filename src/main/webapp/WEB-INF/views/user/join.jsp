@@ -94,22 +94,25 @@
         }
         
 
-        function doubleCheck(value){
-            let origin = document.getElementById("pwd").value;
-            let boxSpan = document.getElementById("box-span");
-            
-            if(origin == value){
-                //일치함
-                boxSpan.className = "box-span-on";
-                boxSpan.textContent = "일치함";
-                
-            }else{
-                //불일치
-                boxSpan.className = "box-span-off";
-                boxSpan.textContent = "불일치함";
-            }
+        // 비밀번호와 확인 비밀번호 확인
+        function checkPassword() {
+          const password = document.getElementById("pwd").value;
+          const confirmPassword = document.getElementById("pwd-double-check").value;
+          const passwordStatus = document.getElementById("password-status");
 
+          if (password !== "" && confirmPassword !== "") {
+            if (password === confirmPassword) {
+              passwordStatus.style.color = "green";
+              passwordStatus.innerHTML = "일치합니다";
+            } else {
+              passwordStatus.style.color = "red";
+              passwordStatus.innerHTML = "불일치합니다";
+            }
+          } else {
+            passwordStatus.innerHTML = "";
+          }
         }
+        
         //비밀번호 lenght
         function isPasswordValid(password){
             if(password.length < 8){
@@ -413,21 +416,19 @@
 												<span class="off" id="poff" >번호가 이미 존재합니다.</span>
 										</div>
 
-
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<div class="form-floating mb-3 mb-md-0">
-													<input class="form-control" id="pwd" name="pwd"
-														type="password" /> <label for="pwd">비밀번호</label>
-												</div>
+											    <input class="form-control" id="pwd" name="pwd" type="password" onkeyup="checkPassword();" />
+											    <label for="pwd">비밀번호</label>
+											  </div>
 											</div>
 											<div class="col-md-6">
-												<div class="form-floating mb-3 mb-md-0">
-													<input class="form-control" id="pwd-double-check"
-														type="password" onkeyup="doubleCheck(this.value);" /> <span
-														id="box-span" class="box-span-on"></span> <label
-														for="pwd-double-check">비밀번호 확인</label>
-												</div>
+											  <div class="form-floating mb-3 mb-md-0">
+											    <input class="form-control" id="pwd-double-check" type="password" onkeyup="checkPassword();" />
+											    <label for="pwd-double-check">비밀번호 확인</label>
+											    <span id="password-status"></span>
+											  </div>
 											</div>
 										</div>
 										<div class="mt-4 mb-0">
