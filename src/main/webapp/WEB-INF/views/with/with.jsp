@@ -283,7 +283,7 @@ table.table.table-bordered th {
                                        value="${SearchCriteria.keyword}"></td>
 
                                     <td><button type="submit"
-                                          onclick="return getSearchList();" class="btn btn-success">검색</button></td>
+                                          onclick="return getSearchList();" class="btn btn-warning">검색</button></td>
                                  </tr>
                               </table>
                

@@ -274,7 +274,7 @@ a {
                                            </select>
                                        </td>
                                        <td><input type="text" class="form-control" placeholder="검색어 입력" name="keyword" value=""></td>
-                                       <td><button type="submit" onclick="return getSearchList();" class="btn btn-success">검색</button></td>
+                                       <td><button type="submit" onclick="return getSearchList();" class="btn btn-warning">검색</button></td>
                                    </tr>
                                </table>
                            </form>
