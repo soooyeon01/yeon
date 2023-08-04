@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -193,11 +194,12 @@ public class UserController {
       mdto.setEmail(email);
       mdto.setPhone(phone);
       
-       int count = servicep.findPwd(mdto);
+      int count = servicep.findPwd(mdto);
       
       if (count > 0) {
            String tempPwd = servicep.makeTempPwd();
-           mdto.setTempPwd(tempPwd);
+           String encryptedTempPwd = SHAEncodeUtil.encodeSha(tempPwd); // 암호화 처리 추가
+           mdto.setTempPwd(encryptedTempPwd); // 암호화된 임시 비밀번호로 업데이트
            servicep.updatePwd(mdto);
            
            String subject = "임시 비밀번호 발급 안내";
@@ -208,10 +210,13 @@ public class UserController {
          model.addAttribute("url", "login"); 
            return "alert";
        } else {
-           model.addAttribute("msg", "없는 정보입니다");
+    	   model.addAttribute("msg", "입력하신 정보와 일치하는 회원이 없습니다.");
+           model.addAttribute("url", "findPwd");
            return "alert";
        }
    }
+   
+
    
    @GetMapping("/logout")
    public String logout(HttpSession session) {
