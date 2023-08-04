@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.spring.domain.CommunityDTO;
 import com.spring.domain.MembersDTO;
 import com.spring.domain.NoticeDTO;
 import com.spring.service.LoginService;
@@ -22,7 +21,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NoticeController {
 	private final NoticeService service;
-	private final LoginService logservice;
 	
 	@GetMapping("/new")
 	public String test() {

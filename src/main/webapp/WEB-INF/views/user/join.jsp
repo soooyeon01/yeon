@@ -135,6 +135,19 @@
           }
         }
         
+	     // capslock 알림
+	        function capsLockCheck(event) {
+	          var charCode = event.which || event.keyCode;
+	          var shiftKey = event.shiftKey ? event.shiftKey : ((charCode == 16) ? true: false);
+	          var caps_lock_warning = document.getElementById('caps-lock-warning');
+	
+	          if ((charCode >= 65 && charCode <= 90 && !shiftKey) || (charCode >= 97 && charCode <= 122 && shiftKey)) {
+	            caps_lock_warning.style.display = "block";
+	          } else {
+	            caps_lock_warning.style.display = "none";
+	          }
+	        }
+	     
         //비밀번호 lenght
         function isPasswordValid(password){
             if(password.length < 8){
@@ -438,8 +451,8 @@
 
 										<div class="row mb-3">
 											<div class="col-md-6">
-												<div class="form-floating mb-3 mb-md-0">
-											    <input class="form-control" id="pwd" name="pwd" type="password" onkeyup="checkPassword();" />
+											  <div class="form-floating mb-3 mb-md-0">
+											    <input class="form-control" id="pwd" name="pwd" type="password" onkeyup="checkPassword();" onkeypress="capsLockCheck(event);" />
 											    <label for="pwd">비밀번호</label>
 											    <span style="font-size : 9pt; color : #8C8C8C;">8자 이상 입력해주세요</span>
 											  </div>
@@ -447,9 +460,10 @@
 											
 											<div class="col-md-6">
 											  <div class="form-floating mb-3 mb-md-0">
-											    <input class="form-control" id="pwd-double-check" type="password" onkeyup="checkPassword();" />
+											    <input class="form-control" id="pwd-double-check" type="password" onkeyup="checkPassword();" onkeypress="capsLockCheck(event);" />
 											    <label for="pwd-double-check">비밀번호 확인</label>
 											    <span id="password-status"></span>
+											    <div id="caps-lock-warning" style="display: none; color: red; font-size: 9pt;">CAPS LOCK이 켜져있습니다.</div>
 											  </div>
 											</div>
 										</div>

@@ -24,7 +24,7 @@
 	    		alert(msg);
 	    	}
     	}
-    	console.log("dsadsa");
+
         function verifyField(){
             let element = document.getElementById("email");
             let msg = '이메일을 입력하세요.';
@@ -49,6 +49,18 @@
                 result = true;
             }
             return result;
+        }
+        // capslock 알림
+        function capsLockCheck(event) {
+          var charCode = event.which || event.keyCode;
+          var shiftKey = event.shiftKey ? event.shiftKey : ((charCode == 16) ? true: false);
+          var caps_lock_warning = document.getElementById('caps-lock-warning');
+
+          if ((charCode >= 65 && charCode <= 90 && !shiftKey) || (charCode >= 97 && charCode <= 122 && shiftKey)) {
+            caps_lock_warning.style.display = "block";
+          } else {
+            caps_lock_warning.style.display = "none";
+          }
         }
     </script>
     
@@ -86,9 +98,10 @@
                                                 <label for="email">이메일</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="pwd" name="pwd" type="password" placeholder="pwd" />
-                                                <label for="pwd">비밀번호</label>
-                                            </div>
+											    <input class="form-control" id="pwd" name="pwd" type="password" placeholder="pwd" onkeypress="capsLockCheck(event);" />
+											    <label for="pwd">비밀번호</label>
+											    <div id="caps-lock-warning" style="display: none; color: red; font-size: 9pt;">CAPS LOCK이 켜져있습니다.</div>
+											</div>
                                      	<div class="mt-4 mb-0">
 											<div class="d-grid">
 												<input class="btn btn-warning btn-block" type="submit" value="로그인" onclick="return verifyField();">

@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.domain.MembersDTO;
-import com.spring.mapper.CommunityMapper;
 import com.spring.mapper.JoinMapper;
 
 import lombok.RequiredArgsConstructor;

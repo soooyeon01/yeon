@@ -379,7 +379,7 @@ table.table.table-bordered th {
 										<c:set var="address" value="${W_DTO.road}" />
 										<td>${W_DTO.road}
 
-											<button type="button" id="modal_btn">지도보기</button>
+											<button type="button" class="btn btn-warning" id="modal_btn">지도보기</button>
 											<div class="black_bg"></div>
 											<div class="modal_wrap" style="display: block;">
 												<div class="modal_close">
