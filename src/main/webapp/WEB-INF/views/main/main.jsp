@@ -10,11 +10,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
-        <meta name="author" content="" />
-        
+        <meta name="author" content="" />        
         
         <title>옥독캣</title>
-        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
+        <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet"> <!-- 폰트 -->
         <link href="${root}/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
         <link href="${root}/resources/bootstrap/js/bootstrap.min.js"/>
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
@@ -24,31 +23,14 @@
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
      	<script>
-	     function login(){
-	    	  location.href = "${pageContext.servletContext.contextPath}/user/login";
-	    	  }
-      
-	      function mypage(){
-	      		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-	      }
-	      
+	   
+    
 	      function logout() {
 	  		if (confirm("로그아웃 하시겠습니까?")) {
 	  		location.href = "${pageContext.servletContext.contextPath}/user/logout";
 	  	 	}
 	  	}
-	      
-	      function main(){
-	    		location.href = "${pageContext.servletContext.contextPath}/main/main";
-	   	 }
-	      function logplz() {
-	    	  var uid ='<%=(String)session.getAttribute("SESS_EMAIL")%>';
-	   
-	   			console.log(uid+"뿡");
-	    	  if(uid==null){
-	    	  alert("로그인해라 조은말로할때...");
-	    	  }
-	      }
+	     
 	      
      	</script>
      	<!-- 폰트 -->
@@ -99,42 +81,51 @@
           .mainpage{
          background-color: #f9f8f3;
           }
-          
-        </style>
-        
-    </head>
-   <body class="sb-nav-fixed nanum"> 
+       
+		/* a태그 스타일 */
+		          a {
+		   text-decoration-line: none;
+		   color: inherit;
+		   }
+</style>
+</head>
+ <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-        <%  if( id != null) { %>
-        <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                  
-                   
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                 
-             
-            <%}  %>
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-                    
+            </form>     
+            </nav>         
+            
          <!-- 로고 -->              
-       <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main/main" >
+        <nav class="main bg-white" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
-        </nav> 
+        </nav>
+        
+        <!-- 상단바 메뉴 -->
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/pet/petall"><b>공고</b></a> 
-             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/community/clist" onclick="logplz();"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${pageContext.servletContext.contextPath}/notice/nlist"><b>공지사항</b></a>
-            </nav> 
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>
 
                 
     <main class = "mainpage nanum">
@@ -174,37 +165,8 @@
   </div>
 
 
-  <!-- Marketing messaging and featurettes
-  ================================================== -->
-  <!-- Wrap the rest of the page in another container to center all the content. -->
 
   <div class="container marketing">
-
-    <!-- Three columns of text below the carousel -->
-    <!--  <div class="row">
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>인기글</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-        <h2 class="fw-normal">인기글</h2>
-        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
-        <p><a class="btn btn-secondary" href="#">View details »</a></p>
-      </div>
-      <div class="col-lg-4">
-      	
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>인기글</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-        <h2 class="fw-normal">인기글</h2>
-        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
-        <p><a class="btn btn-secondary" href="#">View details »</a></p>
-      </div>
-      <div class="col-lg-4">
-        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>인기글</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
-        <h2 class="fw-normal">인기글</h2>
-        <p>And lastly this, the third column of representative placeholder content.</p>
-        <p>And lastly this, the third column.</p>
-        <p><a class="btn btn-secondary" href="#">View details »</a></p>
-      </div>
-    </div> -->
-
-
     <!-- START THE FEATURETTES -->
 
     <hr class="featurette-divider">
@@ -219,7 +181,7 @@
         </p>
       </div>
       <div class="col-md-5 ms-5">
-      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5001.png" style="width: 100%; height:100%;"/>      
+      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/mains1.png" style="width: 100%; height:100%;"/>      
     </div>
     </div>
 
@@ -235,7 +197,7 @@
         				또한, 유기 동물 입양 후 건강하고 행복한 생활을 위해 반려 동반 가능 서비스 정보 및 케어(미용, 병원) 서비스 정보를 공유하고 있습니다.</p>
       </div>
       <div class="col-md-5 order-md-0">
-      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5002.png" style="width: 100%; height:100%;"/>            
+      <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/mains2.png" style="width: 100%; height:100%;"/>            
       </div>
     </div>
 
@@ -251,7 +213,7 @@
      
       </div>
       <div class="col-md-5  ms-5">
-            <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/main5003.png" style="width: 100%; height:100%;"/>               
+            <img class = "bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" src="../resources/image/mains3.png" style="width: 100%; height:100%;"/>               
       </div>
     </div>
 

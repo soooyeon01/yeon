@@ -132,59 +132,63 @@
          background-color: #f9f8f3;
           }
           
+  		/* a태그 스타일 */
+          a {
+			text-decoration-line: none;
+			color: inherit;
+			}
 </style>
 </head>
  <body class="sb-nav-fixed bgcolor nanum" > 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-              <div class="input-group">
+             <div class="input-group">
              <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
             <%  if( id != null) { %>
-            <div style="margin-top:7px; font-size:14px;">♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="mypage();" style="font-size: 14px;">마이페이지</button>                          
+            <div style="padding:6px 10px;  font-size:14px;">
+            	♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="login();" style="font-size: 14px;">로그인</button>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
-                </div>                
+                </div>
             </form>     
-           </nav>
-           <script>
-               function logout() {
-             if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${root}/user/logout";
-                }
-         	}
-            </script>
+            </nav>         
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" onclick= "main();" >
+        	<a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
+        <!-- 상단바 메뉴 -->
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
           <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-            </nav>
+            </nav>  
             
    <div id="layoutSidenav_content">   
       <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h2 class="mt-1 mb-3" style ="margin-left:77px; font"><b>회원 탈퇴</b></h2>
+            <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>회원 탈퇴</b></h2>
             </div>
 
-            <div class="card mb-4" style="margin-left:100px; margin-right:100px;">
+            <div class="card mb-4" style="margin-left:150px; margin-right:155px;">
                <div class="card-header">
                  회원정보확인
                </div>
               
-               <div class="card-body" style="padding:50px 0px">
+               <div class="card-body" style="padding:40px 0px">
                <div align="center">
                 
                  <form action = "${root}/mypage/remMC" id="form" method ="post">
@@ -196,11 +200,10 @@
                  <div>
                  	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="Password" style="display:inline; width:300px;"/>                             		
                 </div>                                                    
-                </div>
-                <br>
+                </div>             
          		<br>
-                    	 <button type="button" class ="btn btn-warning" onclick="history.back()" style="font-size:15px" >이전</button>&nbsp;    	 
-                    	  <button type="submit" class ="btn btn-warning" onclick="location.href=${root}/mypage/remM;" style="font-size:15px">탈퇴하기</button>&nbsp;
+                     <button type="button" class ="btn btn-warning" onclick="history.back()" style="font-size:15px" >이전</button>&nbsp;    	 
+                    <button type="submit" class ="btn btn-warning" onclick="location.href=${root}/mypage/remM;" style="font-size:15px">탈퇴하기</button>&nbsp;
                 </form>        
                       <input type="hidden" name="pwd" value="${mdto.pwd}">
                    
@@ -208,10 +211,11 @@
             </div>
          </div>
       </main>
-      <footer class="py-4 bg-light mt-auto" style="float:bottom">
+      
+      <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-                 <div class="text-muted">Website 2023 &copy; Happy OkDogCat</div>
+                 <div class="text-muted"style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>
