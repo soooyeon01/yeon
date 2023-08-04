@@ -54,13 +54,6 @@
 	          
 	       </script>
 <style>
-.nanum {
-	font-family: 'NanumSquareNeo';
-}
-
-.nanumB {
-	font-family: 'NanumSquareNeoBold';
-}
 
 a:hover {
 	background-color: #feeaa5;
@@ -107,13 +100,15 @@ a {
 
 .bgcolor {
 	background-color: #f9f8f3;
+	font-family: 'NanumSquareNeo';
 }
-table.table.table-bordered th{
-	background-color:#feeaa5;
+
+table.table.table-bordered th {
+	background-color: #feeaa5;
 }
 </style>
 </head>
-<body class="sb-nav-fixed nanum">
+<body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
@@ -179,7 +174,7 @@ table.table.table-bordered th{
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
+			<div class="container-fluid px-10 pt-5 ps-4" style="width: 88%;">
 				<h2 class="mt-1">
 					<b><a href="${root}/shel/shelall">보호소</a></b>
 				</h2>
@@ -223,7 +218,9 @@ table.table.table-bordered th{
 							<option value="제주특별자치도"
 								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
 						</select>
-
+						<div>
+							<br>
+						</div>
 
 						<div id="shel-container">
 							<table class="table table-bordered">

@@ -67,13 +67,7 @@
 			    }
 	       </script>
 <style>
-.nanum {
-	font-family: 'NanumSquareNeo';
-}
 
-.nanumB {
-	font-family: 'NanumSquareNeoBold';
-}
 
 a {
 	text-decoration-line: none;
@@ -117,15 +111,19 @@ a:hover {
 	width: 250px;
 	height: 90px;
 }
-table.table.table-bordered th{
-	background-color:#feeaa5;
+
+table.table.table-bordered th {
+	background-color: #feeaa5;
 }
+
 .bgcolor {
+	font-family: 'NanumSquareNeo';
 	background-color: #f9f8f3;
 }
+
 </style>
 </head>
-<body class="sb-nav-fixed nanum">
+<body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
 		<form
@@ -191,128 +189,133 @@ table.table.table-bordered th{
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-10 pt-5 ps-4">
+			<div class="container-fluid px-10 pt-5 ps-4" style="width: 88%;">
 				<h2 class="mt-1">
 					<b><a href="${root}/with/withall?category3=${param.category3}">${param.category3}</a></b>
 				</h2>
-			</div>
-			<ol class="breadcrumb mb-4 pt-3">
-			</ol>
-			<div class="card mb-4">
-				<div class="card-body">
-					<select id="region-select" name="region-select">
-						<option value="">지역 선택</option>
-						<option value="서울특별시"
-							<c:if test='${ param.region eq "서울특별시" }'>selected="selected"</c:if>>서울특별시</option>
-						<option value="부산광역시"
-							<c:if test='${ param.region eq "부산광역시" }'>selected="selected"</c:if>>부산광역시</option>
-						<option value="대구광역시"
-							<c:if test='${ param.region eq "대구광역시" }'>selected="selected"</c:if>>대구광역시</option>
-						<option value="인천광역시"
-							<c:if test='${ param.region eq "인천광역시" }'>selected="selected"</c:if>>인천광역시</option>
-						<option value="광주광역시"
-							<c:if test='${ param.region eq "광주광역시" }'>selected="selected"</c:if>>광주광역시</option>
-						<option value="대전광역시"
-							<c:if test='${ param.region eq "대전광역시" }'>selected="selected"</c:if>>대전광역시</option>
-						<option value="울산광역시"
-							<c:if test='${ param.region eq "울산광역시" }'>selected="selected"</c:if>>울산광역시</option>
-						<option value="세종특별자치시"
-							<c:if test='${ param.region eq "세종특별자치시" }'>selected="selected"</c:if>>세종특별자치시</option>
-						<option value="경기도"
-							<c:if test='${ param.region eq "경기도" }'>selected="selected"</c:if>>경기도</option>
-						<option value="강원도"
-							<c:if test='${ param.region eq "강원도" }'>selected="selected"</c:if>>강원도</option>
-						<option value="충청북도"
-							<c:if test='${ param.region eq "충청북도" }'>selected="selected"</c:if>>충청북도</option>
-						<option value="충청남도"
-							<c:if test='${ param.region eq "충청남도" }'>selected="selected"</c:if>>충청남도</option>
-						<option value="전라북도"
-							<c:if test='${ param.region eq "전라북도" }'>selected="selected"</c:if>>전라북도</option>
-						<option value="전라남도"
-							<c:if test='${ param.region eq "전라남도" }'>selected="selected"</c:if>>전라남도</option>
-						<option value="경상북도"
-							<c:if test='${ param.region eq "경상북도" }'>selected="selected"</c:if>>경상북도</option>
-						<option value="경상남도"
-							<c:if test='${ param.region eq "경상남도" }'>selected="selected"</c:if>>경상남도</option>
-						<option value="제주특별자치도"
-							<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
-					</select>
+
+				<div class="card mb-4">
+					<div class="card-body">
+						<select id="region-select" name="region-select">
+							<option value="">지역 선택</option>
+							<option value="서울특별시"
+								<c:if test='${ param.region eq "서울특별시" }'>selected="selected"</c:if>>서울특별시</option>
+							<option value="부산광역시"
+								<c:if test='${ param.region eq "부산광역시" }'>selected="selected"</c:if>>부산광역시</option>
+							<option value="대구광역시"
+								<c:if test='${ param.region eq "대구광역시" }'>selected="selected"</c:if>>대구광역시</option>
+							<option value="인천광역시"
+								<c:if test='${ param.region eq "인천광역시" }'>selected="selected"</c:if>>인천광역시</option>
+							<option value="광주광역시"
+								<c:if test='${ param.region eq "광주광역시" }'>selected="selected"</c:if>>광주광역시</option>
+							<option value="대전광역시"
+								<c:if test='${ param.region eq "대전광역시" }'>selected="selected"</c:if>>대전광역시</option>
+							<option value="울산광역시"
+								<c:if test='${ param.region eq "울산광역시" }'>selected="selected"</c:if>>울산광역시</option>
+							<option value="세종특별자치시"
+								<c:if test='${ param.region eq "세종특별자치시" }'>selected="selected"</c:if>>세종특별자치시</option>
+							<option value="경기도"
+								<c:if test='${ param.region eq "경기도" }'>selected="selected"</c:if>>경기도</option>
+							<option value="강원도"
+								<c:if test='${ param.region eq "강원도" }'>selected="selected"</c:if>>강원도</option>
+							<option value="충청북도"
+								<c:if test='${ param.region eq "충청북도" }'>selected="selected"</c:if>>충청북도</option>
+							<option value="충청남도"
+								<c:if test='${ param.region eq "충청남도" }'>selected="selected"</c:if>>충청남도</option>
+							<option value="전라북도"
+								<c:if test='${ param.region eq "전라북도" }'>selected="selected"</c:if>>전라북도</option>
+							<option value="전라남도"
+								<c:if test='${ param.region eq "전라남도" }'>selected="selected"</c:if>>전라남도</option>
+							<option value="경상북도"
+								<c:if test='${ param.region eq "경상북도" }'>selected="selected"</c:if>>경상북도</option>
+							<option value="경상남도"
+								<c:if test='${ param.region eq "경상남도" }'>selected="selected"</c:if>>경상남도</option>
+							<option value="제주특별자치도"
+								<c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
+						</select>
 
 
-					<div>
-						<br>
-					</div>
-
-					<div id="with-container">
-						<table class="table table-bordered">
-
-							<thead>
-								<tr>
-									<th>문화시설 이름</th>
-									<th>도로명 주소</th>
-									<th>전화번호</th>
-									<th>운영시간</th>
-									<th>반려동물 동반 가능정보</th>
-									<th>반려동물 전용 정보</th>
-								</tr>
-							</thead>
-							<tbody>
-
-								<c:forEach var="W_DTO" items="${response.withList}">
-									<tr onclick="checkLoginAndRedirect(${W_DTO.with_pet_no});" style="cursor: pointer">
-										<!-- pageScope에 vo가 생성되었다.  -->
-
-										<td>${W_DTO.building}</td>
-										<td>${W_DTO.road}</td>
-										<td>${W_DTO.tel}</td>
-										<td>${W_DTO.hour}</td>
-										<td>${W_DTO.with_pet_info}</td>
-										<td>${W_DTO.only_pet_info}</td>
-									</tr>
-								</c:forEach>
-								<c:if test="${empty response.withList}">
-									<tr>
-										<td colspan="6" style="text-align: center;">검색된 결과가 없습니다.</td>
-									</tr>
-								</c:if>
-							</tbody>
-						</table>
-
-						<div class="container">
-							<div class="row">
-								<form method="get" name="search-form"
-									action="${root}/with/withall" autocomplete="off">
-									<table class="pull-right">
-										<tr>
-											<td><select id="form-control" class="form-control"
-												name="type">
-													<option value="allsearch"
-														<c:if test='${ param.type eq "allsearch" }'>selected="selected"</c:if>>전체검색</option>
-													<option value="building"
-														<c:if test='${ param.type eq "building" }'>selected="selected"</c:if>>건물명</option>
-													<option value="road"
-														<c:if test='${ param.type eq "road" }'>selected="selected"</c:if>>주소</option>
-											</select></td>
-
-											<td><input type="text" class="form-control"
-												placeholder="검색어 입력" name="keyword"
-												value="${SearchCriteria.keyword}"></td>
-
-											<td><button type="submit"
-													onclick="return getSearchList();" class="btn btn-success">검색</button></td>
-										</tr>
-									</table>
-
-									<input type="hidden" name="category3"
-										value="${param.category3}">
-								</form>
-							</div>
+						<div>
+							<br>
 						</div>
 
+						<div id="with-container">
+							<table class="table table-bordered">
+
+								<thead>
+									<tr>
+										<th>문화시설 이름</th>
+										<th>도로명 주소</th>
+										<th>전화번호</th>
+										<th>운영시간</th>
+										<th>반려동물 동반 가능정보</th>
+										<th>반려동물 전용 정보</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<c:forEach var="W_DTO" items="${response.withList}">
+										<tr onclick="checkLoginAndRedirect(${W_DTO.with_pet_no});"
+											style="cursor: pointer">
+											<!-- pageScope에 vo가 생성되었다.  -->
+
+											<td>${W_DTO.building}</td>
+											<td>${W_DTO.road}</td>
+											<td>${W_DTO.tel}</td>
+											<td>${W_DTO.hour}</td>
+											<td>${W_DTO.with_pet_info}</td>
+											<td>${W_DTO.only_pet_info}</td>
+										</tr>
+									</c:forEach>
+									<c:if test="${empty response.withList}">
+										<tr>
+											<td colspan="6" style="text-align: center;">검색된 결과가
+												없습니다.</td>
+										</tr>
+									</c:if>
+								</tbody>
+							</table>
+
+							<div class="container">
+								<div class="row">
+									<div class="col-md-6">
+									<form class="form" method="get" name="search-form"
+										action="${root}/with/withall" autocomplete="off" >
+										<table id="table">
+											<tr>
+												<td><select id="form-control" class="form-control"
+													name="type">
+														<option value="allsearch"
+															<c:if test='${ param.type eq "allsearch" }'>selected="selected"</c:if>>전체검색</option>
+														<option value="building"
+															<c:if test='${ param.type eq "building" }'>selected="selected"</c:if>>건물명</option>
+														<option value="road"
+															<c:if test='${ param.type eq "road" }'>selected="selected"</c:if>>주소</option>
+												</select></td>
+
+												<td><input type="text" class="form-control"
+													placeholder="검색어 입력" name="keyword"
+													value="${SearchCriteria.keyword}"></td>
+
+												<td><button type="submit"
+														onclick="return getSearchList();" class="btn btn-success">검색</button></td>
+											</tr>
+										</table>
+					
+										<input type="hidden" name="category3"
+											value="${param.category3}">
+									</form>
+								</div>
+								 <div class="col-md-6 d-flex justify-content-end">
+								 	<%@ include file="../import/page-with_pet.jsp"%>
+								 </div>
+							</div>
+							
+						</div>
+					</div>
+						
 					</div>
 				</div>
-
-				<%@ include file="../import/page-with_pet.jsp"%>
 			</div>
 		</main>
 	</div>
