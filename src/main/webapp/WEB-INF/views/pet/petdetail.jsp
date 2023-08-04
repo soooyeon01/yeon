@@ -234,9 +234,17 @@ a {
 }
 
 table.table.table-bordered {
-	width: 40%;
+	width: 50%;
 	margin-top: 50px;
 	margin-left: 350px;
+}
+table.table.table-bordered th {
+	width: 30%;
+	margin-top: 50px;
+	margin-left: 350px;
+	background-color: #feeaa5;
+	text-align:center;
+   
 }
 
 #image-container {
