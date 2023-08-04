@@ -22,7 +22,11 @@
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
         <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
      	<script>
-     	
+    	function logout() {
+    		if (confirm("로그아웃 하시겠습니까?")) {
+    		location.href = "${root}/user/logout";
+    	 	}
+    	}
      	</script>
         <style> 
 		.link:hover {cursor: url(https://cur.cursors-4u.net/nature/nat-2/nat186.cur), auto !important;}
@@ -89,6 +93,12 @@
 		}
 		#tooosht {
 			width: 4rem;
+		}
+		 .btn{
+				width: 15rem;
+				height: 5rem;
+				margin-left:1rem;
+				margin-right:1rem;
 		}
         </style>
         <style type="text/css">
@@ -265,13 +275,15 @@
 
 	</div>
 		</main>
-		<footer class="py-4 bg-light mt-auto">
-			<div class="container-fluid px-4">
-				<div class="d-flex align-items-center justify-content-between small">
+	  <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
 
-				</div>
-			</div>
-		</footer>
+               <div></div>
+            </div>
+         </div>
+      </footer>
 	</div>
 </body>
 </html>

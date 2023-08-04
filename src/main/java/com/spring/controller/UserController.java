@@ -2,31 +2,20 @@ package com.spring.controller;
 
 import java.io.IOException;
 import java.util.Random;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.JsonObject;
-import com.spring.domain.LikeDTO;
 import com.spring.domain.MembersDTO;
-import com.spring.domain.ReplyDTO;
 import com.spring.service.FindEmailService;
 import com.spring.service.FindPwdService;
 import com.spring.service.JoinService;
@@ -63,7 +52,7 @@ public class UserController {
    @PostMapping("/login")
    public String loginPost(@RequestParam("email") String email,@RequestParam("pwd") String pwd,
         HttpSession session,Model model,MembersDTO mdto) {
-       //MembersDTO mdto = new MembersDTO();
+
        mdto.setEmail(email);
        mdto.setPwd(SHAEncodeUtil.encodeSha(pwd));
        
@@ -149,7 +138,7 @@ public class UserController {
    
    private String getRandomAuthNum() {
         Random random = new Random();
-        int authNum = random.nextInt(899999) + 100000; // 100000 ~ 999999 사이의 랜덤한 수 생성
+        int authNum = random.nextInt(899999) + 100000; // 100000 ~ 999999
         return String.valueOf(authNum);
       }
 
@@ -232,12 +221,10 @@ public class UserController {
       Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
          
         if(SESS_AUTH != null && SESS_AUTH) {
-//          request.setCharacterEncoding("utf-8");
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
             model.addAttribute("userList", mservice.getMemberList());
 
-            //model.addAttribute("likeCnt", lservice.getLikeCnt(ldto));
             return "user/userlist";
         }else {
          return "redirect:/main/main";
@@ -253,7 +240,7 @@ public class UserController {
         System.out.println("회원 삭제 통신 성공");
 
         if(SESS_AUTH != null && SESS_AUTH) {
-//          request.setCharacterEncoding("utf-8");
+
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
             

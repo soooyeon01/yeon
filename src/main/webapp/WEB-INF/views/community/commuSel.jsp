@@ -216,7 +216,11 @@
 	       	
     	</script> 
     	<script>
-	    	
+    	function logout() {
+    		if (confirm("로그아웃 하시겠습니까?")) {
+    		location.href = "${root}/user/logout";
+    	 	}
+    	}
     	</script>
     	<script>
     	$(document).ready(function() {
@@ -415,13 +419,13 @@
 				
 				
 				function updateButton() {
-					if (likeval > 0) {
-						console.log(likeval + "좋아요 누름");
-						btnLike.html("추천하기 취소");
-					} else {
-						console.log(likeval + "좋아요 안누름");
-						console.log(nickname);
-					}
+				    if (likeval > 0) {
+				        console.log(likeval + "좋아요 누름");
+				        btnLike.attr('class', 'fa-solid fa-heart fa-2xl').attr('style', 'color: #f70202; cursor: pointer;').attr('title', '추천하기 취소');
+				    } else {
+				        console.log(likeval + "좋아요 안누름");
+				        btnLike.attr('class', 'fa-regular fa-heart fa-2xl').attr('style', 'color: #f70202; cursor: pointer;').attr('title', '추천하기');
+				    }
 				}
 				
 				function updateLikeCount() {
@@ -435,7 +439,7 @@
 				            likeCnt: likeCnt
 				        }),
 				        success: function (data) {
-				            $('#like_cnt').text(data.likeCnt);  // 서버에서 반환된 좋아요 개수를 사용합니다.
+				        	 $('#like_count_value').text(data.likeCnt);   // 서버에서 반환된 좋아요 개수를 사용합니다.
 				        },
 				        error: function () {
 				            alert("error");
@@ -457,10 +461,11 @@
 								"nickname" : nickname
 							}),
 							success : function(data) {
-								btnLike.html("추천하기");
+								//btnLike.html("추천하기");
 								likeval = 0;
 								alert('추천 취소 성공');
 								updateLikeCount();
+								updateButton(); 
 							},
 							error : function() {
 								alert("error");
@@ -476,10 +481,12 @@
 								"nickname" : nickname
 							}),
 							success : function(data) {
-								btnLike.html("추천하기 취소");
+								//btnLike.html("추천하기 취소");
 								likeval = 1;
+								
 								alert('추천하기 성공');
 								updateLikeCount();
+								updateButton(); 
 							}
 						});
 					}
@@ -499,8 +506,8 @@
 		
     	<style>
     	#cont {
-    		width: 70rem;
-    		height: 20rem;
+    		width: 100%;
+    		height: 30rem;
     	}
     	</style>
         <style> 
@@ -540,10 +547,10 @@
           .bgcolor{
          background-color: #f9f8f3;
           }
-         .bt {
+         .buttonBox {
          width: 100%;
          text-align:center;
-         display : flex
+         display : inline-flex;
          }
          .my{
          
@@ -555,7 +562,30 @@
          #replyBox{
          	background-color:white;
          	width: 50rem;
+         	margin: auto;
          }
+         .btn{
+				width: 15rem;
+				height: 5rem;
+				margin-left:1rem;
+				margin-right:1rem;
+		}
+		.reply-sbox {
+
+		 display: inline-flex; 
+		 align-items: flex-end;
+		 margin: auto;
+		}
+		.contentBox {
+			border-radius: 6px;
+			margin: auto;
+		}
+		.contentHeader {
+			position: relative;
+		    margin-bottom: 20px;
+		    padding-bottom: 20px;
+			font-size: 20px;
+		}
         </style>
         <style type="text/css">
 		  .nanum{ font-family: 'NanumSquareNeo'; }
@@ -586,7 +616,7 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
@@ -609,18 +639,21 @@
             </nav>
 <div class="container mt-3">
   <h2 style="text-align: center;">게시글</h2>  
+  <div class="contentBox">
 	<form action="${pageContext.servletContext.contextPath}/community/commuSel">
 	<input type="hidden" name="c_no" value="${selectone.c_no}">
-	<div class="row">
+		<div class="contentHeader">
+		<div class="mb-3 mt-3 col" style="font-size:30px;">
+       		<b><label>글제목:</label></b>
+            <p class="form-control" id="title" name="title" style="width:100%">${selectone.title}</p>
+        </div>
+ 	<div class="row">
         <div class="mt-3 col p-3">
             <label>작성일:</label>
             <p class="form-control" id="reg_date" name="reg_date">${selectone.reg_date}</p>
 		</div>
-        <div class="mb-3 mt-3 col p-3">
-          	<label>글제목:</label>
-            <p class="form-control" id="title" name="title">${selectone.title}</p>
-        </div>
-        <div class="mb-3 mt-3 col p-3">
+        
+        <div class="mt-3 col p-3">
             <label>작성자:</label>
             <p class="form-control" id="nickname" name="nickname">${selectone.nickname}</p>
             <%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
@@ -629,26 +662,24 @@
             <label>조회수:</label>
             <p class="form-control" id="view_cnt" name="view_cnt">${selectone.view_cnt}</p>
 		</div>
+     	</div>
+     	</div>
 		<div class="mb-3 mt-3">
         	<label>글내용:</label>
         	<p id="cont" class="form-control" id="content" name="content">${selectone.content}</p>
      	</div>
      	
-     	<div class="mb-3 mt-3">
-        	<label>추천수:</label>
-        	<p id="like_cnt" class="form-control" name="like_cnt"></p>
-     	</div>
-     </div>
+
 	</form>
-	
-	<div class="container bt">
+	</div>
+<div class="buttonBox">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
 	<c:if test="${sessionScope.SESS_NICKNAME==selectone.nickname || sessionScope.SESS_NICKNAME=='관리자'}">
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='commuUp1?c_no=${selectone.c_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>
 	<br>
-	</div>
+</div>
 	<%-- <%@ include file="../community/reply.jsp" %> --%>
 	<div class="reply-box">
                     <input type="hidden" id="c_no" name="c_no" value="${selectone.c_no}">
@@ -656,39 +687,42 @@
    		                 <span>
    		                 <input type="hidden" id="r_no" name="r_no" value="${list2.r_no}"></span>
 						<br>
-						<form method="post">
-							<div>
-		                        <c:if test = "${sessionScope.SESS_NICKNAME!= null and sessionScope.SESS_NICKNAME!=selectone.nickname}">
-	            					<button type ="button" class="btn btn-warning btnLike" id="btnLike" >추천하기</button>
-	            					<i class="fa-solid fa-face-kiss-wink-heart fa-2x" style="color: #f00000;"></i>
-	            					<i class="fa-solid fa-heart fa-3x" style="color: #ff0000;"></i>
-	            					<i class="fa-solid fa-heart fa-5x" style="color: #ff0000;"></i>
-	            					<i class="fa-solid fa-heart fa-10x" style="color: #ff0000;"></i>
-	    						</c:if>
-	    					</div>		
-	                    </form>
-   		                 </div>
-						 <div class="reply-count">댓글 <span id="count">
-   		                 <c:out value="${map.total}"/></span>
-   		                 </div>	
+						<div style="display: flex;">
+						    <c:if test="${sessionScope.SESS_NICKNAME != null and sessionScope.SESS_NICKNAME != selectone.nickname}">
+						        <i id="btnLike" class="fa-lg" style="cursor: pointer;"></i>
+						    </c:if>
+						    <div id="like_cnt" class="like-count" style="margin-left: 10px;">추천 <span id="like_count_value"></span></div>
+						    <div class="reply-count" style="margin-left: 10px;">댓글 <span id="count">
+						        <c:out value="${map.total}" /></span>
+						    </div>
+						</div>
    		                 	   <!-- <span class="c-icon"><i class="fa-solid fa-user"></i>  -->
    		                 <div class="reply-name">
 	                        <span class="anonym">작성자 : ${sessionScope.SESS_NICKNAME}
 	               			<%-- <input type="text" class="form-control" id="nickname" name ="nickname" value='${sessionScope.SESS_NICKNAME}' readonly  style=" width: 200px; border:none;"> --%>
 	                        </span>
-	                      </div>   
+	                      </div> 
                     <div class="reply-sbox">
-                        <textarea class="reply-input" id="rcontent" cols="100" rows="3" name="rcontent" style="margin-top:1rem;"></textarea>
-                    </div>
-                    	<div class="regBtn">
+                        <textarea class="reply-input" id="rcontent" cols="115" rows="3" name="rcontent" style="margin-top:1rem;"></textarea>
+                    <div class="regBtn">
            					<button id="Reply_regist" class="btn btn-warning"> 댓글등록</button>
     					</div>
-    					<br>
-    <div class="reply_Box" style="border:1px solid gray;" id="replyBox"> 
+                    </div>
+                    </div>
+                        <br> 
+    <div class="reply_Box" style="border:1px solid gray;" id="replyBox">
     <!-- 댓글이 들어갈 박스 -->
 	</div>
    </div>
-		
 </div>
+  <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
+
+               <div></div>
+            </div>
+         </div>
+      </footer>
 </body>
 </html>
