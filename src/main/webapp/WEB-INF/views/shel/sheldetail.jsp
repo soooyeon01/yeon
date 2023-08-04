@@ -12,6 +12,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>보호소 목록 상세</title>
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
@@ -37,7 +40,10 @@
 a:hover {
 	background-color: #feeaa5;
 }
-
+a {
+	text-decoration-line: none;
+	color: inherit;
+}
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -78,16 +84,17 @@ a:hover {
 }
 
 .img_fa1 {
-	width: 100px;
-	height: 100px;
+	width: 200px;
+	height: 200px;
 	border: 0;
+	margin-top:-60px;
 }
 
 .img_fa2 {
-	width: 100px;
-	height: 100px;
+	width: 200px;
+	height: 200px;
 	display: none;
-	margin: 0;
+	margin-top:-60px;
 	padding: 0;
 	border: none;
 	background: none;
@@ -313,14 +320,14 @@ table.table.table-bordered {
 
 	<nav class="tab sb-topnav2 navbar navbar-expand; bg-white">
 		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/pet/petall"><b>공고</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/shel/shelall"><b>보호소</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/with/withca"><b>위드펫</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-			href="${root}/community/clist"><b>커뮤니티</b></a> <a
-			class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/pet/petall"><b>공고</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/shel/shelall"><b>보호소</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/with/withca"><b>위드펫</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
+			href="${root}/community/clist"><b>커뮤니티</b></a> 
+		<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
 			href="${root}/notice/nlist"><b>공지사항</b></a>
 	</nav>
 
@@ -330,21 +337,14 @@ table.table.table-bordered {
 				<h1 class="mt-1">보호소 목록 상세</h1>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
+					
 
 
 					<div class="card-body">
-						<button type="button" onclick="back();">뒤로가기</button>
+						<p>
+							<button type="button" class="btn btn-warning" onclick="back();">목록</button>
+						</p>
 						<table class="table table-bordered">
-
-
-
-
-
-
 							<c:forEach var="S_DTO" items="${sheldetailList}">
 
 								<div style="float: right;">
@@ -369,7 +369,7 @@ table.table.table-bordered {
 										style="${!isLiked ? 'display:none;' : ''}">
 									</label>
 								</div>
-
+								
 								<tr>
 									<th>보호소 이름</th>
 									<c:set var="addressNm" value="${S_DTO.careNm}" />
