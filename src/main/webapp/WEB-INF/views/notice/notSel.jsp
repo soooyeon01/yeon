@@ -259,46 +259,51 @@
 		</script>
      <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
      <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
+<style>
+/* a태그 스타일 */
+          a {
+   text-decoration-line: none;
+   color: inherit;
+   }
+</style>
 </head>
-<body class="sb-nav-fixed bgcolor nanum"> 
-	<nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-              <%System.out.println(email);%>
+ <body class="sb-nav-fixed bgcolor nanum" > 
+           <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-         <%  if( email != null) { %>
-         <div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
+                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-            <script>
-	            function logout() {
-	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/user/logout";
-	   		 	}
-			}
-
-            </script>
+            </form>     
+            </nav>         
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
-         <a class="mainlogo" href="${root}/main/main" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
         
-        <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
-            <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			<a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-        </nav>
+        <!-- 상단바 메뉴 -->
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>
 <div class="container mt-3">
   <h2 style="text-align: center;">공지</h2>
    <form action="${pageContext.servletContext.contextPath}/notice/noticeSel">
