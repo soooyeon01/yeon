@@ -194,9 +194,7 @@ public class CommunityController {
             //model.addAttribute("likeCnt", lservice.getLikeCnt(ldto));
             return "community/community";
         }else {
-        	model.addAttribute("msg", "로그인 후 이용하실 수 있습니다.^~^"); 
-			model.addAttribute("url", "/4jojo/main/main"); 
-			return "alert";
+			return "main/main";
         }
         
 	}

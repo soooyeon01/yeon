@@ -177,7 +177,7 @@ a {
 
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
+						<i class="fas fa-table me-1">내가 쓴 글 목록</i>
 
 					</div>
 					<div class="card-body">
@@ -205,12 +205,13 @@ a {
 								</c:forEach>
 							</tbody>
 						</table>
-						<button type="button" class="btn btn-warning" onclick="back();">이전</button>
+						
 					</div>
 					<%-- <%@ include file="../import/page-community.jsp" %> --%>
 					<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
                         	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
 				</div>
+				<button type="button" class="btn btn-warning" onclick="back();">이전</button>
 			</div>
 		</main>
 	</div>
