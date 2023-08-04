@@ -63,12 +63,18 @@
             if( !number (element,msg) ){
                 return false;
             } 
+            element = document.getElementById("emailAuth");
+            msg = "인증번호를 입력하세요.";
+            if (!isValid(element, msg)) {
+              return false;
+            }
+
             if (!auth) {
-                alert("이메일 인증번호가 일치하지 않습니다.");
-                return false;
+              alert("이메일 인증번호가 일치하지 않습니다.");
+              return false;
             }
             return true;
-        }
+          }
         
         function number(element, msg) {
             let result = false;
@@ -421,8 +427,10 @@
 												<div class="form-floating mb-3 mb-md-0">
 											    <input class="form-control" id="pwd" name="pwd" type="password" onkeyup="checkPassword();" />
 											    <label for="pwd">비밀번호</label>
+											    <span style="font-size : 9pt; color : #8C8C8C;">8자 이상 입력해주세요</span>
 											  </div>
 											</div>
+											
 											<div class="col-md-6">
 											  <div class="form-floating mb-3 mb-md-0">
 											    <input class="form-control" id="pwd-double-check" type="password" onkeyup="checkPassword();" />
