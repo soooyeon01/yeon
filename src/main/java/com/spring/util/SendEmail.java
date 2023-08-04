@@ -1,7 +1,6 @@
 package com.spring.util;
 
 import java.util.Properties;
-import java.util.Random;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -11,15 +10,13 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class SendEmail {
 
 	
 	public static void naverMailSend(String email, String subject, String text) {
         String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-        String user = "2qiuo@naver.com"; // 패스워드
-        String password = "Yesol1101@";       
+        String user = "1qaietx@naver.com"; // 패스워드
+        String password = "minjaes2";       
 
         // SMTP 서버 정보를 설정한다.
         Properties props = new Properties();

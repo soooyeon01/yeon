@@ -1,6 +1,5 @@
 package com.spring.service;
 
-
 import java.util.Random;
 
 import org.springframework.stereotype.Service;
