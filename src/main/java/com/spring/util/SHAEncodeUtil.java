@@ -1,28 +1,32 @@
 package com.spring.util;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SHAEncodeUtil {
 
-	public static String encodeSha(String planeText) {
-		String encodingText = "";
-		try {
-//			String raw = "1111";
-			MessageDigest md = MessageDigest.getInstance("SHA-512");
-			md.update(planeText.getBytes());
-			encodingText = String.format("%0128x", new BigInteger(1, md.digest()));
-		} catch (NoSuchAlgorithmException e) {
-			 // throws가 싫어서 RuntimeException을 사용
+    public static String encodeSha(String input) {
+        String shaResult = null;
 
-			throw new RuntimeException(e);
-		}
-		return encodingText;
-	}
-	public static void main(String[] args) {
-		System.out.println(encodeSha("aa"));
-	}
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            shaResult = hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return shaResult;
+    }
 }
-
 
