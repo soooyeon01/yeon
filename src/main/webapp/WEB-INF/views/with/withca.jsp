@@ -86,7 +86,7 @@
   </script>
 <style>
 .nanumB{
-	font-family: NanumSquareNeoBold;
+   font-family: NanumSquareNeoBold;
 }
 .deleteMember {
    color: darkgray;
@@ -225,9 +225,9 @@ a:hover {
 }
 /* a태그 스타일 */
           a {
-			text-decoration-line: none;
-			color: inherit;
-			}
+         text-decoration-line: none;
+         color: inherit;
+         }
 </style>
 </head>
  <body class="sb-nav-fixed bgcolor nanum" > 
@@ -241,7 +241,7 @@ a:hover {
               
             <%  if( id != null) { %>
             <div style="padding:6px 10px;  font-size:14px;">
-            	♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
             </div>
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
@@ -254,7 +254,7 @@ a:hover {
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
-        	<a class="mainlogo" onclick="location.href='${root}/main/main'" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
          <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
          </a>
         </nav>
@@ -263,9 +263,9 @@ a:hover {
          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
           <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
              <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
-			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
             </nav>  
             
             
