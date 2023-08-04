@@ -55,8 +55,7 @@
   
   <!-- 폰트 -->
 	     <style type="text/css">
-		.nanum{ font-family: 'NanumSquareNeo'; }
-		.nanumB{font-family: 'NanumSquareNeoBold';}						
+		.nanum{ font-family: 'NanumSquareNeo'; }					
 		</style>
   
 <style>
@@ -126,7 +125,7 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
@@ -183,7 +182,7 @@
       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:190px;">Copyright &copy; Your Website 2023</div>
+              <div class="text-muted" style="padding-top:190px;">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>

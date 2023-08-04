@@ -12,6 +12,9 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>유기동물 공고 상세</title>
+<link
+	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
+	rel="stylesheet">
 <!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
 <link
 	href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css"
@@ -171,7 +174,10 @@
 a:hover {
 	background-color: #feeaa5;
 }
-
+a {
+	text-decoration-line: none;
+	color: inherit;
+}
 .main {
 	padding-top: 0.7cm;
 	padding-left: 1.0cm;
@@ -228,9 +234,17 @@ a:hover {
 }
 
 table.table.table-bordered {
-	width: 40%;
+	width: 50%;
 	margin-top: 50px;
 	margin-left: 350px;
+}
+table.table.table-bordered th {
+	width: 30%;
+	margin-top: 50px;
+	margin-left: 350px;
+	background-color: #feeaa5;
+	text-align:center;
+   
 }
 
 #image-container {
@@ -286,26 +300,24 @@ table.table.table-bordered {
 <body class="sb-nav-fixed bgcolor">
 	<nav
 		class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
-		<form
-			class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-			<div class="input-group">
-				<% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-				<%System.out.println(email);%>
-				<%  if( email != null) { %>
-				<button type="button" class="btn" onclick="logout();"
-					style="font-size: 14px;">로그아웃</button>
-				<button type="button" class="btn"
-					onclick="location.href='${root}/mypage/mypage'"
-					style="font-size: 14px;">마이페이지</button>
-				<%} else{%>
-				<button type="button" class="btn"
-					onclick="location.href='${root}/user/login'"
-					style="font-size: 14px;">로그인</button>
-
-				<%}  %>
-			</div>
-		</form>
-	</nav>
+		<!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
+              
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
+            <%} else{%>
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
+                </div>
+            </form>     
+            </nav>   
 	<script>
                function logout() {
              if (confirm("로그아웃 하시겠습니까?")) {
@@ -340,10 +352,7 @@ table.table.table-bordered {
 				<h1 class="mt-1">유기동물 공고 상세</h1>
 
 				<div class="card mb-4">
-					<div class="card-header">
-						<i class="fas fa-table me-1"></i>
-
-					</div>
+					
 					<div class="card-body">
 
 
@@ -358,16 +367,12 @@ table.table.table-bordered {
 									</c:if>
 								</c:forEach>
 
-								<label> <input type="checkbox" class="image-checkbox"
-									id="fa" name="favorite"
-									style="transform: scale(4); margin: 5px; display: none;"
-									value="${P_DTO.pet_notice_no}"> <img class="img_fa1"
-									name="favorite" data-value="${P_DTO.pet_notice_no}"
-									src="../resources/image/fa1.png"
-									style="${isLiked ? 'display:none;' : ''}"> <img
-									class="img_fa2" name="favorite"
-									data-value="${P_DTO.pet_notice_no}"
-									src="../resources/image/fa3.gif"
+								<label>
+								<input type="checkbox" class="image-checkbox" id="fa" name="favorite" 
+								style="transform: scale(4); margin: 5px; display: none;" value="${P_DTO.pet_notice_no}"> 
+								<img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png"
+									style="${isLiked ? 'display:none;' : ''}"> 
+								<img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa3.gif"
 									style="${!isLiked ? 'display:none;' : ''}">
 								</label>
 

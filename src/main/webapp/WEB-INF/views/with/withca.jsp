@@ -44,42 +44,12 @@
     }   
     </script>
 <script>
-  <!-- 최상단 -->
-
-    function login(){
-      location.href = "${pageContext.servletContext.contextPath}/user/login";
-     }
-     function mypage(){
-        location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-     }
-  
-    function main(){
-        location.href = "${pageContext.servletContext.contextPath}/main/main";
-     }
 
       function logout() {
       if (confirm("로그아웃 하시겠습니까?")) {
       location.href = "${pageContext.servletContext.contextPath}/user/logout";
        }
    }
-  
-  <!-- 마이페이지 -->
-  function favoritep(){
-        location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
-     }
-  function favorites(){
-        location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
-     }
-  function favoritew(){
-        location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
-     }
-  function upmypage(){
-        location.href = "${pageContext.servletContext.contextPath}/mypage/upmypage";
-     }
-  function mypaper(){
-        location.href = "${pageContext.servletContext.contextPath}/community/myclist";
-     }
-  
   
   <!-- inputpwd값 보내기 -->
   function remM() {
@@ -115,7 +85,9 @@
    });
   </script>
 <style>
-
+.nanumB{
+   font-family: NanumSquareNeoBold;
+}
 .deleteMember {
    color: darkgray;
    text-align: right;
@@ -184,13 +156,11 @@ a:hover {
   background-color: salmon;
 }
 
-
 /* toggle class bg-animate-color */
 
 .bg-animate-color {
   animation: random-bg .5s linear infinite;
 }
-
 
 /* add animation to bg color  */
 
@@ -207,7 +177,7 @@ a:hover {
   /* change bg color to get different hues    */
   background-color: #feeaa5;
   color: black;
-  padding: 2em 3em;
+  padding: 1.5em 1em;
   border:none;
   transition: all .3s ease;
   border-radius: 5px;
@@ -216,11 +186,12 @@ a:hover {
   outline: none;
   align-self: center;
   cursor: pointer;
-  font-weight: bold;
+  font-size: 15px;
 }
 
 .fun-btn:hover {
-  animation: random-bg .5s linear infinite, grow 1300ms ease infinite;
+  animation: linear infinite, grow 1300ms ease infinite;
+  background-color: #ffe27d;
 }
 
 .start-fun {
@@ -252,119 +223,111 @@ a:hover {
     grid-template-columns: repeat(3, 1fr); /* 3열 그리드 */
     gap: 10px;
 }
+/* a태그 스타일 */
+          a {
+         text-decoration-line: none;
+         color: inherit;
+         }
 </style>
 </head>
-<body class="sb-nav-fixed bgcolor">
-   <nav
-      class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow">
-      <form
-         class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-         <div class="input-group">
-            <%
-            String id = (String) session.getAttribute("SESS_EMAIL");
-            %>
-            <%
-            System.out.println(id);
-            %>
-
-            <%
-            if (id != null) {
-            %>
-            <div style="margin-top: 5px;">♡${sessionScope.SESS_NICKNAME}님
-               환영합니다♡</div>
-            <button type="button" class="btn" onclick="logout();"
-               style="font-size: 14px;">로그아웃</button>
-            <button type="button" class="btn" onclick="mypage();"
-               style="font-size: 14px;">마이페이지</button>
-            <%
-            } else {
-            %>
-            <button type="button" class="btn" onclick="login();"
-               style="font-size: 14px;">로그인</button>
-            <%
-            }
-            %>
-         </div>
-      </form>
-   </nav>
-   <script>
-               function logout() {
-             if (confirm("로그아웃 하시겠습니까?")) {
-             location.href = "${pageContext.servletContext.contextPath}/user/logout";
-                }
-            }
-            </script>
-
-   <!-- 로고 -->
-   <nav class="main bg-white">
-      <a class="mainlogo" onclick="main();"> <img class="img_main"
-         src="../resources/image/logo.png" style="width: 250px; height: 90px;" />
-      </a>
-   </nav>
-
-   <nav class="tab sb-topnav2 navbar navbar-expand; bg-white">
-      <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/pet/petall"><b>공고</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/shel/shelall"><b>보호소</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/with/withca"><b>위드펫</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/community/clist"><b>커뮤니티</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/notice/nlist"><b>공지사항</b></a>
-
-   </nav>
+ <body class="sb-nav-fixed bgcolor nanum" > 
+           <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
+           
+           <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
+              
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
+            <%} else{%>
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
+                </div>
+            </form>     
+            </nav>         
+            
+         <!-- 로고 -->              
+        <nav class="main bg-white" >
+           <a class="mainlogo" onclick="location.href='${root}/main/main'" >
+         <img class = "img_main" src="../resources/image/logo.png" style="width: 250px; height: 90px;"/>
+         </a>
+        </nav>
+        
+        <!-- 상단바 메뉴 -->
+         <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+             <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
+          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+            </nav>  
+            
+            
    <div id="layoutSidenav_content">
 
       <main>
-         <div class="container-fluid px-10 pt-5 ps-4" style="width: 88%;">
-            <h2 class="mt-1">
-               <b>위드펫</b>
-            </h2>
-         </div>
-         <ol class="breadcrumb mb-4 pt-3">
-         </ol>
+         <div class="container-fluid px-10 pt-5 ps-4" >
+            <h2 class="mt-1 mb-3" style ="margin-left:127px;"><b>위드펫</b></h2>
+            </div>
+
          <div class="card-body">
             <div align="center">
 
 
                <form id="myForm" action="${root}/with/withall" method="get">
                   <input type="hidden" id="category3" name="category3">
-                  <div class="container">
+                  <div class="container nanumB" style="padding:0px 80px">
                      <button class="fun-btn" type="submit" value="카페"
-                        onclick="submitForm(this.value)">카페</button>
+                        onclick="submitForm(this.value)">
+                        <i class="fa-solid fa-mug-saucer" style="color: #180c01; weight:30px; height:30px;"></i><br>카페</button>                        
                      <button class="fun-btn" type="submit" value="식당"
-                        onclick="submitForm(this.value)">식당</button>
+                        onclick="submitForm(this.value)">
+                        <i class="fa-solid fa-utensils" style="color: #180c01; weight:30px; height:30px;"></i><br>식당</button>
                      <button class="fun-btn" type="submit" value="여행지"
-                        onclick="submitForm(this.value)">여행지</button>
+                        onclick="submitForm(this.value)">
+                      <i class="fa-solid fa-umbrella-beach" style="color: #180c01; weight:30px; height:30px;"></i><br>여행지</button>
                      <button class="fun-btn" type="submit" value="박물관"
-                        onclick="submitForm(this.value)">박물관</button>
+                        onclick="submitForm(this.value)">
+                      <i class="fa-solid fa-building-columns" style="color: #180c01; weight:30px; height:30px;"></i><br>박물관</button>
                      <button class="fun-btn" type="submit" value="펜션"
-                        onclick="submitForm(this.value)">펜션</button>
+                        onclick="submitForm(this.value)">
+                      <i class="fa-solid fa-hotel" style="color: #180c01; weight:30px; height:30px;"></i><br>펜션</button>
                      <button class="fun-btn" type="submit" value="호텔"
-                        onclick="submitForm(this.value)">호텔</button>
+                        onclick="submitForm(this.value)">
+                       <i class="fa-solid fa-square-h" style="color: #180c01; weight:30px; height:30px;"></i><br>호텔</button>
                      <button class="fun-btn" type="submit" value="동물병원"
-                        onclick="submitForm(this.value)">동물병원</button>
+                        onclick="submitForm(this.value)">
+                       <i class="fa-solid fa-hospital" style="color: #180c01; weight:30px; height:30px;"></i><br>동물병원</button>
                      <button class="fun-btn" type="submit" value="미술관"
-                        onclick="submitForm(this.value)">미술관</button>
+                        onclick="submitForm(this.value)">
+                       <i class="fa-solid fa-palette" style="color: #180c01; weight:30px; height:30px;"></i><br>미술관</button>
                      <button class="fun-btn" type="submit" value="문예회관"
-                        onclick="submitForm(this.value)">문예회관</button>
+                        onclick="submitForm(this.value)">
+                       <i class="fa-solid fa-school" style="color: #180c01; weight:30px; height:30px;"></i><br>문예회관</button>
                      <button class="fun-btn" type="submit" value="동물약국"
-                        onclick="submitForm(this.value)">동물약국</button>
+                        onclick="submitForm(this.value)">
+                       <i class="fa-solid fa-pills" style="color: #180c01; weight:30px; height:30px;"></i><br>동물약국</button>
                      <button class="fun-btn" type="submit" value="위탁관리"
-                        onclick="submitForm(this.value)">위탁관리</button>
+                        onclick="submitForm(this.value)">
+                       <i class="fa-solid fa-bell-concierge" style="color: #180c01; weight:30px; height:30px;"></i><br>위탁관리</button>
                      <button class="fun-btn" type="submit" value="미용"
-                        onclick="submitForm(this.value)">미용</button>
+                        onclick="submitForm(this.value)">
+                      <i class="fa-solid fa-bath" style="color: #180c01; weight:30px; height:30px;"></i><br>미용</button>
                   </div>
                </form>
             </div>
          </div>
       </main>
-      <footer class="py-4 bg-light mt-auto">
+       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               
+               <div class="text-muted" style="padding-top:50px;">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>

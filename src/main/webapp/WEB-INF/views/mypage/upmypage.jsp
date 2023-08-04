@@ -53,46 +53,24 @@
   <!-- 이동경로 -->
   
   <script>
-  function login(){
-	  	location.href = "${pageContext.servletContext.contextPath}/user/login";
-	  }
-  function mypage(){
-  	location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
-  }
-  
-  function main(){
-  	location.href = "${pageContext.servletContext.contextPath}/main/main";
-  } 
-  function favoritep(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritep";
-	  }
-  function favorites(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
-	  }
-  function favoritew(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
-	  }
 
-  
   function pwdShow() {
-	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴
-
-	 
-	  location.href = "${pageContext.servletContext.contextPath}/mypage/upmypwd";
+	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴 
+	  location.href = "${root}/mypage/upmypwd";
 	  return true;
 	} 
   
   function phoneShow() {
-		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴
-		  console.log("여기"+phone);
-		  location.href = "${pageContext.servletContext.contextPath}/mypage/upmyphone";
+		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴		 
+		  location.href = "${root}/mypage/upmyphone";
 		  return true;
+		  
 		} 
   
   function checkmypage() {
 		  var msg = "정보 변경이 완료되었습니다."
 		  alert(msg);
-		  location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
+		  location.href = "${root}/mypage/mypage";
 		  return true;
   }
 
@@ -106,6 +84,23 @@
        tr {
           text-align : center;         
        }
+       .table tr th{
+		width : 280px;
+		height : auto;
+		background-color : #fff4bd;
+		text-align : center;
+		padding :30px 0px;
+		color:#787878;
+		font-size:15px;
+		}
+		
+		.table tr td{
+		 text-align : center;
+		 padding: 30px 0px;
+		 width : 560px;
+		 font-size:15px;
+		}
+		
         a:hover{
                 background-color: #feeaa5;
             }
@@ -141,7 +136,11 @@
           .bgcolor {
          background-color: #f9f8f3;
           }
-          
+          .upbtn{ border:1px gray solid;}
+          .upbtn:hover{
+          	 background-color: #e3e3e3;          	
+          }
+	          
 		/* a태그 스타일 */
           a {
 		   text-decoration-line: none;
@@ -178,7 +177,7 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
@@ -212,55 +211,50 @@
                   회원정보수정
                </div>
               
-               <div class="card-body" style ="padding: 0px 100px; padding-bottom:50px;">
+               <div class="card-body" style ="padding: 50px 100px; padding-bottom:50px;">
             
                   <table class="table">
                  <c:forEach items="${membersDTO}" var="mdto">
 
                         <tr style="border-top:2px gray solid;">                      
-                           <td><br>이메일(아이디)</td>                        
-                            <td><br>${mdto.email}</td>      
+                           <th>이메일(아이디)</th>                        
+                           <td>${mdto.email}</td>      
                         </tr>                                         
                         <tr>         
-                           <td>비밀번호</td>
-                            <td><form action="${root }/mypage/upmypwd" method="post">
-                            		<br>
+                           <th style="padding-top:110px;">비밀번호</th>
+                            <td><form action="${root}/mypage/upmypwd" method="post">
+                            	
    									<input type ="password" name ="pwd"  placeholder="현재 비밀번호 입력"/><br><br>
    									<input type ="password" name ="newpwd"  placeholder="신규 비밀번호 입력"/><br><br>
-   									<input type ="password" name ="newcpwd"  placeholder="신규 비밀번호 입력 확인"/><br><br>
-   									<button type="submit" onclick="pwdShow();" >비밀번호 변경</button>
-   									<br>
+   									<input type ="password" name ="newcpwd"  placeholder="신규 비밀번호 확인"/><br><br>
+   									<button type="submit" class="upbtn" onclick="pwdShow();">비밀번호 변경</button>
+   									
    									<input type="hidden" name="email" value="${mdto.email}">  									
 								</form>			
 							</td>
                         </tr>                                                                
                         <tr>
-                           <td>닉네임</td>                 
-                         <td>${mdto.nickname}<br></td>
+                           <th>닉네임</th>                 
+                         <td>${mdto.nickname}</td>
                         </tr>                       
                         <tr>               
-                           <td>이름</td>
-                           <td>${mdto.name}<br></td>                               
+                           <th>이름</th>
+                           <td>${mdto.name}</td>                               
                         </tr>                                             
                         <tr>
-                           <td>전화번호</td>
-                           <td><form action="${pageContext.servletContext.contextPath}/mypage/upmyphone" method="post">
-   									<br>
+                           <th>전화번호</th>
+                           <td><form action="${root}/mypage/upmyphone" method="post"> 									
    									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
-   									<button type="submit" onclick="phoneShow();">전화번호 변경</button><br><br>
-   									<input type="hidden" name="email" value="${mdto.email}">
-   									
+   									<button type="submit" class="upbtn" onclick="phoneShow();">전화번호 변경</button>
+   									<input type="hidden" name="email" value="${mdto.email}">  									
 								</form>	
 							</td>    
                         </tr>
                 </c:forEach>
                </table>
-            
-                
-                
-               <div align="center">
-                    
-                     <button type="button" class ="btn btn-warning" onclick="mypage();">이전</button>&nbsp;    
+                          
+               <div align="center" style="padding-top:20px">
+                     <button type="button" class ="btn btn-warning" onclick="history.go(-1)">이전</button>&nbsp;    
                       <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
                     </div>
 
@@ -270,7 +264,7 @@
       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted">Copyright &copy; Your Website 2023</div>
+               <div class="text-muted" style="padding-top:190px;">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>
