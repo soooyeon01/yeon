@@ -198,8 +198,8 @@ public class UserController {
       
       if (count > 0) {
            String tempPwd = servicep.makeTempPwd();
-           String encryptedTempPwd = SHAEncodeUtil.encodeSha(tempPwd); // 암호화 처리 추가
-           mdto.setTempPwd(encryptedTempPwd); // 암호화된 임시 비밀번호로 업데이트
+           String modifyTempPwd = SHAEncodeUtil.encodeSha(tempPwd); // 암호화 처리 추가
+           mdto.setTempPwd(modifyTempPwd); // 암호화된 임시 비밀번호로 업데이트
            servicep.updatePwd(mdto);
            
            String subject = "임시 비밀번호 발급 안내";
