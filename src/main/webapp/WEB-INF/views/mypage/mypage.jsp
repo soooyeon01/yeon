@@ -18,7 +18,7 @@
 
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet"> <!-- 폰트 -->
 <link href="${root}/resources/bootstrap/css/mypageStyles.css"   rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"   crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"  crossorigin="anonymous"></script>
 <script   src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"   crossorigin="anonymous"></script>
 <script   src="${root}/resources/bootstrap/js/scripts.js"></script>
 <script   src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
@@ -26,7 +26,6 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
   <script>
-
    	function logout() {
 		if (confirm("로그아웃 하시겠습니까?")) {
 		location.href = "${root}/user/logout";
@@ -43,25 +42,25 @@
     
 		<!-- 폰트 -->
 	     <style type="text/css">
-		.nanum{ font-family: 'NanumSquareNeo'; }
-		.nanumB{font-family: 'NanumSquareNeoBold';}						
+		.nanum{ font-family: 'NanumSquareNeo'; }					
 		</style>
 	
 <style>		
-
 		.table tr th{
 		width : 280px;
 		height : 80px;
 		background-color : #fff4bd;
 		text-align : center;
 		padding :30px 0px;
-		 color:#787878;
+		color:#787878;
+		font-size:15px;
 		}
 		
 		.table tr td{
 		 text-align : center;
 		 padding: 30px 0px;
 		 width : 560px;
+		 font-size:15px;
 		}
 		
       .deleteMember{
@@ -174,7 +173,7 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
@@ -199,7 +198,7 @@
    <div id="layoutSidenav_content">
       <main class = "nanum">
          <div class="container-fluid px-10 pt-5 ps-4" >
-            <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>마이페이지</b></h2>
+            <h2 class="mt-1 mb-3" style ="margin-left:127px;"><b>마이페이지</b></h2>
             </div>
       
             <div class="card mb-4" style="margin-left:150px; margin-right:138px;">
@@ -211,24 +210,24 @@
                      <!-- 드롭버튼 -->
                      <div class="dropdown" style="padding-top:50px; padding-bottom:10px; padding-right:100px; float:right;">
                      		
-						  <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+						  <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" Style="font-size:14px">
 						    즐겨찾기
-						  </button>&nbsp;&nbsp;&nbsp;
-						  <ul class="dropdown-menu">
+						  </button>&nbsp;
+						  <ul class="dropdown-menu" style="font-size:15px;">
 						    <li><a class="dropdown-item" href="${root}/fa/favoritep">공고</a></li>
 						    <li><a class="dropdown-item" href="${root}/fa/favorites">보호소</a></li>
 						    <li><a class="dropdown-item" href="${root}/fa/favoritew">위드펫</a></li>
 						  </ul>
 						 
 						  <form action="${root}/community/myclist" method="post" style="width:100px; display:inline;">            
-		                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" >내가쓴글</button>&nbsp;&nbsp;&nbsp;
+		                     <button type="submit" class ="btn btn-warning" onclick="mypaper();" Style="font-size:14px" >내가쓴글</button>&nbsp;
 		                      <input type="hidden" name="nickname" value="${mdto.nickname}"> 
 		                  </form>
-		                  <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/updatecheck';">정보수정</button>&nbsp;
+		                  <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/updatecheck';" Style="font-size:14px">정보수정</button>&nbsp;
 						</div>            
                  </div>              
  
-               <div class="card-body" style ="padding: 50px 100px;">
+               <div class="card-body" style ="padding: 0px 100px; padding-top:0px; padding-bottom : 50px">
             
                <table class = "table">
                  <c:forEach items="${membersDTO}" var="mdto">
