@@ -229,11 +229,17 @@ a {
 }
 
 table.table.table-bordered {
-	width: 50%;
+	width: 55%;
+	margin-top: 50px;
+	margin-left: 280px;
+}
+table.table.table-bordered th {
+	width: 30%;
 	margin-top: 50px;
 	margin-left: 350px;
+	background-color: #feeaa5;
+	text-align:center;
 }
-
 /* 모달 스타일 */
 .modal_wrap {
 	display: none;
