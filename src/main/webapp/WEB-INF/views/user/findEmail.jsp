@@ -112,7 +112,7 @@
                                             
                                           	<div class="mt-4 mb-0">
 											<div class="d-grid">
-												<input class="btn btn-warning btn-block" type="submit" value="전송" onclick="return verifyField();">
+												<input class="btn btn-warning btn-block" type="submit" value="이메일 찾기" onclick="return verifyField();">
 											</div>
 										</div>
                                             </div>
@@ -123,6 +123,8 @@
 	                                        <a href="${root}/user/join">회원가입</a>
 	                                        <a>|</a>
 	                                        <a href="${root}/user/login">로그인</a>
+	                                        <a>|</a>
+                                        	<a href="${root}/user/findPwd">비밀번호 찾기</a>
 	                                        </div>
                                 </div>
                             </div>

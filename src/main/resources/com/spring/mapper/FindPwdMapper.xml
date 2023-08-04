@@ -13,6 +13,8 @@
 	
 	
   	<update id="updatePwd">
-  	UPDATE members SET pwd = #{tempPwd} WHERE email = #{email}
-  	</update>
+  UPDATE members
+  SET pwd = #{tempPwd, jdbcType=VARCHAR}
+  WHERE email = #{email} AND phone = #{phone}
+</update>
   	</mapper>
