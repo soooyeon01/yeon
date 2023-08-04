@@ -50,6 +50,11 @@
        	function toListPage() {
     		location.href="${pageContext.servletContext.contextPath}/community/clist";
     	}
+    	function logout() {
+    		if (confirm("로그아웃 하시겠습니까?")) {
+    		location.href = "${root}/user/logout";
+    	 	}
+    	}
     	</script>
         <style> 
 
@@ -98,31 +103,25 @@
     </head>
    <body class="sb-nav-fixed bgcolor nanum"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
-          <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
-                 <div class="input-group">
-                <% String email = (String)session.getAttribute("SESS_EMAIL"); %>
-                <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
-              <%System.out.println(email);%>
-              <%System.out.println(nickname);%>
+          <!-- 로그인 로그아웃 마이페이지 반응형 -->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-0 my-md-0 mt-sm-0 ">
+             <div class="input-group">
+             <% String id = (String)session.getAttribute("SESS_EMAIL"); %>
+             <% String nickname = (String)session.getAttribute("SESS_NICKNAME"); %>
               
-         <%  if( email != null) { %>
-         			<div style="margin-top:5px;">♡${sessionScope.SESS_NICKNAME}님 환영합니다♡</div>
-                   <button type="button" class="btn" onclick="logout();" style="font-size: 14px;">로그아웃</button>
-                   <button type="button" class="btn" onclick="location.href='${root}/mypage/mypage'" style="font-size: 14px;">마이페이지</button>                  
+            <%  if( id != null) { %>
+            <div style="padding:6px 10px;  font-size:14px;">
+               ♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
+            </div>
+                   <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+                   <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <button type="button" class="btn" onclick="location.href='${root}/user/login'" style="font-size: 14px;">로그인</button>                 
-            <%}  %>
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+            <%}  %> 
                 </div>
-            </form>      
-            </nav>
-            <script>
-	            function logout() {
-	    		if (confirm("로그아웃 하시겠습니까?")) {
-	    		location.href = "${root}/user/logout";
-	   		 	}
-			}
-
-            </script>
+            </form>     
+            </nav>   
+            
          <!-- 로고 -->              
         <nav class="main bg-white" >
          <a class="mainlogo" href="${root}/main/main" >
@@ -159,6 +158,15 @@
     	</div>
     </div>
   </form>
+    <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
+
+               <div></div>
+            </div>
+         </div>
+      </footer>
 </div>
 
 </body>

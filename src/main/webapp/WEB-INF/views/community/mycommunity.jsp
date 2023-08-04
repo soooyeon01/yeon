@@ -27,6 +27,11 @@
 			function back() {
 				window.location.href = "${root}/mypage/mypage";
 			}
+			function logout() {
+				if (confirm("로그아웃 하시겠습니까?")) {
+				location.href = "${root}/user/logout";
+			 	}
+			}
 		</script>
 		<style> 
 
@@ -96,7 +101,7 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
@@ -157,13 +162,15 @@
                         </div>
                     </div>
                 </main>
-		<footer class="py-4 bg-light mt-auto">
-			<div class="container-fluid px-4">
-				<div class="d-flex align-items-center justify-content-between small">
-		
-				</div>
-			</div>
-		</footer>
+		  <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
+
+               <div></div>
+            </div>
+         </div>
+      </footer>
 	</div>
 </body>
 </html>

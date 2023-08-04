@@ -180,6 +180,12 @@
      <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
      <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
      <script>  
+     
+	 	function logout() {
+			if (confirm("로그아웃 하시겠습니까?")) {
+			location.href = "${root}/user/logout";
+		 	}
+		}
        	function addNot() {
 			let nickname=document.getElementsByName("nickname").value;
 			let notice_title=document.getElementsByName("notice_title").value;
@@ -258,11 +264,11 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
-            </nav>         
+            </nav>          
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
@@ -296,14 +302,20 @@
 					<textarea class="form-control" rows="5" name="notice_content"></textarea>
 				</div>
 				<div class="row">
-					<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
+					<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">이전</button>
 					<div class="col p-3"></div>
 					<button type="submit" class="register col p-3 btn btn-warning" onclick="addNot();">전송</button>
 				</div>
 				<input type="hidden" name="nickname" value="${noti.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.noti.nickname}">
 			</div>
 		</form>
-		<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
+	  <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
+            </div>
+         </div>
+      </footer>
 	</div>
 
 </body>

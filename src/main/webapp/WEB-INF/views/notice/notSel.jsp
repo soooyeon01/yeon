@@ -30,6 +30,11 @@
 	       		let notice_title=document.getElementsByName("notice_title").value;
 				let notice_content=document.getElementsByName("notice_content").value;
 	       	}
+	    	function logout() {
+	    		if (confirm("로그아웃 하시겠습니까?")) {
+	    		location.href = "${root}/user/logout";
+	    	 	}
+	    	}
     	</script>  
     	<script>
 			function confirmDelete() {
@@ -43,8 +48,8 @@
 		</script>
     	<style>
     	#cont {
-    		width: 70rem;
-    		height: 20rem;
+    		width: 100%;
+    		height: 30rem;
     	}
     	</style>
         <style> 
@@ -98,6 +103,27 @@
     	margin: auto;
     	display: block;
          }
+         .contentBox {
+			border-radius: 6px;
+			margin: auto;
+		}
+		.contentHeader {
+			position: relative;
+		    margin-bottom: 20px;
+		    padding-bottom: 20px;
+			font-size: 20px;
+		}
+		.buttonBox {
+         width: 100%;
+         text-align:center;
+         display : inline-flex;
+         }
+         .btn{
+				width: 15rem;
+				height: 5rem;
+				margin-left:1rem;
+				margin-right:1rem;
+		}
         </style>
         <style type="text/css">
 		  .nanum{ font-family: 'NanumSquareNeo'; }
@@ -283,11 +309,11 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
-            </nav>         
+            </nav>           
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
@@ -306,17 +332,19 @@
             </nav>
 <div class="container mt-3">
   <h2 style="text-align: center;">공지</h2>
+   <div class="contentBox">
    <form action="${pageContext.servletContext.contextPath}/notice/noticeSel">
 	<input type="hidden" name="notice_no" value="${selectone.notice_no}">
-	<div class="row">
+	<div class="contentHeader">
+        <div class="mb-3 mt-3 col" style="font-size:30px;">
+          <b><label for="title">글제목:</label></b>
+            <p class="form-control" name="notice_title">${selectone.notice_title}</p>
+        </div>
+        <div class="row">
         <div class="mt-3 col p-3">
             <label for="notice_reg_date">작성일:</label>
             <p class="form-control" name="notice_reg_date">${selectone.notice_reg_date}</p>
 		</div>
-        <div class="mb-3 mt-3 col p-3">
-          	<label for="title">글제목:</label>
-            <p class="form-control" name="notice_title">${selectone.notice_title}</p>
-        </div>
         <div class="mb-3 mt-3 col p-3">
             <label for="nickname">작성자:</label>
             <p class="form-control" name="nickname">${selectone.nickname}</p>
@@ -326,19 +354,31 @@
             <label for="view_count">조회수:</label>
             <p class="form-control" name="view_count">${selectone.view_count}</p>
 		</div>
+		</div>
+		</div>
 		<div class="mb-3 mt-3">
         	<label for="notice_content">글내용:</label>
         	<p id="cont" class="form-control" name="notice_content">${selectone.notice_content}</p>
      	</div>
-     </div>
+     
 	</form>
-	<div class="container bt">
+	</div>
+	<div class="buttonBox">
   	<button type="button" class="register col p-3 btn btn-warning my" onclick="toListPage();">목록으로</button>
   	<c:if test="${sessionScope.SESS_NICKNAME=='관리자'}">
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="location.href='notUp1?notice_no=${selectone.notice_no}'">수정</button> 
 	<button type="submit" class="register col p-3 btn btn-warning my" onclick="confirmDelete();">삭제</button>  
 	</c:if>
 	</div>
+	  <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
+
+               <div></div>
+            </div>
+         </div>
+      </footer>
 </div>
 </body>
 </html>

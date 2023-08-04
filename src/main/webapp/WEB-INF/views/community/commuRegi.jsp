@@ -180,6 +180,12 @@
      <style type="text/css">* {cursor: url(https://cur.cursors-4u.net/holidays/hol-4/hol336.cur), auto !important;}</style>   
      <style type="text/css">.adfit__swipeable{-webkit-tap-highlight-color:transparent;cursor:default;height:100%;left:0;outline:none;position:absolute;top:0;width:100%}</style>
      <script>  
+     
+	 	function logout() {
+			if (confirm("로그아웃 하시겠습니까?")) {
+			location.href = "${root}/user/logout";
+		 	}
+		}
        	function addCommu() {
 			let nickname=document.getElementsByName("nickname").value;
 			let title=document.getElementsByName("title").value;
@@ -191,7 +197,7 @@
     		location.href="${pageContext.servletContext.contextPath}/community/clist";
     	}
     </script>
-    <script>
+    <!-- <script>
 	    $(document).ready(function(e){
 	    	var formObj = $("form[role='form']");
 	    	$("button[type='submit']").on("click", function(e){
@@ -254,7 +260,7 @@
 	    				}
 	    		});
 	    	});
-	    });
+	    }); 
 			/* $(document).ready(function(){
 				var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 				var maxSize = 5242880; //5MB
@@ -508,6 +514,13 @@
 			.bigPicture img{
 				width : 600px;
 			}
+			.btn{
+				width: 15rem;
+				height: 5rem;
+				margin-left:1rem;
+				margin-right:1rem;
+				margin-bottom:2rem;
+			}
 		</style>
 		<style type="text/css">
 		  .nanum{ font-family: 'NanumSquareNeo'; }
@@ -521,7 +534,7 @@
    }
 </style>
 </head>
- <body class="sb-nav-fixed bgcolor nanum" > 
+ <body class="sb-nav-fixed bgcolor nanum"  style="margin-bottom:40px;"> 
            <nav class="main1 sb-topnav2 navbar navbar-expand; navbar-dark bg-yellow" >
            
            <!-- 로그인 로그아웃 마이페이지 반응형 -->
@@ -537,11 +550,11 @@
                    <a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
                    <a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>                          
             <%} else{%>
-                <a href="${root}/user/login" type="button" class="btn" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
+                <a href="${root}/user/login" type="button" style="font-size: 14px; padding: 6px 5px;">로그인</a>                                         
             <%}  %> 
                 </div>
             </form>     
-            </nav>         
+            </nav>          
             
          <!-- 로고 -->              
         <nav class="main bg-white" >
@@ -577,7 +590,7 @@
       	<input type="submit" ></input>
    		</form> 
    		</div> --%>
-   		<div calss = 'bigPictureWrapper'>
+   		<!-- <div calss = 'bigPictureWrapper'>
 		<div class = 'bigPicture'>
 		</div>
 		</div>
@@ -588,12 +601,12 @@
 			<ul>
 			</ul>
 		</div>
-   		<!-- 첨부파일 -->
+   		첨부파일
 		<div class = "row">
 			<div class = "col-lg-12">
 				<div class = "panel panel-default">
 					<div class = "panel-heading">File Attach</div>
-					<!-- /.panel-heading -->
+					/.panel-heading
 					<div class = "panel-body">
 						<div class = "panel-body">
 							<div class = "form-group uploadDiv">
@@ -609,21 +622,22 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
    		<br>
    		<br>
-    	<div class="row">
-       	<button type="button" class="get col p-3 btn btn-warning" onclick="history.back();">뒤로</button>
-       	<div class="col p-3"></div>
-       	<button type="submit" class="register col p-3 btn btn-warning" onclick="addCommu();">전송</button>
-    	</div>
-	<input type="hidden" name="nickname" value="${commu.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.commu.nickname}"> 
-	
-	</div>
-	<button type="button" class="register col p-3 btn btn-warning" onclick="toListPage();">목록으로</button>
+       	<button type="button" class="get col p-3 btn btn-warning" style="float:left;" onclick="history.back();">이전</button>
+       	<button type="submit" class="register col p-3 btn btn-warning" style="float:right;" onclick="addCommu();">전송</button>
+		<input type="hidden" name="nickname" value="${commu.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.commu.nickname}"> 
 	</form>
-  	
-</div>
+	  <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
 
+               <div></div>
+            </div>
+         </div>
+      </footer>
+  	</div>
 </body>
 </html>
