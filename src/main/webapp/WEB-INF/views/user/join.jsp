@@ -26,27 +26,27 @@
                 return false;
             }
             element  = document.getElementById("email");
-            msg = "이메일을 입력하세요.";
+            msg = "이메일을 입력하세요";
             if (!isValid(element, msg) || !emailCheck()) {
                 return false;
             }
        		element  = document.getElementById("nickname");
-            msg = "닉네임을 입력하세요.";
+            msg = "닉네임을 입력하세요";
             if (!isValid(element, msg) || !nicknameCheck()) {
                 return false;
             } 
             element  = document.getElementById("phone");
-            msg = "핸드폰 번호를 입력하세요.";
+            msg = "핸드폰 번호를 입력하세요";
             if (!isValid(element, msg) || !phoneCheck()) {
                 return false;
             } 
             element  = document.getElementById("pwd");
-            msg = "비밀번호를 입력하세요.";
+            msg = "비밀번호를 입력하세요";
             if(!isValid (element,msg) || !isPasswordValid(element.value)){
                 return false;
             }
             element  = document.getElementById("pwd-double-check");
-            msg = "비밀번호를 한 번 더 입력하세요.";
+            msg = "비밀번호를 한 번 더 입력하세요";
             if( !isValid (element,msg) ){
                 return false;
             } 
@@ -54,23 +54,23 @@
             let originObj = document.getElementById("pwd");
             let checkObj = document.getElementById("pwd-double-check");
             if(originObj.value != checkObj.value){
-                alert("비밀번호가 불일치 합니다.");
+                alert("비밀번호가 불일치합니다");
                 checkObj.focus();
                 return false;
             }             
             element  = document.getElementById("phone");
-            msg = "숫자로만 핸드폰 번호를 입력하세요.";
+            msg = "숫자로만 핸드폰 번호를 입력하세요";
             if( !number (element,msg) ){
                 return false;
             } 
             element = document.getElementById("emailAuth");
-            msg = "인증번호를 입력하세요.";
+            msg = "인증번호를 입력하세요";
             if (!isValid(element, msg)) {
               return false;
             }
 
             if (!auth) {
-              alert("이메일 인증번호가 일치하지 않습니다.");
+              alert("인증번호가 일치하지 않습니다");
               return false;
             }
             return true;
@@ -109,10 +109,10 @@
           if (password !== "" && confirmPassword !== "") {
             if (password === confirmPassword) {
               passwordStatus.style.color = "green";
-              passwordStatus.innerHTML = "일치합니다";
+              passwordStatus.innerHTML = "일치";
             } else {
               passwordStatus.style.color = "red";
-              passwordStatus.innerHTML = "불일치합니다";
+              passwordStatus.innerHTML = "불일치";
             }
           } else {
             passwordStatus.innerHTML = "";
@@ -122,7 +122,7 @@
         //비밀번호 lenght
         function isPasswordValid(password){
             if(password.length < 8){
-                alert("비밀번호는 8자 이상이어야 합니다.");
+                alert("비밀번호는 8자 이상 적어주세요");
                 return false;
             }
             return true;
@@ -169,7 +169,7 @@
             	    return;
             	  }
             	  if (!/^\d+$/.test(phone)) {
-            	    alert("숫자로만 핸드폰 번호를 입력하세요.");
+            	    alert("숫자로만 핸드폰 번호를 입력하세요");
             	    result = false;
             	    return result;
             	  }
@@ -252,13 +252,13 @@
                  // 인증번호 유효여부 체크 변수
                     var authNumValid = false;
 
-                 // 타이머 관련 변수
+                 // 타이머 변수
                     var timer;
                     var remainingTime = 0;
 
-                    // 타이머 시작 함수
+                    // 타이머 시작 
                     function startTimer() {
-                        remainingTime = 180; // 3분 (3분 * 60초)
+                        remainingTime = 300; // 3분 ( * 60초)
                         timer = setInterval(function () {
                             remainingTime--;
                             var minutes = Math.floor(remainingTime / 60);
@@ -267,7 +267,7 @@
                             if (remainingTime <= 0) {
                                 clearInterval(timer);
                                 document.getElementById("time").innerHTML = "";
-                                alert("인증 시간이 지났습니다. 다시 인증 번호를 받아주세요.");
+                                alert("인증번호 유효 시간이 경과했습니다 인증 번호를 다시 받아주세요");
                                 authNumValid = false;
                                 document.getElementById("emailAuth").value = "";
                             }
@@ -285,7 +285,7 @@
                             data: { email: email },
                             dataType: "text",
                             success: function (msg) {
-                                alert("메일이 발송되었습니다.");
+                                alert("인증 번호 발송 완료");
                                 authNumValid = true;
                                 $("#emailAuthBtn").prop("disabled", false);
 
@@ -304,7 +304,7 @@
                     // 이메일 인증번호 확인
                     function checkAuthNum() {     
                         if (!authNumValid) {
-                            alert("인증번호 유효 시간이 경과했습니다. 인증 번호를 다시 받아주세요.");
+                            alert("인증번호 유효 시간이 경과했습니다 인증 번호를 다시 받아주세요");
                             return;
                         }
                         
@@ -316,17 +316,16 @@
                             dataType: "json",
                             success: function (authStatus) {
                                 if (authStatus) {
-                                    alert("인증번호가 일치합니다.");
+                                    alert("인증번호가 일치합니다");
                                     auth = true;
                                     
                                     showAuthCompleted();
                                 } else {
-                                    alert("인증번호가 일치하지 않습니다.");
+                                    alert("인증번호가 일치하지 않습니다");
                                     auth = false;
                                 }
                             },
                             error: function () {
-                                alert("에러입니다");
 
                             }
                         });
@@ -393,8 +392,8 @@
 											<button class="btn btn-warning" type="button" id="emailNum" name="emailNum"
 												disabled="disabled" onclick="sendAuthNum();">인증 번호 받기</button>
 												
-												<span class="on" id = "eon">사용 가능한 이메일입니다.</span>
-												<span class="off" id="eoff" >이메일이 이미 존재합니다.</span>
+												<span class="on" id = "eon">사용 가능한 이메일입니다</span>
+												<span class="off" id="eoff" >사용 불가능한 이메일입니다</span>
 										</div>
 
 
@@ -410,16 +409,16 @@
 											<input class="form-control" name="nickname" id="nickname" type="text" onkeyup="nicknameCheck();" />
 											<label for="nickname">닉네임</label>
 											
-												<span class="on" id = "non">사용 가능한 닉네임입니다.</span>
-												<span class="off" id="noff" >닉네임이 이미 존재합니다.</span>
+												<span class="on" id = "non">사용 가능한 닉네임입니다</span>
+												<span class="off" id="noff" >사용 불가능한 닉네임입니다</span>
 										</div>
 										
 										<div class="form-floating mb-3">
 											<input class="form-control" name="phone" id="phone" type="tel" onchange="phoneCheck();" />
 												<label for="phone">핸드폰 (-없이 숫자만 입력하세요)</label>
 												
-												<span class="on" id = "pon">사용 가능한 번호입니다.</span>
-												<span class="off" id="poff" >번호가 이미 존재합니다.</span>
+												<span class="on" id = "pon">사용 가능한 번호입니다</span>
+												<span class="off" id="poff" >사용 불가능한 번호입니다</span>
 										</div>
 
 										<div class="row mb-3">
