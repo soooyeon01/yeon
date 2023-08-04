@@ -75,6 +75,9 @@
 		</style>
 
 <style>
+.ttt th{
+	background-color: #feeaa5;
+}
 .deleteMember {
    color: darkgray;
    text-align: right;
@@ -175,13 +178,14 @@ a:hover {
    <!-- 메인시작  -->        
    <div id="layoutSidenav_content">
       <main>
-         <div class="container-fluid px-3 pt-3">
-            <div class="card mb-4 ">
-               <div class="card-header">
-                  <i class="fas fa-table me-1">회원 리스트</i>
+         <div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
+				<h2 class="mt-1 mb-3"><b>회원 관리</b></h2>
+				<div class="card mb-4">
+					<div class="card-header">
+						회원관리
                </div>
                <div class="card-body">
-                  <table class="datatable-table">
+                  <table class="datatable-table ttt">
                      <thead>
                         <tr>
                            <th></th>
@@ -205,7 +209,7 @@ a:hover {
                         </c:forEach>
                      </tbody>
                   </table>
-                  <button class="btn btn-warning kickBtn" id="kickBtn" onclick="poobkick();">회원 삭제</button>
+                  <button class="btn btn-warning kickBtn" id="kickBtn" onclick="poobkick();" style="float:right">회원 삭제</button>
                </div>
             </div>
             
@@ -214,7 +218,8 @@ a:hover {
       <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted">Copyright &copy; Your Website 2023</div>
+              <div class="text-muted" style="padding-top: 170px;">Website
+					2023 &copy; Happy OkDogCat</div>
             </div>
          </div>
       </footer>
