@@ -145,7 +145,7 @@
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
-            </nav>        
+            </nav>    
    
    <!-- 테이블 시작  -->        
    <div id="layoutSidenav_content">  
@@ -169,7 +169,7 @@
                  	비밀번호 입력: <input class="form-control" type="password" name ="inputpwd" id="inputpwd" placeholder="Password" style="display:inline; width:300px;"/>                             		
                </div>
                 	<br>         	
-                    <button type="button" class ="btn btn-warning" onclick="history.go(-1)">이전</button>&nbsp;    	 
+                    <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;    	 
                     <button type="submit" class ="btn btn-warning" onclick="location.href = '${root}/mypage/upmypage'">확인</button>&nbsp;
                </form>                                      
                     <input type="hidden" name="pwd" value="${mdto.pwd}">                  

@@ -69,31 +69,40 @@ public class MypageController {
  	   String nowpwd = service.getPwd(email); //현재비밀번호
 
          if( SESS_AUTH != null && SESS_AUTH ) {     
- 
+        	 
       	   if(pwd==null || pwd == "" || newpwd==null ||newpwd == "" || newcpwd==null || newcpwd == "") {           
 		   	   model.addAttribute("msg", "입력이 완료되지 않았습니다."); 
 		   	   model.addAttribute("url", "upmypage");       	   
-		   	   return "alert";		   	   
+		   	   return "alert";
+		   }
+      	   
+      	 if (newpwd.length() < 8) {
+      		 	model.addAttribute("msg", "새 비밀번호 8자 이상 적어주세요."); 
+		   	   model.addAttribute("url", "upmypage");    
+		        return "alert";
+		    }else {
+			   // 입력한 pwd를 암호화하고 현재 비밀번호와 비교하기
+	            String encodedPwd = SHAEncodeUtil.encodeSha(pwd);		   
 		   	   
-      	   }else if(pwd.equals(nowpwd) && !newpwd.equals(newcpwd)){
-      			model.addAttribute("msg", "입력하신 새 비밀번호가 일치하지 않습니다."); 
-      			model.addAttribute("url", "upmypage"); 
-      			 return "alert";	
+	         if (encodedPwd.equals(nowpwd) && !newpwd.equals(newcpwd)) {
+             model.addAttribute("msg", "입력하신 새 비밀번호가 일치하지 않습니다.");
+             model.addAttribute("url", "upmypage");
+             return "alert";
       			
-      	   }else if(!pwd.equals(nowpwd) && newpwd.equals(newcpwd)){
-     			model.addAttribute("msg", "현재 비밀번호가 일치하지 않습니다."); 
-     			model.addAttribute("url", "upmypage"); 
-     			 return "alert";	
+	         } else if (!encodedPwd.equals(nowpwd) && newpwd.equals(newcpwd)) {
+	                model.addAttribute("msg", "현재 비밀번호가 일치하지 않습니다.");
+	                model.addAttribute("url", "upmypage");
+	                return "alert";
      			
-     	   }else if(pwd.equals(nowpwd) && newpwd.equals(newcpwd)){
-     		// 새 비밀번호를 암호화해서 MembersDTO를 수정
-               String encodedNewPwd = SHAEncodeUtil.encodeSha(newpwd);
-               dto.setPwd(encodedNewPwd);
-     		   service.modifyPwd(dto);
-      		   model.addAttribute("msg", "비밀번호 변경이 완료되었습니다."); 
-      		   model.addAttribute("url", "upmypage"); 
-      		   return "alert";
-      		   
+	         } else if (encodedPwd.equals(nowpwd) && newpwd.equals(newcpwd)) {
+	                // 새 비밀번호를 암호화해서 MembersDTO를 수정
+	                String encodedNewPwd = SHAEncodeUtil.encodeSha(newpwd);
+	                dto.setPwd(encodedNewPwd);
+	                service.modifyPwd(dto);
+	                model.addAttribute("msg", "비밀번호 변경이 완료되었습니다.");
+	                model.addAttribute("url", "upmypage");
+	                return "alert";
+	         }
       	   }
 	   }  else {
 			   return "redirect:/main/main"; 
@@ -103,42 +112,31 @@ public class MypageController {
    
   
    @PostMapping("/upmyphone")
-   public String upmyphone(HttpSession session, Model model, MembersDTO dto,@RequestParam("phone")String phone) {
-     
+   public String upmyphone(HttpSession session, Model model, MembersDTO dto, @RequestParam("phone") String phone) {
+       Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
 
-	   Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
-      if (SESS_AUTH != null && SESS_AUTH) {
+       if (SESS_AUTH != null && SESS_AUTH) {
+    	  
+           String email = (String) session.getAttribute("SESS_EMAIL");
+           List<MembersDTO> mdto = service.getMypage(email);
+           model.addAttribute("membersDTO", mdto);
 
-         if (phone == null || phone.isEmpty()) {
-        	 
-            String email = (String) session.getAttribute("SESS_EMAIL");
-
-            List<MembersDTO> mdto = service.getMypage(email);
-            model.addAttribute("membersDTO", mdto);
-
-            model.addAttribute("msg", "변경하실 전화번호를 입력하세요.");
-            model.addAttribute("url", "upmypage");
-            return "alert";
-
-         } else {
-            // 전화번호 입력값이 있을 경우 처리
-            int phone2 = 0;
-            try {
-               phone2 = Integer.parseInt(phone);
+           // 전화번호 입력값이 있을 경우 처리
+           try {
+               int phone2 = Integer.parseInt(phone);
                dto.setPhone(phone2);
-            } catch (NumberFormatException e) {
+               service.modifyPhone(dto);
+               model.addAttribute("msg", "전화번호 변경이 완료되었습니다.");
+               model.addAttribute("url", "upmypage");
+               return "alert";
+           } catch (NumberFormatException e) {
                // 전화번호 입력값이 int로 변환할 수 없는 경우 처리
                e.printStackTrace();
-            }
-            service.modifyPhone(dto);
-            model.addAttribute("msg", "비밀번호 변경이 완료되었습니다.");
-            model.addAttribute("url", "upmypage");
-            return "alert";
-         }
-
-      } else {
-         return "redirect:/main/main";
-      }
+           }
+       } else {
+           return "redirect:/main/main";
+       }
+	return null;
    }
    
          //페이지연결
@@ -183,8 +181,11 @@ public class MypageController {
 
 
 	          if (SESS_AUTH != null && SESS_AUTH) {
-
-		              if (pwd.equals(inputpwd)) {
+	        	  
+	        	// inputpwd를 같은 암호화 방법으로 인코딩
+	              String encodedInputPwd = SHAEncodeUtil.encodeSha(inputpwd);
+	        	  
+		              if (pwd.equals(encodedInputPwd)) {
 		                  service.removeMember(email);
 		                  session.invalidate();
 		                  model.addAttribute("msg", "탈퇴가 완료되었습니다."); 

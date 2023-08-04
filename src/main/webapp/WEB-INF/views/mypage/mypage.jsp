@@ -256,7 +256,7 @@
                 </c:forEach>
                </table>           
                     <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
-                      <button type="button" class ="btn-3d red" onclick="location.href='${root}/user/userlist';">누르지마시오</button>&nbsp;
+                      <button type="button" class ="btn-3d red" onclick="location.href='${root}/user/userlist';">회원관리</button>&nbsp;
                       </c:if>
                     
                     <!-- 회원탈퇴 -->

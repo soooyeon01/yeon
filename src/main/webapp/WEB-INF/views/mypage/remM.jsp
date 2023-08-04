@@ -27,42 +27,14 @@
  
   
   <script>
-  <!-- 최상단 -->
-
- 	function login(){
-		location.href = "${pageContext.servletContext.contextPath}/user/login";
-	  }
-  	function mypage(){
-  		location.href = "${pageContext.servletContext.contextPath}/mypage/mypage";
- 	 }
   
- 	function main(){
-  		location.href = "${pageContext.servletContext.contextPath}/main/main";
- 	 }
 
    	function logout() {
 		if (confirm("로그아웃 하시겠습니까?")) {
 		location.href = "${pageContext.servletContext.contextPath}/user/logout";
 	 	}
-	}
-  
-  <!-- 마이페이지 -->
-  function favoritep(){
-	  	location.href = "${root}/fa/favoritep";
-	  }
-  function favorites(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favorites";
-	  }
-  function favoritew(){
-	  	location.href = "${pageContext.servletContext.contextPath}/fa/favoritew";
-	  }
-  function upmypage(){
-	  	location.href = "${root}/mypage/upmypage";
-	  }
-  function mypaper(){
-	  	location.href = "${pageContext.servletContext.contextPath}/community/myclist";
-	  }
-  
+	} 
+ 
   <!-- inputpwd값 보내기 -->
   function remM() {
 	   var data = $("form").serialize(); // form 데이터 직렬화
@@ -198,11 +170,11 @@
                  <br>
                  <br>
                  <div>
-                 	비밀번호 입력 : <input class="form-control" type="text" name ="inputpwd" id="inputpwd" placeholder="Password" style="display:inline; width:300px;"/>                             		
+                 	비밀번호 입력 : <input class="form-control" type="password" name ="inputpwd" id="inputpwd" placeholder="Password" style="display:inline; width:300px;"/>                             		
                 </div>                                                    
                 </div>             
          		<br>
-                     <button type="button" class ="btn btn-warning" onclick="history.back()" style="font-size:15px" >이전</button>&nbsp;    	 
+                     <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'" >이전</button>&nbsp;    	 
                     <button type="submit" class ="btn btn-warning" onclick="location.href=${root}/mypage/remM;" style="font-size:15px">탈퇴하기</button>&nbsp;
                 </form>        
                       <input type="hidden" name="pwd" value="${mdto.pwd}">

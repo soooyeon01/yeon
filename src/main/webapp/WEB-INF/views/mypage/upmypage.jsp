@@ -26,46 +26,29 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
   <script>
-  
-  function withdrawMember() {
-     $.ajax({
-       url: "/4jojo/mypage",
-       type: "POST",
-       dataType: "json",
-       success: function(data) {
-         if (data.result === 1) {
-           alert("회원 탈퇴가 완료되었습니다.");
-           location.href = "/4jo/logout"; // 로그아웃 페이지로 이동
-         } else {
-           alert("회원 탈퇴 처리에 실패했습니다. 다시 시도해주세요.");
-         }
-       },
-       error: function(jqXHR, textStatus, errorThrown) {
-         console.log(jqXHR);
-         console.log(textStatus);
-         console.log(errorThrown);
-         alert("오류가 발생했습니다. 다시 시도해주세요.");
-       }
-     });
-   }
-  </script>
-  
-  <!-- 이동경로 -->
-  
-  <script>
-
-  function pwdShow() {
-	 let pwd = document.getElementsByName("pwd").value; //name속성을 받아옴 
-	  location.href = "${root}/mypage/upmypwd";
-	  return true;
-	} 
+	  function pwdShow() {
+		  	let pwd = document.getElementsByName("pwd")[0].value;
+		    let newpwd = document.getElementsByName("newpwd")[0].value;
+		    let newcpwd = document.getElementsByName("newcpwd")[0].value;
+		  
+		    document.getElementById("uppwd").submit();
+		    return true;
+		}
   
   function phoneShow() {
-		  let phone = document.getElementsByName("phone")[0].value; //name속성을 받아옴		 
-		  location.href = "${root}/mypage/upmyphone";
-		  return true;
-		  
-		} 
+	    let phone = document.getElementsByName("phone")[0].value; //name 속성을 받아옴
+
+	    if (phone == null || phone.length == 0) {
+	        alert("변경하실 전화번호를 입력하세요.");
+	        return false;
+	    } else if (phone.length != 11) {
+	        alert("전화번호를 제대로 입력하세요.");
+	        return false;
+	    } else {	      
+	        document.getElementById("upphone").submit();
+	        return true;
+	    }
+	}
   
   function checkmypage() {
 		  var msg = "정보 변경이 완료되었습니다."
@@ -73,6 +56,12 @@
 		  location.href = "${root}/mypage/mypage";
 		  return true;
   }
+  
+  function logout() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+		location.href = "${root}/user/logout";
+		   }
+		}
 
   </script>
 <style>
@@ -222,13 +211,11 @@
                         </tr>                                         
                         <tr>         
                            <th style="padding-top:110px;">비밀번호</th>
-                            <td><form action="${root}/mypage/upmypwd" method="post">
-                            	
-   									<input type ="password" name ="pwd"  placeholder="현재 비밀번호 입력"/><br><br>
-   									<input type ="password" name ="newpwd"  placeholder="신규 비밀번호 입력"/><br><br>
+                            <td><form id="uppwd" action="${root}/mypage/upmypwd" method="post">                           	
+   									<input type ="password" name ="pwd"  placeholder="현재 비밀번호"/><br><br>
+   									<input type ="password" name ="newpwd"  placeholder="신규 비밀번호"/><br><br>
    									<input type ="password" name ="newcpwd"  placeholder="신규 비밀번호 확인"/><br><br>
-   									<button type="submit" class="upbtn" onclick="pwdShow();">비밀번호 변경</button>
-   									
+   									<button type="button" class="upbtn" onclick="pwdShow();">비밀번호 변경</button>   									
    									<input type="hidden" name="email" value="${mdto.email}">  									
 								</form>			
 							</td>
@@ -243,9 +230,9 @@
                         </tr>                                             
                         <tr>
                            <th>전화번호</th>
-                           <td><form action="${root}/mypage/upmyphone" method="post"> 									
+                           <td><form id="upphone" action="${root}/mypage/upmyphone" method="post"> 									
    									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
-   									<button type="submit" class="upbtn" onclick="phoneShow();">전화번호 변경</button>
+   									<button type="button" class="upbtn" onclick="phoneShow();">전화번호 변경</button>
    									<input type="hidden" name="email" value="${mdto.email}">  									
 								</form>	
 							</td>    
@@ -254,7 +241,7 @@
                </table>
                           
                <div align="center" style="padding-top:20px">
-                     <button type="button" class ="btn btn-warning" onclick="history.go(-1)">이전</button>&nbsp;    
+                     <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;    
                       <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
                     </div>
 
