@@ -103,7 +103,10 @@ public class NoticeController {
 		service.viewCount(notice_no);
 		return "notice/notSel";
         }else {
-        	return "redirect:/main/main";
+        	NoticeDTO selectone=service.getNotice(notice_no);
+    		model.addAttribute("selectone", selectone);
+    		service.viewCount(notice_no);	
+        	return "notice/notSel";
         }	
 	}
 	

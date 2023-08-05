@@ -24,6 +24,7 @@
 <script   src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<style type="text/css">* {cursor: url(https://cur.cursors-4u.net/nature/nat-10/nat977.ani), url(https://cur.cursors-4u.net/nature/nat-10/nat977.gif), auto !important;}</style><a href="https://www.cursors-4u.com/cursor/2011/12/15/corgi-dog-bark.html" target="_blank" title="Corgi Dog Bark"><img src="https://cur.cursors-4u.net/cursor.png" border="0" alt="Corgi Dog Bark" style="position:absolute; top: 0px; right: 0px;" /></a>
  
   <script>
    	function logout() {

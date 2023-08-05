@@ -61,10 +61,19 @@
                  if (email != null && email != "") {
                      window.location.href ="${root}/with/withdetail?with_pet_no="+with_pet_no;
                  } else {
-                     alert("로그인 후 이용해주세요");
+                     alert("로그인 후 이용하실 수 있습니다 ^~^");
                      window.location.href = "${pageContext.servletContext.contextPath }/main/main";
                  }
              }
+             function moveC() {
+    	    	 var email = '${ sessionScope.SESS_EMAIL }';
+
+    		        if (email != null && email != "") {
+    		            window.location.href ="${root}/community/clist";
+    		        } else {
+    		            alert("로그인 후 이용하실 수 있습니다 ^~^");
+    		        }
+    		    }
           </script>
 <style>
 
@@ -159,18 +168,14 @@ table.table.table-bordered th {
       </a>
    </nav>
 
-   <nav class="tab sb-topnav2 navbar navbar-expand; bg-white">
-      <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/pet/petall"><b>공고</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/shel/shelall"><b>보호소</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/with/withca"><b>위드펫</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/community/clist"><b>커뮤니티</b></a> <a
-         class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link"
-         href="${root}/notice/nlist"><b>공지사항</b></a>
-   </nav>
+   <!-- 상단바 메뉴 -->
+          <nav class="tab sb-topnav2 navbar navbar-expand; bg-white" >
+	          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/pet/petall"><b>공고</b></a> 
+	          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/shel/shelall"><b>보호소</b></a>
+	          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/with/withca"><b>위드펫</b></a>
+	          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="javascript:void(0)" onclick="moveC();"><b>커뮤니티</b></a>
+	          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
+          </nav>
 
    <div id="layoutSidenav_content">
       <main>
@@ -283,7 +288,7 @@ table.table.table-bordered th {
                                        value="${SearchCriteria.keyword}"></td>
 
                                     <td><button type="submit"
-                                          onclick="return getSearchList();" class="btn btn-success">검색</button></td>
+                                          onclick="return getSearchList();" class="btn btn-warning">검색</button></td>
                                  </tr>
                               </table>
                
