@@ -15,7 +15,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <title>공지</title>
-<!-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" /> -->
+
 <link href="${root}/resources/bootstrap/css/mypageStyles.css"
 	rel="stylesheet" />
 <script
@@ -38,6 +38,11 @@
 	       } else {
 	           alert("로그인 후 이용하실 수 있습니다 ^~^");
 	       }
+	}
+	function logout() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+			location.href = "${root}/user/logout";
+		}
 	}
 </script>
 <style>
@@ -93,11 +98,9 @@ a {
 }
 
 .btn {
-	width: 15rem;
-	height: 5rem;
+	width: 6rem;
+	height: 2.5rem;
 	margin-left: 1rem;
-	margin-right: 1rem;
-	margin-bottom: 2rem;
 }
 </style>
 <style type="text/css">
@@ -174,15 +177,12 @@ a {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
-				<h2 class="mt-1 mb-3">
-					<b>공지사항</b>
-				</h2>
+				<h2 class="mt-1 mb-3"><b>공지사항</b></h2>
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table me-1">전체 공지 목록</i>
-
+						전체 공지 목록
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="padding:40px 50px 20px 50px;">
 						<table id="datatablesSimple" class="ttt">
 							<thead>
 								<tr>
@@ -191,7 +191,6 @@ a {
 									<th>공지 작성일</th>
 									<th>조회수</th>
 								</tr>
-
 							</thead>
 							<tfoot>
 							</tfoot>
@@ -201,38 +200,29 @@ a {
 									<c:set var="fixdate"
 										value="${fn:substring(noticeDTO.notice_reg_date, 0, 11)}" />
 									<tr>
-										<%-- <td>${noticeDTO.notice_no}</td> --%>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/notice/notSel?notice_no=${noticeDTO.notice_no}">${noticeDTO.notice_title}</a></td>
+										<td><a href="${pageContext.servletContext.contextPath}/notice/notSel?notice_no=${noticeDTO.notice_no}">${noticeDTO.notice_title}</a></td>
 										<td>${noticeDTO.nickname}</td>
 										<td>${fixdate}</td>
 										<td>${noticeDTO.view_count}</td>
 									</tr>
 								</c:forEach>
 							</tbody>
+							<c:if test="${sessionScope.SESS_NICKNAME=='관리자'}">
+								<input type="button" class="btn btn-warning" value="글쓰기" style="float: right;" onclick="location.href='newNot'">
+							</c:if>
 						</table>
 					</div>
-
-					<%-- <%@ include file="../import/page-notice.jsp" %> --%>
-					<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
-                        	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
 				</div>
-				<c:if test="${sessionScope.SESS_NICKNAME=='관리자'}">
-					<input type="button" class="btn btn-warning" value="글쓰기"
-						style="float: right;" onclick="location.href='newNot'">
-				</c:if>
+				
 			</div>
 		</main>
 	</div>
-	<footer class="py-4 bg-light mt-auto">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-between small">
-				<div class="text-muted" style="padding-top: 120px;">Website
-					2023 &copy; Happy OkDogCat</div>
-
-				<div></div>
-			</div>
-		</div>
+	 <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
 	</footer>
 
 </body>

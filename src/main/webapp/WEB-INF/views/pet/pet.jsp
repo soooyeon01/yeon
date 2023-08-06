@@ -186,7 +186,7 @@ a {
             </h2>
 
             <div class="card mb-4">
-               <div class="card-body" style="padding:0px 50px 0px 50px;">
+               <div class="card-body" style="padding:0px 30px 0px 30px;">
                	<div style="padding:45px 0px 0px 20px;">
                   <select id="region-select">
                      <option value="">지역 선택</option>
@@ -267,7 +267,7 @@ a {
                </div>
                <div class="container">
                    <div class="row">
-                       <div class="col-md-6" style="padding:0px 0px 50px 70px">
+                       <div class="col-md-6" style="padding:0px 0px 50px 50px">
                            <form method="get" name="search-form" action="${root}/pet/petall" autocomplete="off">
                                <table id="table">
                                    <tr>
@@ -285,7 +285,7 @@ a {
                                </table>
                            </form>
                        </div>
-                       <div class="col-md-6 d-flex justify-content-end" style="padding-right:70px">
+                       <div class="col-md-6 d-flex justify-content-end" style="padding-right:50px">
                            <%@ include file="../import/page-pet_notice.jsp"%>
                        </div>
                       </div>
@@ -296,13 +296,12 @@ a {
    </div>
 	
 	<!-- 푸터 고정 -->
-   <footer class="bgcolor" style="position : absolute;">
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:50px; padding-bottom:20px;">Website 2023 &copy; Happy OkDogCat</div>
-            </div>
-         </div>
-    </footer>
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+</footer>
 
 
 </body>

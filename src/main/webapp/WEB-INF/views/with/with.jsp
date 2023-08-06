@@ -177,6 +177,7 @@ table.table.table-bordered th {
 	          <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
           </nav>
 
+
    <div id="layoutSidenav_content">
       <main>
          <div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
@@ -185,7 +186,7 @@ table.table.table-bordered th {
             </h2>
 
             <div class="card mb-4">
-               <div class="card-body" style="padding:45px 70px 10px 70px;">
+               <div class="card-body" style="padding:45px 50px 10px 50px;">
                   <select id="region-select" name="region-select">
                      <option value="">지역 선택</option>
                      <option value="서울특별시"
@@ -223,7 +224,6 @@ table.table.table-bordered th {
                      <option value="제주특별자치도"
                         <c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
                   </select>
-
 
                   <div>
                      <br>
@@ -306,14 +306,12 @@ table.table.table-bordered th {
          </div>
       </main>
    </div>
-   <!-- 푸터 고정 -->
-   <footer class="bgcolor" style="position : absolute;">
+  <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:50px; padding-bottom:20px;">Website 2023 &copy; Happy OkDogCat</div>
-            </div>
-         </div>
-    </footer>
-
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
 </body>
 </html>

@@ -256,15 +256,13 @@
 
 
   <!-- FOOTER -->
-  <footer class="py-4 mt-auto mainpage">
+   <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:2%;">Website 2023 &copy; Happy OkDogCat</div>
-
-               <div></div>
-            </div>
-         </div>
-      </footer>
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
 			</main>
                
     </body>

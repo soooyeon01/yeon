@@ -238,19 +238,16 @@ a:hover {
 						<button type="submit" class="register col p-3 btn btn-warning"
 							style="float: right;" onclick="upCommu();">수정하기</button>
 					</form>
+					 <!-- 푸터 고정 -->
+		   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+		         <div class="container-fluid px-4">
+		            <div class="d-flex align-items-center justify-content-between small">            
+		          </div>          
+		      </div>                
+			</footer>	
 				</div>
 			</div>
-		</main>
-	</div>
-	<footer class="py-4 bg-light mt-auto">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-between small">
-				<div class="text-muted" style="padding-top: 120px;">Website
-					2023 &copy; Happy OkDogCat</div>
-
-				<div></div>
-			</div>
-		</div>
-	</footer>
+		</main>		
+	</div>	
 </body>
 </html>

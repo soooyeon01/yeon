@@ -10,7 +10,7 @@
 			<li class="datatable-pagination-list-item"><c:if
 					test="${pageMaker.prev }">
 					<a href="javascript:void(0);"
-						onclick="prev('${pageMaker.startPage -1}','${param.type}');"
+						onclick="prev('${pageMaker.startPage -1}','${param.type}','${param.keyword}','${param.region}');"
 						class="datatable-pagination-list-item-link">‹</a>
 				</c:if></li>
 
@@ -27,7 +27,7 @@
 				</c:choose>
 				<li class="datatable-pagination-list-item"><a
 					href="javascript:void(0);"
-					onclick=" pageNum('${status.index}','${param.type}');"
+					onclick=" pageNum('${status.index}','${param.type}','${param.keyword}','${param.region}');"
 					class="datatable-pagination-list-item-link"
 					<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>>${ status.index }</a>
 				</li>
@@ -35,38 +35,38 @@
 			<li class="datatable-pagination-list-item"><c:if
 					test="${pageMaker.next }">
 					<a href="javascript:void(0);"
-						onclick="next('${pageMaker.endPage + 1}','${param.type}');"
+						onclick="next('${pageMaker.endPage + 1}','${param.type}','${param.keyword}','${param.region}');"
 						class="datatable-pagination-list-item-link">›</a>
 				</c:if></li>
 		</ul>
 	</nav>
 </div>
 <script>
-	function prev(prevPage) {
+	function prev(prevPage,type, keyword, region) {
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		var selectElement2 = document.getElementById("form-control");
 		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		location.href = "${pageContext.servletContext.contextPath}/pet/petall?region="
-				+ region + "&type=" + type + "&pageNum=" + prevPage;
+				+ region + "&type=" + type + "&pageNum=" + prevPage + "&keyword=" + keyword;
 	}
 
-	function pageNum(page) {
+	function pageNum(page,type, keyword, region) {
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		var selectElement2 = document.getElementById("form-control");
 		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		location.href = "${pageContext.servletContext.contextPath}/pet/petall?region="
-				+ region + "&type=" + type + "&pageNum=" + page;
+				+ region + "&type=" + type + "&pageNum=" + page + "&keyword=" + keyword;
 	}
 
-	function next(nextPage) {
+	function next(nextPage,type, keyword, region) {
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		var selectElement2 = document.getElementById("form-control");
 		var type = selectElement2.options[selectElement2.selectedIndex].value;
 		location.href = "${pageContext.servletContext.contextPath}/pet/petall?region="
-				+ region + "&type=" + type + "&pageNum=" + nextPage;
+				+ region + "&type=" + type + "&pageNum=" + nextPage + "&keyword=" + keyword;
 	}
 </script>
 

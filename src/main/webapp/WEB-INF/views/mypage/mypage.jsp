@@ -195,18 +195,16 @@
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/community/clist"><b>커뮤니티</b></a>
 			 <a class="pt-3 pb-3 flex-sm-fill text-sm-center nav-link" href="${root}/notice/nlist"><b>공지사항</b></a>
             </nav>  
-           
+    
+    <!-- 메인 시작 -->       
    <div id="layoutSidenav_content">
       <main class = "nanum">
          <div class="container-fluid px-10 pt-5 ps-4" >
             <h2 class="mt-1 mb-3" style ="margin-left:165px;"><b>마이페이지</b></h2>
             </div>
       
-            <div class="card mb-4"style="margin:0px 178px 100px 190px;">
-               <div class="card-header">
-                   개인정보조회
-               </div>
-              
+            <div class="card mb-4"style="margin:0px 138px 100px 150px;">
+               <div class="card-header">개인정보조회</div>              
             <div>               		 
                      <!-- 드롭버튼 -->
                      <div class="dropdown" style="padding-top:50px; padding-bottom:10px; padding-right:100px; float:right;">
@@ -266,13 +264,13 @@
          </div>
       </main>   
   
-<footer class="bgcolor" style="position : absolute;">
+ <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding:20% 0% 10% 0%;">Website 2023 &copy; Happy OkDogCat</div>
-            </div>          
-         </div>                
-      </footer>
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
        </div>
 </body>
 </html>

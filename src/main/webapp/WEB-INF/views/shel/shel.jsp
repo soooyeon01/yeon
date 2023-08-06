@@ -170,7 +170,7 @@ table.table.table-bordered th {
 				</h2>
 
 				<div class="card mb-4">
-					<div class="card-body" style="padding:45px 70px 10px 70px;">
+					<div class="card-body" style="padding:45px 50px 10px 50px;">
 						<select id="region-select">
 							<option value="">지역 선택</option>
 							<option value="서울특별시"
@@ -240,21 +240,20 @@ table.table.table-bordered th {
 							</table>
 						</div>
 					</div>
-					<div style="padding:0px 70px 25px 0px;">
+					<div style="padding:0px 50px 25px 0px;">
 					<%@ include file="../import/page-shelter.jsp"%>
 					</div>
 				</div>
 			</div>
 		</main>
 	</div>
-<!-- 푸터 고정 -->
-   <footer class="bgcolor" style="position : absolute;">
+		 <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:50px; padding-bottom:20px;">Website 2023 &copy; Happy OkDogCat</div>
-            </div>
-         </div>
-    </footer>
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
 
 </body>
 </html>

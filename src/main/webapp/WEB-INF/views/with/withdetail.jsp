@@ -165,6 +165,10 @@
 			  </script>
 
 <style>
+.btn {
+	width: 6rem;
+	height: 2.5rem;
+}
 a:hover {
 	background-color: #feeaa5;
 }
@@ -212,33 +216,35 @@ a {
 }
 
 .img_fa1 {
-	width: 200px;
-	height: 200px;
+	width: 65px;
+	height: 65px;
 	border: 0;
-	margin-top:-60px;
 }
 
 .img_fa2 {
-	width: 200px;
-	height: 200px;
+	width: 65px;
+	height: 65px;
 	display: none;
-	margin-top:-60px;
+	margin: 0;
 	padding: 0;
 	border: none;
 	background: none;
 }
 
+
 table.table.table-bordered {
-	width: 55%;
-	margin-top: 50px;
-	margin-left: 280px;
+	width: 100%;
+	height: 40px;
+ 	margin-left:auto;
+ 	margin-right:auto;
+	
 }
 table.table.table-bordered th {
-	width: 30%;
-	margin-top: 50px;
-	margin-left: 350px;
+	width: 30%;	
 	background-color: #feeaa5;
 	text-align:center;
+	padding: 10px 0px;
+   
 }
 /* 모달 스타일 */
 .modal_wrap {
@@ -332,17 +338,13 @@ table.table.table-bordered th {
 	<div>
 		<div id="layoutSidenav_content">
 			<main>
-				<div class="container-fluid px-3 pt-3">
-					<h1 class="mt-1">위드펫 상세</h1>
-
-					<div class="card mb-4">
-						
-						<div class="card-body">
-
-							<p>
-								<button type="button" class="btn btn-warning" onclick="back();">목록</button>
-							</p>
-							<table class="table table-bordered">
+				<div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
+					<h2 class="mt-1 mb-3"><b>위드펫 상세</b></h2>
+					<div class="card mb-4">						
+						<div class="card-body" style="padding:40px 140px 30px 140px; text-align:center;">
+							
+							<table class="table table-bordered" style="height:40px">
+								
 								<c:forEach var="W_DTO" items="${ withdetailList }">
 									<div style="float: right;">
 										<c:set var="isLiked" value="false" />
@@ -352,16 +354,15 @@ table.table.table-bordered th {
 												<c:set var="isLiked" value="true" />
 											</c:if>
 										</c:forEach>
-										<label> <input type="checkbox" class="image-checkbox"
-											id="fa" name="favorite"
-											style="transform: scale(4); margin: 5px; display: none;"
+										<label> <input type="checkbox" class="image-checkbox" id="fa" name="favorite"
+											style="margin: 5px; display: none;"
 											value="${W_DTO.with_pet_no}"> <img class="img_fa1"
 											name="favorite" data-value="${W_DTO.with_pet_no}"
-											src="../resources/image/fa1.png"
+											src="../resources/image/fa11.png"
 											style="${isLiked ? 'display:none;' : ''}"> <img
 											class="img_fa2" name="favorite"
 											data-value="${W_DTO.with_pet_no}"
-											src="../resources/image/fa3.gif"
+											src="../resources/image/fa22.png"
 											style="${!isLiked ? 'display:none;' : ''}">
 										</label>
 									</div>
@@ -522,6 +523,8 @@ table.table.table-bordered th {
 									</tr>
 								</c:forEach>
 							</table>
+							<button type="button" class="btn btn-warning" onclick="back();" 
+								style=" display: inline; margin: 30px auto 30px auto;">목록</button>	
 						</div>
 					</div>
 				</div>
@@ -529,6 +532,13 @@ table.table.table-bordered th {
 			</main>
 			<footer class="py-4 bg-light mt-auto"> </footer>
 		</div>
+		  <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
 	</div>
 
 </body>

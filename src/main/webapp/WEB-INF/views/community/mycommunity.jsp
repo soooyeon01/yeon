@@ -87,11 +87,11 @@ a:hover {
 }
 
 .btn {
-	width: 15rem;
-	height: 5rem;
-	margin-left: 1rem;
+	width: 6rem;
+	height: 2.5rem;
+	margin-left: 23rem;
 	margin-right: 1rem;
-	margin-bottom: 2rem;
+	
 }
 </style>
 <style type="text/css">
@@ -173,14 +173,13 @@ a {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
-				<h1 class="mt-1">내가 쓴 글</h1>
+				<h2 class="mt-1 mb-3"><b>내가쓴글</b></h2>
 
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table me-1">내가 쓴 글 목록</i>
-
+						<b>내가 쓴 글 목록</b>
 					</div>
-					<div class="card-body">
+					<div class="card-body" style="padding:40px 50px 30px 50px;">
 						<table id="datatablesSimple">
 							<thead>
 								<tr>
@@ -204,26 +203,22 @@ a {
 									</tr>
 								</c:forEach>
 							</tbody>
+							
 						</table>
-						
-					</div>
-					<%-- <%@ include file="../import/page-community.jsp" %> --%>
-					<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
-                        	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
+						<button type="button" class="btn btn-warning" onclick="back();">이전</button>
+					</div>					
 				</div>
-				<button type="button" class="btn btn-warning" onclick="back();">이전</button>
+				
 			</div>
 		</main>
+		 <!-- 푸터 고정 -->
+	   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+	         <div class="container-fluid px-4">
+	            <div class="d-flex align-items-center justify-content-between small">            
+	          </div>          
+	      </div>                
+		</footer>
 	</div>
-	<footer class="py-4 bg-light mt-auto">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-between small">
-				<div class="text-muted" style="padding-top: 120px;">Website
-					2023 &copy; Happy OkDogCat</div>
-
-				<div></div>
-			</div>
-		</div>
-	</footer>
+	
 </body>
 </html>
