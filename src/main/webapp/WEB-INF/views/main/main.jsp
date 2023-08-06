@@ -101,6 +101,11 @@
 		   text-decoration-line: none;
 		   color: inherit;
 		   }
+		   
+.bgcolor {
+	font-family: 'NanumSquareNeo';
+	background-color: #f9f8f3;
+}
 		 
 </style>
 </head>
@@ -255,14 +260,13 @@
   </div><!-- /.container -->
 
 
-  <!-- FOOTER -->
    <!-- 푸터 고정 -->
-   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
-         <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">            
-          </div>          
-      </div>                
-	</footer>
+		   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+		         <div class="container-fluid px-4">
+		            <div class="d-flex align-items-center justify-content-between small">            
+		          </div>          
+		      </div>                
+			</footer>
 			</main>
                
     </body>
