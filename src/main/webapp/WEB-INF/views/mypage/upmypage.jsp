@@ -244,20 +244,19 @@
                      <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;    
                       <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
                     </div>
-
             </div>
          </div>
-      </main>
-      <footer class="py-4 bg-light mt-auto">
+      </main>      
+   </div>
+    <footer class="py-4 bgcolor mt-auto">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:190px;">Website 2023 &copy; Happy OkDogCat</div>
+               <div class="text-muted" style="padding-top:10%;">Website 2023 &copy; Happy OkDogCat</div>
 
                <div></div>
             </div>
          </div>
       </footer>
-   </div>
 
 </body>
 </html>

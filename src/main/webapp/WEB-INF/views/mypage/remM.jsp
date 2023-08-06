@@ -177,25 +177,21 @@
                      <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'" >이전</button>&nbsp;    	 
                     <button type="submit" class ="btn btn-warning" onclick="location.href=${root}/mypage/remM;" style="font-size:15px">탈퇴하기</button>&nbsp;
                 </form>        
-                      <input type="hidden" name="pwd" value="${mdto.pwd}">
-                   
+                      <input type="hidden" name="pwd" value="${mdto.pwd}">                   
 				</div>
             </div>
          </div>
-      </main>
-      
-      <footer class="py-4 bg-light mt-auto">
+         
+      </main>  
+      </div>  
+       <footer class="bgcolor" style="position : absolute; bottom :20px;">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-                 <div class="text-muted"style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
-
-               <div></div>
+               <div class="text-muted" style="padding-top:20%;">Website 2023 &copy; Happy OkDogCat</div>
             </div>
          </div>
       </footer>
-   </div>
-   <script>
+  
 
-</script>
 </body>
 </html>

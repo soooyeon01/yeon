@@ -22,12 +22,16 @@
         <script src="${root}/resources/bootstrap/js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
+        <!-- 추가 -->
+        <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script> -->
      	<script>
-	   
-    
+
 	      function logout() {
 	  		if (confirm("로그아웃 하시겠습니까?")) {
-	  		location.href = "${pageContext.servletContext.contextPath}/user/logout";
+	  		location.href = "${root}/user/logout";
 	  	 	}
 	  	}
 	     
@@ -87,6 +91,7 @@
 		   text-decoration-line: none;
 		   color: inherit;
 		   }
+		 
 </style>
 </head>
  <body class="sb-nav-fixed bgcolor nanum" > 
@@ -164,7 +169,23 @@
       </button>
   </div>
 
-
+<!-- 추가 -->
+<!-- <div class="container">
+  <h2>Our  Partners/ Our Clients</h2>
+   <section class="customer-logos slider">
+      <div class="slide"><img src="https://image.freepik.com/free-vector/luxury-letter-e-logo-design_1017-8903.jpg"></div>
+      <div class="slide"><img src="http://www.webcoderskull.com/img/logo.png"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/3d-box-logo_1103-876.jpg"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/blue-tech-logo_1103-822.jpg"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/colors-curl-logo-template_23-2147536125.jpg"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/abstract-cross-logo_23-2147536124.jpg"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/football-logo-background_1195-244.jpg"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/background-of-spots-halftone_1035-3847.jpg"></div>
+      <div class="slide"><img src="https://image.freepik.com/free-vector/retro-label-on-rustic-background_82147503374.jpg"></div>
+   </section>
+   
+<h2><a href="http://www.webcoderskull.com" target="_blank">http://www.webcoderskull.com</a></h2>
+</div> -->
 
   <div class="container marketing">
     <!-- START THE FEATURETTES -->
@@ -225,15 +246,15 @@
 
 
   <!-- FOOTER -->
-   <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">OkDogCat &copy; Happy Project</div>
-                            <p class="float-end"><a href="#">Back to top</a></p>
+  <footer class="py-4 mt-auto mainpage">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:2%;">Website 2023 &copy; Happy OkDogCat</div>
 
-                        </div>
-                    </div>
-                </footer>
+               <div></div>
+            </div>
+         </div>
+      </footer>
 			</main>
                
     </body>

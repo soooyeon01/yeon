@@ -176,12 +176,13 @@ a {
    <div id="layoutSidenav_content">
       <main>
          <div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
-            <h2 class="mt-1">
+            <h2 class="mt-1 mb-3">
                <b><a href="${root}/pet/petall">유기동물 공고</a></b>
             </h2>
 
             <div class="card mb-4">
-               <div class="card-body">
+               <div class="card-body" style="padding:0px 50px 0px 50px;">
+               	<div style="padding:45px 0px 0px 20px;">
                   <select id="region-select">
                      <option value="">지역 선택</option>
                      <option value="서울특별시"
@@ -219,9 +220,9 @@ a {
                      <option value="제주특별자치도"
                         <c:if test='${ param.region eq "제주특별자치도" }'>selected="selected"</c:if>>제주특별자치도</option>
                   </select>
+				</div>
 
-
-
+				
                   <div id="animals-container">
                      <div class="container" style="display:flex; flex-wrap:wrap;">
                         <c:forEach var="P_DTO" items="${response.petList}">
@@ -261,7 +262,7 @@ a {
                </div>
                <div class="container">
                    <div class="row">
-                       <div class="col-md-6">
+                       <div class="col-md-6" style="padding:0px 0px 50px 70px">
                            <form method="get" name="search-form" action="${root}/pet/petall" autocomplete="off">
                                <table id="table">
                                    <tr>
@@ -279,7 +280,7 @@ a {
                                </table>
                            </form>
                        </div>
-                       <div class="col-md-6 d-flex justify-content-end">
+                       <div class="col-md-6 d-flex justify-content-end" style="padding-right:70px">
                            <%@ include file="../import/page-pet_notice.jsp"%>
                        </div>
                       </div>
@@ -288,9 +289,15 @@ a {
          </div>
       </main>
    </div>
-
-   <footer class="py-4 bg-light mt-auto"> </footer>
-
+	
+	<!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute;">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:50px; padding-bottom:20px;">Website 2023 &copy; Happy OkDogCat</div>
+            </div>
+         </div>
+    </footer>
 
 
 </body>

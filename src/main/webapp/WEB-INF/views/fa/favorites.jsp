@@ -82,6 +82,7 @@ a:hover {
 table.table.table-bordered th {
 	background-color: #feeaa5;
 }
+th{text-align:center;}
 </style>
 </head>
 <body class="sb-nav-fixed bgcolor">
@@ -112,7 +113,6 @@ table.table.table-bordered th {
 				<button type="button" class="btn"
 					onclick="location.href='${root}/user/login'"
 					style="font-size: 14px;">로그인</button>
-
 				<%
 				}
 				%>
@@ -151,10 +151,10 @@ table.table.table-bordered th {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width:80%;">
-				<h2 class="mt-1">보호소 즐겨찾기</h2>
+				<h2 class="mt-1 mb-3"><b>보호소 즐겨찾기</b></h2>
 
 				<div class="card mb-4">
-					<div class="card-body">
+					<div class="card-body" style="padding:45px 70px;">
 
 
 						<table class="table table-bordered">
@@ -188,29 +188,25 @@ table.table.table-bordered th {
 							</tbody>
 						</table>
 
-					</div>
-					<%@ include file="../import/page-favorites.jsp"%>
-
-				</div>
-				<div style="text-align: center;">
-					<button class="btn btn-warning" type="submit"
-						onclick="location.href='${root}/fa/sendfas'">이메일 전송</button>
-					<button type="button" class="btn btn-warning" onclick="back();">이전</button>
-				</div>
-			</div>
-		</main>
-		<footer class="py-4 bg-light mt-auto">
-			<div class="container-fluid px-4">
-				<div class="d-flex align-items-center justify-content-between small">
 					
-					<div>
-						
-					</div>
+					<%@ include file="../import/page-favorites.jsp"%>
+					
+					<div style="text-align: center;">
+					<button type="button" class="btn btn-warning" onclick="back();">이전</button>
+					<button class="btn btn-warning" type="submit" onclick="location.href='${root}/fa/sendfas'">이메일 전송</button>					
 				</div>
+				</div>								
 			</div>
-		</footer>
+			</div>
+		</main>		
 	</div>
-
+	<footer class="bgcolor" style="position : absolute; bottom :20px;">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:20%;">Website 2023 &copy; Happy OkDogCat</div>
+            </div>
+         </div>        
+      </footer>
 
 </body>
 </html>

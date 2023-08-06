@@ -151,7 +151,7 @@
    <div id="layoutSidenav_content">  
        <main>
          <div class="container-fluid px-10 pt-5 ps-4">
-            <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>회원정보확인</b></h2>
+            <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>회원정보수정</b></h2>
             </div>          
        			<div class="card mb-4" style="margin-left:150px; margin-right:155px;">
 	               <div class="card-header">
@@ -176,21 +176,14 @@
             	</div>
          	</div>
          </div>
-      </main>
-      
-      
-      <footer class="py-4 bg-light mt-auto">
+      </main>    
+   </div>
+ 	  <footer class="bgcolor" style="position : absolute; bottom :20px;">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted" style="padding-top:190px;">Website 2023 &copy; Happy OkDogCat</div>
-
-               <div></div>
+               <div class="text-muted" style="padding-top:20%;">Website 2023 &copy; Happy OkDogCat</div>
             </div>
          </div>
       </footer>
-   </div>
-   <script>
-
-</script>
 </body>
 </html>
