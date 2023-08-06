@@ -8,7 +8,8 @@
    <![CDATA[
    SELECT * FROM (
         SELECT
-        pet_notice_no
+        ROWNUM as rn
+        ,pet_notice_no
         ,happenDt
         ,happenPlace
         ,kindCd
@@ -25,8 +26,7 @@
         ,specialMark
         ,careNm
         ,careAddr
-        ,careTel,
-        ROW_NUMBER() OVER (ORDER BY pet_notice_no ASC) as rn
+        ,careTel
         FROM pet_notice
          WHERE ROWNUM <= ( #{pageMaker.cri.pageNum} * #{pageMaker.cri.amount} )  ]]>
 		<if test="type == 'allsearch'">

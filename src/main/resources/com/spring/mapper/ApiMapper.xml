@@ -68,9 +68,9 @@
 	<delete id="deletePetData">
   	<![CDATA[
   	DELETE FROM pet_notice a
-      WHERE ROWID < (SELECT MAX(ROWID) 
+      WHERE ROWID > (SELECT MIN(ROWID) 
                        FROM pet_notice b
-                        WHERE a.popfile = b.popfile)
+                        WHERE b.popfile = a.popfile)
                         ]]>
 	</delete>
 	
@@ -83,9 +83,9 @@
 	<delete id="deleteShelData">
   	<![CDATA[
   	DELETE FROM shelter a
-      WHERE ROWID < (SELECT MAX(ROWID) 
+      WHERE ROWID > (SELECT MIN(ROWID) 
                        FROM shelter b
-                        WHERE a.careNm = b.careNm)
+                        WHERE b.careNm = a.careNm)
                         ]]>
 	</delete>
 	
@@ -93,9 +93,9 @@
 	<delete id="deleteWithData">
   	<![CDATA[
   	DELETE FROM with_pet a
-      WHERE ROWID < (SELECT MAX(ROWID) 
+      WHERE ROWID > (SELECT MIN(ROWID) 
                        FROM with_pet b
-                        WHERE a.road = b.road)
+                        WHERE b.road = a.road)
                         ]]>
 	</delete>
 	
