@@ -199,10 +199,10 @@
    <div id="layoutSidenav_content">
       <main class = "nanum">
          <div class="container-fluid px-10 pt-5 ps-4" >
-            <h2 class="mt-1 mb-3" style ="margin-left:127px;"><b>마이페이지</b></h2>
+            <h2 class="mt-1 mb-3" style ="margin-left:165px;"><b>마이페이지</b></h2>
             </div>
       
-            <div class="card mb-4" style="margin-left:150px; margin-right:138px;">
+            <div class="card mb-4"style="margin:0px 178px 100px 190px;">
                <div class="card-header">
                    개인정보조회
                </div>
@@ -264,19 +264,15 @@
                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px; float:right;">회원 탈퇴</button>
             </div>             
          </div>
-      </main>
-      
-      
-      <footer class="py-4 bg-light mt-auto">
+      </main>   
+  
+<footer class="bgcolor" style="position : absolute;">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:120px;">Website 2023 &copy; Happy OkDogCat</div>
-
-               <div></div>
-            </div>
-         </div>
+               <div class="text-muted" style="padding:20% 0% 10% 0%;">Website 2023 &copy; Happy OkDogCat</div>
+            </div>          
+         </div>                
       </footer>
-   </div>
-
+       </div>
 </body>
 </html>

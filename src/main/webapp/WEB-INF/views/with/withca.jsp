@@ -281,14 +281,12 @@ a:hover {
    <div id="layoutSidenav_content">
 
       <main>
-         <div class="container-fluid px-10 pt-5 ps-4" >
-            <h2 class="mt-1 mb-3" style ="margin-left:127px;"><b>위드펫</b></h2>
+          <div class="container-fluid px-10 pt-5 ps-4" style="width:80%;" >
+            <h2 class="mt-1 mb-3"><b>위드펫</b></h2>
             </div>
 
          <div class="card-body">
             <div align="center">
-
-
                <form id="myForm" action="${root}/with/withall" method="get">
                   <input type="hidden" id="category3" name="category3">
                   <div class="container nanumB" style="padding:0px 80px">
@@ -333,18 +331,14 @@ a:hover {
             </div>
          </div>
       </main>
-       <footer class="py-4 bg-light mt-auto">
+        <footer class="bgcolor" style="position : absolute; bottom :20px;">
          <div class="container-fluid px-4">
             <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:50px;">Website 2023 &copy; Happy OkDogCat</div>
-
-               <div></div>
+               <div class="text-muted" style="padding-top:20%;">Website 2023 &copy; Happy OkDogCat</div>
             </div>
          </div>
       </footer>
    </div>
-   <script>
-
-</script>
+   
 </body>
 </html>

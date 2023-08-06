@@ -179,13 +179,13 @@ table.table.table-bordered th {
 
    <div id="layoutSidenav_content">
       <main>
-         <div class="container-fluid px-10 pt-5 ps-4" style="width: 88%;">
-            <h2 class="mt-1">
+         <div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
+            <h2 class="mt-1 mb-3">
                <b><a href="${root}/with/withall?category3=${param.category3}">${param.category3}</a></b>
             </h2>
 
             <div class="card mb-4">
-               <div class="card-body">
+               <div class="card-body" style="padding:45px 70px 10px 70px;">
                   <select id="region-select" name="region-select">
                      <option value="">지역 선택</option>
                      <option value="서울특별시"
@@ -268,9 +268,8 @@ table.table.table-bordered th {
 
                      <div class="container">
                         <div class="row">
-                           <div class="col-md-6">
-                           <form class="form" method="get" name="search-form"
-                              action="${root}/with/withall" autocomplete="off" >
+                           <div class="col-md-6" style="padding:10px 0px 50px 0px">
+                           <form class="form" method="get" name="search-form" action="${root}/with/withall" autocomplete="off" >
                               <table id="table">
                                  <tr>
                                     <td><select id="form-control" class="form-control"
@@ -296,19 +295,25 @@ table.table.table-bordered th {
                                  value="${param.category3}">
                            </form>
                         </div>
-                         <div class="col-md-6 d-flex justify-content-end">
+                         <div class="col-md-6 d-flex justify-content-end" style="padding:10px 0px 15px 0px;">
                             <%@ include file="../import/page-with_pet.jsp"%>
                          </div>
-                     </div>
-                     
+                     </div>                     
                   </div>
-               </div>
-                  
+               </div>                  
                </div>
             </div>
          </div>
       </main>
    </div>
+   <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute;">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:50px; padding-bottom:20px;">Website 2023 &copy; Happy OkDogCat</div>
+            </div>
+         </div>
+    </footer>
 
 </body>
 </html>

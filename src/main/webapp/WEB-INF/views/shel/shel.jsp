@@ -164,13 +164,13 @@ table.table.table-bordered th {
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-10 pt-5 ps-4" style="width: 88%;">
-				<h2 class="mt-1">
+			<div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
+				<h2 class="mt-1 mb-3">
 					<b><a href="${root}/shel/shelall">보호소</a></b>
 				</h2>
 
 				<div class="card mb-4">
-					<div class="card-body">
+					<div class="card-body" style="padding:45px 70px 10px 70px;">
 						<select id="region-select">
 							<option value="">지역 선택</option>
 							<option value="서울특별시"
@@ -216,15 +216,11 @@ table.table.table-bordered th {
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-
 										<th>보호소 이름</th>
 										<th>보호소 주소</th>
 										<th>보호소 전화번호</th>
 										<th>평일운영시작시간</th>
 										<th>평일운영종료시간</th>
-
-
-										<!-- <th>조회수</th> -->
 									</tr>
 								</thead>
 
@@ -244,13 +240,21 @@ table.table.table-bordered th {
 							</table>
 						</div>
 					</div>
+					<div style="padding:0px 70px 25px 0px;">
 					<%@ include file="../import/page-shelter.jsp"%>
+					</div>
 				</div>
 			</div>
 		</main>
-
 	</div>
-
+<!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute;">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+               <div class="text-muted" style="padding-top:50px; padding-bottom:20px;">Website 2023 &copy; Happy OkDogCat</div>
+            </div>
+         </div>
+    </footer>
 
 </body>
 </html>
