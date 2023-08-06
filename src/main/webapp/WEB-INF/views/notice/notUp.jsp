@@ -231,15 +231,17 @@ a {
 									placeholder="Enter Title" name="notice_title"
 									value="${selectone.notice_title}">
 							</div>
+							<div class="row">
 							<div class="mt-3 p-3">
 								닉네임 :
 								<p class="form-control" type="text" name="nickname">${selectone.nickname}</p>
 							</div>
 						</div>
-						<div class="mt-3 col p-3">
+						<div class="col p-3">
 							내용 :
 							<textarea id="cont" class="form-control" rows="5"
 								name="notice_content">${selectone.notice_content}</textarea>
+						</div>
 						</div>
 						<button type="button" class="get col p-3 btn btn-warning"
 							style="float: left;" onclick="history.back();">이전</button>

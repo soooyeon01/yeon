@@ -140,8 +140,8 @@ public class FavoriteController {
 	@RequestMapping("/sendfap")
 	public String naverMailSendP(HttpSession session2, String nickname, String email, Model model) {
 		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-		String user = "2qiuo@naver.com"; // 패스워드
-		String password = "Yesol1101@";
+		String user = "ptiael@naver.com"; // 패스워드
+        String password = "yesol1101s2";  
 
 		// SMTP 서버 정보를 설정한다.
 		Properties props = new Properties();
@@ -225,8 +225,8 @@ public class FavoriteController {
 	@RequestMapping("/sendfas")
 	public String naverMailSendW(HttpSession session2, String nickname, String email, Model model) {
 		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-		String user = "2qiuo@naver.com"; // 패스워드
-		String password = "Yesol1101@";
+		String user = "ptiael@naver.com"; // 패스워드
+        String password = "yesol1101s2";  
 
 		// SMTP 서버 정보를 설정한다.
 		Properties props = new Properties();
@@ -312,8 +312,8 @@ public class FavoriteController {
 	@RequestMapping("/sendfaw")
 	public String naverMailSend(HttpSession session2, String nickname, String email, Model model) {
 		String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
-		String user = "2qiuo@naver.com"; // 패스워드
-		String password = "Yesol1101@";
+		String user = "ptiael@naver.com"; // 패스워드
+        String password = "yesol1101s2";  
 
 		// SMTP 서버 정보를 설정한다.
 		Properties props = new Properties();

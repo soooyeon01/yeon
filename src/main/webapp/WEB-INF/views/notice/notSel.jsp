@@ -403,20 +403,20 @@ a {
 						<div class="contentHeader">
 							<div class="mb-3 mt-3 col" style="font-size: 30px;">
 								<b><label for="title">글제목:</label></b>
-								<p class="form-control" name="notice_title">${selectone.notice_title}</p>
+								<p class="form-control" name="notice_title" style="width: 100%">${selectone.notice_title}</p>
 							</div>
 							<div class="row">
 								<div class="mt-3 col p-3">
-									<label for="notice_reg_date">작성일:</label>
+									<label>작성일:</label>
 									<p class="form-control" name="notice_reg_date">${selectone.notice_reg_date}</p>
 								</div>
 								<div class="mb-3 mt-3 col p-3">
-									<label for="nickname">작성자:</label>
+									<label>작성자:</label>
 									<p class="form-control" name="nickname">${selectone.nickname}</p>
 									<%-- <div class="form-control" id="nickname" name="nickname">${ requestScope.communityDTO.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.communityDTO.nickname }</div> --%>
 								</div>
 								<div class="mt-3 col p-3">
-									<label for="view_count">조회수:</label>
+									<label>조회수:</label>
 									<p class="form-control" name="view_count">${selectone.view_count}</p>
 								</div>
 							</div>
