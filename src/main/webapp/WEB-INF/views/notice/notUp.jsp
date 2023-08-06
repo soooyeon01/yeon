@@ -65,6 +65,7 @@
 	function toListPage() {
 		location.href = "${pageContext.servletContext.contextPath}/notice/nlist";
 	}
+	
 	function logout() {
 		if (confirm("로그아웃 하시겠습니까?")) {
 			location.href = "${root}/user/logout";
@@ -178,10 +179,8 @@ a {
 				<div style="padding: 6px 10px; font-size: 14px;">
 					♡<b>${sessionScope.SESS_NICKNAME}</b>님 환영합니다♡
 				</div>
-				<a type="button" onclick="logout();"
-					style="font-size: 14px; padding: 6px 5px;">로그아웃</a> <a
-					href="${root}/mypage/mypage" type="button"
-					style="font-size: 14px; padding: 6px 5px;">마이페이지</a>
+				<a type="button" onclick="logout();" style="font-size: 14px; padding: 6px 5px;">로그아웃</a>
+				<a href="${root}/mypage/mypage" type="button" style="font-size: 14px; padding: 6px 5px;">마이페이지</a>
 				<%
 				} else {
 				%>
@@ -253,15 +252,12 @@ a {
 			</div>
 		</main>
 	</div>
-	<footer class="py-4 bg-light mt-auto">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-between small">
-				<div class="text-muted" style="padding-top: 120px;">Website
-					2023 &copy; Happy OkDogCat</div>
-
-				<div></div>
-			</div>
-		</div>
+	 <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
 	</footer>
 </body>
 </html>

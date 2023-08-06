@@ -171,6 +171,11 @@
       </script>
 
 <style>
+
+.btn {
+	width: 6rem;
+	height: 2.5rem;
+}
 a:hover {
 	background-color: #feeaa5;
 }
@@ -218,32 +223,34 @@ a {
 }
 
 .img_fa1 {
-	width: 200px;
-	height: 200px;
+	width: 65px;
+	height: 65px;
 	border: 0;
+
 }
 
 .img_fa2 {
-	width: 200px;
-	height: 200px;
+	width: 65px;
+	height: 65px;
 	display: none;
 	margin: 0;
 	padding: 0;
 	border: none;
 	background: none;
+
 }
 
 table.table.table-bordered {
-	width: 50%;
-	margin-top: 50px;
-	margin-left: 350px;
+	width: 100%;
+	height: 40px;
+ 	margin-left:auto;
+ 	margin-right:auto;
 }
 table.table.table-bordered th {
-	width: 30%;
-	margin-top: 50px;
-	margin-left: 350px;
+	width: 30%;	
 	background-color: #feeaa5;
 	text-align:center;
+	padding: 10px 0px;
    
 }
 
@@ -251,8 +258,12 @@ table.table.table-bordered th {
 	text-align: center;
 }
 
-.img {
-	display: inline;
+.img {	
+	display:inline;
+	width:100%; 
+	height: 70%;
+	padding:20px 0px 50px 0px;
+	/* margin : 0px auto 0px auto; */
 }
 
 /* 모달 스타일 */
@@ -348,16 +359,13 @@ table.table.table-bordered th {
 
 	<div id="layoutSidenav_content">
 		<main>
-			<div class="container-fluid px-3 pt-3">
-				<h1 class="mt-1">유기동물 공고 상세</h1>
-
-				<div class="card mb-4">
-					
-					<div class="card-body">
-
-
-
+			 <div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
+				<h2 class="mt-1 mb-3"><b>유기동물 공고 상세</b></h2>
+				<div class="card mb-4">					
+					<div class="card-body" style="padding:40px 140px 30px 140px; text-align:center;">
+							
 						<c:forEach var="P_DTO" items="${petdetailList}">
+						
 							<div style="float: right;">
 								<c:set var="isLiked" value="false" />
 								<c:forEach var="likedId" items="${fapList}">
@@ -365,24 +373,24 @@ table.table.table-bordered th {
 										test="${!isLiked and likedId.pet_notice_no == P_DTO.pet_notice_no}">
 										<c:set var="isLiked" value="true" />
 									</c:if>
-								</c:forEach>
+							</c:forEach>	
 
 								<label>
 								<input type="checkbox" class="image-checkbox" id="fa" name="favorite" 
-								style="transform: scale(4); margin: 5px; display: none;" value="${P_DTO.pet_notice_no}"> 
-								<img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa1.png"
+								style="margin: 5px; display: none;" value="${P_DTO.pet_notice_no}"> 
+								<img class="img_fa1" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa11.png"
 									style="${isLiked ? 'display:none;' : ''}"> 
-								<img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa3.gif"
+								<img class="img_fa2" name="favorite" data-value="${P_DTO.pet_notice_no}" src="../resources/image/fa22.png"
 									style="${!isLiked ? 'display:none;' : ''}">
 								</label>
-
 							</div>
-							<p>
-								<button type="button" class="btn btn-warning" onclick="back();">목록</button>
-							</p>
+							
+								
+							
+							<div>
 							<div id="image-container">
-								<img class="img" src="${P_DTO.popfile}" alt="펫이미지"
-									style="width: 500px; height: 500px;" />
+								<img class="img" src="${P_DTO.popfile}" alt="펫이미지"/>
+							</div>
 							</div>
 							<table class="table table-bordered">
 								<tr>
@@ -541,23 +549,29 @@ table.table.table-bordered th {
 
 									</td>
 								</tr>
-
-
 								<tr>
 									<th style="font-size: 15px;">보호소 전화번호</th>
 									<td style="font-size: 20px;">${P_DTO.careTel}</td>
 								</tr>
-
-
-							</table>
-
-
+							</table>							
 						</c:forEach>
+						
+								<button type="button" class="btn btn-warning" onclick="back();" 
+								style=" display: inline; margin: 30px auto 30px auto;">목록</button>							
 					</div>
 				</div>
 			</div>
+				</main>
+			</div>
+			
 
-		</main>
-	</div>
+		 <!-- 푸터 고정 -->
+		   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+		         <div class="container-fluid px-4">
+		            <div class="d-flex align-items-center justify-content-between small">            
+		          </div>          
+		      </div>                
+			</footer>
+
 </body>
 </html>

@@ -123,10 +123,9 @@ a {
 }
 
 .btn {
-	width: 15rem;
-	height: 5rem;
+	width: 6rem;
+	height: 2.5rem;
 	margin-left: 1rem;
-	margin-right: 1rem;
 }
 </style>
 <style type="text/css">
@@ -213,7 +212,7 @@ a {
 				<div id="tptp">
 					<div class="card mb-4  mytb">
 						<div class="card-header">
-							<i class="fas fa-table me-1">조회수 top 5</i>
+							조회수 top 5
 						</div>
 						<div class="card-body">
 							<table class="datatable-table ttt">
@@ -250,7 +249,7 @@ a {
 					</div>
 					<div class="card mb-4  mytb">
 						<div class="card-header">
-							<i class="fas fa-table me-1">추천수 top 5</i>
+							추천수 top 5
 
 						</div>
 						<div class="card-body">
@@ -289,10 +288,9 @@ a {
 				</div>
 				<div class="card mb-4">
 					<div class="card-header">
-						<i class="fas fa-table me-1">전체 글 목록</i>
-
+						전체 글 목록
 					</div>
-					<div class="card-body">
+					<div class="card-body"  style="padding:30px 45px 20px 45px">
 						<table id="datatablesSimple" class="ttt">
 							<thead>
 								<tr>
@@ -312,10 +310,8 @@ a {
 									items="${requestScope.communityList}" varStatus="status">
 									<c:set var="fixdate"
 										value="${fn:substring(communityDTO.reg_date, 0, 11)}" />
-									<tr>
-										<%-- <td>${communityDTO.c_no}</td> --%>
-										<td><a
-											href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}
+									<tr>									
+										<td><a href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${communityDTO.c_no}">${communityDTO.title}
 												(${communityDTO.reply_cnt})</a></td>
 										<td>${communityDTO.nickname}</td>
 										<td>${fixdate}</td>
@@ -324,30 +320,23 @@ a {
 									</tr>
 								</c:forEach>
 							</tbody>
-						</table>
-					</div>
-				</div>
-
-				<c:if test="${sessionScope.SESS_NICKNAME!=null}">
+							<c:if test="${sessionScope.SESS_NICKNAME!=null}">
 					<input type="button" class="btn btn-warning" style="float: right"
 						value="글쓰기" onclick="location.href='newCommu'">
-				</c:if>
-				<%-- <%@ include file="../import/page-community.jsp" %> --%>
-				<%--  <jsp:include page="/view/import/page-nation.jsp"></jsp:include> 
-                        	<C:import url="/view/import/page-nation.jsp"></C:import> --%>
-
-			</div>
+				</c:if>			
+						</table>
+					</div>
+				</div>					
+			</div>		
 		</main>
-	</div>
-	<footer class="py-4 bg-light mt-auto">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-between small">
-				<div class="text-muted" style="padding-top: 120px;">Website
-					2023 &copy; Happy OkDogCat</div>
-
-				<div></div>
-			</div>
-		</div>
+		 <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
 	</footer>
+	</div>
+	
 </body>
 </html>

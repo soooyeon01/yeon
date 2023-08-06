@@ -196,9 +196,7 @@
             </div>
             
             <div class="card mb-4" style="margin-left:150px; margin-right:138px;">
-               <div class="card-header">
-                  회원정보수정
-               </div>
+               <div class="card-header"> 회원정보수정 </div>
               
                <div class="card-body" style ="padding: 50px 100px; padding-bottom:50px;">
             
@@ -248,15 +246,13 @@
          </div>
       </main>      
    </div>
-    <footer class="py-4 bgcolor mt-auto">
+    <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-               <div class="text-muted" style="padding-top:10%;">Website 2023 &copy; Happy OkDogCat</div>
-
-               <div></div>
-            </div>
-         </div>
-      </footer>
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
 
 </body>
 </html>

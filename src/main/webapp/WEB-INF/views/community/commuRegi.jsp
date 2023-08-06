@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
@@ -678,45 +679,7 @@ a {
 							<textarea id="cont" class="form-control" cols="100" rows="30"
 								name="content"></textarea>
 						</div>
-						<%-- <div>
-     	<form action="${pageContext.servletContext.contextPath }/upload/uploadFormAction" method="post" enctype="multipart/form-data">
-      	<input type="file" name="uploadFile" accept="image/*" /> <!-- multiple="multiple" -->
-      	<input type="submit" ></input>
-   		</form> 
-   		</div> --%>
-						<!-- <div calss = 'bigPictureWrapper'>
-		<div class = 'bigPicture'>
-		</div>
-		</div>
-   		<div class='uploadDiv'>
-			<input type="file" name='uploadFile' multiple>
-		</div>
-		<div class='uploadResult'>
-			<ul>
-			</ul>
-		</div>
-   		첨부파일
-		<div class = "row">
-			<div class = "col-lg-12">
-				<div class = "panel panel-default">
-					<div class = "panel-heading">File Attach</div>
-					/.panel-heading
-					<div class = "panel-body">
-						<div class = "panel-body">
-							<div class = "form-group uploadDiv">
-								<input type = "file" name = 'uploadFile' multiple>
-							</div>
-							
-							<div class = 'uploadResult'>
-								<ul>
-								
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
+						
 						<br> <br>
 						<button type="button" class="get col p-3 btn btn-warning"
 							style="float: left;" onclick="history.back();">이전</button>
@@ -728,15 +691,16 @@ a {
 				</div>
 			</div>
 		</main>
-	</div>
-	<footer class="py-4 bg-light mt-auto">
-		<div class="container-fluid px-4">
-			<div class="d-flex align-items-center justify-content-between small">
-				<div class="text-muted" style="padding-top: 120px;">Website
-					2023 &copy; Happy OkDogCat</div>
-				<div></div>
-			</div>
-		</div>
+		 <!-- 푸터 고정 -->
+   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+         <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">            
+           
+          </div>          
+      </div>                    
 	</footer>
+	
+	</div>
+	
 </body>
 </html>

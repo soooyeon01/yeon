@@ -181,10 +181,8 @@ a:hover {
          <div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
 				<h2 class="mt-1 mb-3"><b>회원 관리</b></h2>
 				<div class="card mb-4">
-					<div class="card-header">
-						회원관리
-               </div>
-               <div class="card-body">
+					<div class="card-header">회원관리</div>
+               <div class="card-body"  style="padding:40px 50px 30px 50px;">
                   <table class="datatable-table ttt">
                      <thead>
                         <tr>
@@ -192,8 +190,7 @@ a:hover {
                            <th>닉네임</th>
                            <th>이메일</th>
                            <th>이름</th>
-                           <th>전화번호</th>
-                           
+                           <th>전화번호</th>                           
                         </tr>
                      </thead>
                      <tbody>
@@ -203,8 +200,7 @@ a:hover {
                               <td>${userList.nickname}</td>
                               <td id="userEmail">${userList.email}</td>
                               <td>${userList.name}</td>
-                              <td>${userList.phone}</td>
-                              
+                              <td>${userList.phone}</td>                              
                            </tr>
                         </c:forEach>
                      </tbody>
