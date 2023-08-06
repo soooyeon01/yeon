@@ -267,7 +267,7 @@ a {
                </div>
                <div class="container">
                    <div class="row">
-                       <div class="col-md-6" style="padding:0px 0px 50px 50px">
+                       <div class="col-md-6" style="padding:0px 0px 50px 30px">
                            <form method="get" name="search-form" action="${root}/pet/petall" autocomplete="off">
                                <table id="table">
                                    <tr>

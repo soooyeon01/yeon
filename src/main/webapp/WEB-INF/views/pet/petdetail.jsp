@@ -260,8 +260,8 @@ table.table.table-bordered th {
 
 .img {	
 	display:inline;
-	width:80%; 
-	height: 900px;
+	width:70%; 
+	height: 700px;
 	padding:70px 0px 70px 0px;
 	/* margin : 0px auto 0px auto; */
 }
