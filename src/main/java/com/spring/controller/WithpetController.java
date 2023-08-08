@@ -2,6 +2,7 @@ package com.spring.controller;
 
 import java.io.IOException;
 
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -135,7 +136,7 @@ public class WithpetController {
 		    dto2.setExtra(extra);
 
 		 service.registerWithpetData(nickname, dto2);
-		// { result : 11}
+		
 
 		JsonObject jsonObj = new JsonObject();
 	    jsonObj.addProperty("success", true);
@@ -186,7 +187,7 @@ public class WithpetController {
 	    dto2.setExtra(extra);
 
 		int result = service.removeWithpetData(Integer.parseInt(with_pet_no));
-		// { result : 1}
+	
 
 		JsonObject jsonObj = new JsonObject();
 	    jsonObj.addProperty("result", result);
@@ -194,23 +195,10 @@ public class WithpetController {
 	    return jsonObj.toString();
 	}
 
-	// 화면 출력부터
+
 	@GetMapping("/withca")
 	public String selectCa() {
 		return "/with/withca";
 	}
-	
-//	//검색창
-//	@GetMapping("/getSearchList")
-//	@ResponseBody
-//	private List<W_DTO> getSearchList(@RequestParam("type")String type
-//									,@RequestParam("keyword")String keyword,Model model
-//									,@RequestParam(value = "category3", required = false) String category3)throws Exception{
-//		
-//		W_DTO wdto = new W_DTO();
-//		wdto.setType(type);
-//		wdto.setKeyword(keyword);
-//		return service.getSearchList(wdto);
-//	}
 
 }
