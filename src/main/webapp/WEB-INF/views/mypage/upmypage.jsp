@@ -25,43 +25,47 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
  
-  <script>
-	  function pwdShow() {
-		  	let pwd = document.getElementsByName("pwd")[0].value;
-		    let newpwd = document.getElementsByName("newpwd")[0].value;
-		    let newcpwd = document.getElementsByName("newcpwd")[0].value;
+  <script> 	
+  		<!-- 비밀번호 변경 폼 제출 -->
+	  function pwdShow() { 
+		  	let pwd = document.getElementsByName("pwd")[0].value; //현재 비밀번호 입력값 가져옴
+		    let newpwd = document.getElementsByName("newpwd")[0].value; //신규 비밀번호 입력값 가져옴
+		    let newcpwd = document.getElementsByName("newcpwd")[0].value; //신규 비밀번호 확인 입력값
 		  
-		    document.getElementById("uppwd").submit();
+		    document.getElementById("uppwd").submit();//"uppwd" 아이디를 가진 폼을 제출
 		    return true;
 		}
   
-  function phoneShow() {
-	    let phone = document.getElementsByName("phone")[0].value; //name 속성을 받아옴
-
-	    if (phone == null || phone.length == 0) {
-	        alert("변경하실 전화번호를 입력하세요.");
-	        return false;
-	    } else if (phone.length != 11) {
-	        alert("전화번호를 제대로 입력하세요.");
-	        return false;
-	    } else {	      
-	        document.getElementById("upphone").submit();
-	        return true;
-	    }
-	}
-  
-  function checkmypage() {
-		  var msg = "정보 변경이 완료되었습니다."
-		  alert(msg);
-		  location.href = "${root}/mypage/mypage";
-		  return true;
-  }
-  
-  function logout() {
-		if (confirm("로그아웃 하시겠습니까?")) {
-		location.href = "${root}/user/logout";
-		   }
+	  <!-- 전화번호 변경 폼 제출 -->
+	  function phoneShow() {
+		    let phone = document.getElementsByName("phone")[0].value; //변경 전화번호 입력값 가져옴
+	
+		    if (phone == null || phone.length == 0) {
+		        alert("변경하실 전화번호를 입력하세요.");
+		        return false;
+		    } else if (phone.length != 11) {
+		        alert("전화번호를 제대로 입력하세요.");
+		        return false;
+		    } else {	      
+		        document.getElementById("upphone").submit(); //입력이 제대로 됐을 시 폼 제출
+		        return true;
+		    }
 		}
+	  
+	  <!-- 마이페이지 변경 확인 메시지 -->
+	  function checkmypage() {
+			  var msg = "정보 변경이 완료되었습니다."
+			  alert(msg);
+			  location.href = "${root}/mypage/mypage";
+			  return true;
+	  }
+	  
+	  <!-- 로그아웃 확인 -->
+	  function logout() {
+			if (confirm("로그아웃 하시겠습니까?")) {
+			location.href = "${root}/user/logout";
+			   }
+			}
 
   </script>
 <style>
@@ -201,12 +205,16 @@
                <div class="card-body" style ="padding: 50px 100px; padding-bottom:50px;">
             
                   <table class="table">
-                 <c:forEach items="${membersDTO}" var="mdto">
-						<i style="font-size:14px;">※무책임한 활동을 방지하기 위해 비밀번호, 전화번호 외에 다른 정보는 수정할 수 없습니다.</i>
+                 <c:forEach items="${membersDTO}" var="mdto">  <!-- 회원 정보를 표시하는 루프 -->
+						<i style="font-size:14px;">※무책임한 활동을 방지하기 위해 비밀번호, 전화번호 외에 다른 정보는 수정할 수 없습니다.</i> <!-- 주의 메시지 -->
+                       
+                        <!-- 이메일 (아이디) -->
                         <tr style="border-top:2px gray solid;">                      
                            <th>이메일(아이디)</th>                        
                            <td>${mdto.email}</td>      
-                        </tr>                                         
+                        </tr>
+                        
+                        <!-- 비밀번호 변경 -->                                         
                         <tr>         
                            <th style="padding-top:110px;">비밀번호</th>
                             <td><form id="uppwd" action="${root}/mypage/upmypwd" method="post">                           	
@@ -217,15 +225,21 @@
    									<input type="hidden" name="email" value="${mdto.email}">  									
 								</form>			
 							</td>
-                        </tr>                                                                
+                        </tr>  
+                        
+                        <!-- 닉네임 -->                                                              
                         <tr>
                            <th>닉네임</th>                 
                          <td>${mdto.nickname}</td>
-                        </tr>                       
+                        </tr> 
+                        
+                        <!-- 이름 -->                      
                         <tr>               
                            <th>이름</th>
                            <td>${mdto.name}</td>                               
-                        </tr>                                             
+                        </tr>   
+                        
+                         <!-- 전화번호 변경 -->                                          
                         <tr>
                            <th>전화번호</th>
                            <td><form id="upphone" action="${root}/mypage/upmyphone" method="post"> 									
