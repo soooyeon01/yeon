@@ -72,6 +72,10 @@
 	}
 </script>
 <style>
+a {
+	text-decoration-line: none;
+	color: inherit;
+}
 #cont {
 	width: 100%;
 	height: 30rem;
@@ -125,7 +129,6 @@ a:hover {
 	height: 5rem;
 	margin-left: 1rem;
 	margin-right: 1rem;
-	margin-bottom: 2rem;
 }
 
 .contentBox {
@@ -236,15 +239,10 @@ a:hover {
 						<button type="button" class="get col p-3 btn btn-warning"
 							style="float: left;" onclick="history.back();">이전</button>
 						<button type="submit" class="register col p-3 btn btn-warning"
-							style="float: right;" onclick="upCommu();">수정하기</button>
+							style="float: right; padding-bottom:40px;" onclick="upCommu();">수정하기</button>
 					</form>
-					 <!-- 푸터 고정 -->
-		   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
-		         <div class="container-fluid px-4">
-		            <div class="d-flex align-items-center justify-content-between small">            
-		          </div>          
-		      </div>                
-			</footer>	
+	
+		  
 				</div>
 			</div>
 		</main>		

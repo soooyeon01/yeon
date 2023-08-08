@@ -24,6 +24,13 @@
 <script src="${root}/resources/bootstrap/js/datatables-simple-demo.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
+	function logout() {
+		if (confirm("로그아웃 하시겠습니까?")) {
+			location.href = "${root}/user/logout";
+		}
+	}
+</script>
+<script>
    function poobkick(){
        console.log("리스트를 불러옵니다.");
        var checkedEmails = [];
@@ -211,14 +218,12 @@ a:hover {
             
          </div>
       </main>
-      <footer class="py-4 bg-light mt-auto">
+     <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
          <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-              <div class="text-muted" style="padding-top: 170px;">Website
-					2023 &copy; Happy OkDogCat</div>
-            </div>
-         </div>
-      </footer>
+            <div class="d-flex align-items-center justify-content-between small">            
+          </div>          
+      </div>                
+	</footer>
    </div>
 
 </body>

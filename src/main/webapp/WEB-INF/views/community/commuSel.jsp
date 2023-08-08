@@ -302,10 +302,10 @@
     		
 		    var reUp = "";
     		reUp+="<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
-    		reUp+="<textarea id='uprcontent' rows='5'>"+rcontent+"</textarea><br>";
-    		reUp+="<button type='button' class='btn btn-warning' id='updating' data-rno='" + r_no + "'>";
+    		reUp+="<textarea id='uprcontent' rows='5'cols='83'>"+rcontent+"</textarea><br>";
+    		reUp+="<button type='button' class='btn2 btn btn-warning' id='updating' data-rno='" + r_no + "'>";
     		reUp+="댓글 수정</button>";
-    		reUp+="<button type='button' class='btn btn-warning' id='cancelReply'>취소</button>";
+    		reUp+="<button type='button' class='btn2 btn btn-warning' id='cancelReply'>취소</button>";
     		reUp+="</div><hr>";
 
     		$(replyElement).parent().html(reUp);
@@ -483,7 +483,7 @@
 							success : function(data) {
 								//btnLike.html("추천하기");
 								likeval = 0;
-								alert('추천 취소 성공');
+								
 								updateLikeCount();
 								updateButton(); 
 							},
@@ -504,7 +504,7 @@
 								//btnLike.html("추천하기 취소");
 								likeval = 1;
 								
-								alert('추천하기 성공');
+								
 								updateLikeCount();
 								updateButton(); 
 							}
@@ -596,6 +596,12 @@ a:hover {
 	height: 5rem;
 	margin-left: 1rem;
 	margin-right: 1rem;
+}
+
+.btn2 {
+	width: 6rem;
+	height: 2.5rem;
+	margin-left: 1rem;
 }
 
 .reply-sbox {
