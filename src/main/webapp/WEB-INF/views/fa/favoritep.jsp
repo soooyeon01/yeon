@@ -11,7 +11,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>보호소 즐겨찾기</title>
+<title>공고 즐겨찾기</title>
 <link href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css" rel="stylesheet">
 <link href="${ pageContext.servletContext.contextPath }/resources/bootstrap/css/mypageStyles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -136,8 +136,6 @@ th{text-align:center;}
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th>즐겨찾기번호</th>
-									<th>닉네임</th>
 									<th>이미지</th>
 									<th>보호소 이름</th>
 									<th>보호소 주소</th>
@@ -152,8 +150,6 @@ th{text-align:center;}
 									<tr
 										onclick="location.href='${pageContext.servletContext.contextPath}/pet/petdetail?method=get&amp;pet_notice_no=${F_P_DTO.pet_notice_no}'"
 										style="cursor: pointer">
-										<td>${F_P_DTO.favoritep_no}</td>
-										<td>${F_P_DTO.nickname}</td>
 										<td><img src="${F_P_DTO.popfile}" alt="펫이미지"
 											style="height: 100px" /></td>
 										<td>${F_P_DTO.careNm}</td>
