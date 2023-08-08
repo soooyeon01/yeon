@@ -202,7 +202,7 @@
             
                   <table class="table">
                  <c:forEach items="${membersDTO}" var="mdto">
-
+						<i style="font-size:14px;">※무책임한 활동을 방지하기 위해 비밀번호, 전화번호 외에 다른 정보는 수정할 수 없습니다.</i>
                         <tr style="border-top:2px gray solid;">                      
                            <th>이메일(아이디)</th>                        
                            <td>${mdto.email}</td>      
