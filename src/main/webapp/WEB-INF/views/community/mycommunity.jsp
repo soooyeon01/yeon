@@ -89,8 +89,7 @@ a:hover {
 .btn {
 	width: 6rem;
 	height: 2.5rem;
-	margin-left: 23rem;
-	margin-right: 1rem;
+	float:left;
 	
 }
 </style>
@@ -187,7 +186,6 @@ a {
 									<th>작성일</th>
 									<th>조회수</th>
 								</tr>
-
 							</thead>
 
 							<tbody>
