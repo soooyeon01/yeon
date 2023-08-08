@@ -152,9 +152,6 @@ th{text-align:center;}
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th>즐겨찾기번호</th>
-									<th>닉네임</th>
-									<th>보호소 번호</th>
 									<th>보호소 이름</th>
 									<th>보호소 주소</th>
 									<th>보호소 전화번호</th>
@@ -168,9 +165,6 @@ th{text-align:center;}
 									<tr
 										onclick="location.href='${pageContext.servletContext.contextPath}/shel/sheldetail?method=get&amp;shelter_no=${F_S_DTO.shelter_no}'"
 										style="cursor: pointer">
-										<td>${F_S_DTO.favorites_no}</td>
-										<td>${F_S_DTO.nickname}</td>
-										<td>${F_S_DTO.shelter_no}</td>
 										<td>${F_S_DTO.careNm}</td>
 										<td>${F_S_DTO.careAddr}</td>
 										<td>${F_S_DTO.careTel}</td>
