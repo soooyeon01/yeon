@@ -12,7 +12,7 @@
  -->  	
   	<select id="replyList" parameterType="int" resultType="com.spring.domain.ReplyDTO">
 	    <![CDATA[
-		 select r_no, (select c_no from community where c_no=reply.c_no) as c_no, (select nickname from members where nickname=reply.nickname) as nickname, rcontent, reg_date from reply where c_no=#{c_no} order by reg_date desc
+		 select r_no, (select c_no from community where c_no=reply.c_no) as c_no, (select nickname from members where nickname=reply.nickname) as nickname, rcontent, reg_date from reply where c_no=#{c_no} order by reg_date asc
 		]]>
 	</select>
 	
