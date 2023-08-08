@@ -150,9 +150,6 @@ th{text-align:center;}
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th>즐겨찾기번호</th>
-									<th>닉네임</th>
-									<th>문화시설 번호</th>
 									<th>문화시설 이름</th>
 									<th>문화시설 주소</th>
 									<th>문화시설 전화번호</th>
@@ -166,9 +163,6 @@ th{text-align:center;}
 									<tr
 										onclick="location.href='${pageContext.servletContext.contextPath}/with/withdetail?method=get&amp;with_pet_no=${F_W_DTO.with_pet_no}'"
 										style="cursor: pointer">
-										<td>${F_W_DTO.favoritew_no}</td>
-										<td>${F_W_DTO.nickname}</td>
-										<td>${F_W_DTO.with_pet_no}</td>
 										<td>${F_W_DTO.building}</td>
 										<td>${F_W_DTO.road}</td>
 										<td>${F_W_DTO.tel}</td>
