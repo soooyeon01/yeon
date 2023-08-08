@@ -63,7 +63,8 @@ public class ApiShelDataController {
 		try {
 			String url = "https://apis.data.go.kr/1543061/animalShelterSrvc/shelterInfo?" + "pageNo=1&"
 					+ "numOfRows=1000&" + "serviceKey=" + serviceKey;
-
+			
+			
 			DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
 			Document doc = dBuilder.parse(url);
