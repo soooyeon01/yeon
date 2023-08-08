@@ -141,13 +141,6 @@
 		   }
 		   
 </style>	   
-		<!-- 폰트 -->
-   <!-- font-family: 'NanumSquareNeoLight';
-		font-family: 'NanumSquareNeo';
-		font-family: 'NanumSquareNeoBold';
-		font-family: 'NanumSquareNeoExtraBold';
-		font-family: 'NanumSquareNeoHeavy'; -->
-		
 	     <style type="text/css">
 		.nanum{ font-family: 'NanumSquareNeo'; }
 		.nanumB{font-family: 'NanumSquareNeoBold';}		
@@ -193,80 +186,85 @@
             </nav>
             
             
-   <div class="layoutSidenav_content">  
-      <main>
-         <div class="container-fluid px-10 pt-5 ps-4">
-            <h2 class="mt-1 mb-3" style ="margin-left:127px; font"><b>회원정보수정</b></h2>
-            </div>
-            
-            <div class="card mb-4" style="margin-left:150px; margin-right:138px;">
-               <div class="card-header"> 회원정보수정 </div>
-              
-               <div class="card-body" style ="padding: 50px 100px; padding-bottom:50px;">
-            
-                  <table class="table">
-                 <c:forEach items="${membersDTO}" var="mdto">  <!-- 회원 정보를 표시하는 루프 -->
-						<i style="font-size:14px;">※무책임한 활동을 방지하기 위해 비밀번호, 전화번호 외에 다른 정보는 수정할 수 없습니다.</i> <!-- 주의 메시지 -->
-                       
-                        <!-- 이메일 (아이디) -->
-                        <tr style="border-top:2px gray solid;">                      
-                           <th>이메일(아이디)</th>                        
-                           <td>${mdto.email}</td>      
+  <div class="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-10 pt-5 ps-4">
+            <h2 class="mt-1 mb-3" style="margin-left:127px; font">
+                <b>회원정보수정</b>
+            </h2>
+        </div>
+
+        <div class="card mb-4" style="margin-left:150px; margin-right:138px;">
+            <div class="card-header"> 회원정보수정 </div>
+
+            <div class="card-body" style="padding: 50px 100px; padding-bottom:50px;">
+
+                <table class="table">
+                    <c:forEach items="${membersDTO}" var="mdto">
+                        <i style="font-size:14px;">※무책임한 활동을 방지하기 위해 비밀번호, 전화번호 외에 다른 정보는 수정할 수 없습니다.</i>
+		
+                        <tr style="border-top:2px gray solid;">
+                        
+                         <!-- 이메일 (아이디) -->
+                            <th>이메일(아이디)</th>
+                            <td>${mdto.email}</td>
                         </tr>
                         
-                        <!-- 비밀번호 변경 -->                                         
-                        <tr>         
-                           <th style="padding-top:110px;">비밀번호</th>
-                            <td><form id="uppwd" action="${root}/mypage/upmypwd" method="post">                           	
-   									<input type ="password" name ="pwd"  placeholder="현재 비밀번호"/><br><br>
-   									<input type ="password" name ="newpwd"  placeholder="신규 비밀번호"/><br><br>
-   									<input type ="password" name ="newcpwd"  placeholder="신규 비밀번호 확인"/><br><br>
-   									<button type="button" class="upbtn" onclick="pwdShow();">비밀번호 변경</button>   									
-   									<input type="hidden" name="email" value="${mdto.email}">  									
-								</form>			
-							</td>
-                        </tr>  
-                        
-                        <!-- 닉네임 -->                                                              
+						<!-- 비밀번호 변경 --> 
                         <tr>
-                           <th>닉네임</th>                 
-                         <td>${mdto.nickname}</td>
-                        </tr> 
-                        
-                        <!-- 이름 -->                      
-                        <tr>               
-                           <th>이름</th>
-                           <td>${mdto.name}</td>                               
-                        </tr>   
-                        
-                         <!-- 전화번호 변경 -->                                          
-                        <tr>
-                           <th>전화번호</th>
-                           <td><form id="upphone" action="${root}/mypage/upmyphone" method="post"> 									
-   									<input type ="text" name ="phone" placeholder="${mdto.phone}"/>
-   									<button type="button" class="upbtn" onclick="phoneShow();">전화번호 변경</button>
-   									<input type="hidden" name="email" value="${mdto.email}">  									
-								</form>	
-							</td>    
+                            <th style="padding-top:110px;">비밀번호</th>
+                            <td>
+                                <form id="uppwd" action="${root}/mypage/upmypwd" method="post">
+                                    <input type="password" name="pwd" placeholder="현재 비밀번호" /><br><br>
+                                    <input type="password" name="newpwd" placeholder="신규 비밀번호" /><br><br>
+                                    <input type="password" name="newcpwd" placeholder="신규 비밀번호 확인" /><br><br>
+                                    <button type="button" class="upbtn" onclick="pwdShow();">비밀번호 변경</button>
+                                    <input type="hidden" name="email" value="${mdto.email}">
+                                </form>
+                            </td>
                         </tr>
-                </c:forEach>
-               </table>
-                          
-               <div align="center" style="padding-top:20px">
-                     <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;    
-                      <button type="button" class ="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
-                    </div>
+                        
+						<!-- 닉네임 -->
+                        <tr>
+                            <th>닉네임</th>
+                            <td>${mdto.nickname}</td>
+                        </tr>
+						
+						<!-- 이름 -->
+                        <tr>
+                            <th>이름</th>
+                            <td>${mdto.name}</td>
+                        </tr>
+						
+						<!-- 전화번호 변경 -->
+                        <tr>
+                            <th>전화번호</th>
+                            <td>
+                                <form id="upphone" action="${root}/mypage/upmyphone" method="post">
+                                    <input type="text" name="phone" placeholder="${mdto.phone}" />
+                                    <button type="button" class="upbtn" onclick="phoneShow();">전화번호 변경</button>
+                                    <input type="hidden" name="email" value="${mdto.email}">
+                                </form>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+                <div align="center" style="padding-top:20px">
+                    <button type="button" class="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;
+                    <button type="button" class="btn btn-warning" onclick="checkmypage();">확인</button>&nbsp;
+                </div>
             </div>
-         </div>
-      </main>      
-   </div>
-    <!-- 푸터 고정 -->
-   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
-         <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">            
-          </div>          
-      </div>                
-	</footer>
+        </div>
+    </main>
+</div>
+<footer class="bgcolor" style="position : absolute; padding-bottom:100px">
+    <div class="container-fluid px-4">
+        <div class="d-flex align-items-center justify-content-between small">
+        </div>
+    </div>
+</footer>
 
 </body>
+
 </html>
