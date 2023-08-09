@@ -27,11 +27,7 @@
  
   <script> 	
   		<!-- 비밀번호 변경 폼 제출 -->
-	  function pwdShow() { 
-		  	let pwd = document.getElementsByName("pwd")[0].value; //현재 비밀번호 입력값 가져옴
-		    let newpwd = document.getElementsByName("newpwd")[0].value; //신규 비밀번호 입력값 가져옴
-		    let newcpwd = document.getElementsByName("newcpwd")[0].value; //신규 비밀번호 확인 입력값
-		  
+	  function pwdShow() { 		  
 		    document.getElementById("uppwd").submit();//"uppwd" 아이디를 가진 폼을 제출
 		    return true;
 		}
