@@ -60,24 +60,7 @@
 		            alert("로그인 후 이용하실 수 있습니다 ^~^");
 		        }
 		    }
-  <!-- inputpwd값 보내기 -->
-  function remM() {
-      var data = $("form").serialize(); // form 데이터 직렬화
-      $.ajax({
-         url: "${pageContext.servletContext.contextPath}/mypage/remMC",
-         data: "data", // 수정: 직렬화된 form 데이터 전달
-         type: "post",
-         
-         success: function(data, textStatus) {
-            console.log(data);
-         },
-         error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-         }
-      });
-   }
+ 
   <!-- 카테고리 버튼 -->
   $('.fun-btn').on('click', function(event) {
      $(this).toggleClass('start-fun');
