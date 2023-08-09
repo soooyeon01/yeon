@@ -39,10 +39,6 @@
 		!important;
 }
 </style>
-<a href="https://www.cursors-4u.com/cursor/2006/03/05/nat186.html"
-	target="_blank" title="Kitty Cat 19"><img
-	src="https://cur.cursors-4u.net/cursor.png" border="0"
-	alt="Kitty Cat 19" style="position: absolute; top: 0px; right: 0px;" /></a>
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
@@ -231,19 +227,18 @@
 	       		let c_no=document.getElementsByName("c_no").value;
 	       		let title=document.getElementsByName("title").value;
 				let content=document.getElementsByName("content").value;
-	       		/* location.href="${pageContext.servletContext.contextPath}/community/commuUp?c_no=${selectone.c_no}"; */
 	       	}
 	       	
     	</script>
-<script>
+		<script>
     	function logout() {
     		if (confirm("로그아웃 하시겠습니까?")) {
     		location.href = "${root}/user/logout";
     	 	}
     	}
     	</script>
-<script>
-    	$(document).ready(function() {
+		<script>
+    	$(document).ready(function() { // document.ready : onload의 기능
     	$('#Reply_regist').click(function() {
 			
    			//Json으로 전달할 파라미터 변수선언
@@ -260,7 +255,7 @@
    			
    			$.ajax({
    				type:'post',
-   				url:'<c:url value="/community/newR"/>',
+   				url:'<c:url value="/community/newR"/>', //댓글 등록 처리를 위한 서버 URL
    				data: JSON.stringify(
    					{
    						"c_no":c_no,
@@ -393,7 +388,6 @@
 							var reg_date= list[i].reg_date;
 							
 							reply_html += "<div><span id='nickname'><strong>" + nickname + "</strong></span><br/>";
-							//reply_html += "<span id='Rno_"+Rno+"' >" + Rno + "</span><br>";
 							reply_html += "<span id='rcontent'>" + rcontent + "</span><br>";
 							reply_html += "<span id='reg_date' style='font-size:3px;'>" + reg_date + "</span><br>";
 							
@@ -427,7 +421,7 @@
     	}) ;//jquery
     	
 		</script>
-<script>
+		<script>
 		
 			$(document).ready(function() {
 				var likeval = ${islike};
@@ -481,7 +475,6 @@
 								"nickname" : nickname
 							}),
 							success : function(data) {
-								//btnLike.html("추천하기");
 								likeval = 0;
 								
 								updateLikeCount();
@@ -501,9 +494,7 @@
 								"nickname" : nickname
 							}),
 							success : function(data) {
-								//btnLike.html("추천하기 취소");
 								likeval = 1;
-								
 								
 								updateLikeCount();
 								updateButton(); 
@@ -513,11 +504,11 @@
 				});
 			});
 		</script>
-<script>
+		<script>
 			function confirmDelete() {
 	    		if (confirm("정말로 삭제하시겠습니까?")) {
 	        	// 사용자가 Yes를 선택한 경우 삭제 동작을 수행할 코드 작성
-	        	location.href = 'commuDel?c_no=${selectone.c_no}'; // 삭제 동작 예시
+	        	location.href = 'commuDel?c_no=${selectone.c_no}'; 
 	    		} else {
 	        // 사용자가 No를 선택한 경우 아무 동작도 수행하지 않음
 	    		}
@@ -777,7 +768,8 @@ a {
 							<textarea class="reply-input" id="rcontent" cols="115" rows="3"
 								name="rcontent" style="margin-top: 1rem;"></textarea>
 							<div class="regBtn">
-								<button id="Reply_regist" class="btn btn-warning">댓글등록</button>
+								<button id="Reply_regist" class="btn btn-warning">댓글등록</button> 
+								<!-- "댓글 등록" 버튼 클릭 시 ajax 코드를 실행하여 댓글을 등록합니다. data 속성에 댓글 정보를 담아서 서버로 전송하고, 성공 또는 실패 시 처리를 수행합니다. -->
 							</div>
 						</div>
 					</div>

@@ -37,11 +37,9 @@ public class NoticeController {
         }catch(Exception e) {}
          
         if( SESS_AUTH ) {
-//          request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
-//          session.setAttribute("id", email);
             
 			model.addAttribute("noticeList", service.getAllNotice());
 			return "notice/notice";
@@ -66,11 +64,9 @@ public class NoticeController {
         }catch(Exception e) {}
          
         if( SESS_AUTH ) {
-//          request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
             String nickname = (String) session.getAttribute("SESS_NICKNAME");
-//          session.setAttribute("id", email);
             
 			int result=service.registerNotice(noti);
 			if(result>0) {
@@ -93,11 +89,9 @@ public class NoticeController {
         }catch(Exception e) {}
          
         if( SESS_AUTH ) {
-           
-//          request.setCharacterEncoding("utf-8");
             request.setAttribute("SESS_AUTH", false);
             String email = (String) session.getAttribute("SESS_EMAIL");
-//          session.setAttribute("id", email);
+
 		NoticeDTO selectone=service.getNotice(notice_no);
 		model.addAttribute("selectone", selectone);
 		service.viewCount(notice_no);
@@ -136,6 +130,5 @@ public class NoticeController {
 			return "redirect:/notice/notSel?notice_no="+notice_no;
 		}
 	}
-	
 	
 }

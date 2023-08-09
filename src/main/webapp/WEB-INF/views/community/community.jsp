@@ -232,7 +232,6 @@ a {
 										<c:set var="fixdate"
 											value="${fn:substring(viewCntList.reg_date, 0, 11)}" />
 										<tr>
-											<%-- <td>${communityDTO.c_no}</td> --%>
 											<td><a
 												href="${pageContext.servletContext.contextPath}/community/commuSel?c_no=${viewCntList.c_no}">${viewCntList.title}
 													(${viewCntList.reply_cnt})</a></td>
@@ -301,11 +300,8 @@ a {
 									<th id="tooosht">조회수</th>
 									<th id="tooosht">추천수</th>
 								</tr>
-
 							</thead>
-
 							<tbody>
-
 								<c:forEach var="communityDTO"
 									items="${requestScope.communityList}" varStatus="status">
 									<c:set var="fixdate"
