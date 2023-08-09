@@ -248,7 +248,6 @@ a {
 							style="float: right;" onclick="upNot();">수정하기</button>
 					</form>
 				</div>
-
 			</div>
 		</main>
 	</div>

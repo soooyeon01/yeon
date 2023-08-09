@@ -241,8 +241,6 @@ a:hover {
 						<button type="submit" class="register col p-3 btn btn-warning"
 							style="float: right; padding-bottom:40px;" onclick="upCommu();">수정하기</button>
 					</form>
-	
-		  
 				</div>
 			</div>
 		</main>		

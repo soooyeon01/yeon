@@ -205,8 +205,7 @@
 	width: 100%
 }
 </style>
-<script>  
-     
+	<script>  
 	 	function logout() {
 			if (confirm("로그아웃 하시겠습니까?")) {
 			location.href = "${root}/user/logout";
@@ -223,7 +222,7 @@
     		location.href="${pageContext.servletContext.contextPath}/notice/nlist";
     	}
     </script>
-<script>
+	<script>
 	  function checkForm() {
 	    var titleElement = document.getElementsByName("notice_title")[0];
 	    var contentElement = document.getElementsByName("notice_content")[0];
@@ -404,14 +403,12 @@ a {
 							<textarea id="cont" class="form-control" cols="100" rows="30"
 								name="notice_content"></textarea>
 						</div>
-
 						<button type="button" class="get col p-3 btn btn-warning"
 							style="float: left;" onclick="history.back();">이전</button>
 						<button type="submit" class="register col p-3 btn btn-warning"
 							style="float: right;">전송</button>
 						<input type="hidden" name="nickname"
 							value="${noti.nickname == null ? sessionScope.SESS_NICKNAME : requestScope.noti.nickname}">
-
 					</form>
 				</div>
 			</div>
@@ -424,8 +421,5 @@ a {
       </div>                
 	</footer>
 	</div>
-	
-
-
 </body>
 </html>
