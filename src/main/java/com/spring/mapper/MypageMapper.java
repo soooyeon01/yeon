@@ -16,4 +16,6 @@ public interface MypageMapper {
 
 	String selectPwd(String email);
 
+	List<MembersDTO> selectMembers();
+
 }

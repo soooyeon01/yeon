@@ -16,14 +16,14 @@
      
      <update id="updatePwd">
   		 UPDATE members 
-         SET pwd = #{pwd,jdbcType=VARCHAR}      
-         WHERE email = #{email,jdbcType=VARCHAR} 
+         SET pwd = #{pwd,jdbcType=VARCHAR}<!-- 새로운 비밀번호로 테이블의 'pwd' 필드 값 설정 -->   
+         WHERE email = #{email,jdbcType=VARCHAR} <!-- 이메일을 기준으로 해당 회원의 비밀번호 업데이트 -->
      </update>
      
      <update id="updatePhone">
   		 UPDATE members 
-         SET phone = #{phone}      
-         WHERE email = #{email,jdbcType=VARCHAR}
+         SET phone = #{phone}  <!-- 새로운 전화번호로 테이블의 'phone' 필드 값을 설정 -->     
+         WHERE email = #{email,jdbcType=VARCHAR} <!-- 이메일을 기준으로 해당 회원의 전화번호를 업데이트 -->
      </update>
      
      <delete id = "removeMember">
@@ -33,5 +33,13 @@
      <select id="selectPwd" resultType="String">
      	SELECT pwd 
      	FROM members WHERE email = #{email,jdbcType=VARCHAR} 
+     </select>
+     <select id="selectMembers" resultType="com.spring.domain.MembersDTO">
+       	 SELECT email
+              , pwd
+              , phone
+              , name
+              , nickname 
+              FROM members
      </select>
      </mapper>

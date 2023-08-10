@@ -4,12 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
   <mapper namespace="com.spring.mapper.ReplyMapper">
-  	<!-- <select id="selectCommunity" parameterType="int" resultType="com.spring.domain.CommunityDTO">
-  		<![CDATA[
-  		select c_no, title, content, nickname, reg_date, view_count from community where c_no=#{c_no}
-  		]]>
-  	</select>
- -->  	
+	<!-- 댓글 리스트 -->	
   	<select id="replyList" parameterType="int" resultType="com.spring.domain.ReplyDTO">
 	    <![CDATA[
 		 select r_no, (select c_no from community where c_no=reply.c_no) as c_no, (select nickname from members where nickname=reply.nickname) as nickname, rcontent, reg_date from reply where c_no=#{c_no} order by reg_date asc

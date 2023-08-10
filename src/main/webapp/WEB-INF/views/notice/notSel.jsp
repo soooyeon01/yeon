@@ -29,7 +29,7 @@
 <link
 	href="https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css"
 	rel="stylesheet">
-<script>  
+		<script>  
 	       	function toListPage() {
 	    		location.href="${pageContext.servletContext.contextPath}/notice/nlist";
 	    		}
@@ -44,7 +44,7 @@
 	    	 	}
 	    	}
     	</script>
-<script>
+		<script>
 			function confirmDelete() {
 	    		if (confirm("정말로 삭제하시겠습니까?")) {
 	        	// 사용자가 Yes를 선택한 경우 삭제 동작을 수행할 코드 작성
@@ -448,6 +448,5 @@ a {
           </div>          
       </div>                
 	</footer>
-
 </body>
 </html>

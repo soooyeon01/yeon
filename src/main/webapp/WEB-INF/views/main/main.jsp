@@ -47,13 +47,7 @@
 	    		 
 	    		 	      
      	</script>
-     	<!-- 폰트 -->
-     	<!-- font-family: 'NanumSquareNeoLight';
-		font-family: 'NanumSquareNeo';
-		font-family: 'NanumSquareNeoBold';
-		font-family: 'NanumSquareNeoExtraBold';
-		font-family: 'NanumSquareNeoHeavy'; -->
-		
+     	
 	     <style type="text/css">
 		.nanum{ font-family: 'NanumSquareNeo'; }
 		.nanumB{font-family: 'NanumSquareNeoBold';}		

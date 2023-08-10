@@ -123,17 +123,26 @@ public class ApiWithDataController {
 	 * @return 추출된 태그의 값, 태그를 찾지 못한 경우 null을 반환합니다.
 	 */
 	public static String getTagValue(String name, Element eElement) {
+		//eElement에서 "col" 태그를 가진 모든 노드를 가져와 nodeList에 저장합니다.
 		NodeList nodeList = eElement.getElementsByTagName("col");
+		//nodeList에 있는 모든 노드를 순회하기 위한 for문입니다.
 		for (int i = 0; i < nodeList.getLength(); i++) {
+			//nodeList에서 i번째 노드를 가져와 node 변수에 저장합니다.
 			Node node = nodeList.item(i);
+			//node의 타입이 ELEMENT_NODE인 경우만 처리합니다.
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				//node를 Element 객체로 캐스팅하여 element 변수에 저장합니다.
 				Element element = (Element) node;
+				//element의 "name" 속성 값을 가져와 attributeName 변수에 저장합니다.
 				String attributeName = element.getAttribute("name");
+				//attributeName이 찾고자 하는 name과 일치하는 경우에만 처리합니다.
 				if (attributeName.equals(name)) {
+					//일치하는 "col" 태그의 텍스트 값을 반환합니다.
 					return element.getTextContent();
 				}
 			}
 		}
+		//값이 없으면 null을 반환
 		return null;
 	}
 

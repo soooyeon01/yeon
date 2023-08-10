@@ -27,25 +27,6 @@
 
   <script>
 
-  <!-- inputpwd값 보내기 -->
-  function remM() {
-	   var data = $("form").serialize(); // form 데이터 직렬화
-	   $.ajax({
-	      url: "${root}/mypage/upmypage",
-	      data: "data", // 수정: 직렬화된 form 데이터 전달
-	      type: "post",
-	      
-	      success: function(data, textStatus) {
-	         console.log(data);
-	      },
-	      error: function(jqXHR, textStatus, errorThrown) {
-	         console.log(jqXHR);
-	         console.log(textStatus);
-	         console.log(errorThrown);
-	      }
-	   });
-	}  
-
   function logout() {
 	if (confirm("로그아웃 하시겠습니까?")) {
 	location.href = "${root}/user/logout";

@@ -47,6 +47,12 @@ public class MypageServiceImpl implements MypageService {
 		return mapper.selectPwd(email);
 	}
 
+	@Override
+	public List<MembersDTO> getPhoneC() {
+		return mapper.selectMembers();
+	}
+
+
 	
 
 	

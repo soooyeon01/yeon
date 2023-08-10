@@ -219,7 +219,7 @@
     	}
        	
     </script>
-<script>
+	<script>
 	  function checkForm() {
 	    var titleElement = document.getElementsByName("title")[0];
 	    var contentElement = document.getElementsByName("content")[0];
@@ -699,8 +699,6 @@ a {
           </div>          
       </div>                    
 	</footer>
-	
 	</div>
-	
 </body>
 </html>

@@ -89,8 +89,7 @@ a:hover {
 .btn {
 	width: 6rem;
 	height: 2.5rem;
-	float:left;
-	
+	float: left;
 }
 </style>
 <style type="text/css">
@@ -172,13 +171,15 @@ a {
 	<div id="layoutSidenav_content">
 		<main>
 			<div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
-				<h2 class="mt-1 mb-3"><b>내가쓴글</b></h2>
+				<h2 class="mt-1 mb-3">
+					<b>내가쓴글</b>
+				</h2>
 
 				<div class="card mb-4">
 					<div class="card-header">
 						<b>내가 쓴 글 목록</b>
 					</div>
-					<div class="card-body" style="padding:40px 50px 30px 50px;">
+					<div class="card-body" style="padding: 40px 50px 30px 50px;">
 						<table id="datatablesSimple">
 							<thead>
 								<tr>
@@ -201,22 +202,22 @@ a {
 									</tr>
 								</c:forEach>
 							</tbody>
-							
+
 						</table>
 						<button type="button" class="btn btn-warning" onclick="back();">이전</button>
-					</div>					
+					</div>
 				</div>
-				
+
 			</div>
 		</main>
-		 <!-- 푸터 고정 -->
-	   <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
-	         <div class="container-fluid px-4">
-	            <div class="d-flex align-items-center justify-content-between small">            
-	          </div>          
-	      </div>                
+		<!-- 푸터 고정 -->
+		<footer class="bgcolor"
+			style="position: absolute; padding-bottom: 100px">
+			<div class="container-fluid px-4">
+				<div class="d-flex align-items-center justify-content-between small">
+				</div>
+			</div>
 		</footer>
 	</div>
-	
 </body>
 </html>
