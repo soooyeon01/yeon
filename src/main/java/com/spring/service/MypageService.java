@@ -19,6 +19,8 @@ public interface MypageService {
 	int removeMember(String email);
 
 	String getPwd(String email);
+
+	List<MembersDTO> getPhoneC();
 	
 	
 

@@ -34,4 +34,12 @@
      	SELECT pwd 
      	FROM members WHERE email = #{email,jdbcType=VARCHAR} 
      </select>
+     <select id="selectMembers" resultType="com.spring.domain.MembersDTO">
+       	 SELECT email
+              , pwd
+              , phone
+              , name
+              , nickname 
+              FROM members
+     </select>
      </mapper>
