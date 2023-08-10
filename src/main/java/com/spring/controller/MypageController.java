@@ -92,7 +92,7 @@ public class MypageController {
 
 				} else if (encodedPwd.equals(nowpwd) && newpwd.equals(newcpwd)) {   // 입력한 비밀번호가 현재 비밀번호와 일치하고
 																					// ㄴ새 비밀번호와 확인 비밀번호가 일치하는 경우
-					String encodedNewPwd = SHAEncodeUtil.encodeSha(newpwd); // 새 비밀번호를 암호화해서 MembersDTO를 수정
+					String encodedNewPwd = SHAEncodeUtil.encodeSha(newpwd); //새 비밀번호를 암호화해서 MembersDTO를 수정
 					dto.setPwd(encodedNewPwd);// 새로 암호화된 비밀번호를 DTO에 저장
 					service.modifyPwd(dto);// 비밀번호 변경 작업 수행
 					model.addAttribute("msg", "비밀번호 변경이 완료되었습니다.");
@@ -106,32 +106,47 @@ public class MypageController {
 		return null;// 모든 분기 상황에서 return문이 있기 때문에 이부분은 실행되지 않음.
 	}
    
-  
 	@PostMapping("/upmyphone")
 	public String upmyphone(HttpSession session, Model model, MembersDTO dto, @RequestParam("phone") String phone) {
-		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+	    Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+	    if (SESS_AUTH != null && SESS_AUTH) { // 세션 인증이 된 경우
+	    	
+	        String email = (String) session.getAttribute("SESS_EMAIL"); // 세션에서 이메일을 가져옴
+	        List<MembersDTO> mdtoList = service.getMypage(email);// 사용자 정보 가져옴
+	        model.addAttribute("membersDTO", mdtoList);// 사용자 정보를 뷰에 전달하기 위해 모델에 추가
+	        List<MembersDTO> phonecheck = service.getPhoneC(); //전화번호 중복 체크를 위한 membersList 가져옴
+	        boolean phoneExists = false; // 전화번호 존재 여부 확인 변수 선언
 
-		if (SESS_AUTH != null && SESS_AUTH) { // 세션 인증이 된 경우
+	        try {
+	            int phone2 = Integer.parseInt(phone); // 전화번호를 (int)로 변환
+	            for (MembersDTO pdto : phonecheck) { //phonecheck 목록에 있는 모든 MembersDTO 객체를 순회하며 확인
+	                if (pdto.getPhone() == phone2) { //현재 순회 중인 객체의 전화번호와 입력된 전화번호가 동일한지 확인
+	                    phoneExists = true; // 전화번호가 이미 존재하면 phoneExists를 true로 설정
+	                    break;
+	                }
+	            }
 
-			String email = (String) session.getAttribute("SESS_EMAIL"); // 세션에서 이메일을 가져옴
-			List<MembersDTO> mdto = service.getMypage(email);// 사용자 정보 가져옴
-			model.addAttribute("membersDTO", mdto);// 사용자 정보를 뷰에 전달하기 위해 모델에 추가
+	            if (phoneExists) {
+	                model.addAttribute("msg", "이미 존재하는 전화번호입니다.");
+	                model.addAttribute("url", "upmypage");
+	                return "alert";
+	            } else {
+	                dto.setPhone(phone2); // 변환된 숫자 DTO에 저장
+	                service.modifyPhone(dto); // 전화번호 변경 작업 수행
+	                model.addAttribute("msg", "전화번호 변경이 완료되었습니다.");
+	                model.addAttribute("url", "upmypage");
+	                return "alert"; // 변경 완료 메시지 표시
+	            }
+	        } catch (NumberFormatException e) { // 전화번호 입력값이 int로 변환할 수 없는 경우 로그출력
+	            e.printStackTrace();
+	        }
 
-			try { // 전화번호 입력값이 있을 경우
-				int phone2 = Integer.parseInt(phone); // 전화번호를 (int)로 변환
-				dto.setPhone(phone2); // 변환된 숫자 DTO에 저장
-				service.modifyPhone(dto); // 전화번호 변경 작업 수행
-				model.addAttribute("msg", "전화번호 변경이 완료되었습니다.");
-				model.addAttribute("url", "upmypage");
-				return "alert";// 변경 완료 메시지 표시
-			} catch (NumberFormatException e) {// 전화번호 입력값이 int로 변환할 수 없는 경우 로그출력
-				e.printStackTrace();
-			}
-		} else { // 세션 인증이 되지 않은 경우 main으로 돌아감.
-			return "redirect:/main/main";
-		}
-		return null; // 컴파일 에러 방지용
+	    } else { // 세션 인증이 되지 않은 경우 main으로 돌아감.
+	        return "redirect:/main/main";
+	    }
+	    return null; // 컴파일 에러 방지용
 	}
+	
    
          //페이지연결
          @RequestMapping("/upmypage")
@@ -141,7 +156,8 @@ public class MypageController {
                if( SESS_AUTH != null && SESS_AUTH ) {        
                  
                   String email = (String) session.getAttribute("SESS_EMAIL");
-
+               
+               
 	   	       List<MembersDTO> mdto = service.getMypage(email);
 	   	       model.addAttribute("membersDTO", mdto);	   	       	    
 	   	   

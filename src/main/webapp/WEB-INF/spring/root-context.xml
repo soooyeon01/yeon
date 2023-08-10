@@ -11,7 +11,11 @@
 	<!-- hikariCP config -->
 		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"></property>
+<<<<<<< HEAD
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe"></property>
+=======
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@192.108.0.108:1521:xe"></property>
+>>>>>>> 90da963f73efe01afa88ba5c10c26e9d9fec77da
 
 
 		<property name="username" value ="c##abd"></property>
