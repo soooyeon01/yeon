@@ -16,7 +16,8 @@ public class SendEmail {
 	public static void naverMailSend(String email, String subject, String text) {
         String host = "smtp.naver.com"; // 네이버일 경우 네이버 계정, gmail경우 gmail 계정
         String user = "ptiael@naver.com"; // 패스워드
-        String password = "yesol1101s2";       
+        String password = "yesol1101s2";   
+        String fromName = "옥독캣";
 
         // SMTP 서버 정보를 설정한다.
         Properties props = new Properties();
@@ -35,7 +36,7 @@ public class SendEmail {
 
         try {
             MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(user));
+            message.setFrom(new InternetAddress(user, fromName));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
             // 메일 제목
@@ -48,7 +49,7 @@ public class SendEmail {
             Transport.send(message);
             System.out.println("Success Message Send");
 
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 	}
