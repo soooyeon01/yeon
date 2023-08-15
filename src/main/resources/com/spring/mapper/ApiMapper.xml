@@ -84,9 +84,9 @@
   	<![CDATA[
   	DELETE FROM shelter a
       WHERE ROWID > (SELECT MIN(ROWID) 
-                       FROM shelter b
-                        WHERE b.careNm = a.careNm)
-                        ]]>
+      FROM shelter b
+      WHERE b.careNm = a.careNm)
+    ]]>
 	</delete>
 	
 	<!-- 보호소 API 중복 데이터 삭제 -->
@@ -94,13 +94,7 @@
   	<![CDATA[
   	DELETE FROM with_pet a
       WHERE ROWID > (SELECT MIN(ROWID) 
-                       FROM with_pet b
-                        WHERE b.road = a.road)
-                        ]]>
+      FROM with_pet b WHERE b.road = a.road)
+    ]]>
 	</delete>
-	
-
-
-
-
 </mapper>

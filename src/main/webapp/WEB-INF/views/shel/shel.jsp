@@ -38,6 +38,7 @@
 	          $(document).ready(function () {
 	              $("#region-select").on("change", function () {
 	                  const region = $(this).val();
+	                  console.log("region="+region);
 	                  location.href="${pageContext.servletContext.contextPath}/shel/shelall?region=" + region; 
 	              })
 	          });

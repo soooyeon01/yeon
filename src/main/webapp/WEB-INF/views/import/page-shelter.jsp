@@ -7,12 +7,14 @@
 	<nav class="datatable-pagination">
 		<ul class="datatable-pagination-list">
 
-			<li class="datatable-pagination-list-item"><c:if
+			<li class="datatable-pagination-list-item">
+			<c:if
 					test="${pageMaker.prev }">
 					<a href="javascript:void(0);"
-						onclick="prev('${pageMaker.startPage -1}');"
+						onclick="prev('${pageMaker.startPage -1}', '${param.region}');"
 						class="datatable-pagination-list-item-link">‹</a>
-				</c:if></li>
+				</c:if>
+				</li>
 
 			<c:forEach begin="${pageMaker.startPage }"
 				end="${pageMaker.endPage }" varStatus="status">
@@ -26,7 +28,7 @@
 					</c:otherwise>
 				</c:choose>
 				<li class="datatable-pagination-list-item"><a
-					href="javascript:void(0);" onclick=" pageNum('${status.index}');"
+					href="javascript:void(0);" onclick=" pageNum('${status.index}', '${param.region}');"
 					class="datatable-pagination-list-item-link"
 					<c:if test="${ status.index == pageMaker.cri.pageNum }">${pageScope.selectedBgColor }</c:if>>${ status.index }</a>
 				</li>
@@ -34,28 +36,28 @@
 			<li class="datatable-pagination-list-item"><c:if
 					test="${pageMaker.next }">
 					<a href="javascript:void(0);"
-						onclick="next('${pageMaker.endPage + 1}');"
+						onclick="next('${pageMaker.endPage + 1}', '${param.region}');"
 						class="datatable-pagination-list-item-link">›</a>
 				</c:if></li>
 		</ul>
 	</nav>
 </div>
 <script>
-	function prev(prevPage) {
+	function prev(prevPage, region) {
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		location.href = "${pageContext.servletContext.contextPath}/shel/shelall?region="
 				+ region + "&pageNum=" + prevPage;
 	}
 
-	function pageNum(page) {
+	function pageNum(page, region) {
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		location.href = "${pageContext.servletContext.contextPath}/shel/shelall?region="
 				+ region + "&pageNum=" + page;
 	}
 
-	function next(nextPage) {
+	function next(nextPage, region) {
 		var selectElement = document.getElementById("region-select");
 		var region = selectElement.options[selectElement.selectedIndex].value;
 		location.href = "${pageContext.servletContext.contextPath}/shel/shelall?region="
