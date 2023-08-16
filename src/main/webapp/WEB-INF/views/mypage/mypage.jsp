@@ -257,7 +257,9 @@
                     <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
                       <button type="button" class ="btn-3d red" onclick="location.href='${root}/user/userlist';">회원관리</button>&nbsp;
                       </c:if>
-                    
+                    <c:if test = "${sessionScope.SESS_NICKNAME=='관리자'}">
+                      <button type="button" class ="btn-3d red" onclick="location.href='${root}/api/apilist';">API관리</button>&nbsp;
+                      </c:if>
                     <!-- 회원탈퇴 -->
                     <button type="button" class="btn" onclick="location.href='${root}/mypage/remM'" style="font-size: 14px; float:right;">회원 탈퇴</button>
             </div>             

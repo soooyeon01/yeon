@@ -2,17 +2,20 @@ package com.spring.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.spring.domain.MembersDTO;
 import com.spring.domain.PetDTO;
 import com.spring.domain.ShelDTO;
 import com.spring.domain.WithDTO;
@@ -275,5 +278,22 @@ public class ApiDataController {
 			}
 		}
 		return null;
+	}
+
+	// admin api control
+	@RequestMapping("/apilist")
+	public String CommunityList(HttpSession session, Model model, MembersDTO mdto) {
+
+		Boolean SESS_AUTH = (Boolean) session.getAttribute("SESS_AUTH");
+
+		if (SESS_AUTH != null && SESS_AUTH) {
+			String email = (String) session.getAttribute("SESS_EMAIL");
+			String nickname = (String) session.getAttribute("SESS_NICKNAME");
+
+			return "api/apilist";
+		} else {
+			return "redirect:/main/main";
+		}
+
 	}
 }
