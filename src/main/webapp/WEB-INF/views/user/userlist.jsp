@@ -213,6 +213,7 @@ a:hover {
                      </tbody>
                   </table>
                   <button class="btn btn-warning kickBtn" id="kickBtn" onclick="poobkick();" style="float:right">회원 삭제</button>
+                  <button type="button" class="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;
                </div>
             </div>
             

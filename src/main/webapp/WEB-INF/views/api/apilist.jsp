@@ -86,7 +86,6 @@ a:hover {
    width: 250px;
    height: 90px;
 }
-
 .bgcolor {
    background-color: #f9f8f3;
 }
@@ -120,6 +119,61 @@ a:hover {
 			text-decoration-line: none;
 			color: inherit;
 			}
+/* API 버튼 스타일 */
+@keyframes ring {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+@keyframes gradient1 {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.btn-3d.red {
+    position: relative;
+    border: none;
+    min-width: 200px;
+    min-height: 50px;
+   	background: linear-gradient(-45deg, #33ccff 0%, #ff99cc 100%);
+    border-radius: 1000px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 12px 12px 24px rgba(79, 209, 197, 0.64);
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-3d.red:hover {
+    transform: scale(1.2);
+}
+
+.btn-3d.red:hover::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 6px solid #ff99cc;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+}
 </style>
 </head>
  <body class="sb-nav-fixed bgcolor nanum" > 
@@ -165,7 +219,7 @@ a:hover {
    <div id="layoutSidenav_content">
       <main>
          <div class="container-fluid px-10 pt-5 ps-4" style="width: 80%;">
-				<h2 class="mt-1 mb-3"><b>APi 관리</b></h2>
+				<h2 class="mt-1 mb-3"><b>API 관리</b></h2>
 				<div class="card mb-4">
 					<div class="card-header">api관리</div>
                <div class="card-body"  style="text-align:center; padding:40px 50px 30px 50px;">
@@ -177,9 +231,10 @@ a:hover {
                     
                       <button style="float:right;" type="button" class ="btn-3d red" onclick="location.href='${root}/api/withdata';">위드펫 <br> 데이터 관리</button>
                       </c:if>
+                     
                </div>
+               <button style="width:60px;" type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;
             </div>
-            <button type="button" class ="btn btn-warning" onclick="location.href='${root}/mypage/mypage'">이전</button>&nbsp;
          </div>
       </main>
      <footer class="bgcolor" style="position : absolute; padding-bottom:100px">
