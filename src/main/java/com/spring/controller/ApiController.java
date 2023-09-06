@@ -28,7 +28,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/*")
-public class ApiDataController {
+public class ApiController {
 	// 주소 - http://localhost:8080/4jojo/api/petdata
 	// 주소 - http://localhost:8080/4jojo/api/sheldata
 	// 주소 - http://localhost:8080/4jojo/api/withdata
@@ -107,7 +107,6 @@ public class ApiDataController {
 						pdto.setCareTel(getTagValue("careTel", eElement));
 						list.add(pdto);
 
-			
 						service.regitsterPetData(pdto);
 					}
 				}
