@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@RequestMapping("/mypage/*")
+@RequestMapping("/mypage/*")//
 @RequiredArgsConstructor
 @Log4j
 public class MypageController {
