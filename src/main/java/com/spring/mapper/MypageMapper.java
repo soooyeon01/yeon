@@ -19,3 +19,4 @@ public interface MypageMapper {
 	List<MembersDTO> selectMembers();
 
 }
+//

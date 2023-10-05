@@ -10,3 +10,4 @@ public interface MembersMapper {
 	int memberCnt();
 	int kick(String userEmail);
 }
+//
